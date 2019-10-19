@@ -3,18 +3,15 @@ import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
 import { IAppState } from '~/interfaces';
+import { ContextMenuStore } from './context-menu';
 
 class Store {
+  public contextMenu = new ContextMenuStore();
+
   @observable
-  public darkTheme = false;
+  public loggedIn = false;
 
-  constructor(state?: IAppState) {
-    if (state) {
-      const { theme } = state;
-
-      this.darkTheme = theme.dark;
-    }
-  }
+  constructor(state?: IAppState) { }
 }
 
 export const createStore = (data: any) => () => {

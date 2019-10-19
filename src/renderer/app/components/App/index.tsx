@@ -5,6 +5,7 @@ import { createGlobalStyle } from 'styled-components';
 
 import { Home } from '../Home';
 import { Appbar } from '../Appbar';
+import { ContextMenu } from '../ContextMenu';
 import { Style } from '~/renderer/app/style';
 import { StyledApp } from './style';
 
@@ -19,6 +20,7 @@ const App = () => {
         <Switch>
           <Route path="/" component={Home} />
         </Switch>
+        <ContextMenu />
       </StyledApp>
     </>
   );

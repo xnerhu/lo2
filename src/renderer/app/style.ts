@@ -30,8 +30,10 @@ export const Style = css`
     cursor: default;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-color: #fff;
+    color: #000;
     ${body2()};
   }
 

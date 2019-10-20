@@ -8,30 +8,20 @@ import { StoreProvider } from '~/renderer/app/store';
 import { IAppState } from '~/interfaces';
 import { Html } from '../components/HTML';
 import App from '~/renderer/app/components/App';
+import { getSliderItems } from '../utils';
 
 const router = Router();
 
 const scripts = ['app.js', 'vendor.chunk.js'];
 const sheet = new ServerStyleSheet();
 
-router.get('*', (req, res, next) => {
+
+router.get('*', async (req, res, next) => {
+  const sliderItems = await getSliderItems();
   const routerContext = {};
 
   const appState: IAppState = {
-    sliderItems: [
-      {
-        url: 'https://www.opole.pl/wp-content/uploads/2017/01/ZdjeciaOpole-37_mini.jpg'
-      },
-      /*{
-        url: 'https://polskazachwyca.pl/wp-content/uploads/2017/08/opole-shutterstock_208011805-e1504275771713.jpg'
-      },
-      {
-        url: 'https://www.opole.pl/wp-content/uploads/2018/04/miasto-opole-widok-z-ratusza.jpg',
-      },
-      {
-        url: 'http://radio.opole.pl/public/info/2019/2019-07-24_156395853710.jpg',
-      }*/
-    ],
+    sliderItems,
     shortNews: [
       {
         _id: '0',

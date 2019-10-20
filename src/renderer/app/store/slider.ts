@@ -1,11 +1,9 @@
 import { observable } from 'mobx';
 
-import { ISliderItem } from '~/interfaces';
-
 export class SliderStore {
   @observable
-  public items: ISliderItem[] = [];
+  public items: string[] = [];
 
   @observable
-  public selected: ISliderItem;
+  public selected: string;
 }

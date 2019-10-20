@@ -16,6 +16,7 @@ export const Image = ({ src, style, ratio, skeletonBorder }: Props) => {
 
   React.useEffect(() => {
     setFetched(false);
+
     preFetchImage(src).then(() => {
       setFetched(true);
     });

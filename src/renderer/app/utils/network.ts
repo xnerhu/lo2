@@ -7,7 +7,12 @@ export const preFetchImage = (src: string): Promise<void> => {
     const img = new Image();
 
     img.onload = resolve as any;
-    img.onerror = reject;
+
     img.src = src;
+
+    img.onerror = (err) => {
+      console.error(err);
+      reject(err);
+    }
   });
 }

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '~/renderer/app/store';
-import { ISliderItem } from '~/interfaces';
 import { Image } from '~/renderer/components/Image';
 import { StyledSlider, Controls, Control } from './style';
 
@@ -10,8 +9,8 @@ export const Slider = observer(() => {
   const store = useStore();
   const selected = store.slider.selected;
 
-  const onControlClick = (item: ISliderItem) => () => {
-    store.slider.selected = item;
+  const onControlClick = (url: string) => () => {
+    store.slider.selected = url;
   }
 
   const style: React.CSSProperties = {
@@ -23,10 +22,10 @@ export const Slider = observer(() => {
 
   return (
     <StyledSlider>
-      <Image src={selected && selected.url} style={style} />
+      <Image src={selected} style={style} />
       <Controls>
         {store.slider.items.map(r => (
-          <Control key={r.url} onClick={onControlClick(r)} selected={selected === r} />
+          <Control key={r} onClick={onControlClick(r)} selected={selected === r} />
         ))}
       </Controls>
     </StyledSlider>

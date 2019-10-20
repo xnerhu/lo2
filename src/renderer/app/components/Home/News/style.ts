@@ -59,6 +59,11 @@ export const MoreButton = styled.div`
   font-size: 16px;
   cursor: pointer;
   box-shadow: 0px 8px 24px 0px rgba(246, 16, 80, 0.32);
+  transition: 0.1s transform;
   ${noUserSelect()};
   ${robotoMedium()};
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;

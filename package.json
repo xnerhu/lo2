@@ -6,11 +6,14 @@
   "author": "Mikołaj Palkiewicz <xnerhu@gmail.com>",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node scripts/dev.js",
-    "build": "cross-env NODE_ENV=production concurrently \"rimraf ./build\" \"webpack --config webpack.config.client.js\" \"webpack --config webpack.config.server.js\"",
+    "build-client": "webpack --config webpack.config.client.js",
+    "build-server": "webpack --config webpack.config.server.js",
+    "build": "cross-env NODE_ENV=production concurrently \"npm run clean\" \"npm run build-client\" \"npm run build-server\"",
     "stats": "cross-env NODE_ENV=production BUNDLE_STATS=enabled concurrently \"mkdir build\" \"webpack --profile --json --config webpack.config.client.js > build/stats.json\"",
     "start": "node ./build/server/main.js",
     "lint": "eslint \"src/**/*.ts*\" \"src/**/*.tsx*\"",
-    "lint-fix": "npm run lint -- --fix"
+    "lint-fix": "npm run lint -- --fix",
+    "clean": "rimraf ./build"
   },
   "devDependencies": {
     "@types/compression": "^1.0.1",

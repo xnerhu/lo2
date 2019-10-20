@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { IAppState } from '~/interfaces';
+import { IAppState } from '~/interfaces'; import { fonts } from '~/renderer/constants';
 
 interface Props {
   scripts?: string[];
@@ -8,6 +8,29 @@ interface Props {
   styleElement?: any;
   children?: any;
 }
+
+const fontsCss = `
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    src: url(${fonts.robotoLight}) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url(${fonts.robotoRegular}) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    src: url(${fonts.robotoMedium}) format('woff2');
+  }
+`.replace(/\n|\s/g, '');
 
 export const Html = ({ scripts, state, styleElement, children }: Props) => {
   const appState = JSON.stringify(state || {});
@@ -27,6 +50,7 @@ export const Html = ({ scripts, state, styleElement, children }: Props) => {
         <meta name="google-site-verification" content="kqoyKSVPjg08It3qpIJjnSj-iMvE4KF5ZJNwF8QnwUg" />
         <meta name="author" content="Mikołaj Palkiewicz" />
         <title>PLO II - Opole</title>
+        <style type="text/css" dangerouslySetInnerHTML={{ __html: fontsCss }} />
         {styleElement}
         <script type="text/javascript" dangerouslySetInnerHTML={{ __html: `window.__APP_STATE__=${appState}` }} />
       </head>

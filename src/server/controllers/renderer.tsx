@@ -18,9 +18,20 @@ router.get('*', (req, res, next) => {
   const routerContext = {};
 
   const appState: IAppState = {
-    theme: {
-      dark: true,
-    }
+    sliderItems: [
+      {
+        url: 'https://www.opole.pl/wp-content/uploads/2017/01/ZdjeciaOpole-37_mini.jpg'
+      },
+      {
+        url: 'https://polskazachwyca.pl/wp-content/uploads/2017/08/opole-shutterstock_208011805-e1504275771713.jpg'
+      },
+      {
+        url: 'https://www.opole.pl/wp-content/uploads/2018/04/miasto-opole-widok-z-ratusza.jpg',
+      },
+      {
+        url: 'http://radio.opole.pl/public/info/2019/2019-07-24_156395853710.jpg',
+      }
+    ]
   }
 
   const content = renderToString(

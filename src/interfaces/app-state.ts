@@ -1,5 +1,5 @@
-import { ITheme } from './theme';
+import { ISliderItem } from '~/renderer/app/interfaces';
 
 export interface IAppState {
-  theme?: ITheme;
+  sliderItems: ISliderItem[];
 }

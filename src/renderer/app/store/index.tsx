@@ -3,11 +3,8 @@ import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
 import { IAppState } from '~/interfaces';
-import { ContextMenuStore } from './context-menu';
 
 class Store {
-  public contextMenu = new ContextMenuStore();
-
   @observable
   public loggedIn = false;
 

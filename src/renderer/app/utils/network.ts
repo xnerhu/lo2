@@ -1,5 +1,7 @@
+import { IS_BROWSER } from '~/renderer/constants';
+
 export const preFetchImage = (src: string): Promise<void> => {
-  if (typeof window === 'undefined') return null;
+  if (!IS_BROWSER) return null;
 
   return new Promise((resolve, reject) => {
     const img = new Image();

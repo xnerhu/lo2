@@ -4,9 +4,11 @@ import { useLocalStore } from 'mobx-react-lite';
 
 import { IAppState } from '~/interfaces';
 import { SliderStore } from './slider';
+import { ShortNewsStore } from './short-news';
 
 class Store {
   public slider = new SliderStore();
+  public shortNews = new ShortNewsStore();
 
   @observable
   public loggedIn = false;
@@ -14,8 +16,16 @@ class Store {
   constructor(state?: IAppState) {
     if (!state) return;
 
-    this.slider.items = state.sliderItems;
-    this.slider.select(this.slider.items[0]);
+    const { sliderItems, shortNews } = state;
+
+    if (sliderItems) {
+      this.slider.items = sliderItems;
+      this.slider.selected = this.slider.items[0];
+    }
+
+    if (shortNews) {
+      this.shortNews.items = shortNews;
+    }
   }
 }
 

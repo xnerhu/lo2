@@ -6,7 +6,6 @@ export const Style = css`
   body {
     width: 100vw;
     height: 100vh;
-    user-select: none;
     cursor: default;
     margin: 0;
     padding: 0;
@@ -15,6 +14,8 @@ export const Style = css`
     background-color: #fff;
     color: #000;
     ${body2()};
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
   * {

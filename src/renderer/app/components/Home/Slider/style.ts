@@ -11,6 +11,7 @@ export const StyledSlider = styled.div`
 
 export const Image = styled.div`
   width: 100%;
+  height: 100%;
   background-position: center;
   transition: 0.15s background-image;
   ${coverImage()};

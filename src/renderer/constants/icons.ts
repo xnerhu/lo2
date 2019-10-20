@@ -1,3 +1,4 @@
 export const icons = {
-  darkMode: require('~/renderer/resources/icons/dark-mode.svg'),
+  facebook: require('~/renderer/resources/icons/facebook.svg'),
+  youtube: require('~/renderer/resources/icons/youtube.svg'),
 }

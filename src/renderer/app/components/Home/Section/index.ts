@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
-import { robotoMedium, noUserSelect, h5 } from '~/renderer/mixins';
+import { noUserSelect, h5 } from '~/renderer/mixins';
 import { GRADIENT } from '~/renderer/constants';
 
-export const Section = styled.div`
+export const Section = styled.section`
   width: 100%;
   margin-top: 32px;
+
+  &:last-child {
+    padding-bottom: 16px;
+  }
 `;
 
 export const SectionTitle = styled.div`

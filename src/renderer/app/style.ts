@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { body2 } from '~/renderer/mixins';
+import { body2, robotoRegular, noUserSelect } from '~/renderer/mixins';
 
 export const Style = css`
   body {
@@ -29,5 +29,13 @@ export const Style = css`
     100% {
       left: 100%
     }
+  }
+
+  a {
+    font-size: 16px;
+    text-decoration: none;
+    color: #000;
+    ${robotoRegular()};
+    ${noUserSelect()};
   }
 `;

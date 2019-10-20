@@ -18,9 +18,4 @@ export const StyledImage = styled.div`
   background-position: center;
   transition: 0.15s background-image;
   ${coverImage()};
-  
-  ${({ src, fetched }: { src: string, fetched: boolean }) => css`
-    background-image: url(${src});
-    opacity: ${fetched ? 1 : 0};
-  `};
 `;

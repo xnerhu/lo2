@@ -21,6 +21,11 @@ export const Image = ({ src, style, ratio, skeletonBorder }: Props) => {
     });
   }, [src]);
 
+  const imgStyle = {
+    backgroundImage: `url(${src})`,
+    opacity: fetched ? 1 : 0,
+  }
+
   const skeletonStyle: React.CSSProperties = {
     width: '100%',
     height: '100%',
@@ -31,7 +36,7 @@ export const Image = ({ src, style, ratio, skeletonBorder }: Props) => {
 
   return (
     <Container ratio={ratio} style={style}>
-      <StyledImage src={src} fetched={fetched} />
+      <StyledImage style={imgStyle} />
       {!fetched && <Skeleton style={skeletonStyle} />}
     </Container>
   );

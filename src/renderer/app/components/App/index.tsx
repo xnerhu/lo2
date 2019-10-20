@@ -6,6 +6,7 @@ import { createGlobalStyle } from 'styled-components';
 import { Home } from '../Home';
 import { Appbar } from '../Appbar';
 import { Style } from '~/renderer/app/style';
+import { Footer } from '../Footer';
 import { StyledApp } from './style';
 
 const GlobalStyle = createGlobalStyle`${Style}`;
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/" component={Home} />
         </Switch>
       </StyledApp>
+      <Footer />
     </>
   );
 };

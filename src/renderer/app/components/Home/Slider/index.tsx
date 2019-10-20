@@ -11,7 +11,6 @@ export const Slider = observer(() => {
 
   const onControlClick = (url: string) => () => {
     store.slider.selected = url;
-    store.slider.updateTimer();
   }
 
   const style: React.CSSProperties = {
@@ -20,10 +19,6 @@ export const Slider = observer(() => {
     position: 'absolute',
     left: 0
   }
-
-  React.useEffect(() => {
-    store.slider.updateTimer();
-  }, []);
 
   return (
     <StyledSlider>

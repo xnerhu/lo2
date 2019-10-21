@@ -15,12 +15,19 @@ export const Container = styled.div`
   display: flex;
   border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
   justify-content: space-between;
-  padding: 24px 0px 32px;
+  padding-bottom: 32px;
+
+  @media(max-width: 967px) {
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+  }
 `;
 
 export const Section = styled.section`
   min-width: 196px;
   height: 100%;
+  margin-top: 32px;
 `;
 
 export const Title = styled.div`
@@ -61,6 +68,6 @@ export const Copyright = styled.a`
   cursor: pointer;
 
   &:hover {
-    color: #2196F3;
+    text-decoration: underline;
   }
 `;

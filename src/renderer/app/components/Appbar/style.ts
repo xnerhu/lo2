@@ -1,15 +1,26 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { h3, robotoLight, noUserSelect } from '~/renderer/mixins';
-import { transparency, GRADIENT } from '~/renderer/constants';
+import { h3, h4, noUserSelect, centerIcon, h5 } from '~/renderer/mixins';
+import { transparency, GRADIENT, GRADIENT_VERTICAL, icons } from '~/renderer/constants';
 
 export const Title = styled.div`
   padding-top: 32px;
   padding-bottom: 24px;
   text-align: center;
+  font-weight: 300 !important;
   ${h3()};
-  ${robotoLight()};
+
+  @media(max-width: 1079px) {
+    border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
+    padding-left: 24px;
+    padding-right: 24px;
+    ${h4()};
+  }
+
+  @media(max-width: 576px) {
+    ${h5()};
+  }
 `;
 
 export const Navbar = styled.nav`
@@ -19,6 +30,35 @@ export const Navbar = styled.nav`
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
+  background-color: #fff;
+
+  ${({ visible }: { visible: boolean }) => css`
+    @media(max-width: 1079px) {
+      display: ${visible ? 'block' : 'none'};
+    }
+  `}
+
+  @media(max-width: 1079px) {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+
+    &::before {
+      content: 'PLO2 Opole';
+      display: block;
+      padding: 0px 16px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      ${h4()};
+      font-weight: 300;
+    }
+  }
 `;
 
 export const StyledNavItem = styled(Link)`
@@ -45,10 +85,53 @@ export const StyledNavItem = styled(Link)`
         background: ${GRADIENT};
         position: absolute;
       }
+
+      @media(max-width: 1079px) {
+        height: 48px;
+
+        &::after {
+          width: 2px;
+          height: 100%;
+          bottom: 0;
+          background: ${GRADIENT_VERTICAL};
+        }
+      }
     `}
   `}
 
   &:hover {
     background-color: #f5f5f5;
   }
+
+  @media(max-width: 1079px) {
+    height: 48px;
+  }
 `
+
+export const MenuButton = styled.div`
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 16px;
+  right: 8px;
+  background-image: url(${icons.menu});
+  border-radius: 100%;
+  cursor: pointer;
+  transition: 0.1s background-color;
+  display: none;
+  z-index: 20;
+  ${noUserSelect()};
+  ${centerIcon(24)};
+
+  @media(max-width: 1079px) {
+    display: block;
+  }
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  &:active {
+    background-color: #eee;
+  }
+`;

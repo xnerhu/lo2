@@ -16,6 +16,7 @@ export const Style = css`
     ${body2()};
     backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
   }
 
   * {

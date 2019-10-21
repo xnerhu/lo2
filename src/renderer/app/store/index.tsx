@@ -5,10 +5,12 @@ import { useLocalStore } from 'mobx-react-lite';
 import { IAppState } from '~/interfaces';
 import { SliderStore } from './slider';
 import { ShortNewsStore } from './short-news';
+import { MenuStore } from './menu';
 
 class Store {
   public slider = new SliderStore();
   public shortNews = new ShortNewsStore();
+  public menu = new MenuStore();
 
   @observable
   public loggedIn = false;

@@ -9,7 +9,7 @@ export const Container = styled.div`
 
   ${({ ratio }: { ratio: number }) => css`
     ${ratio ? aspectRatio(ratio) : ''};
-  `}
+  `}   
 `;
 
 export const StyledImage = styled.div`

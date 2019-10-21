@@ -7,9 +7,9 @@ import { Container, StyledImage } from './style';
 interface Props {
   src: string;
   ratio?: number;
-  style?: React.CSSProperties;
   skeletonBorder?: number;
   forceSkeleton?: boolean;
+  style?: React.CSSProperties;
 }
 
 export const Image = ({ src, style, ratio, skeletonBorder, forceSkeleton }: Props) => {
@@ -40,7 +40,7 @@ export const Image = ({ src, style, ratio, skeletonBorder, forceSkeleton }: Prop
   }
 
   return (
-    <Container ratio={ratio} style={style}>
+    <Container className='dynamic-image' ratio={ratio} style={style}>
       <StyledImage style={imgStyle} />
       {!isFetched && <Skeleton style={skeletonStyle} />}
     </Container>

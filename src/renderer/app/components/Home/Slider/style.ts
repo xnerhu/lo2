@@ -1,12 +1,17 @@
 import styled, { css } from 'styled-components';
 
 import { aspectRatio, shadows, coverImage } from '~/renderer/mixins';
+import { WIDE_RATIO, STANDARD_RATIO } from '~/renderer/constants';
 
 export const StyledSlider = styled.div`
   margin-top: 32px;
   border-radius: 16px;
   overflow: hidden;
-  ${aspectRatio(16 / 5)};
+  ${aspectRatio(WIDE_RATIO)};
+
+  @media(max-width: 967px) {
+    ${aspectRatio(STANDARD_RATIO)};
+  }
 `;
 
 export const Image = styled.div`

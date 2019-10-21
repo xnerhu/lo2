@@ -9,22 +9,26 @@ interface Props {
   ratio?: number;
   style?: React.CSSProperties;
   skeletonBorder?: number;
+  forceSkeleton?: boolean;
 }
 
-export const Image = ({ src, style, ratio, skeletonBorder }: Props) => {
+export const Image = ({ src, style, ratio, skeletonBorder, forceSkeleton }: Props) => {
   const [fetched, setFetched] = React.useState(false);
 
   React.useEffect(() => {
-    setFetched(false);
+    (async () => {
+      setFetched(false);
 
-    preFetchImage(src).then(() => {
+      await preFetchImage(src);
       setFetched(true);
-    });
+    })();
   }, [src]);
+
+  const isFetched = !forceSkeleton && fetched;
 
   const imgStyle = {
     backgroundImage: `url(${src})`,
-    opacity: fetched ? 1 : 0,
+    opacity: isFetched ? 1 : 0,
   }
 
   const skeletonStyle: React.CSSProperties = {
@@ -38,7 +42,7 @@ export const Image = ({ src, style, ratio, skeletonBorder }: Props) => {
   return (
     <Container ratio={ratio} style={style}>
       <StyledImage style={imgStyle} />
-      {!fetched && <Skeleton style={skeletonStyle} />}
+      {!isFetched && <Skeleton style={skeletonStyle} />}
     </Container>
   );
 }

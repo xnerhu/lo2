@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { shadows, body2, noUserSelect, h6, button, robotoMedium } from '~/renderer/mixins';
+import { shadows, body2, noUserSelect, h6, robotoMedium } from '~/renderer/mixins';
 import { transparency, GRADIENT } from '~/renderer/constants';
 
 export const CardsContainer = styled.div`
@@ -17,6 +17,7 @@ export const StyledCard = styled.article`
   border-radius: 12px;
   overflow: hidden;
   box-shadow: ${shadows(4)};
+  box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.12);
   transition: 0.1s transform;
 
   &:not(:first-child) {

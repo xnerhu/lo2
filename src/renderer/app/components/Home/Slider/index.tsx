@@ -22,7 +22,7 @@ export const Slider = observer(() => {
 
   return (
     <StyledSlider>
-      <Image src={selected} style={style} />
+      <Image src={selected} forceSkeleton={!store.slider.fetched} style={style} />
       <Controls>
         {store.slider.items.map(r => (
           <Control key={r} onClick={onControlClick(r)} selected={selected === r} />

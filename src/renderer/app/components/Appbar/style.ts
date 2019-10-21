@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { h3, robotoLight } from '~/renderer/mixins';
+import { h3, robotoLight, noUserSelect } from '~/renderer/mixins';
 import { transparency, GRADIENT } from '~/renderer/constants';
 
 export const Title = styled.div`
@@ -28,6 +28,7 @@ export const StyledNavItem = styled.li`
   font-size: 16px;
   position: relative;
   cursor: pointer;
+  ${noUserSelect()};
 
   ${({ selected }: { selected: boolean }) => css`
     font-weight: ${selected ? 500 : 400};

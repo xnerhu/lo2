@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { h6, robotoRegular, centerIcon, noUserSelect } from '~/renderer/mixins';
-import { transparency } from '~/renderer/constants';
+import { transparency, FOOTER_WIDTH } from '~/renderer/constants';
 
 export const StyledFooter = styled.footer`
   width: 100vw;
@@ -10,7 +10,7 @@ export const StyledFooter = styled.footer`
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 964px;
+  max-width: ${FOOTER_WIDTH}px;
   margin: 0 auto;
   display: flex;
   border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});

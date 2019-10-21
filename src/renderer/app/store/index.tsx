@@ -19,8 +19,7 @@ class Store {
     const { sliderItems, shortNews } = state;
 
     if (sliderItems) {
-      this.slider.items = sliderItems;
-      this.slider.selected = this.slider.items[0];
+      this.slider.load(sliderItems);
     }
 
     if (shortNews) {

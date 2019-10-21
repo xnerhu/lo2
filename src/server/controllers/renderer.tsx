@@ -6,7 +6,7 @@ import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
 import { StoreProvider } from '~/renderer/app/store';
 import { IAppState } from '~/interfaces';
-import { Html } from '../components/HTML';
+import { Html } from '../components/Html';
 import App from '~/renderer/app/components/App';
 import { getSliderItems } from '../utils';
 

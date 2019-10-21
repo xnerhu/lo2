@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { h3, robotoLight, noUserSelect } from '~/renderer/mixins';
 import { transparency, GRADIENT } from '~/renderer/constants';
@@ -20,7 +21,7 @@ export const Navbar = styled.nav`
   border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
 `;
 
-export const StyledNavItem = styled.li`
+export const StyledNavItem = styled(Link)`
   height: 100%;
   display: flex;
   align-items: center;

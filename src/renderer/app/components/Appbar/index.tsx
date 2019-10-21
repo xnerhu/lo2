@@ -1,32 +1,38 @@
 import * as React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { useStore } from '../../store';
 import { Title, Navbar, StyledNavItem } from './style';
 
-const NavItem = ({ selected, children }: { selected?: boolean, children: any }) => {
-  const store = useStore();
+interface Props extends RouteComponentProps {
+  to: string;
+  children: any;
+}
+
+const NavItem = withRouter(({ to, children, location }: Props) => {
+  const selected = to === location.pathname;
 
   return (
-    <StyledNavItem selected={selected}>
+    <StyledNavItem to={to} selected={selected}>
       {children}
     </StyledNavItem>
   );
-}
+});
 
 export const Appbar = () => {
   return (
     <>
       <Title>Publiczne Liceum Ogólnokształcące Nr II w Opolu</Title>
       <Navbar>
-        <NavItem selected>Strona główna</NavItem>
-        <NavItem>O nas</NavItem>
-        <NavItem>Aktualności</NavItem>
-        <NavItem>Galeria</NavItem>
-        <NavItem>Dla uczniów</NavItem>
-        <NavItem>Dla rodziców</NavItem>
-        <NavItem>Rekrutacja</NavItem>
-        <NavItem>Kontakt</NavItem>
+        <NavItem to='/'>Strona główna</NavItem>
+        <NavItem to='/about'>O nas</NavItem>
+        <NavItem to='/news'>Aktualności</NavItem>
+        <NavItem to='/gallery'>Galeria</NavItem>
+        <NavItem to='/students'>Dla uczniów</NavItem>
+        <NavItem to='/parents'>Dla rodziców</NavItem>
+        <NavItem to='/recruitment'>Rekrutacja</NavItem>
+        <NavItem to='/contact'>Kontakt</NavItem>
       </Navbar>
     </>
   );
-}
+};

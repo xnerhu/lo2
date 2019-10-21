@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 
 import { Home } from '../Home';
+import { About } from '../About';
 import { Appbar } from '../Appbar';
 import { Style } from '~/renderer/app/style';
 import { Footer } from '../Footer';
@@ -18,6 +19,7 @@ const App = () => {
       <StyledApp>
         <Appbar />
         <Switch>
+          <Route path="/about" component={About} />
           <Route path="/" component={Home} />
         </Switch>
       </StyledApp>

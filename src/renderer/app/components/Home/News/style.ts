@@ -29,10 +29,6 @@ export const CardsContainer = styled.div`
 
   @media(max-width: 676px) {
     grid-template-columns: repeat(1, 1fr);
-
-    & .dynamic-image {
-      ${aspectRatio(WIDE_RATIO)};
-    }
   }
 `;
 

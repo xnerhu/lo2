@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { h3, h4, noUserSelect, centerIcon, h5 } from '~/renderer/mixins';
-import { transparency, GRADIENT, GRADIENT_VERTICAL, icons } from '~/renderer/constants';
+import { transparency, GRADIENT, GRADIENT_VERTICAL, icons, MOBILE_VIEW } from '~/renderer/constants';
 
 export const Title = styled.div`
   padding-top: 32px;
@@ -11,7 +11,7 @@ export const Title = styled.div`
   font-weight: 300 !important;
   ${h3()};
 
-  @media(max-width: 1079px) {
+  @media(max-width: ${MOBILE_VIEW}px) {
     border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
     padding-left: 24px;
     padding-right: 24px;
@@ -19,7 +19,7 @@ export const Title = styled.div`
   }
 
   @media(max-width: 576px) {
-    ${h5()};
+    font-size: 30px;
   }
 `;
 
@@ -33,12 +33,12 @@ export const Navbar = styled.nav`
   background-color: #fff;
 
   ${({ visible }: { visible: boolean }) => css`
-    @media(max-width: 1079px) {
+    @media(max-width: ${MOBILE_VIEW}px) {
       display: ${visible ? 'block' : 'none'};
     }
   `}
 
-  @media(max-width: 1079px) {
+  @media(max-width: ${MOBILE_VIEW}px) {
     width: 100%;
     height: 100%;
     flex-direction: column;
@@ -51,7 +51,7 @@ export const Navbar = styled.nav`
     &::before {
       content: 'PLO2 Opole';
       display: block;
-      padding: 0px 16px;
+      padding: 0px 24px;
       height: 80px;
       display: flex;
       align-items: center;
@@ -86,11 +86,11 @@ export const StyledNavItem = styled(Link)`
         position: absolute;
       }
 
-      @media(max-width: 1079px) {
+      @media(max-width: ${MOBILE_VIEW}px) {
         height: 48px;
 
         &::after {
-          width: 2px;
+          width: 4px;
           height: 100%;
           bottom: 0;
           background: ${GRADIENT_VERTICAL};
@@ -103,8 +103,9 @@ export const StyledNavItem = styled(Link)`
     background-color: #f5f5f5;
   }
 
-  @media(max-width: 1079px) {
+  @media(max-width: ${MOBILE_VIEW}px) {
     height: 48px;
+    padding: 0px 24px;
   }
 `
 
@@ -123,7 +124,7 @@ export const MenuButton = styled.div`
   ${noUserSelect()};
   ${centerIcon(24)};
 
-  @media(max-width: 1079px) {
+  @media(max-width: ${MOBILE_VIEW}px) {
     display: block;
   }
 

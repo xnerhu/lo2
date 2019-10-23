@@ -20,6 +20,7 @@ export const Container = styled.div`
   @media(max-width: 967px) {
     flex-direction: column;
     width: fit-content;
+    max-width: calc(100% - 64px);
     margin: 0 auto;
   }
 `;

@@ -12,6 +12,6 @@ export const StyledApp = styled.div`
   }
 
   @media(max-width: 767px) {
-    max-width: calc(100% - 96px);
+    max-width: calc(100% - 64px);
   }
 `;

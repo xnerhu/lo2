@@ -15,7 +15,8 @@ const NavItem = withRouter(({ data, location }: Props) => {
   const store = useStore();
 
   const { to, label } = data;
-  const selected = to === location.pathname;
+  const { pathname } = location;
+  const selected = to === '/' ? pathname === to : location.pathname.startsWith(to);
 
   const onClick = React.useCallback(() => {
     store.menu.visible = false;

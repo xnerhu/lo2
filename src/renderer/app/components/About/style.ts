@@ -38,10 +38,17 @@ export const ImgContainer = styled.div`
     flex: ${vertical ? 'unset' : 1};
     ${aspectRatio(vertical ? 9 / 16 : 16 / 9)};
 
-    @media(max-width: 1079px) {
-      margin-left: ${vertical ? 'auto' : '0px'};
-      margin-right: auto;
-      margin-top: 48px;
-    }
+    ${vertical && css`
+      @media(max-width: 1079px) {
+        max-width: 320px;
+      }
+    `}
   `}
+
+  @media(max-width: 1079px) {
+    width: 100%;
+    margin-left: auto;
+    margin-right:auto;
+    margin-top: 48px;
+  }
 `;

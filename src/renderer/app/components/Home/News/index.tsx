@@ -2,7 +2,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '~/renderer/app/store';
-import { Section, SectionTitle } from '../Section';
+import { Section, SectionTitle } from '~/renderer/components/Section';
 import { NewsCard } from '~/renderer/components/NewsCard';
 import { CardsContainer } from '~/renderer/components/Card/style';
 import { Button } from '~/renderer/components/Button';

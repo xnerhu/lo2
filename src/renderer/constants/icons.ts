@@ -6,4 +6,11 @@ export const icons = {
   replacement: require('~/renderer/resources/icons/replacement.svg'),
   plan: require('~/renderer/resources/icons/plan.svg'),
   register: require('~/renderer/resources/icons/register.svg'),
+  news: require('~/renderer/resources/icons/news.svg'),
+  newsPaper: require('~/renderer/resources/icons/news-paper.svg'),
+  group: require('~/renderer/resources/icons/group.svg'),
+  document: require('~/renderer/resources/icons/document.svg'),
+  history: require('~/renderer/resources/icons/history.svg'),
+  info: require('~/renderer/resources/icons/info.svg'),
+  trophy: require('~/renderer/resources/icons/trophy.svg'),
 }

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { h3, h4, noUserSelect, centerIcon, h5 } from '~/renderer/mixins';
-import { transparency, GRADIENT, GRADIENT_VERTICAL, icons, MOBILE_VIEW } from '~/renderer/constants';
+import { transparency, GRADIENT, GRADIENT_VERTICAL, icons, MOBILE_VIEW, BACKGROUND_COLOR } from '~/renderer/constants';
 
 export const Title = styled.div`
   padding-top: 32px;
@@ -30,7 +30,7 @@ export const Navbar = styled.nav`
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
-  background-color: #fff;
+  background-color: ${BACKGROUND_COLOR};
 
   ${({ visible }: { visible: boolean }) => css`
     @media(max-width: ${MOBILE_VIEW}px) {

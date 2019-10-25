@@ -1,6 +1,6 @@
-import { INewsBase } from './news';
+import { INews } from './news';
 
 export interface IAppState {
   sliderItems?: string[];
-  shortNews?: INewsBase[];
+  shortNews?: INews[];
 }

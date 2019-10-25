@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 
 import { body2, robotoRegular, noUserSelect } from '~/renderer/mixins';
+import { BACKGROUND_COLOR } from '../constants';
 
 export const Style = css`
   body {
@@ -11,7 +12,7 @@ export const Style = css`
     padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: #fff;
+    background-color: ${BACKGROUND_COLOR};
     color: #000;
     ${body2()};
     backface-visibility: hidden;

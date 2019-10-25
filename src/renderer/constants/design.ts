@@ -1,3 +1,7 @@
+export const BACKGROUND_COLOR = '#fafafa';
+
+export const FOOTER_COLOR = '#f5f5f5';
+
 export const GRADIENT = 'linear-gradient(90deg, rgba(254,183,11,1) 0%, rgba(246,16,80,1) 100%)';
 
 export const GRADIENT_VERTICAL = 'linear-gradient(180deg, rgba(254,183,11,1) 45%, rgba(246,16,80,1) 100%)';

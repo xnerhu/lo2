@@ -56,7 +56,7 @@ export const Html = ({ scripts, state, styleElement, children }: Props) => {
       </head>
       <body>
         <noscript>
-          Musisz włączyć JavaScript w twojej przeglądarce, aby strona poprawnie się załadowała.
+          Musisz włączyć JavaScript w przeglądarce, aby strona poprawnie się załadowała.
           <a href='https://pomoc.poczta.interia.pl/news-jak-wlaczyc-obsluge-javascript-w-przegladarce,nId,2136014'>Tutaj znajdziesz, co dokładnie zrobić.</a>
         </noscript>
         <div id="app" dangerouslySetInnerHTML={{ __html: children }} />

@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
 import { h6, robotoRegular, centerIcon, noUserSelect } from '~/renderer/mixins';
-import { transparency, FOOTER_WIDTH } from '~/renderer/constants';
+import { transparency, FOOTER_WIDTH, FOOTER_COLOR } from '~/renderer/constants';
 
 export const StyledFooter = styled.footer`
   width: 100vw;
-  background-color: #fafafa;
+  background-color: ${FOOTER_COLOR};
 `;
 
 export const Container = styled.div`

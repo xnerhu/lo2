@@ -6,10 +6,6 @@ import { GRADIENT } from '~/renderer/constants';
 export const Section = styled.section`
   width: 100%;
   margin-top: 32px;
-
-  &:last-child {
-    padding-bottom: 16px;
-  }
 `;
 
 export const SectionTitle = styled.div`

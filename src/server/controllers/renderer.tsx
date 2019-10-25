@@ -55,7 +55,7 @@ router.get('*', async (req, res, next) => {
   }
 
   const content = renderToString(
-    <StaticRouter location={req.baseUrl} context={routerContext}>
+    <StaticRouter location={req.originalUrl} context={routerContext}>
       <StyleSheetManager sheet={sheet.instance}>
         <StoreProvider data={appState}>
           <App />

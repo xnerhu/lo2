@@ -6,6 +6,7 @@ import { transparency, FOOTER_WIDTH, FOOTER_COLOR } from '~/renderer/constants';
 export const StyledFooter = styled.footer`
   width: 100vw;
   background-color: ${FOOTER_COLOR};
+  margin-top: 32px;
 `;
 
 export const Container = styled.div`

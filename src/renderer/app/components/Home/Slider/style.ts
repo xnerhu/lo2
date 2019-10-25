@@ -4,7 +4,6 @@ import { aspectRatio, shadows, coverImage } from '~/renderer/mixins';
 import { WIDE_RATIO, STANDARD_RATIO } from '~/renderer/constants';
 
 export const StyledSlider = styled.div`
-  margin-top: 32px;
   border-radius: 16px;
   overflow: hidden;
   ${aspectRatio(WIDE_RATIO)};

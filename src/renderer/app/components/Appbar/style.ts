@@ -31,6 +31,7 @@ export const Navbar = styled.nav`
   justify-content: center;
   border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
   background-color: ${BACKGROUND_COLOR};
+  margin-bottom: 32px;
 
   ${({ visible }: { visible: boolean }) => css`
     @media(max-width: ${MOBILE_VIEW}px) {

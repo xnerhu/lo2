@@ -20,6 +20,7 @@ export const SectionTitle = styled.div`
     content: '';
     display: block;
     width: 100%;
+    max-width: 128px;
     height: 2px;
     position: absolute;
     bottom: 0;

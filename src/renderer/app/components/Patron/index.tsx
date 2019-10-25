@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import { Image } from '~/renderer/components/Image';
+import { SectionTitle } from '~/renderer/components/Section';
 import { Container, Column, ImgContainer } from '../About/style';
-import { Title } from './style';
 
 export const AboutPatron = () => {
   return (
     <>
-      <Title>Nasza patronka - Maria Konopnicka</Title>
+      <SectionTitle>Nasza patronka - Maria Konopnicka</SectionTitle>
       <Container>
         <Column style={{ maxWidth: 'unset' }}>
           Maria Stanisława Wasiłowska Konopnicka urodziła się w Suwałkach 23 maja 1842 roku. Rodzice Józef i Scholastyka Wasiłowscy przybyli do Suwałk w 1841 roku ze swoją pierworodną córką Wandą urodzoną rok wcześniej w Warszawie. Józef Wasiłowski objął funkcję obrońcy prokuratorii guberni suwalskiej. Był również patronem trybunału (adwokatem). Młode małżeństwo zamieszkiwało w domu rejenta Jana Zapiórkiewicza przy obecnej ul. Kościuszki 31 (dawniej Petersburskiej 200).
@@ -28,7 +28,7 @@ export const AboutPatron = () => {
           Dopiero w 25-lecie śmierci - 8 października 1935 roku na domu, w którym się poetka urodziła wmurowano pamiątkową tablicę. W 1963 roku, staraniem nauczycieli suwalskich i Zarządu Głównego Towarzystwa im. Marii Konopnickiej w Warszawie oraz dzięki wsparciu finansowemu Społecznego Funduszu Odbudowy Stolicy, odsłonięto pomnik dłuta Bohdana Chmielewskiego. W dziesięć lat później w sierpniu 1973 roku zorganizowano Muzeum Marii Konopnickiej.
         </Column>
         <ImgContainer vertical>
-          <Image src='/static/images/patron.jpg' />
+          <Image src='/static/patron.jpg' />
         </ImgContainer>
       </Container>
     </>

@@ -6,27 +6,28 @@ import { IAppState } from '~/interfaces';
 import { SliderStore } from './slider';
 import { ShortNewsStore } from './short-news';
 import { MenuStore } from './menu';
+import { PressStore } from './press';
 
 class Store {
   public slider = new SliderStore();
   public shortNews = new ShortNewsStore();
   public menu = new MenuStore();
+  public press = new PressStore();
 
   @observable
   public loggedIn = false;
 
   constructor(state?: IAppState) {
     if (!state) return;
+    this.insertState(state);
+  }
 
-    const { sliderItems, shortNews } = state;
+  private insertState(state: IAppState) {
+    const { sliderItems, shortNews, pressItems } = state;
 
-    if (sliderItems) {
-      this.slider.load(sliderItems);
-    }
-
-    if (shortNews) {
-      this.shortNews.items = shortNews;
-    }
+    this.slider.load(sliderItems || [])
+    this.shortNews.items = shortNews || [];
+    this.press.items = pressItems || [];
   }
 }
 

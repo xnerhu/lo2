@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { formatNewsDate } from '~/renderer/app/utils';
+import { formatDate } from '~/renderer/app/utils';
 import { INews } from '~/interfaces';
 import { CardImage } from '../Card';
 import { StyledCard } from '../Card/style';
@@ -14,7 +14,7 @@ export const NewsCard = ({ data }: { data: INews }) => {
       <CardImage src={image} />
       <Title>{title}</Title>
       <Content>{content}</Content>
-      <Date>{formatNewsDate(createdAt)}</Date>
+      <Date>{formatDate(createdAt)}</Date>
     </StyledCard>
   );
 }

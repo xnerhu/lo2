@@ -18,9 +18,7 @@ export const Column = styled.div`
   flex: 1;
 
   & .list-card {
-    &:not(:first-child) {
-      margin-top: 24px;
-    }
+    margin-top: 24px;
   }
 
   @media(max-width: 1079px) {

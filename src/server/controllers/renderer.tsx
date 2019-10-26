@@ -102,6 +102,272 @@ router.get('*', async (req, res, next) => {
         url: 'http://www.nto.pl/apps/pbcs.dll/article?AID=/20051017/POWIAT01/110170107',
         date: new Date(2005, 9, 17),
       }
+    ],
+    teachersItems: [
+      {
+        subject: 'Dyrekcja i administracja',
+        teachers: [
+          'mgr Agnieszka Buganik-Pszczyńska - dyrektor',
+        ]
+      },
+      {
+        subject: 'Z-cy Dyrektora',
+        teachers: [
+          ['mgr Agata Smoleń', 'mailto:asmolen(małpa)lo2.opole.pl'],
+          'mgr Małgorzata Podraza',
+          'mgr Anna Mamok'
+        ]
+      },
+      {
+        subject: 'Główna księgowa',
+        teachers: ['mgr Krystyna Malżycka']
+      },
+      {
+        subject: 'Sekretariat',
+        teachers: ['mgr Maria Kozioł - sekretarz szkoły', 'mgr Małgorzata Samborska - spec. ds. uczniów']
+      },
+      {
+        subject: 'Kadry',
+        teachers: ['mgr Aleksandra Kopytko']
+      },
+      {
+        subject: 'Pedagog',
+        teachers: ['mgr Natalia Skrocka', 'mgr Agnieszka Sosnowska']
+      },
+      {
+        subject: 'Psycholog',
+        teachers: ['mgr Joanna Meres-Soblik']
+      },
+      {
+        subject: 'Doradca zawodowy',
+        teachers: [
+          'mgr inż. Ewa Michalska',
+          'mgr Karina Sawulska',
+        ]
+      },
+      {
+        subject: 'Kierownik ds. gospodarczych',
+        teachers: [
+          'mgr Wojciech Kolasiński'
+        ]
+      },
+      {
+        subject: 'Język polski',
+        teachers: [
+          'mgr Agnieszka Buganik-Pszczyńska',
+          'mgr Ewa Łucyszyn-Pająk',
+          'mgr Joanna Nazarkiewicz',
+          'mgr Halina Palińska',
+          'dr Ewelina Pudełko',
+          'mgr Danuta Stankiewicz',
+          'mgr Grażyna Świtek',
+          'mgr Jolanta Toll (profesor oświaty)',
+          'mgr Marzena Zaremba',
+        ]
+      },
+      {
+        subject: 'Matematyka',
+        teachers: [
+          'mgr Ewa Garbaj-Kmieć',
+          'mgr Barbara Guzik',
+          'mgr Jolanta Guzik',
+          'mgr Żaneta Iskierka',
+          'mgr Ryszard Lisoń',
+          'dr Beata Piecuch-Ożarska',
+          'mgr Maria Romanowska (profesor oświaty)',
+          'mgr Krzysztof Sobków',
+          'mgr Joanna Stasch',
+          'mgr Aleksandra Taskin',
+          ['mgr Katarzyna Zając', 'mailto:kasia.zajac(wstaw małpę)poczta(_kropka_)fm'],
+        ]
+      },
+      {
+        subject: 'Język angielski',
+        teachers: [
+          'mgr Małgorzata Andruszkiewicz',
+          'mgr Joanna Burdzińska-Mika',
+          'mgr Joanna Fojtar',
+          'mgr Katarzyna Grzyb',
+          'mgr Anna Hamryszak',
+          'mgr Beata Jaros',
+          'mgr Andrzej Kluska',
+          'mgr Bartosz Kobyłczyk',
+          'mgr Katarzyna Kotlińska',
+          'mgr Lidia Krysztof',
+          'mgr Karolina Malik',
+          'mgr Katarzyna Pawliszyn',
+          'mgr Małgorzata Podraza',
+          ['mgr Marzena Szadzianiec', 'http://ang.lo2.opole.pl/'],
+          'mgr Małgorzata Wilczek',
+          'mgr Magdalena Wolna-Rumin',
+        ]
+      },
+      {
+        subject: 'Język niemiecki',
+        teachers: [
+          'mgr Bożena Owczar',
+          'dr Daniela Ploch',
+          'mgr Karina Sawulska',
+          ['dr Sonia Wacław', 'mailto:swaindok@poczta.onet.pl'],
+          'mgr Karina Walecko',
+          'mgr Barbara Zając-Drozdek',
+        ]
+      },
+      {
+        subject: 'Język francuski',
+        teachers: [
+          'mgr Justyna Grzywa-Szczepanowska',
+          'mgr Aleksandra Uchnast',
+          'mgr Grażyna Wąsowicz (profesor oświaty)',
+        ]
+      },
+      {
+        subject: 'Język włoski',
+        teachers: [
+          'mgr Joanna Szczurkowska',
+        ]
+      },
+      {
+        subject: 'Język hiszpański',
+        teachers: [
+          'mgr Anna Andrzejewska',
+          'mgr Agnieszka Bączkowska',
+          'mgr Laura Miera Ruiz',
+          'mgr Anna Szeląg',
+        ]
+      },
+      {
+        subject: 'Fizyka',
+        teachers: [
+          'mgr Dorota Bacławska',
+          'mgr Beata Kołodziej',
+          ['dr inż. Grzegorz Korbaś', 'http://www.lo2.gpk.opole.pl/'],
+          'mgr Anna Mamok',
+        ]
+      },
+      {
+        subject: 'Chemia',
+        teachers: [
+          'mgr Barbara Besztak-Tomiczak',
+          'mgr Krystyna Chudzia',
+          'mgr Iwona Gmoch-Buczek',
+          'mgr Beata Sokół',
+          'mgr Dorota Wieczorek',
+        ]
+      },
+      {
+        subject: 'Informatyka',
+        teachers: [
+          'mgr Ryszard Lisoń',
+          'mgr Aleksandra Taskin',
+          ['mgr Katarzyna Zając', 'mailto:kasia.zajac(wstaw małpę)poczta(_kropka_)fm'],
+          ['mgr inż. Krzysztof Żyta', 'mailto:chrisu1(wstaw małpę)wp(_kropka_)pl'],
+        ]
+      },
+      {
+        subject: 'Historia i WOS',
+        teachers: [
+          'mgr Aleksander Iszczuk',
+          'mgr Przemysław Jędrychowski',
+          'mgr Julita Kiełbasa',
+          'mgr Iwona Kozak',
+          'mgr Agata Smoleń',
+          'mgr Celina Tomaszewska',
+          'mgr Marcin Wietrzniok',
+        ]
+      },
+      {
+        subject: 'WOS',
+        teachers: [
+          'mgr Karina Sawulska',
+          ['dr Piotr Zamelski', 'http://www.p.zamelski.po.opole.pl/index.php/edukacja-spoleczno-prawna'],
+        ]
+      },
+      {
+        subject: 'Edukacja dla bezpieczeństwa',
+        teachers: [
+          'mgr Tomasz Rogoziewicz',
+        ]
+      },
+      {
+        subject: 'Podstawy przedsiębiorczości',
+        teachers: [
+          'mgr Lucyna Rudnik',
+        ]
+      },
+      {
+        subject: 'Geografia',
+        teachers: [
+          'mgr Krystyna Ozon',
+          'mgr Małgorzata Kaleta',
+          'mgr Jolanta Siemieniuk',
+        ]
+      },
+      {
+        subject: 'Biologia',
+        teachers: [
+          'mgr Katarzyna Duczmal',
+          'mgr Aleksandra Kruczek',
+          'mgr Magdalena Majchrowicz',
+          'mgr Joanna Tokar',
+        ]
+      },
+      {
+        subject: 'Filozofia',
+        teachers: [
+          'mgr Renata Podolan',
+        ]
+      },
+      {
+        subject: 'Historia sztuki',
+        teachers: [
+          'mgr Maria Bitka',
+        ]
+      },
+      {
+        subject: 'Fotografia',
+        teachers: [
+          'mgr Sławoj Dubiel',
+          ['mgr Katarzyna Zając', 'mailto:kasia.zajac(wstaw małpę)poczta(_kropka_)fm'],
+        ]
+      },
+      {
+        subject: 'Wychowanie fizyczne',
+        teachers: [
+          'mgr Adam Cichoń',
+          'mgr Małgorzata Franek',
+          'mgr Barbara Kaniuka',
+          'mgr Anna Kucharska',
+          'mgr Adam Malik',
+          'mgr Ewa Mehlich',
+          'mgr Mariusz Pająk',
+          'mgr Barbara Rajcic',
+        ]
+      },
+      {
+        subject: 'Religia',
+        teachers: [
+          'ks. Jacek Drabik',
+          'dr Grzegorz Filipowski',
+          'mgr Joanna Jabłońska-Sobek',
+          'ks. Witold Trawka',
+        ]
+      },
+      {
+        subject: 'Etyka',
+        teachers: [
+          'mgr Renata Podolan',
+        ]
+      },
+      {
+        subject: 'Biblioteka',
+        teachers: [
+          'mgr Anna Bęben',
+          'mgr Joanna Danielczok',
+          'mgr Renata Podolan',
+          'mgr Elżbieta Sławińska',
+        ]
+      },
     ]
   }
 

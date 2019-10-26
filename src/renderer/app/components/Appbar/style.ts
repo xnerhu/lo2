@@ -15,6 +15,7 @@ export const Title = styled.div`
     border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
     padding-left: 24px;
     padding-right: 24px;
+    margin-bottom: 32px;
     ${h4()};
   }
 

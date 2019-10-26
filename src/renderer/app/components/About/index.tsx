@@ -12,7 +12,7 @@ export const About = () => {
         <ListCard to='/news' icon={icons.news} style={{ marginTop: 0 }}>Aktualności</ListCard>
         <ListCard to='/about/teachers' icon={icons.group}>Nauczyciele</ListCard>
         <ListCard to='/about/patron' icon={icons.info}>Nasza patronka</ListCard>
-        <ListCard to='/about/statute' icon={icons.document}>Statut szkoły</ListCard>
+        <ListCard to='/static/statut.pdf' target='_blank' icon={icons.document}>Statut szkoły</ListCard>
         <ListCard to='/about/history' icon={icons.history}>Historia szkoły</ListCard>
         <ListCard to='/news/achievements' icon={icons.trophy}>Osiągnięcia</ListCard>
         <ListCard to='/about/press' icon={icons.newsPaper}>Piszą o nas</ListCard>

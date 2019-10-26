@@ -19,3 +19,7 @@ export const StyledImage = styled.div`
   transition: 0.15s background-image;
   ${coverImage()};
 `;
+
+export const Label = styled.div`
+  margin-top: 8px;
+`;

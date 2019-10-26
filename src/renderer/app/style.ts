@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { body2, robotoRegular, noUserSelect } from '~/renderer/mixins';
+import { body2, robotoRegular, noUserSelect, robotoMedium } from '~/renderer/mixins';
 import { BACKGROUND_COLOR } from '../constants';
 
 export const Style = css`
@@ -39,6 +39,11 @@ export const Style = css`
     color: #000;
     ${robotoRegular()};
     ${noUserSelect()};
+  }
+
+  b {
+    ${body2()};
+    ${robotoMedium()};
   }
 
   ::selection {

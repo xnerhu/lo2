@@ -7,6 +7,8 @@ import { Home } from '../Home';
 import { About } from '../About';
 import { AboutPatron } from '../Patron';
 import { Press } from '../Press';
+import { Teachers } from '../Teachers';
+import { History } from '../History';
 import { Appbar } from '../Appbar';
 import { Style } from '~/renderer/app/style';
 import { Footer } from '../Footer';
@@ -23,6 +25,8 @@ const App = () => {
         <Switch>
           <Route path="/about/patron" component={AboutPatron} />
           <Route path="/about/press" component={Press} />
+          <Route path="/about/teachers" component={Teachers} />
+          <Route path="/about/history" component={History} />
           <Route path="/about" component={About} />
           <Route path="/" component={Home} />
         </Switch>

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { preFetchImage } from '~/renderer/app/utils';
 import { Skeleton } from '../Skeleton';
-import { Container, StyledImage } from './style';
+import { Container, StyledImage, Label } from './style';
 
 interface Props {
   src: string;
@@ -10,9 +10,10 @@ interface Props {
   skeletonBorder?: number;
   forceSkeleton?: boolean;
   style?: React.CSSProperties;
+  children?: React.ReactNode;
 }
 
-export const Image = ({ src, style, ratio, skeletonBorder, forceSkeleton }: Props) => {
+export const Image = ({ src, style, ratio, skeletonBorder, forceSkeleton, children }: Props) => {
   const [fetched, setFetched] = React.useState(false);
 
   React.useEffect(() => {
@@ -43,6 +44,7 @@ export const Image = ({ src, style, ratio, skeletonBorder, forceSkeleton }: Prop
     <Container className='dynamic-image' ratio={ratio} style={style}>
       <StyledImage style={imgStyle} />
       {!isFetched && <Skeleton style={skeletonStyle} />}
+      {children && <Label>{children}</Label>}
     </Container>
   );
 }

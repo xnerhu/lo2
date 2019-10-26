@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { useStore } from '../../store';
+import { useStore } from '~/renderer/app/store';
 import { ITeachersSection, ITeacher } from '~/interfaces';
 import { SectionTitle } from '~/renderer/components/Section';
 import { Container, Title, StyledSection } from './style';

@@ -5,13 +5,15 @@ import { createGlobalStyle } from 'styled-components';
 
 import { Home } from '../Home';
 import { About } from '../About';
-import { AboutPatron } from '../Patron';
-import { Press } from '../Press';
-import { Teachers } from '../Teachers';
-import { History } from '../History';
+import { AboutPatron } from '../About/Patron';
+import { Press } from '../About/Press';
+import { Teachers } from '../About/Teachers';
+import { History } from '../About/History';
+import { Students } from '../Students';
+
 import { Appbar } from '../Appbar';
-import { Style } from '~/renderer/app/style';
 import { Footer } from '../Footer';
+import { Style } from '~/renderer/app/style';
 import { StyledApp } from './style';
 
 const GlobalStyle = createGlobalStyle`${Style}`;
@@ -27,6 +29,7 @@ const App = () => {
           <Route path="/about/press" component={Press} />
           <Route path="/about/teachers" component={Teachers} />
           <Route path="/about/history" component={History} />
+          <Route path="/students" component={Students} />
           <Route path="/about" component={About} />
           <Route path="/" component={Home} />
         </Switch>

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Image } from '~/renderer/components/Image';
 import { SectionTitle } from '~/renderer/components/Section';
-import { Container, Column, ImgContainer } from '../About/style';
+import { Container, Column, ImgContainer } from '../style';
 
 export const AboutPatron = () => {
   return (

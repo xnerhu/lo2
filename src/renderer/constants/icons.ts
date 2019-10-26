@@ -13,4 +13,8 @@ export const icons = {
   history: require('~/renderer/resources/icons/history.svg'),
   info: require('~/renderer/resources/icons/info.svg'),
   trophy: require('~/renderer/resources/icons/trophy.svg'),
+  user: require('~/renderer/resources/icons/user.svg'),
+  userShield: require('~/renderer/resources/icons/user-shield.svg'),
+  money: require('~/renderer/resources/icons/money.svg'),
+  userQuestion: require('~/renderer/resources/icons/user-question.svg'),
 }

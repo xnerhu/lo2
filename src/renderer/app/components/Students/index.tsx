@@ -22,7 +22,7 @@ export const Students = () => {
         <ListCard to='/' icon={icons.document}>Matura</ListCard>
       </Column>
       <ImgContainer>
-        <Image src='/static/about.jpg' />
+        <Image src='/static/students.jpg' />
       </ImgContainer>
     </Container>
   );

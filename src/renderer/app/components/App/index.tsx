@@ -10,6 +10,7 @@ import { Press } from '../About/Press';
 import { Teachers } from '../About/Teachers';
 import { History } from '../About/History';
 import { Students } from '../Students';
+import { Contact } from '../Contact';
 
 import { Appbar } from '../Appbar';
 import { Footer } from '../Footer';
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/about/history" component={History} />
           <Route path="/students" component={Students} />
           <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
           <Route path="/" component={Home} />
         </Switch>
       </StyledApp>

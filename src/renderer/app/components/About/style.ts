@@ -8,9 +8,11 @@ export const Container = styled.div`
   justify-content: space-between;
   padding-bottom: 24px;
 
-  @media(max-width: 1079px) {
-    flex-direction: column;
-  }
+  ${({ maxWidth }: { maxWidth?: number }) => css`
+    @media(max-width: ${maxWidth || 1079}px) {
+      flex-direction: column;
+    }
+  `}
 `;
 
 export const Column = styled.div`

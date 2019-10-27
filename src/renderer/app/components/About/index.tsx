@@ -15,7 +15,7 @@ export const About = () => {
         <ListCard to='/static/statut.pdf' target='_blank' icon={icons.document}>Statut szkoły</ListCard>
         <ListCard to='/about/history' icon={icons.history}>Historia szkoły</ListCard>
         <ListCard to='/news/achievements' icon={icons.trophy}>Osiągnięcia</ListCard>
-        <ListCard to='/about/press' icon={icons.newsPaper}>Piszą o nas</ListCard>
+        <ListCard to='/about/articles' icon={icons.newsPaper}>Piszą o nas</ListCard>
       </Column>
       <ImgContainer>
         <Image src='/static/about.jpg' />

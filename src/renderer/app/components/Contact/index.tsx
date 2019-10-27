@@ -6,7 +6,7 @@ import { Item, Map } from './style';
 const Policy = () => {
   return (
     <div style={{ marginTop: 32 }}>
-      <b>Klauzula informacyjna</b>
+      <b><h5>Klauzula informacyjna</h5></b>
       <br />
       Zgodnie z art. 13 ust. 1 i ust. 2 ROZPORZĄDZENIE PARLAMENTU EUROPEJSKIEGO I RADY (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych) o ochronie danych osobowych z dnia 27 kwietnia 2016 r. informuję, iż:
       <br /><br />
@@ -61,27 +61,30 @@ export const Contact = () => {
     <>
       <Container maxWidth={1216}>
         <Column>
-          <b>Publiczne Liceum Ogółnokształcące nr II
-        <br />z Oddziałami Dwujęzycznymi w Opolu ul. Kazimierza Pułaskiego 3
-        <br />45-048 Opole</b>
+          <b>
+            <h6>Publiczne Liceum Ogółnokształcące nr II</h6>
+            <h6>z Oddziałami Dwujęzycznymi w Opolu ul. Kazimierza Pułaskiego 3</h6>
+            <h6>45-048 Opole</h6>
+          </b>
+          <br />
           <Item>
             Tel./Fax.: (0-77) 454-22-86, 402-18-87
-        </Item>
+          </Item>
           <Item>
             Godziny otwarcia sekretariatu: 700 ÷ 1500 w dni powszednie
-        </Item>
+          </Item>
           <Item>
             E-mail:	sekretariat@lo2.opole.pl
-        </Item>
+          </Item>
           <Item>
             NIP: 754-111-03-47
-        </Item>
+          </Item>
           <Item>
             REGON: 160 347 099
-        </Item>
+          </Item>
           <Item>
             Konto Rady Rodziców: 47 1160 2202 0000 0002 2731 8488
-        </Item>
+          </Item>
         </Column>
         <Map src="http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=ul.+Kazimierza+Pu%C5%82askiego+3,+Opole,+Poland&amp;ie=UTF8&amp;s=AARTsJrW9sAySn-ob6ZLOl2QVCS3Fkl7rA&amp;ll=50.675304,17.928743&amp;spn=0.010606,0.021029&amp;z=15&amp;iwloc=addr&amp;output=embed" />
       </Container>

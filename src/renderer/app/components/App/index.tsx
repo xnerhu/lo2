@@ -27,7 +27,7 @@ const App = () => {
         <Appbar />
         <Switch>
           <Route path="/about/patron" component={AboutPatron} />
-          <Route path="/about/press" component={Press} />
+          <Route path="/about/articles" component={Press} />
           <Route path="/about/teachers" component={Teachers} />
           <Route path="/about/history" component={History} />
           <Route path="/students" component={Students} />

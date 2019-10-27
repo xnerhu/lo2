@@ -15,3 +15,7 @@ export const STANDARD_RATIO = 16 / 9;
 export const WIDE_RATIO = 16 / 5;
 
 export const MOBILE_VIEW = 1020;
+
+export const GALLERY_CARD_SIZE = 256;
+
+export const GALLERY_CARD_MARGIN = 24;

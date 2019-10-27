@@ -8,6 +8,7 @@ import { ShortNewsStore } from './short-news';
 import { MenuStore } from './menu';
 import { PressStore } from './press';
 import { TeachersStore } from './teachers';
+import { GalleryStore } from './gallery';
 
 class Store {
   public slider = new SliderStore();
@@ -15,6 +16,7 @@ class Store {
   public menu = new MenuStore();
   public press = new PressStore();
   public teachers = new TeachersStore();
+  public gallery = new GalleryStore();
 
   @observable
   public loggedIn = false;
@@ -25,12 +27,13 @@ class Store {
   }
 
   private insertState(state: IAppState) {
-    const { sliderItems, shortNews, pressItems, teachersItems } = state;
+    const { sliderItems, shortNews, pressItems, teachersItems, gallery } = state;
 
     this.slider.load(sliderItems || [])
     this.shortNews.items = shortNews || [];
     this.press.items = pressItems || [];
     this.teachers.items = teachersItems || [];
+    this.gallery.items = gallery || [];
   }
 }
 

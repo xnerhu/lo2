@@ -11,6 +11,7 @@ import { Teachers } from '../About/Teachers';
 import { History } from '../About/History';
 import { Students } from '../Students';
 import { Contact } from '../Contact';
+import { Gallery } from '../Gallery';
 
 import { Appbar } from '../Appbar';
 import { Footer } from '../Footer';
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/about/history" component={History} />
           <Route path="/students" component={Students} />
           <Route path="/about" component={About} />
+          <Route path="/gallery" component={Gallery} />
           <Route path="/contact" component={Contact} />
           <Route path="/" component={Home} />
         </Switch>

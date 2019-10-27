@@ -368,6 +368,30 @@ router.get('*', async (req, res, next) => {
           'mgr Elżbieta Sławińska',
         ]
       },
+    ],
+    gallery: [
+      {
+        label: '2019-2020',
+        items: [
+          {
+            title: 'Półmetek',
+            images: ['/static/gallery/2019-2020/Półmetek/029359_r0_1140.jpg'],
+          },
+          {
+            title: 'Rozpoczęcie roku szkolnego',
+            images: [`/static/gallery/2019-2020/${encodeURIComponent('Rozpoczęcie roku szkolnego/3258861eb51c8b3d9a2d4c5ea7dc9c01-rimg-w720-h540-gmir.jpg')}`], // encodeURIComponent
+          }
+        ]
+      },
+      {
+        label: '2018-2019',
+        items: [
+          {
+            title: 'Studniówka',
+            images: ['/static/gallery/2018-2019/Studniówka/balowa-top-1920x1281.jpg'],
+          },
+        ]
+      }
     ]
   }
 

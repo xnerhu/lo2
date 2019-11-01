@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { aspectRatio, shadows, coverImage, centerIcon, centerBoth } from '~/renderer/mixins';
+import { aspectRatio, shadows } from '~/renderer/mixins';
 import { WIDE_RATIO, STANDARD_RATIO, icons, transparency } from '~/renderer/constants';
 
 export const StyledSlider = styled.div`
@@ -16,19 +16,6 @@ export const StyledSlider = styled.div`
   @media(max-width: 967px) {
     ${aspectRatio(STANDARD_RATIO)};
   }
-`;
-
-export const Image = styled.div`
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  transition: 0.15s background-image;
-  ${coverImage()};
-  
-  ${({ src, fetched }: { src: string, fetched: boolean }) => css`
-    background-image: url(${src});
-    opacity: ${fetched ? 1 : 0};
-  `};
 `;
 
 export const Controls = styled.div`

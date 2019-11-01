@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import { icons } from '~/renderer/constants';
-import { StyledFooter, Container, Column, Title, Subtitle, Copyright, Contact, StyledContactItem, ContactIcon, Label, Icon } from './style';
+import { icons, PRIMARY_COLOR } from '~/renderer/constants';
+import { Icon } from '~/renderer/components/Icon';
+import { StyledFooter, Container, Column, Title, Subtitle, Copyright, Contact, StyledContactItem, Label, MediaIcon } from './style';
 
 interface Props {
   icon: string;
@@ -13,7 +14,7 @@ interface Props {
 const ContactItem = ({ icon, iconSize, label, sublabel }: Props) => {
   return (
     <StyledContactItem>
-      <ContactIcon size={iconSize} src={icon} />
+      <Icon src={icon} size={iconSize || 36} fill={PRIMARY_COLOR} style={{ marginRight: 6 }} />
       <div>
         <Label>{label}</Label>
         <Label>{sublabel}</Label>
@@ -38,10 +39,10 @@ export const Footer = () => {
           <Title>Znajdź nas</Title>
           <Subtitle>media społecznościowe</Subtitle>
           <a href='https://www.facebook.com/WilkiZWarynskiego/' target='_blank'>
-            <Icon src={icons.facebook} fillColor='#3b5998' />
+            <MediaIcon src={icons.facebook} size={32} fill='#3b5998' />
           </a>
           <a href='https://www.youtube.com/channel/UCWhfUoBYJxxZL4yj0GI1njw' target='_blank'>
-            <Icon src={icons.youtube} style={{ marginLeft: 8 }} fillColor='#ff0000' />
+            <MediaIcon src={icons.youtube} size={32} fill='#ff0000' style={{ marginLeft: 8 }} />
           </a>
         </Column>
       </Container>

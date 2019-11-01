@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-import { PRIMARY_COLOR, icons, transparency, CARD_SHADOW, SHORTCUT_CARD_SIZE } from '~/renderer/constants';
-import { centerIcon, robotoMedium } from '~/renderer/mixins';
+import { icons, transparency, CARD_SHADOW, SHORTCUT_CARD_SIZE } from '~/renderer/constants';
+import { centerIcon } from '~/renderer/mixins';
 
 const GAP_SIZE = 64;
 const CHEVRON_SIZE = 32;
@@ -63,17 +63,6 @@ export const Circle = styled.div`
   background-color: #fff;
   box-shadow: ${CARD_SHADOW};
   transition: 0.1s transform;
-`;
-
-export const Icon = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: ${PRIMARY_COLOR};
-  ${centerIcon(64, true)};
-
-  ${({ src }: { src: string }) => css`
-    mask-image: url(${src});
-  `}
 `;
 
 export const Title = styled.h6`

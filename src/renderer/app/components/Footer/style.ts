@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { centerIcon, noUserSelect } from '~/renderer/mixins';
 import { transparency, FOOTER_WIDTH, FOOTER_COLOR, PRIMARY_COLOR } from '~/renderer/constants';
+import { Icon } from '~/renderer/components/Icon';
 
 export const StyledFooter = styled.footer`
   width: 100vw;
@@ -47,32 +48,10 @@ export const StyledContactItem = styled.div`
   }
 `;
 
-export const ContactIcon = styled.div`
-  background-color: ${PRIMARY_COLOR};
-  margin-right: 8px;
-  ${centerIcon('contain', true)};
-
-  ${({ size, src }: { size?: number, src: string }) => css`
-    width: ${size || 36}px;
-    height: ${size || 36}px;
-    mask-image: url(${src});
-  `}
-`;
-
-export const Icon = styled.div`
-  width: 32px;
-  height: 32px;
+export const MediaIcon = styled(Icon)`
   display: inline-flex;
   margin-top: 20px;
-  background-color: rgba(0, 0, 0, ${transparency.icons.inactive});
-  transition: 0.15s background-color;
   cursor: pointer;
-  ${centerIcon(32, true)};
-
-  ${({ src, fillColor }: { src: string, fillColor: string }) => css`
-    mask-image: url(${src});
-    background-color: ${fillColor};
-  `}
 `;
 
 export const Label = styled.div`

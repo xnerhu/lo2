@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-import { centerIcon, noUserSelect } from '~/renderer/mixins';
-import { transparency, FOOTER_WIDTH, FOOTER_COLOR, PRIMARY_COLOR } from '~/renderer/constants';
+import { noUserSelect } from '~/renderer/mixins';
+import { transparency, FOOTER_WIDTH, FOOTER_COLOR } from '~/renderer/constants';
 import { Icon } from '~/renderer/components/Icon';
 
 export const StyledFooter = styled.footer`
@@ -18,6 +18,13 @@ export const Container = styled.div`
   display: flex;
   border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
   justify-content: space-between;
+
+  @media(max-width: 1080px) {
+    width: fit-content;
+    max-width: calc(100% - 64px);
+    margin: 0 auto;
+    flex-direction: column;
+  }
 `;
 
 export const Column = styled.div`

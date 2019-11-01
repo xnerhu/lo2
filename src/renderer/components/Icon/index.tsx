@@ -17,7 +17,7 @@ export const Icon = ({ src, size, fill, center, style, ...props }: Props) => {
     ...style,
     width: iconSize,
     height: iconSize,
-    [fill ? '-webkit-mask-image' : 'backgroundImage']: `url(${src})`,
+    [fill ? 'WebkitMaskImage' : 'backgroundImage']: `url(${src})`,
   }
 
   return (

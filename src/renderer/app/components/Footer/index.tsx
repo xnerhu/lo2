@@ -14,7 +14,7 @@ interface Props {
 const ContactItem = ({ icon, iconSize, label, sublabel }: Props) => {
   return (
     <StyledContactItem>
-      <Icon src={icon} size={iconSize || 36} fill={PRIMARY_COLOR} style={{ marginRight: 6 }} />
+      <Icon src={icon} size={iconSize || 36} fill={PRIMARY_COLOR} style={{ marginRight: 8 }} />
       <div>
         <Label>{label}</Label>
         <Label>{sublabel}</Label>

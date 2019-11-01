@@ -25,7 +25,7 @@ export const getNews = async (imgRequired: boolean, limit: string) => {
 
 export const getShortNews = async () => {
   const maxLength = parseInt(SHORT_NEWS_MAX_LENGTH);
-  const news = await getNews(true, '8');
+  const news = await getNews(true, '9');
 
   return news.map(r => {
     const content = truncate(r.content, maxLength);

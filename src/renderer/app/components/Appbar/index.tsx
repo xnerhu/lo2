@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '../../store';
 import { NAVIGATION_ITEMS } from '../../constants';
 import { INavigationItem } from '../../interfaces';
-import { Title, Navbar, StyledNavItem, MenuButton } from './style';
+import { Header, Navbar, StyledNavItem, Menu } from './style';
 
 interface Props extends RouteComponentProps {
   data: INavigationItem;
@@ -38,13 +38,13 @@ export const Appbar = observer(() => {
 
   return (
     <>
-      <Title>Publiczne Liceum Ogólnokształcące Nr II w Opolu</Title>
+      <Header>Publiczne Liceum Ogólnokształcące Nr II w Opolu</Header>
       <Navbar visible={store.menu.visible}>
         {NAVIGATION_ITEMS.map(r => (
           <NavItem key={r.to} data={r}></NavItem>
         ))}
       </Navbar>
-      <MenuButton onClick={onMenuClick} />
+      <Menu onClick={onMenuClick} />
     </>
   );
 });

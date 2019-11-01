@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { body2, robotoRegular, noUserSelect, robotoMedium, h6, h5, h4, h3, h2, h1 } from '~/renderer/mixins';
+import { body2, robotoRegular, noUserSelect, robotoMedium, h6, h5, h4, h3, h2, h1, noTapHighlight } from '~/renderer/mixins';
 import { BACKGROUND_COLOR } from '../constants';
 
 export const Style = css`
@@ -16,8 +16,8 @@ export const Style = css`
     color: #000;
     backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
     ${body2()};
+    ${noTapHighlight()};
   }
 
   * {

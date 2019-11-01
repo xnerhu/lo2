@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { noUserSelect, h5 } from '~/renderer/mixins';
+import { noUserSelect } from '~/renderer/mixins';
 import { GRADIENT } from '~/renderer/constants';
 
 export const Section = styled.section`
@@ -8,13 +8,12 @@ export const Section = styled.section`
   margin-top: 32px;
 `;
 
-export const SectionTitle = styled.div`
+export const SectionTitle = styled.h5`
   width: fit-content;
   position: relative;
   padding-bottom: 8px;
   margin-bottom: 24px;
   ${noUserSelect()};
-  ${h5()};
 
   &::after {
     content: '';

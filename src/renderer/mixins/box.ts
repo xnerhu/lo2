@@ -1,4 +1,6 @@
-export const aspectRatio = (ratio: number) => `
+import { css } from 'styled-components';
+
+export const aspectRatio = (ratio: number) => css`
   position: relative;
 
   &::before {

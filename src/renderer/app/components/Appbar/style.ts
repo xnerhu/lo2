@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { h3, h4, noUserSelect, centerIcon, h5 } from '~/renderer/mixins';
+import { h3, h4, noUserSelect, centerIcon } from '~/renderer/mixins';
 import { transparency, GRADIENT, GRADIENT_VERTICAL, icons, MOBILE_VIEW, BACKGROUND_COLOR } from '~/renderer/constants';
 
-export const Title = styled.div`
+export const Header = styled.header`
   padding-top: 32px;
   padding-bottom: 24px;
   text-align: center;
@@ -12,10 +12,10 @@ export const Title = styled.div`
   ${h3()};
 
   @media(max-width: ${MOBILE_VIEW}px) {
-    border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
     padding-left: 24px;
     padding-right: 24px;
     margin-bottom: 32px;
+    border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
     ${h4()};
   }
 
@@ -30,9 +30,9 @@ export const Navbar = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
   background-color: ${BACKGROUND_COLOR};
   margin-bottom: 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
 
   ${({ visible }: { visible: boolean }) => css`
     @media(max-width: ${MOBILE_VIEW}px) {
@@ -111,7 +111,7 @@ export const StyledNavItem = styled(Link)`
   }
 `
 
-export const MenuButton = styled.div`
+export const Menu = styled.div`
   width: 48px;
   height: 48px;
   position: absolute;

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-import { h6, robotoRegular, centerIcon, noUserSelect } from '~/renderer/mixins';
-import { transparency, FOOTER_WIDTH, FOOTER_COLOR } from '~/renderer/constants';
+import { centerIcon, noUserSelect } from '~/renderer/mixins';
+import { transparency, FOOTER_WIDTH, FOOTER_COLOR, PRIMARY_COLOR } from '~/renderer/constants';
 
 export const StyledFooter = styled.footer`
   width: 100vw;
@@ -13,53 +13,71 @@ export const Container = styled.div`
   width: 100%;
   max-width: ${FOOTER_WIDTH}px;
   margin: 0 auto;
+  padding-bottom: 32px;
   display: flex;
   border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
   justify-content: space-between;
-  padding-bottom: 32px;
-
-  @media(max-width: 967px) {
-    flex-direction: column;
-    width: fit-content;
-    max-width: calc(100% - 64px);
-    margin: 0 auto;
-  }
 `;
 
-export const Section = styled.section`
+export const Column = styled.div`
   min-width: 196px;
   height: 100%;
   margin-top: 32px;
 `;
 
-export const Title = styled.div`
-  padding-bottom: 8px;
-  color: rgba(0, 0, 0, 0.7);
-  ${h6()};
+export const Title = styled.h6`
   ${noUserSelect()};
 `;
 
-export const Text = styled.div`
+export const Subtitle = styled(Title)`
   font-size: 16px;
-  ${robotoRegular()};
+`;
+
+export const Contact = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+export const StyledContactItem = styled.div`
+  display: flex;
+  margin-top: 24px;
+
+  &:not(:first-child) {
+    margin-left: 24px;
+  }
+`;
+
+export const ContactIcon = styled.div`
+  background-color: ${PRIMARY_COLOR};
+  margin-right: 8px;
+  ${centerIcon('contain', true)};
+
+  ${({ size, src }: { size?: number, src: string }) => css`
+    width: ${size || 36}px;
+    height: ${size || 36}px;
+    mask-image: url(${src});
+  `}
 `;
 
 export const Icon = styled.div`
   width: 32px;
   height: 32px;
   display: inline-flex;
+  margin-top: 20px;
   background-color: rgba(0, 0, 0, ${transparency.icons.inactive});
   transition: 0.15s background-color;
   cursor: pointer;
   ${centerIcon(32, true)};
 
-  ${({ src, hoverColor }: { src: string, hoverColor: string }) => css`
+  ${({ src, fillColor }: { src: string, fillColor: string }) => css`
     mask-image: url(${src});
-
-    &:hover {
-      background-color: ${hoverColor};
-    }
+    background-color: ${fillColor};
   `}
+`;
+
+export const Label = styled.div`
+  font-size: 14px;
+  color: rgba(0, 0, 0, ${transparency.text.high});
 `;
 
 export const Copyright = styled.a`

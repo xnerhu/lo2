@@ -14,10 +14,10 @@ export const Style = css`
     overflow-y: auto;
     background-color: ${BACKGROUND_COLOR};
     color: #000;
-    ${body2()};
     backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
+    ${body2()};
   }
 
   * {

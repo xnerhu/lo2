@@ -1,9 +1,11 @@
+import { IUser } from './user';
+
 export interface INews {
-  _id?: string;
+  _id?: number;
   title?: string;
   content?: string;
-  createdAt?: Date;
   image?: string;
-  author?: string;
-  authorName?: string;
+  _authorId?: number;
+  author?: IUser;
+  createdAt?: Date;
 }

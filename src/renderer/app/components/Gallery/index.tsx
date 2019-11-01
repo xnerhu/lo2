@@ -14,19 +14,19 @@ const Section = ({ data }: { data: IGallerySection }) => {
       <Header>{label}</Header>
       <SectionContainer>
         {items.map(r => (
-          <Item key={r.title} data={r} />
+          <Item key={r.title} data={r} albumYear={label} />
         ))}
       </SectionContainer>
     </>
   )
 }
 
-const Item = ({ data }: { data: IGalleryItem }) => {
+const Item = ({ data, albumYear }: { data: IGalleryItem, albumYear: string }) => {
   const { title, images } = data;
   const [src] = images;
 
   return (
-    <StyledItem>
+    <StyledItem to={`/gallery/${albumYear}/${title}`}>
       <Image src={src} />
       <Title>{title}</Title>
     </StyledItem>

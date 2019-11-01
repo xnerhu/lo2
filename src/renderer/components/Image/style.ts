@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { coverImage, aspectRatio } from '~/renderer/mixins';
+import { aspectRatio, noUserSelect } from '~/renderer/mixins';
 
 export const Container = styled.div`
   width: 100%;
@@ -8,18 +8,24 @@ export const Container = styled.div`
   position: relative;
 
   ${({ ratio }: { ratio: number }) => css`
-    ${ratio ? aspectRatio(ratio) : ''};
+    ${ratio && aspectRatio(ratio)};
   `}   
 `;
 
-export const StyledImage = styled.div`
+export const StyledImage = styled.img`
   width: 100%;
   height: 100%;
-  background-position: center;
-  transition: 0.15s background-image;
-  ${coverImage()};
+  object-fit: cover;
+  object-position: center;
+  transition: 0.15s opacity;
+  ${noUserSelect()};
 `;
 
 export const Label = styled.div`
   margin-top: 8px;
+`;
+
+export const Picture = styled.picture`
+  width: 100%;
+  height: 100%;
 `;

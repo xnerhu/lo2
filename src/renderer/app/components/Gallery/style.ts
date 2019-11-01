@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { GALLERY_CARD_SIZE, GALLERY_CARD_MARGIN } from '~/renderer/constants';
-import { robotoMedium, shadows } from '~/renderer/mixins';
+import { robotoMedium, noUserSelect } from '~/renderer/mixins';
 
 export const Header = styled.div`
   font-size: 16px;
@@ -23,7 +24,7 @@ export const SectionContainer = styled.div`
   }
 `;
 
-export const StyledItem = styled.div`
+export const StyledItem = styled(Link)`
   width: ${GALLERY_CARD_SIZE}px;
   height: ${GALLERY_CARD_SIZE}px;
   overflow: hidden;
@@ -31,6 +32,7 @@ export const StyledItem = styled.div`
   margin: ${GALLERY_CARD_MARGIN}px ${GALLERY_CARD_MARGIN}px 0px 0px;
   cursor: pointer;
   transition: 0.1s transform;
+  ${noUserSelect()};
 
   &:hover {
     transform: scale(1.05);

@@ -1,4 +1,4 @@
-export const BACKGROUND_COLOR = '#fafafa';
+export const BACKGROUND_COLOR = '#fff';
 
 export const FOOTER_COLOR = '#f5f5f5';
 

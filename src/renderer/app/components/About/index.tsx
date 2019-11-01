@@ -18,7 +18,7 @@ export const About = () => {
         <ListCard to='/about/articles' icon={icons.newsPaper}>Piszą o nas</ListCard>
       </Column>
       <ImgContainer>
-        <Image src='/static/about.jpg' />
+        <Image src='/static/about' />
       </ImgContainer>
     </Container>
   );

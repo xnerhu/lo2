@@ -3,6 +3,8 @@ import { IS_BROWSER } from '~/renderer/constants';
 const fetched: string[] = [];
 
 export const preFetchImage = (src: string): Promise<void> => {
+  src = src + '.webp';
+
   if (!IS_BROWSER || fetched.indexOf(src) !== -1) return null;
 
   return new Promise((resolve, reject) => {
@@ -12,10 +14,6 @@ export const preFetchImage = (src: string): Promise<void> => {
 
     img.onload = resolve as any;
     img.src = src;
-
-    img.onerror = (err) => {
-      console.error(src, err);
-      reject(err);
-    }
+    img.onerror = reject;
   });
 }

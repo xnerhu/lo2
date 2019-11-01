@@ -2,38 +2,56 @@ import * as React from 'react';
 import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
-import { IAppState } from '~/interfaces';
+import { IAppState, INews } from '~/interfaces';
 import { SliderStore } from './slider';
-import { ShortNewsStore } from './short-news';
 import { MenuStore } from './menu';
 import { PressStore } from './press';
-import { TeachersStore } from './teachers';
 import { GalleryStore } from './gallery';
+import { StoreBase } from '../models';
 
 class Store {
+  public shortNews = new StoreBase<INews>({
+    api: 'short-news',
+    name: 'shortNews',
+    path: '/',
+  });
+
   public slider = new SliderStore();
-  public shortNews = new ShortNewsStore();
+
+  public teachers = new StoreBase<INews>({
+    api: 'teachers',
+    name: 'teachers',
+    path: '/about/teachers',
+  });
+
   public menu = new MenuStore();
   public press = new PressStore();
-  public teachers = new TeachersStore();
   public gallery = new GalleryStore();
 
   @observable
   public loggedIn = false;
 
   constructor(state?: IAppState) {
-    if (!state) return;
-    this.insertState(state);
+    if (state) {
+      const stores = this.getStores();
+
+      stores.forEach(r => {
+        r.inject(state);
+      });
+    }
   }
 
-  private insertState(state: IAppState) {
-    const { sliderItems, shortNews, pressItems, teachersItems, gallery } = state;
+  private getStores(): StoreBase<any>[] {
+    const names = Object.getOwnPropertyNames(this);
+    return names.filter(r => (this as any)[r] instanceof StoreBase).map(r => (this as any)[r]);
+  }
 
-    this.slider.load(sliderItems || [])
-    this.shortNews.items = shortNews || [];
-    this.press.items = pressItems || [];
-    this.teachers.items = teachersItems || [];
-    this.gallery.items = gallery || [];
+  public fetch(path: string) {
+    const stores = this.getStores().filter(r => r.options.path === path);
+
+    stores.forEach(r => {
+      r.fetch();
+    });
   }
 }
 

@@ -1,27 +1,51 @@
-import { observable } from 'mobx';
+import { observable, computed } from 'mobx';
+
 import { preFetchImage } from '../utils';
+import { StoreBase } from '../models';
 
-export class SliderStore {
-  @observable
-  public items: string[] = [];
-
-  @observable
-  public selected: string;
-
+export class SliderStore extends StoreBase<string> {
   @observable
   public fetched = false;
 
-  public async load(items: string[]) {
+  @observable
+  public selectedIndex = 0;
+
+  constructor() {
+    super({
+      api: 'slider',
+      name: 'slider',
+      path: '/',
+    });
+
+    this.on('load', this.onLoad);
+  }
+
+  @computed
+  public get selected() {
+    if (!this.items.length) return null;
+    return this.items[this.selectedIndex];
+  }
+
+  private onLoad = async (items: string[]) => {
     this.items = items;
 
-    if (items.length) {
-      this.selected = this.items[0];
+    try {
+      await Promise.all(this.items.map(r => preFetchImage(r)));
+    } catch (err) {
     }
 
-    const promises = this.items.map(r => preFetchImage(r));
-
-    await Promise.all(promises);
-
     this.fetched = true;
+  }
+
+  public switchLeft = () => {
+    if (--this.selectedIndex < 0) {
+      this.selectedIndex = this.items.length - 1;
+    }
+  }
+
+  public switchRight = () => {
+    if (++this.selectedIndex >= this.items.length) {
+      this.selectedIndex = 0;
+    }
   }
 }

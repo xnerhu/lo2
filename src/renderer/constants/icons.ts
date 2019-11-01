@@ -17,4 +17,5 @@ export const icons = {
   userShield: require('~/renderer/resources/icons/user-shield.svg'),
   money: require('~/renderer/resources/icons/money.svg'),
   userQuestion: require('~/renderer/resources/icons/user-question.svg'),
+  chevron: require('~/renderer/resources/icons/chevron.svg'),
 }

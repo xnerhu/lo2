@@ -1,9 +1,14 @@
 export interface IGallerySection {
+  year?: number;
   label?: string;
-  items?: IGalleryItem[];
+  albums?: IGalleryAlbum[];
 }
 
-export interface IGalleryItem {
+export interface IGalleryAlbum {
+  _id?: number;
   title?: string;
   images?: string[];
+  createdAt?: Date;
+  image?: string;
+  _authorId?: number;
 }

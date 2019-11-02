@@ -1,57 +1,38 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { h3, h4, noUserSelect, centerIcon } from '~/renderer/mixins';
-import { transparency, GRADIENT, GRADIENT_VERTICAL, icons, MOBILE_VIEW, BACKGROUND_COLOR } from '~/renderer/constants';
+import { h3, h4, noUserSelect, centerIcon, robotoLight } from '~/renderer/mixins';
+import { transparency, GRADIENT, GRADIENT_VERTICAL, icons, MOBILE_VIEW, BACKGROUND_COLOR, NAVBAR_HEIGHT } from '~/renderer/constants';
+import { Icon } from '~/renderer/components/Icon';
 
 export const Header = styled.header`
-  padding-top: 32px;
-  padding-bottom: 24px;
+  padding: 32px 0px 24px;
   text-align: center;
-  font-weight: 300 !important;
   ${h3()};
-
-  @media(max-width: ${MOBILE_VIEW}px) {
-    padding-left: 24px;
-    padding-right: 24px;
-    margin-bottom: 32px;
-    border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
-    ${h4()};
-  }
-
-  @media(max-width: 576px) {
-    font-size: 30px;
-  }
+  ${robotoLight()};
 `;
 
 export const Navbar = styled.nav`
   width: 100%;
-  height: 56px;
+  height: ${NAVBAR_HEIGHT}px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
   background-color: ${BACKGROUND_COLOR};
   margin-bottom: 32px;
-  border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
-
-  ${({ visible }: { visible: boolean }) => css`
-    @media(max-width: ${MOBILE_VIEW}px) {
-      display: ${visible ? 'block' : 'none'};
-    }
-  `}
 
   @media(max-width: ${MOBILE_VIEW}px) {
-    width: 100%;
     height: 100%;
     flex-direction: column;
-    position: absolute;
+    justify-content: start;
+    position: fixed;
     z-index: 10;
     top: 0;
     left: 0;
     overflow-y: auto;
 
     &::before {
-      content: 'PLO2 Opole';
+      content: 'LO2 Opole';
       display: block;
       padding: 0px 24px;
       height: 80px;
@@ -64,7 +45,7 @@ export const Navbar = styled.nav`
 `;
 
 export const StyledNavItem = styled(Link)`
-  height: 100%;
+  min-height: ${NAVBAR_HEIGHT - 1}px;
   display: flex;
   align-items: center;
   padding: 0px 16px;
@@ -87,42 +68,55 @@ export const StyledNavItem = styled(Link)`
         background: ${GRADIENT};
         position: absolute;
       }
-
-      @media(max-width: ${MOBILE_VIEW}px) {
-        height: 48px;
-
-        &::after {
-          width: 4px;
-          height: 100%;
-          bottom: 0;
-          background: ${GRADIENT_VERTICAL};
-        }
-      }
     `}
   `}
 
   &:hover {
     background-color: #f5f5f5;
+
+    & .nav-menu {
+      display: block;
+    }
   }
 
   @media(max-width: ${MOBILE_VIEW}px) {
-    height: 48px;
-    padding: 0px 24px;
+    &::after {
+      width: 4px;
+      height: 100%;
+      bottom: 0;
+      background: ${GRADIENT_VERTICAL};
+    }
   }
 `
 
-export const Menu = styled.div`
+export const ExpandIcon = styled(Icon)`
+  opacity: ${transparency.icons.inactive};
+  margin-left: auto;
+  margin-right: 4px;
+  transition: 0.15s transform;
+  display: none;
+  
+  ${({ expanded }: { expanded: boolean }) => css`
+    transform: rotate(${expanded ? 90 : -90}deg);
+  `}
+
+  @media(max-width: ${MOBILE_VIEW}px) {
+    display: block;
+  }
+`;
+
+export const MenuButton = styled.div`
   width: 48px;
   height: 48px;
   position: absolute;
   top: 16px;
   right: 8px;
-  background-image: url(${icons.menu});
   border-radius: 100%;
   cursor: pointer;
   transition: 0.1s background-color;
   display: none;
-  z-index: 20;
+  z-index: 10;
+  background-image: url(${icons.menu});
   ${noUserSelect()};
   ${centerIcon(24)};
 
@@ -133,8 +127,5 @@ export const Menu = styled.div`
   &:hover {
     background-color: #f5f5f5;
   }
-
-  &:active {
-    background-color: #eee;
-  }
 `;
+

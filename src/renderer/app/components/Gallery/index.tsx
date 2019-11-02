@@ -3,33 +3,32 @@ import { observer } from 'mobx-react-lite';
 
 import { useStore } from '~/renderer/app/store';
 import { Image } from '~/renderer/components/Image';
-import { IGallerySection, IGalleryItem } from '~/interfaces';
-import { SectionContainer, Header, StyledItem, Title } from './style';
+import { IGallerySection, IGalleryAlbum } from '~/interfaces';
+import { SectionContainer, Header, StyledAlbum, Title } from './style';
 
 const Section = ({ data }: { data: IGallerySection }) => {
-  const { label, items } = data;
+  const { label, albums } = data;
 
   return (
     <>
       <Header>{label}</Header>
       <SectionContainer>
-        {items.map(r => (
-          <Item key={r.title} data={r} albumYear={label} />
+        {albums.map(r => (
+          <Album key={r.title} data={r} />
         ))}
       </SectionContainer>
     </>
   )
 }
 
-const Item = ({ data, albumYear }: { data: IGalleryItem, albumYear: string }) => {
-  const { title, images } = data;
-  const [src] = images;
+const Album = ({ data }: { data: IGalleryAlbum }) => {
+  const { title, image } = data;
 
   return (
-    <StyledItem to={`/gallery/${albumYear}/${title}`}>
-      <Image src={src} />
+    <StyledAlbum to='/gallery'>
+      <Image src={image} />
       <Title>{title}</Title>
-    </StyledItem>
+    </StyledAlbum>
   )
 }
 

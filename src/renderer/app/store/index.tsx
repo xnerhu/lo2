@@ -2,11 +2,10 @@ import * as React from 'react';
 import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
-import { IAppState, INews } from '~/interfaces';
+import { IAppState, INews, IGallerySection } from '~/interfaces';
 import { SliderStore } from './slider';
 import { MenuStore } from './menu';
 import { PressStore } from './press';
-import { GalleryStore } from './gallery';
 import { StoreBase } from '../models';
 
 class Store {
@@ -24,9 +23,14 @@ class Store {
     path: '/about/teachers',
   });
 
+  public gallery = new StoreBase<IGallerySection>({
+    api: 'gallery',
+    name: 'gallery',
+    path: '/gallery',
+  });
+
   public menu = new MenuStore();
   public press = new PressStore();
-  public gallery = new GalleryStore();
 
   @observable
   public loggedIn = false;

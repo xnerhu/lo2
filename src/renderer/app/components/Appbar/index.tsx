@@ -2,30 +2,43 @@ import * as React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
-import { useStore } from '../../store';
-import { NAVIGATION_ITEMS } from '../../constants';
-import { INavigationItem } from '../../interfaces';
-import { Header, Navbar, StyledNavItem, Menu } from './style';
+import { useStore } from '~/renderer/app/store';
+import { Menu } from './Menu';
+import { Icon } from '~/renderer/components/Icon';
+import { icons } from '~/renderer/constants';
+import { MenuItem } from './Menu/style';
+import { Header, Navbar, StyledNavItem, MenuButton, ExpandIcon } from './style';
 
 interface Props extends RouteComponentProps {
-  data: INavigationItem;
+  label: string;
+  to?: string;
+  children?: React.ReactNode;
 }
 
-const NavItem = withRouter(({ data, location }: Props) => {
+const NavItem = withRouter(({ label, to, children, location }: Props) => {
+  const [expanded, setExpanded] = React.useState(true);
+
   const store = useStore();
 
-  const { to, label } = data;
   const { pathname } = location;
-  const selected = to === '/' ? pathname === to : location.pathname.startsWith(to);
+  const selected = to && (to === '/' ? pathname === to : pathname.startsWith(to));
 
   const onClick = React.useCallback(() => {
-    store.menu.visible = false;
-  }, []);
+    if (to) {
+      store.menu.visible = false;
+    } else {
+      setExpanded(!expanded);
+    }
+  }, [expanded, to]);
 
   return (
-    <StyledNavItem to={to} selected={selected} onClick={onClick}>
-      {label}
-    </StyledNavItem>
+    <>
+      <StyledNavItem to={to} selected={selected} onClick={onClick}>
+        {label}
+        {!to && <ExpandIcon src={icons.chevron} size={24} expanded={expanded} />}
+        {expanded && children}
+      </StyledNavItem>
+    </>
   );
 });
 
@@ -40,11 +53,25 @@ export const Appbar = observer(() => {
     <>
       <Header>Publiczne Liceum Ogólnokształcące Nr II w Opolu</Header>
       <Navbar visible={store.menu.visible}>
-        {NAVIGATION_ITEMS.map(r => (
-          <NavItem key={r.to} data={r}></NavItem>
-        ))}
+        <NavItem to='/' label='Strona główna' />
+        <NavItem label='O nas'>
+          <Menu>
+            <MenuItem>Nauczyciele</MenuItem>
+            <MenuItem>Nasza patronka</MenuItem>
+            <MenuItem>Statut szkoły</MenuItem>
+            <MenuItem>Historia szkoły</MenuItem>
+            <MenuItem>Osiągnięcia</MenuItem>
+            <MenuItem>Piszą o nas</MenuItem>
+          </Menu>
+        </NavItem>
+        <NavItem to='/news' label='Aktualności' />
+        <NavItem to='/gallery' label='Galeria' />
+        <NavItem to='/students' label='Dla uczniów' />
+        <NavItem to='/parents' label='Dla rodziców' />
+        <NavItem to='/recruitment' label='Rekrutacja' />
+        <NavItem to='/contact' label='Kontakt' />
       </Navbar>
-      <Menu onClick={onMenuClick} />
+      <MenuButton onClick={onMenuClick} />
     </>
   );
 });

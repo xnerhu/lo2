@@ -14,19 +14,21 @@ const canRenderLast = () => {
 }
 
 export const ShortNews = observer(() => {
-  const [renderLast, setRenderLast] = React.useState(canRenderLast());
+  const [renderLast, setRenderLast] = React.useState(false);
   const store = useStore();
   const length = store.shortNews.items.length;
 
   const items = React.useMemo(() => {
     return store.shortNews.items.slice(0, renderLast ? length : length - 1)
-  }, [renderLast, store.shortNews]);
+  }, [renderLast, store.shortNews.items]);
 
   if (IS_BROWSER) {
     React.useEffect(() => {
       window.addEventListener('resize', () => {
         setRenderLast(canRenderLast());
       });
+
+      setRenderLast(canRenderLast());
     }, []);
   }
 

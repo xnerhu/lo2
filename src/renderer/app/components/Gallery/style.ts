@@ -24,7 +24,7 @@ export const SectionContainer = styled.div`
   }
 `;
 
-export const StyledItem = styled(Link)`
+export const StyledAlbum = styled(Link)`
   width: ${GALLERY_CARD_SIZE}px;
   height: ${GALLERY_CARD_SIZE}px;
   overflow: hidden;

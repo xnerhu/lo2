@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { IAppState } from '~/interfaces'; import { fonts } from '~/renderer/constants';
 
+const { POSTS_PER_PAGE } = process.env;
+
 interface Props {
   scripts?: string[];
   state?: IAppState;
@@ -49,7 +51,7 @@ export const Html = ({ scripts, state, styleElement, children }: Props) => {
         <meta name="robots" content="index, follow" />
         <meta name="google-site-verification" content="kqoyKSVPjg08It3qpIJjnSj-iMvE4KF5ZJNwF8QnwUg" />
         <meta name="author" content="Mikołaj Palkiewicz" />
-        <title>PLO II - Opole</title>
+        <title>Publiczne Liceum Ogólnokształcące Nr II im. Marii Konopnickiej w Opolu</title>
         <style type="text/css" dangerouslySetInnerHTML={{ __html: fontsCss }} />
         {styleElement}
         <script type="text/javascript" dangerouslySetInnerHTML={{ __html: `window.__APP_STATE__=${appState}` }} />

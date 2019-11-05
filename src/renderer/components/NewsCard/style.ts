@@ -1,19 +1,26 @@
 import styled from 'styled-components';
 
 import { transparency } from '~/renderer/constants';
-import { noUserSelect } from '~/renderer/mixins';
+import { noUserSelect, overline } from '~/renderer/mixins';
 
-export const Title = styled.h6`
-  padding: 16px 24px 8px;
+export const Category = styled.div`
+  color: rgba(0, 0, 0, ${transparency.text.medium});
+  margin-bottom: 6px;
+  ${overline()};
+  ${noUserSelect()};
+`;
+
+export const Container = styled.div`
+  padding: 16px 24px 0px;
 `;
 
 export const Content = styled.div`
-  padding: 0px 24px 16px;
+  margin-top: 4px;
   color: rgba(0, 0, 0, ${transparency.text.medium});
 `;
 
-export const Date = styled(Content)`
-  padding: 0px 24px 16px;
+export const Date = styled.div`
+  padding: 16px 24px;
   margin-top: auto;
-  ${noUserSelect()};
+  color: rgba(0, 0, 0, ${transparency.text.medium});
 `;

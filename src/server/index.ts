@@ -24,12 +24,14 @@ app.use(controllers);
 const { PORT } = process.env;
 
 app.listen(PORT, async () => {
+  const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB_NAME } = process.env;
+
   await db.connect({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'password',
-    database: 'lo2',
-    port: 3306,
+    host: MYSQL_HOST,
+    user: MYSQL_USER,
+    password: MYSQL_PASSWORD,
+    database: MYSQL_DB_NAME,
+    port: parseInt(MYSQL_PORT),
   });
 
   console.log(`${chalk.cyanBright.bold('Server is running at')} ${chalk.greenBright(`http://localhost:${PORT}`)}`);

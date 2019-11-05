@@ -1,7 +1,7 @@
-import { IAppStateItem } from '~/interfaces';
+import { IAppState } from '~/interfaces';
 
 export interface IStoreOptions {
-  path?: string;
+  path?: string | string[];
   api?: string;
-  name?: IAppStateItem;
+  name?: keyof IAppState;
 }

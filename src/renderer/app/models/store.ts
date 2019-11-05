@@ -23,8 +23,8 @@ export class StoreBase<T> extends EventEmitter {
     this.updateItems(appState[name] as T[]);
   }
 
-  public async fetch(params?: { [key: string]: string }) {
-    if (!this.items.length) {
+  public async fetch(params?: { [key: string]: any }, force = false) {
+    if (!this.items.length || force) {
       const { api } = this.options;
       const { data } = await axios.get(`/api/${api}`, { params });
 
@@ -33,7 +33,7 @@ export class StoreBase<T> extends EventEmitter {
   }
 
   @action
-  private updateItems(data: T[]) {
+  protected updateItems(data: any) {
     if (data) {
       this.items = data;
       this.emit('load', data);

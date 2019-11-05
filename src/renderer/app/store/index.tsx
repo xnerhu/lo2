@@ -2,20 +2,24 @@ import * as React from 'react';
 import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
-import { IAppState, INews, IGallerySection } from '~/interfaces';
+import { IAppState, INews, IGallerySection, INewsCategory } from '~/interfaces';
+import { ShortNewsStore } from './short-news';
+import { NewsStore } from './news';
 import { SliderStore } from './slider';
 import { MenuStore } from './menu';
 import { PressStore } from './press';
 import { StoreBase } from '../models';
 
 class Store {
-  public shortNews = new StoreBase<INews>({
-    api: 'short-news',
-    name: 'shortNews',
-    path: '/',
-  });
-
+  public shortNews = new ShortNewsStore();
+  public news = new NewsStore();
   public slider = new SliderStore();
+
+  public newsCategories = new StoreBase<INewsCategory>({
+    api: 'news-categories',
+    name: 'newsCategories',
+    path: '/news',
+  });
 
   public teachers = new StoreBase<INews>({
     api: 'teachers',
@@ -51,7 +55,15 @@ class Store {
   }
 
   public fetch(path: string) {
-    const stores = this.getStores().filter(r => r.options.path === path);
+    const stores = this.getStores().filter(r => {
+      const storePath = r.options.path;
+
+      if (typeof storePath === 'string') {
+        return storePath === path;
+      }
+
+      return storePath.indexOf(path) !== -1;
+    });
 
     stores.forEach(r => {
       r.fetch();

@@ -10,9 +10,10 @@ import { Press } from '../About/Press';
 import { Teachers } from '../About/Teachers';
 import { History } from '../About/History';
 import { Students } from '../Students';
-import { Contact } from '../Contact';
+import { News } from '../News';
 import { Gallery } from '../Gallery';
 import { GalleryView } from '../Gallery/GalleryView';
+import { Contact } from '../Contact';
 
 import { useStore } from '~/renderer/app/store';
 import { Appbar } from '../Appbar';
@@ -44,6 +45,7 @@ const App = withRouter((props: RouteProps) => {
           <Route path="/about/history" component={History} />
           <Route path="/students" component={Students} />
           <Route path="/about" component={About} />
+          <Route path="/news" component={News} />
           <Route path="/gallery/:year/:album" component={GalleryView} />
           <Route path="/gallery" component={Gallery} />
           <Route path="/contact" component={Contact} />

@@ -5,7 +5,27 @@ export interface INews {
   title?: string;
   content?: string;
   image?: string;
+  _categoryId?: number;
+  category?: string;
+  createdAt?: Date;
   _authorId?: number;
   author?: IUser;
-  createdAt?: Date;
+}
+
+export interface INewsCategory {
+  _id?: number;
+  title?: string;
+}
+
+export interface INewsChunk {
+  items?: INews[];
+  pagesCount?: number;
+  error?: boolean;
+}
+
+export interface INewsFilter {
+  page?: number;
+  limit?: number;
+  text?: string;
+  category?: number;
 }

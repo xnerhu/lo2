@@ -4,17 +4,28 @@ import { formatDate } from '~/renderer/app/utils';
 import { INews } from '~/interfaces';
 import { CardImage } from '../Card';
 import { StyledCard } from '../Card/style';
-import { Title, Content, Date } from './style';
+import { Container, Content, Date, Category } from './style';
 
 export const NewsCard = ({ data }: { data: INews }) => {
-  const { image, title, content, createdAt } = data;
+  const { image, category, title, content, createdAt } = data;
 
   return (
     <StyledCard>
-      <CardImage src={image} />
-      <Title>{title}</Title>
-      <Content>{content}</Content>
-      <Date>{formatDate(createdAt)}</Date>
+      {image && <CardImage src={image} />}
+      <Container>
+        <Category>
+          {category}
+        </Category>
+        <h6>
+          {title}
+        </h6>
+        <Content>
+          {content}
+        </Content>
+      </Container>
+      <Date>
+        {formatDate(createdAt)}
+      </Date>
     </StyledCard>
   );
 }

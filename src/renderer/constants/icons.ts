@@ -18,5 +18,8 @@ export const icons = {
   money: require('~/renderer/resources/icons/money.svg'),
   userQuestion: require('~/renderer/resources/icons/user-question.svg'),
   chevron: require('~/renderer/resources/icons/chevron.svg'),
+  chevronDouble: require('~/renderer/resources/icons/chevron-double.svg'),
   email: require('~/renderer/resources/icons/email.svg'),
+  search: require('~/renderer/resources/icons/search.svg'),
+  drop: require('~/renderer/resources/icons/drop.svg'),
 }

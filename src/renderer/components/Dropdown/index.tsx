@@ -44,6 +44,12 @@ export const Dropdown = ({ items, onChange }: Props) => {
     }
   }, [items]);
 
+  React.useEffect(() => {
+    return () => {
+      window.removeEventListener('click', onWindowClick);
+    }
+  }, []);
+
   return (
     <StyledDropdown onClick={onClick}>
       {selected && <>

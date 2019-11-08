@@ -21,7 +21,7 @@ export const Navbar = styled.nav`
   background-color: ${BACKGROUND_COLOR};
   margin-bottom: 32px;
 
-  @media(max-width: ${MOBILE_VIEW}px) {
+  /* @media(max-width: ${MOBILE_VIEW}px) {
     height: 100%;
     flex-direction: column;
     justify-content: start;
@@ -41,7 +41,7 @@ export const Navbar = styled.nav`
       ${h4()};
       font-weight: 300;
     }
-  }
+  } */
 `;
 
 export const StyledNavItem = styled(Link)`
@@ -79,14 +79,14 @@ export const StyledNavItem = styled(Link)`
     }
   }
 
-  @media(max-width: ${MOBILE_VIEW}px) {
+  /* @media(max-width: ${MOBILE_VIEW}px) {
     &::after {
       width: 4px;
       height: 100%;
       bottom: 0;
       background: ${GRADIENT_VERTICAL};
     }
-  }
+  } */
 `
 
 export const ExpandIcon = styled(Icon)`
@@ -100,9 +100,9 @@ export const ExpandIcon = styled(Icon)`
     transform: rotate(${expanded ? 90 : -90}deg);
   `}
 
-  @media(max-width: ${MOBILE_VIEW}px) {
+  /* @media(max-width: ${MOBILE_VIEW}px) {
     display: block;
-  }
+  } */
 `;
 
 export const MenuButton = styled.div`
@@ -120,9 +120,9 @@ export const MenuButton = styled.div`
   ${noUserSelect()};
   ${centerIcon(24)};
 
-  @media(max-width: ${MOBILE_VIEW}px) {
+  /* @media(max-width: ${MOBILE_VIEW}px) {
     display: block;
-  }
+  } */
 
   &:hover {
     background-color: #f5f5f5;

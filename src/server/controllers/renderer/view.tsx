@@ -5,10 +5,9 @@ import { StaticRouter } from 'react-router';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
 import { StoreProvider } from '~/renderer/app/store';
-import { IAppState } from '~/interfaces';
-import { Html } from '../components/Html';
+import { Html } from '~/server/components/Html';
 import App from '~/renderer/app/components/App';
-import { getAppState } from '../utils';
+import { IRequest } from '~/server/interfaces/req';
 
 const router = Router();
 
@@ -16,7 +15,7 @@ const scripts = ['app.js', 'vendor.chunk.js'];
 const sheet = new ServerStyleSheet();
 
 
-router.get('*', async (req, res, next) => {
+router.get('*', (req: IRequest, res, next) => {
   const routerContext = {};
 
   // const appState: IAppState = {
@@ -100,12 +99,12 @@ router.get('*', async (req, res, next) => {
   //   ]
   // }
 
-  const appState = await getAppState(req.originalUrl);
+  // const appState = await getAppState(req.originalUrl);
 
   const content = renderToString(
     <StaticRouter location={req.originalUrl} context={routerContext}>
       <StyleSheetManager sheet={sheet.instance}>
-        <StoreProvider data={appState}>
+        <StoreProvider data={req.appState}>
           <App />
         </StoreProvider>
       </StyleSheetManager>
@@ -113,7 +112,7 @@ router.get('*', async (req, res, next) => {
   );
 
   const str = renderToString(
-    <Html scripts={scripts} styleElement={sheet.getStyleElement()} state={appState}>
+    <Html scripts={scripts} styleElement={sheet.getStyleElement()} state={req.appState}>
       {content}
     </Html>
   );

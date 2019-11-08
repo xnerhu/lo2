@@ -13,8 +13,12 @@ export class StoreBase<T> extends EventEmitter {
   @observable
   public items: T[] = [];
 
-  constructor(public options: IStoreOptions) {
+  protected defaultItems: T[];
+
+  constructor(public options: IStoreOptions<T>) {
     super();
+
+    this.defaultItems = options.items || [];
   }
 
   public inject(appState: IAppState) {
@@ -35,7 +39,7 @@ export class StoreBase<T> extends EventEmitter {
   @action
   protected updateItems(data: any) {
     if (data) {
-      this.items = data;
+      this.items = [...this.defaultItems, ...data];
       this.emit('load', data);
     }
   }

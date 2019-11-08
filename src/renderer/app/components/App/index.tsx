@@ -32,7 +32,6 @@ const App = withRouter((props: RouteProps) => {
     store.fetch(pathname);
   }, [pathname]);
 
-
   return (
     <>
       <GlobalStyle />
@@ -45,7 +44,7 @@ const App = withRouter((props: RouteProps) => {
           <Route path="/about/history" component={History} />
           <Route path="/students" component={Students} />
           <Route path="/about" component={About} />
-          <Route path="/news" component={News} />
+          <Route path="/news/:page?/:category?/:text?" component={News} />
           <Route path="/gallery/:year/:album" component={GalleryView} />
           <Route path="/gallery" component={Gallery} />
           <Route path="/contact" component={Contact} />

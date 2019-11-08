@@ -13,16 +13,30 @@ const maxLength = parseInt(SHORT_NEWS_MAX_LENGTH);
 const router = Router();
 
 const getQuery = (filter: INewsFilter = {}, count = false) => {
-  const { limit, page, category, text } = filter;
+  const { limit, page, text } = filter;
 
+  let category = filter.category as any as string;
+  category = category !== '-1' && category;
+
+  let str = 'SELECT ';
+
+  if (!count) str += '* ';
+  else str += 'COUNT(*) as count ';
+  str += 'FROM news ';
+
+  if (category || text) str += 'WHERE ';
+  if (category) str += `_categoryId = ${escape(category)} `;
+  if (category && text) str += 'AND ';
+
+  if (text) {
+    const escaped = escape(`%${text}%`);
+    str += `(content LIKE ${escaped} OR title LIKE ${escaped} ) `;
+  }
+
+  const postsLimit = limit || postsPerPage;
   const offset = page ? (page - 1) * postsPerPage : 0;
-  const prefix = (category || text) ? 'WHERE ' : '';
-  const categorySql = category ? `_categoryId = ${escape(category)}` : '';
 
-  const escapedText = escape(text);
-  const textSql = text ? `${category ? 'AND' : ''} (news.content LIKE "%${escapedText}%" OR news.title LIKE "%${escapedText}%")` : '';
-
-  const str = `SELECT ${count ? 'COUNT(*) as count' : '*'} FROM news ${prefix} ${categorySql} ${textSql} ORDER BY _id DESC LIMIT ${escape(limit || postsPerPage)} OFFSET ${offset}`;
+  str += `ORDER BY _id DESC LIMIT ${escape(postsLimit)} OFFSET ${escape(offset)}`;
 
   return str;
 }
@@ -54,14 +68,6 @@ export const countNewsPages = async (filter?: INewsFilter) => {
   return Math.ceil(item.count / postsPerPage);
 }
 
-export const getNewsCategories = async () => {
-  const data = await db.query<INewsCategory>({
-    sql: 'SELECT * FROM `news-categories`',
-  });
-
-  return data;
-}
-
 export const getNewsChunk = async (filter?: INewsFilter) => {
   const [items, pagesCount] = await Promise.all([getNews(filter), countNewsPages(filter)]);
 
@@ -70,6 +76,14 @@ export const getNewsChunk = async (filter?: INewsFilter) => {
     pagesCount,
     error: pagesCount === 0
   }
+
+  return data;
+}
+
+export const getNewsCategories = async () => {
+  const data = await db.query<INewsCategory>({
+    sql: 'SELECT * FROM `news-categories`',
+  });
 
   return data;
 }

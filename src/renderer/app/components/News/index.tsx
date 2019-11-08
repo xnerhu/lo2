@@ -1,54 +1,57 @@
 import * as React from 'react';
-import { observer } from 'mobx-react-lite';
+import { withRouter } from 'react-router';
 
+import { INewsFilter } from '~/interfaces';
 import { useStore } from '~/renderer/app/store';
 import { NewsCard } from '~/renderer/components/NewsCard';
 import { Dropdown } from '~/renderer/components/Dropdown';
 import { Input } from '~/renderer/components/Input';
+import { Pagination } from './Pagination';
+import { observableWithRouter } from '../../utils';
 import { CardsContainer } from '~/renderer/components/Card/style';
-import { Toolbar, Pages, Page, Chevron, Container, Error, ErrorCircle, ErrorDescription } from './style';
+import { Toolbar, StyledError, ErrorCircle, ErrorDescription } from './style';
 
-const Pagination = observer(() => {
+const Error = () => {
+  return (
+    <StyledError>
+      <ErrorCircle>
+        404
+      </ErrorCircle>
+      <b><h4>Oops! Nic nie znaleziono!</h4></b>
+      <ErrorDescription>Posty, które szukasz mogły zostać usunięte lub zmienione.</ErrorDescription>
+    </StyledError>
+  );
+}
+
+const SearchInput = withRouter(({ history }) => {
   const store = useStore();
-  const length = store.news.paginationLength;
 
-  const onClick = (page: number) => () => {
-    store.news.switchPage(page);
-  }
+  const onChange = React.useCallback(e => {
+    store.news.onSearch(e);
+
+    history.push({
+      pathname: store.news.getPathname(),
+    });
+  }, []);
 
   return (
-    <Pages>
-      <Chevron onClick={store.news.goStart} disabled={!store.news.canGoStart} double />
-      <Chevron onClick={store.news.goBackward} disabled={!store.news.canSwitch} />
-      <Container>{Array.from({ length }, (r, i) => {
-        const page = store.news.paginationOffset * length + i + 1;
-        const disabled = page > store.news.pagesCount;
-
-        return (
-          <Page
-            key={i}
-            selected={store.news.currentPage === page}
-            onClick={!disabled ? onClick(page) : null}
-            disabled={disabled}
-          >
-            {page}
-          </Page>
-        )
-      })}</Container>
-      <Chevron onClick={store.news.goForward} disabled={!store.news.canSwitch} right />
-      <Chevron onClick={store.news.goEnd} disabled={!store.news.canGoEnd} right double />
-    </Pages>
-  );
+    <Input placeholder='Wyszukaj' onChange={onChange} style={{ marginLeft: 'auto' }} />
+  )
 });
 
-export const News = observer(() => {
+export const News = observableWithRouter((props: any) => {
   const store = useStore();
+  const params: INewsFilter = props.match.params;
+
+  React.useEffect(() => {
+    store.news.injectParams(params);
+  }, [params]);
 
   return (
     <>
       <Toolbar>
         <Dropdown items={store.newsCategories.items} onChange={store.news.onDropdown} />
-        <Input placeholder='Wyszukaj' onChange={store.news.onSearch} style={{ marginLeft: 'auto' }} />
+        <SearchInput />
       </Toolbar>
       {!store.news.error && (
         <>
@@ -60,15 +63,7 @@ export const News = observer(() => {
           <Pagination />
         </>
       )}
-      {store.news.error && (
-        <Error>
-          <ErrorCircle>
-            404
-          </ErrorCircle>
-          <b><h4>Oops! Nic nie znaleziono!</h4></b>
-          <ErrorDescription>Posty, które szukasz mogły zostać usunięte lub zmienione.</ErrorDescription>
-        </Error>
-      )}
+      {store.news.error && <Error />}
     </>
   );
 });

@@ -17,14 +17,14 @@ export const StyledMenu = styled.ul`
   border-radius: 12px;
   box-shadow: ${shadows(4)};
 
-  @media(max-width: ${MOBILE_VIEW}px) {
+  /* @media(max-width: ${MOBILE_VIEW}px) {
     width: 100%;
     position: relative;
     top: 0px;
     box-shadow: unset;
     display: block;
     background-color: transparent;
-  }
+  } */
 `;
 
 export const MenuItem = styled.li`
@@ -40,8 +40,8 @@ export const MenuItem = styled.li`
     background-color: #f5f5f5;
   }
 
-  @media(max-width: ${MOBILE_VIEW}px) {
+  /* @media(max-width: ${MOBILE_VIEW}px) {
     padding-left: 32px;
     height: 56px;
-  }
+  } */
 `;

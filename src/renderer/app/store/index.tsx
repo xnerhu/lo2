@@ -19,6 +19,12 @@ class Store {
     api: 'news-categories',
     name: 'newsCategories',
     path: '/news',
+    items: [
+      {
+        _id: -1,
+        title: 'Wszystko'
+      }
+    ]
   });
 
   public teachers = new StoreBase<INews>({

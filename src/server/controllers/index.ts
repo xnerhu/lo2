@@ -8,7 +8,6 @@ const router = Router();
 
 router.use('/static', staticDir(join('build/client', 'static')));
 router.use('/static', staticDir(resolve('static')));
-
 router.use('/api', api);
 router.use(renderer);
 

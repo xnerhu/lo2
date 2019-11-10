@@ -38,10 +38,10 @@ export const Footer = () => {
         <Column>
           <Title>Znajdź nas</Title>
           <Subtitle>media społecznościowe</Subtitle>
-          <a href='https://www.facebook.com/WilkiZWarynskiego/' target='_blank'>
+          <a href='https://www.facebook.com/WilkiZWarynskiego/' target='_blank' aria-label='facebook'>
             <MediaIcon src={icons.facebook} size={32} fill='#3b5998' />
           </a>
-          <a href='https://www.youtube.com/channel/UCWhfUoBYJxxZL4yj0GI1njw' target='_blank'>
+          <a href='https://www.youtube.com/channel/UCWhfUoBYJxxZL4yj0GI1njw' target='_blank' aria-label='youtube'>
             <MediaIcon src={icons.youtube} size={32} fill='#ff0000' style={{ marginLeft: 8 }} />
           </a>
         </Column>

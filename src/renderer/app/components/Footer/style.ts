@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { noUserSelect } from '~/renderer/mixins';
+import { noUserSelect, robotoRegular, robotoLight } from '~/renderer/mixins';
 import { transparency, FOOTER_WIDTH, FOOTER_COLOR } from '~/renderer/constants';
 import { Icon } from '~/renderer/components/Icon';
 
@@ -35,6 +35,7 @@ export const Column = styled.div`
 
 export const Title = styled.h6`
   ${noUserSelect()};
+  ${robotoRegular()};
 `;
 
 export const Subtitle = styled(Title)`

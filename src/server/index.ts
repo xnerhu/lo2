@@ -24,7 +24,7 @@ app.use(controllers);
 
 const { PORT } = process.env;
 
-app.listen(PORT, async () => {
+app.listen(PORT, () => {
   const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB_NAME } = process.env;
 
   const config: ConnectionConfig = {
@@ -39,7 +39,7 @@ app.listen(PORT, async () => {
     config.socketPath = '/var/run/mysqld/mysqld.sock';
   }
 
-  await db.connect(config);
+  db.connect(config);
 
   console.log(`${chalk.cyanBright.bold('Server is running at')} ${chalk.greenBright(`http://localhost:${PORT}`)}`);
 });

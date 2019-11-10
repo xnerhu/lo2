@@ -66,5 +66,6 @@ export const Circle = styled.div`
 `;
 
 export const Title = styled.h6`
-  margin-top: 16px;
+  margin-top: 20px;
+  font-weight: 400;
 `;

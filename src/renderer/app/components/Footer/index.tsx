@@ -9,13 +9,14 @@ interface Props {
   label: string;
   sublabel: string;
   iconSize?: number;
+  style?: React.CSSProperties;
 }
 
-const ContactItem = ({ icon, iconSize, label, sublabel }: Props) => {
+const ContactItem = ({ icon, iconSize, label, sublabel, style }: Props) => {
   return (
     <StyledContactItem>
       <Icon src={icon} size={iconSize || 36} fill={PRIMARY_COLOR} style={{ marginRight: 8 }} />
-      <div>
+      <div style={style}>
         <Label>{label}</Label>
         <Label>{sublabel}</Label>
       </div>
@@ -32,12 +33,12 @@ export const Footer = () => {
           <Subtitle>im. Marii Konopnickiej w Opolu</Subtitle>
           <Contact>
             <ContactItem icon={icons.location} label='46-020 Opole' sublabel='Generała Kazimierza Pułaskiego 3' />
-            <ContactItem icon={icons.email} iconSize={32} label='sekretariat@lo2.opole.pl' sublabel='(0-77) 454-22-86' />
+            <ContactItem icon={icons.email} iconSize={32} label='sekretariat@lo2.opole.pl' sublabel='(0-77) 454-22-86' style={{ marginLeft: 6 }} />
           </Contact>
         </Column>
         <Column>
           <Title>Znajdź nas</Title>
-          <Subtitle>media społecznościowe</Subtitle>
+          <Subtitle>informacje i aktualności</Subtitle>
           <a href='https://www.facebook.com/WilkiZWarynskiego/' target='_blank' aria-label='facebook'>
             <MediaIcon src={icons.facebook} size={32} fill='#3b5998' />
           </a>

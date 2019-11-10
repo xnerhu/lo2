@@ -119,22 +119,4 @@ export class NewsStore extends StoreBase<INews> {
   public goEnd = () => {
     this.paginationOffset = this.maxPaginationLength;
   }
-
-  public getPathname(filter: INewsFilter = {}) {
-    const { page, category, text } = filter;
-
-    return `/news/${page || this.currentPage}/${category || this.selectedCategory}/${text || this.searchedText}`;
-  }
-
-  public injectParams(filter: INewsFilter = {}) {
-    const { page, category, text } = filter;
-
-    console.log(page);
-
-    this.currentPage = parseInt(page as any || 1);
-    this.selectedCategory = parseInt(category as any || -1);
-    this.searchedText = text || '';
-
-    this.refresh();
-  }
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Pathview, AlbumYear, Chevron } from './style';
 
-export const GalleryView = () => {
+export default () => {
   return (
     <>
       <Pathview>

@@ -5,7 +5,7 @@ import { icons } from '~/renderer/constants';
 import { Image } from '~/renderer/components/Image';
 import { Container, Column, ImgContainer } from './style';
 
-export const About = () => {
+export default () => {
   return (
     <Container>
       <Column>

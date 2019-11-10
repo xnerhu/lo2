@@ -2,8 +2,8 @@ import { IS_BROWSER } from '~/renderer/constants';
 
 const fetched: string[] = [];
 
-export const preFetchImage = (src: string): Promise<void> => {
-  src = src + '.webp';
+export const preFetchImage = (src: string, ext = 'webp'): Promise<void> => {
+  src = src + `.${ext}`;
 
   if (!IS_BROWSER || fetched.indexOf(src) !== -1) return null;
 

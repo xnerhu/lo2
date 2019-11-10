@@ -11,11 +11,21 @@ export interface IDropDownItem {
 interface Props {
   items: IDropDownItem[];
   onChange?: (item: IDropDownItem) => void;
+  defaultId?: any;
 }
 
-export const Dropdown = ({ items, onChange }: Props) => {
+const getItem = (items: IDropDownItem[], defaultId: any) => {
+  if (items.length) {
+    const index = !defaultId ? 0 : items.findIndex(r => r._id === defaultId);
+    return items[index];
+  } else {
+    return null;
+  }
+}
+
+export const Dropdown = ({ items, onChange, defaultId }: Props) => {
   const [expanded, setExpanded] = React.useState(false);
-  const [selected, setSelected] = React.useState<IDropDownItem>(items.length && items[0]);
+  const [selected, setSelected] = React.useState<IDropDownItem>(getItem(items, defaultId));
 
   const onClick = React.useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -40,7 +50,7 @@ export const Dropdown = ({ items, onChange }: Props) => {
 
   React.useEffect(() => {
     if (items.length) {
-      setSelected(items[0]);
+      setSelected(getItem(items, defaultId));
     }
   }, [items]);
 

@@ -5,7 +5,7 @@ import { Image } from '~/renderer/components/Image';
 import { icons, EDZIENNIK_URL } from '~/renderer/constants';
 import { Container, Column, ImgContainer } from '../About/style';
 
-export const Students = () => {
+export default () => {
   return (
     <Container>
       <Column>

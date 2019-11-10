@@ -5,6 +5,7 @@ import { useLocalStore } from 'mobx-react-lite';
 import { IAppState, INews, IGallerySection, INewsCategory } from '~/interfaces';
 import { ShortNewsStore } from './short-news';
 import { NewsStore } from './news';
+import { ArticleStore } from './article';
 import { SliderStore } from './slider';
 import { MenuStore } from './menu';
 import { PressStore } from './press';
@@ -13,6 +14,7 @@ import { StoreBase } from '../models';
 class Store {
   public shortNews = new ShortNewsStore();
   public news = new NewsStore();
+  public article = new ArticleStore();
   public slider = new SliderStore();
 
   public newsCategories = new StoreBase<INewsCategory>({
@@ -52,6 +54,8 @@ class Store {
       stores.forEach(r => {
         r.inject(state);
       });
+
+      this.article.inject(state);
     }
   }
 
@@ -74,6 +78,10 @@ class Store {
     stores.forEach(r => {
       r.fetch();
     });
+
+    if (path.startsWith('/news/') && path.length > 6) {
+      this.article.fetch(parseInt(path.slice(6, -1)));
+    }
   }
 }
 

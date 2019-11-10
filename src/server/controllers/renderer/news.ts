@@ -1,19 +1,27 @@
 import { Router } from 'express';
 
 import { IRequest } from '../../interfaces/req';
-import { getNewsChunk, getNewsCategories } from '../api/news';
+import { getNewsChunk, getNewsCategories, getNewsData } from '../api/news';
 
 const router = Router();
 
-router.get('/news/:page?/:category?/:text?', async (req: IRequest, res, next) => {
-  const { page, category, text } = req.params;
-
-  const [news, newsCategories] = await Promise.all([
-    getNewsChunk({ page: parseInt(page), category: parseInt(category), text }),
-    getNewsCategories()
-  ]);
+router.get('/news', async (req: IRequest, res, next) => {
+  const [news, newsCategories] = await Promise.all([getNewsChunk(), getNewsCategories()]);
 
   req.appState = { news, newsCategories };
+
+  next();
+});
+
+router.get('/news/:id', async (req: IRequest, res, next) => {
+  const { id } = req.params;
+  const parsed = parseInt(id);
+
+  if (!Number.isNaN(parsed)) {
+    const data = await getNewsData(parsed);
+
+    req.appState = { article: data };
+  }
 
   next();
 });

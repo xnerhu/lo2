@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { withRouter } from 'react-router';
 
-import { INewsFilter } from '~/interfaces';
 import { useStore } from '~/renderer/app/store';
 import { NewsCard } from '~/renderer/components/NewsCard';
 import { Dropdown } from '~/renderer/components/Dropdown';
 import { Input } from '~/renderer/components/Input';
 import { Pagination } from './Pagination';
-import { observableWithRouter } from '../../utils';
 import { CardsContainer } from '~/renderer/components/Card/style';
 import { Toolbar, StyledError, ErrorCircle, ErrorDescription } from './style';
+import { observer } from 'mobx-react-lite';
 
 const Error = () => {
   return (
@@ -23,35 +21,14 @@ const Error = () => {
   );
 }
 
-const SearchInput = withRouter(({ history }) => {
+export default observer(() => {
   const store = useStore();
-
-  const onChange = React.useCallback(e => {
-    store.news.onSearch(e);
-
-    history.push({
-      pathname: store.news.getPathname(),
-    });
-  }, []);
-
-  return (
-    <Input placeholder='Wyszukaj' onChange={onChange} style={{ marginLeft: 'auto' }} />
-  )
-});
-
-export const News = observableWithRouter((props: any) => {
-  const store = useStore();
-  const params: INewsFilter = props.match.params;
-
-  React.useEffect(() => {
-    store.news.injectParams(params);
-  }, [params]);
 
   return (
     <>
       <Toolbar>
-        <Dropdown items={store.newsCategories.items} onChange={store.news.onDropdown} />
-        <SearchInput />
+        <Dropdown items={store.newsCategories.items} onChange={store.news.onDropdown} defaultId={store.news.selectedCategory} />
+        <Input placeholder='Wyszukaj' onChange={store.news.onSearch} style={{ marginLeft: 'auto' }} />
       </Toolbar>
       {!store.news.error && (
         <>

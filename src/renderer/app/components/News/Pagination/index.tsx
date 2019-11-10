@@ -9,7 +9,7 @@ export const Pagination = observer(() => {
   const length = store.news.paginationLength;
 
   const onClick = (page: number) => () => {
-    // store.news.switchPage(page);
+    store.news.switchPage(page);
   }
 
   return (
@@ -23,7 +23,6 @@ export const Pagination = observer(() => {
         return (
           <Page
             key={i}
-            to={store.news.getPathname({ page })}
             selected={store.news.currentPage === page}
             onClick={!disabled ? onClick(page) : null}
             disabled={disabled}

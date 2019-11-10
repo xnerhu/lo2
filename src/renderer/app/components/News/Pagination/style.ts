@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
 
 import { transparency, PAGE_ITEM_SIZE, PRIMARY_COLOR, icons } from '~/renderer/constants';
 import { noUserSelect, centerIcon } from '~/renderer/mixins';
@@ -26,7 +25,7 @@ export const Container = styled.div`
   margin: 0px 16px;
 `;
 
-export const Page = styled(Link)`
+export const Page = styled.div`
   width: ${PAGE_ITEM_SIZE}px;
   height: ${PAGE_ITEM_SIZE}px;
   font-size: 16px;

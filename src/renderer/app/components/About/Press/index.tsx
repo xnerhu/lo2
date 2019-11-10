@@ -17,7 +17,7 @@ const Item = ({ data }: { data: IPress }) => {
   )
 }
 
-export const Press = observer(() => {
+export default observer(() => {
   const store = useStore();
 
   return (

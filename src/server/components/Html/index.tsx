@@ -1,14 +1,13 @@
 import * as React from 'react';
 
-import { IAppState } from '~/interfaces'; import { fonts } from '~/renderer/constants';
-
-const { POSTS_PER_PAGE } = process.env;
+import { IAppState } from '~/interfaces';
+import { fonts } from '~/renderer/constants';
 
 interface Props {
-  scripts?: string[];
+  scripts?: React.ReactNode;
   state?: IAppState;
-  styleElement?: any;
-  children?: any;
+  styles?: React.ReactNode;
+  children?: string;
 }
 
 const fontsCss = `
@@ -34,11 +33,11 @@ const fontsCss = `
   }
 `.replace(/\n|\s/g, '');
 
-export const Html = ({ scripts, state, styleElement, children }: Props) => {
+export const Html = ({ scripts, state, styles, children }: Props) => {
   const appState = JSON.stringify(state || {});
 
   return (
-    <html lang="en">
+    <html lang="pl">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,7 +52,7 @@ export const Html = ({ scripts, state, styleElement, children }: Props) => {
         <meta name="author" content="Mikołaj Palkiewicz" />
         <title>Publiczne Liceum Ogólnokształcące Nr II im. Marii Konopnickiej w Opolu</title>
         <style type="text/css" dangerouslySetInnerHTML={{ __html: fontsCss }} />
-        {styleElement}
+        {styles}
         <script type="text/javascript" dangerouslySetInnerHTML={{ __html: `window.__APP_STATE__=${appState}` }} />
       </head>
       <body>
@@ -61,10 +60,8 @@ export const Html = ({ scripts, state, styleElement, children }: Props) => {
           Musisz włączyć JavaScript w przeglądarce, aby strona poprawnie się załadowała.
           <a href='https://pomoc.poczta.interia.pl/news-jak-wlaczyc-obsluge-javascript-w-przegladarce,nId,2136014'>Tutaj znajdziesz, co dokładnie zrobić.</a>
         </noscript>
-        <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
-        {scripts.map(r => `/static/${r}`).map(src => (
-          <script key={src} src={src} type="text/javascript" async />
-        ))}
+        <main id="app" dangerouslySetInnerHTML={{ __html: children }} />
+        {scripts}
       </body>
     </html>
   );

@@ -3,19 +3,8 @@ import * as React from 'react';
 import { Route, Switch, withRouter, RouteProps } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 
-import { Home } from '../Home';
-import { About } from '../About';
-import { AboutPatron } from '../About/Patron';
-import { Press } from '../About/Press';
-import { Teachers } from '../About/Teachers';
-import { History } from '../About/History';
-import { Students } from '../Students';
-import { News } from '../News';
-import { Gallery } from '../Gallery';
-import { GalleryView } from '../Gallery/GalleryView';
-import { Contact } from '../Contact';
-
 import { useStore } from '~/renderer/app/store';
+import { RoutePage } from '~/renderer/components/RoutePage';
 import { Appbar } from '../Appbar';
 import { Footer } from '../Footer';
 import { Style } from '~/renderer/app/style';
@@ -38,17 +27,18 @@ const App = withRouter((props: RouteProps) => {
       <StyledApp>
         <Appbar />
         <Switch>
-          <Route path="/about/patron" component={AboutPatron} />
-          <Route path="/about/articles" component={Press} />
-          <Route path="/about/teachers" component={Teachers} />
-          <Route path="/about/history" component={History} />
-          <Route path="/students" component={Students} />
-          <Route path="/about" component={About} />
-          <Route path="/news/:page?/:category?/:text?" component={News} />
-          <Route path="/gallery/:year/:album" component={GalleryView} />
-          <Route path="/gallery" component={Gallery} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/" component={Home} />
+          <Route path="/about/patron" component={RoutePage('About/Patron')} />
+          <Route path="/about/articles" component={RoutePage('About/Press')} />
+          <Route path="/about/teachers" component={RoutePage('About/Teachers')} />
+          <Route path="/about/history" component={RoutePage('About/History')} />
+          <Route path="/about" component={RoutePage('About')} />
+          <Route path="/students" component={RoutePage('Students')} />
+          <Route path="/news/:id" component={RoutePage('Article')} />
+          <Route path="/news" component={RoutePage('News')} />
+          <Route path="/gallery/:year/:album" component={RoutePage('GalleryView')} />
+          <Route path="/gallery" component={RoutePage('Gallery')} />
+          <Route path="/contact" component={RoutePage('Contract')} />
+          <Route path="/" component={RoutePage('Home')} />
         </Switch>
       </StyledApp>
       <Footer />

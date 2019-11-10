@@ -7,6 +7,7 @@ export interface IAppState {
   shortNews?: INews[];
   news?: INewsChunk;
   newsCategories?: INewsCategory[];
+  article?: INews;
   slider?: string[];
   teachers?: ITeachersSection[];
   gallery?: IGallerySection[];

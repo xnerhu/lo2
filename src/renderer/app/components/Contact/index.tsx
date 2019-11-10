@@ -56,7 +56,7 @@ const Policy = () => {
   )
 }
 
-export const Contact = () => {
+export default () => {
   return (
     <>
       <Container maxWidth={1216}>

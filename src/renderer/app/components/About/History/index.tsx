@@ -133,7 +133,7 @@ const HeadermastersSection = () => {
   )
 }
 
-export const History = () => {
+export default () => {
   return (
     <>
       <HistorySection />

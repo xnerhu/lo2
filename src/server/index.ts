@@ -8,10 +8,9 @@ import { config } from 'dotenv';
 import { platform } from 'os';
 import { ConnectionConfig } from 'mysql';
 
-import db from './models/db';
-
 config();
 
+import db from './models/db';
 import controllers from './controllers';
 
 const app = express();

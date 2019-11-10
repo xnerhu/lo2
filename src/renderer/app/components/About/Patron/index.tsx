@@ -4,7 +4,7 @@ import { Image } from '~/renderer/components/Image';
 import { SectionTitle } from '~/renderer/components/Section';
 import { Container, Column, ImgContainer } from '../style';
 
-export const AboutPatron = () => {
+export default () => {
   return (
     <>
       <SectionTitle>Nasza patronka - Maria Konopnicka</SectionTitle>

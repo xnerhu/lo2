@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { Image } from '../Image';
+import { Image, IImageProps } from '../Image';
 
-export const CardImage = ({ src }: { src: string }) => {
-  return <Image src={src} ratio={16 / 9} skeletonBorder={0} />;
+export const CardImage = (props: IImageProps) => {
+  return <Image {...props} ratio={16 / 9} skeletonBorder={0} />;
 }

@@ -7,11 +7,11 @@ import { StyledCard } from '../Card/style';
 import { Container, Content, Date, Category } from './style';
 
 export const NewsCard = ({ data }: { data: INews }) => {
-  const { image, category, title, content, createdAt } = data;
+  const { _id, image, category, title, content, createdAt } = data;
 
   return (
-    <StyledCard>
-      {image && <CardImage src={image} />}
+    <StyledCard to={`/news/${_id}`}>
+      {image && <CardImage alt={title} src={image} />}
       <Container>
         <Category>
           {category}

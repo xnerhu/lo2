@@ -32,7 +32,7 @@ const Album = ({ data }: { data: IGalleryAlbum }) => {
   )
 }
 
-export const Gallery = observer(() => {
+export default observer(() => {
   const store = useStore();
 
   return (

@@ -5,14 +5,12 @@ import db from '~/server/models/db';
 import { INews, INewsCategory, INewsFilter, INewsChunk } from '~/interfaces';
 import { truncate } from '~/server/utils';
 
-const { POSTS_PER_PAGE, SHORT_NEWS_MAX_LENGTH } = process.env;
-
-const postsPerPage = parseInt(POSTS_PER_PAGE);
-const maxLength = parseInt(SHORT_NEWS_MAX_LENGTH);
-
 const router = Router();
 
 const getQuery = (filter: INewsFilter = {}, count = false) => {
+  const postsPerPage = parseInt(process.env.POSTS_PER_PAGE);
+  const maxLength = parseInt(process.env.SHORT_NEWS_MAX_LENGTH);
+
   const { limit, page, text } = filter;
 
   let category = filter.category as any as string;
@@ -41,6 +39,18 @@ const getQuery = (filter: INewsFilter = {}, count = false) => {
   return str;
 }
 
+const formatArticle = (data: INews, categories: INewsCategory[]): INews => {
+  const maxLength = parseInt(process.env.SHORT_NEWS_MAX_LENGTH);
+  const content = truncate(data.content, maxLength);
+
+  return {
+    ...data,
+    content,
+    image: `/static/news/${data.image}`,
+    category: categories.find(r => data._categoryId === r._id).title,
+  };
+}
+
 export const getNews = async (filter?: INewsFilter) => {
   const sql = getQuery(filter);
 
@@ -49,19 +59,11 @@ export const getNews = async (filter?: INewsFilter) => {
     getNewsCategories()
   ]);
 
-  return news.map(r => {
-    const content = truncate(r.content, maxLength);
-
-    return {
-      ...r,
-      content,
-      image: `/static/news/${r.image}`,
-      category: categories.find(x => r._categoryId === x._id).title,
-    } as INews
-  });
+  return news.map(r => formatArticle(r, categories));
 }
 
 export const countNewsPages = async (filter?: INewsFilter) => {
+  const postsPerPage = parseInt(process.env.POSTS_PER_PAGE);
   const sql = getQuery({ ...filter, page: 1 }, true);
   const [item] = await db.query<any>({ sql });
 
@@ -88,10 +90,25 @@ export const getNewsCategories = async () => {
   return data;
 }
 
+export const getNewsData = async (_id: number) => {
+  const data = await db.query<INews>({
+    sql: 'SELECT * FROM news WHERE _id = ?',
+    values: [_id]
+  });
+
+  return data[0];
+}
+
 router.get('/news', async (req, res) => {
   const data = await getNewsChunk(req.query);
 
   res.json(data);
+});
+
+router.get('/article', async (req, res) => {
+  const [data, categories] = await Promise.all([getNewsData(req.query._id), getNewsCategories()]);
+
+  res.json(formatArticle(data, categories));
 });
 
 router.get('/news-categories', async (req, res) => {

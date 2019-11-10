@@ -40,7 +40,7 @@ const Section = ({ data }: { data: ITeachersSection }) => {
   )
 }
 
-export const Teachers = observer(() => {
+export default observer(() => {
   const store = useStore();
 
   return (

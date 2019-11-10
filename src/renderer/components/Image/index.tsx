@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import { preFetchImage } from '~/renderer/app/utils';
-import { Skeleton } from '../Skeleton';
-import { Container, StyledImage, Label, Picture } from './style';
+import { Container, Picture, StyledImage, Label, StyledSkeleton } from './style';
 
-interface Props {
+export interface IImageProps {
   src: string;
+  alt?: string;
   ratio?: number;
   skeletonBorder?: number;
   forceSkeleton?: boolean;
@@ -13,7 +13,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export const Image = ({ src, style, ratio, skeletonBorder, forceSkeleton, children }: Props) => {
+export const Image = ({ src, alt, style, ratio, skeletonBorder, forceSkeleton, children }: IImageProps) => {
   const [fetched, setFetched] = React.useState(forceSkeleton);
 
   React.useEffect(() => {
@@ -34,25 +34,13 @@ export const Image = ({ src, style, ratio, skeletonBorder, forceSkeleton, childr
 
   const isFetched = !forceSkeleton && fetched;
 
-  const imgStyle = {
-    opacity: isFetched ? 1 : 0,
-  }
-
-  const skeletonStyle: React.CSSProperties = {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    left: 0,
-    borderRadius: skeletonBorder == null ? 12 : skeletonBorder,
-  }
-
   return (
     <Container className='dynamic-image' ratio={ratio} style={style}>
-      <Picture>
+      <Picture fetched={isFetched}>
         <source srcSet={src + '.webp'} type='image/webp' />
-        <StyledImage src={src + '.jpg'} style={imgStyle} />
+        <StyledImage alt={alt} src={src + '.jpg'} />
       </Picture>
-      {!isFetched && <Skeleton style={skeletonStyle} />}
+      {!isFetched && <StyledSkeleton borderRadius={skeletonBorder} />}
       {children && <Label>{children}</Label>}
     </Container>
   );

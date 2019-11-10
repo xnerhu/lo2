@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { GRADIENT } from '~/renderer/constants';
 import { noUserSelect, robotoMedium } from '~/renderer/mixins';
 
-export const Button = styled.div`
+export const Button = styled(Link)`
   width: fit-content;
   padding: 0px 16px;
   height: 48px;

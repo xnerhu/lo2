@@ -8,8 +8,8 @@ export const Section = styled.section`
   margin-top: 32px;
 `;
 
-export const SectionTitle = styled.h5`
-  width: fit-content;
+export const SectionTitle = styled.h4`
+  /* width: fit-content;
   position: relative;
   padding-bottom: 8px;
   margin-bottom: 24px;
@@ -24,5 +24,8 @@ export const SectionTitle = styled.h5`
     position: absolute;
     bottom: 0;
     background: ${GRADIENT};
-  }
+  } */
+  padding-bottom: 8px;
+  margin-bottom: 26px;
+  ${noUserSelect()};
 `;

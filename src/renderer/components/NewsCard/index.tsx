@@ -2,16 +2,16 @@ import * as React from 'react';
 
 import { formatDate } from '~/renderer/app/utils';
 import { INews } from '~/interfaces';
-import { CardImage } from '../Card';
-import { StyledCard } from '../Card/style';
-import { Container, Content, Date, Category } from './style';
+import { Image } from '../Image';
+import { StyledNews, Container, Content, Date, Category } from './style';
+
 
 export const NewsCard = ({ data }: { data: INews }) => {
   const { _id, image, category, title, content, createdAt } = data;
 
   return (
-    <StyledCard to={`/news/${_id}`}>
-      {image && <CardImage alt={title} src={image} />}
+    <StyledNews to={`/news/${_id}`}>
+      {image && <Image alt={title} src={image} ratio={16 / 9} skeletonBorder={0} />}
       <Container>
         <Category>
           {category}
@@ -26,6 +26,6 @@ export const NewsCard = ({ data }: { data: INews }) => {
       <Date>
         {formatDate(createdAt)}
       </Date>
-    </StyledCard>
+    </StyledNews>
   );
 }

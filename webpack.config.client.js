@@ -24,9 +24,7 @@ if (dev) {
 
 const plugins = [new LoadablePlugin()];
 
-if (stats) {
-  plugins.push(new BundleAnalyzerPlugin());
-}
+if (stats) plugins.push(new BundleAnalyzerPlugin());
 
 const clientConfig = getConfig(getBaseConfig(), {
   name: 'client',

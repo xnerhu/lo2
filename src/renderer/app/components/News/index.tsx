@@ -5,7 +5,7 @@ import { NewsCard } from '~/renderer/components/NewsCard';
 import { Dropdown } from '~/renderer/components/Dropdown';
 import { Input } from '~/renderer/components/Input';
 import { Pagination } from './Pagination';
-import { CardsContainer } from '~/renderer/components/Card/style';
+import { NewsContainer } from '~/renderer/components/NewsCard/style';
 import { Toolbar, StyledError, ErrorCircle, ErrorDescription } from './style';
 import { observer } from 'mobx-react-lite';
 
@@ -32,11 +32,11 @@ export default observer(() => {
       </Toolbar>
       {!store.news.error && (
         <>
-          <CardsContainer>
+          <NewsContainer>
             {store.news.items.map(r => (
               <NewsCard key={r._id} data={r} />
             ))}
-          </CardsContainer>
+          </NewsContainer>
           <Pagination />
         </>
       )}

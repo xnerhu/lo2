@@ -6,10 +6,11 @@ import { Container, SearchIcon, StyledInput } from './style';
 interface Props {
   placeholder?: string;
   onChange?: (value: string) => void;
+  innerRef?: React.Ref<HTMLInputElement>;
   style?: React.CSSProperties;
 }
 
-export const Input = ({ placeholder, onChange, style }: Props) => {
+export const Input = ({ placeholder, onChange, innerRef, style }: Props) => {
   const timer = React.useRef<number>(null);
 
   const onInput = React.useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -31,7 +32,7 @@ export const Input = ({ placeholder, onChange, style }: Props) => {
   return (
     <Container style={style}>
       <SearchIcon src={icons.search} size={20} />
-      <StyledInput onKeyDown={onInput} placeholder={placeholder} autoCorrect='off' spellCheck={false} />
+      <StyledInput ref={innerRef} onKeyDown={onInput} placeholder={placeholder} autoCorrect='off' spellCheck={false} />
     </Container>
   )
 }

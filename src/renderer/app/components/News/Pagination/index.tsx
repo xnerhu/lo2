@@ -7,10 +7,7 @@ import { Pages, Page, Chevron, Container } from './style';
 export const Pagination = observer(() => {
   const store = useStore();
   const length = store.news.paginationLength;
-
-  const onClick = (page: number) => () => {
-    store.news.switchPage(page);
-  }
+  const filter = store.news.filter;
 
   return (
     <Pages>
@@ -23,8 +20,8 @@ export const Pagination = observer(() => {
         return (
           <Page
             key={i}
-            selected={store.news.currentPage === page}
-            onClick={!disabled ? onClick(page) : null}
+            to={store.news.getPathname({ page })}
+            selected={filter.page === page}
             disabled={disabled}
           >
             {page}

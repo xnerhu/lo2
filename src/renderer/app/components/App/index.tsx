@@ -42,8 +42,8 @@ const App = withRouter((props: RouteProps) => {
           <Route path="/gallery/:year/:album" component={RoutePage('GalleryView')} />
           <Route path="/gallery" component={RoutePage('Gallery')} />
           <Route path="/contact" component={RoutePage('Contract')} /> */}
-          <Route path="/news/:id" component={DynamicArticle} />
-          <Route path="/news" component={DynamicNews} />
+          {/* <Route path="/news/:id" component={DynamicArticle} /> */}
+          <Route path="/news/:page?/:category?/:text?" component={DynamicNews} />
           <Route path="/" component={DynamicHome} />
         </Switch>
       </StyledApp>

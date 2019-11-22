@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { IRequest } from '../../interfaces/req';
+import { IRequest } from '../../interfaces';
 import { getTeachers } from '../api/teachers';
 
 const router = Router();

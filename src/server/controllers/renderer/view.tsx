@@ -9,7 +9,7 @@ import { ChunkExtractor } from '@loadable/server';
 import { StoreProvider } from '~/renderer/app/store';
 import { Html } from '~/server/components/Html';
 import App from '~/renderer/app/components/App';
-import { IRequest } from '~/server/interfaces/req';
+import { IRequest } from '~/server/interfaces';
 
 const statsFile = resolve('./build/client/static/loadable-stats.json');
 

@@ -7,13 +7,17 @@ const router = Router();
 export const getSliderItems = async () => {
   const path = resolve('./static', 'slider');
   const files = await fs.readdir(path);
+  const slides: string[] = [];
 
-  return files.map(r => {
-    const { name, ext } = parse(r);
+  for (const file of files) {
+    const { name, ext } = parse(file);
 
-    if (ext === '.webp') return null;
-    return `/static/slider/${name}`;
-  }).filter(r => r);
+    if (ext !== '.webp') {
+      slides.push(`/static/slider/${name}`);
+    }
+  }
+
+  return slides;
 }
 
 router.get('/slider', async (req, res) => {

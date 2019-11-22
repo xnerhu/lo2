@@ -1,14 +1,14 @@
 import { Router } from 'express';
 
 import db from '~/server/models/db';
-import { IGalleryAlbum, IGallerySection } from '~/interfaces';
+import { IGallerySection } from '~/interfaces';
 
 const router = Router();
 
 export const getGallerySections = async () => {
-  const albums = await db.query<IGalleryAlbum>({
-    sql: 'SELECT * FROM `gallery-albums` ORDER BY createdAt DESC'
-  });
+  const albums = await db.gallery.find({}, {
+    sort: { createdAt: false }
+  })
 
   const sections: IGallerySection[] = [];
 

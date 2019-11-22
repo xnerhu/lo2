@@ -16,6 +16,7 @@ const fontsCss = `
     font-style: normal;
     font-weight: 300;
     src: url(${fonts.robotoLight}) format('woff2');
+    font-display: fallback;
   }
 
   @font-face {
@@ -23,6 +24,7 @@ const fontsCss = `
     font-style: normal;
     font-weight: 400;
     src: url(${fonts.robotoRegular}) format('woff2');
+    font-display: fallback;
   }
 
   @font-face {
@@ -30,6 +32,7 @@ const fontsCss = `
     font-style: normal;
     font-weight: 500;
     src: url(${fonts.robotoMedium}) format('woff2');
+    font-display: fallback;
   }
 `.replace(/\n|\s/g, '');
 

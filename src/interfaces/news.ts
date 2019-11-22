@@ -20,7 +20,6 @@ export interface INewsCategory {
 export interface INewsChunk {
   items?: INews[];
   pagesCount?: number;
-  error?: boolean;
 }
 
 export interface INewsFilter {

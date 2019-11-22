@@ -38,7 +38,7 @@ export const Image = ({ src, alt, style, ratio, skeletonBorder, forceSkeleton, c
     <Container className='dynamic-image' ratio={ratio} style={style}>
       <Picture fetched={isFetched}>
         <source srcSet={src + '.webp'} type='image/webp' />
-        <StyledImage alt={alt} src={src + '.jpg'} />
+        <StyledImage src={src + '.jpg'} type='image/jpeg' alt={alt} />
       </Picture>
       {!isFetched && <StyledSkeleton borderRadius={skeletonBorder} />}
       {children && <Label>{children}</Label>}

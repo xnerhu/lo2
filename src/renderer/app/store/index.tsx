@@ -2,7 +2,7 @@ import * as React from 'react';
 import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
-import { IAppState, INews, IGallerySection, INewsCategory } from '~/interfaces';
+import { IAppState, INews, IGallerySection } from '~/interfaces';
 import { ShortNewsStore } from './short-news';
 import { NewsStore } from './news';
 import { ArticleStore } from './article';
@@ -16,18 +16,6 @@ class Store {
   public news = new NewsStore();
   public article = new ArticleStore();
   public slider = new SliderStore();
-
-  public newsCategories = new StoreBase<INewsCategory>({
-    api: 'news-categories',
-    name: 'newsCategories',
-    path: '/news',
-    items: [
-      {
-        _id: -1,
-        title: 'Wszystko'
-      }
-    ]
-  });
 
   public teachers = new StoreBase<INews>({
     api: 'teachers',
@@ -55,7 +43,7 @@ class Store {
         r.inject(state);
       });
 
-      this.article.inject(state);
+      // this.article.inject(state);
     }
   }
 
@@ -67,21 +55,24 @@ class Store {
   public fetch(path: string) {
     const stores = this.getStores().filter(r => {
       const storePath = r.options.path;
+      const filter = r.options.filter;
 
-      if (typeof storePath === 'string') {
+      if (storePath) {
         return storePath === path;
       }
 
-      return storePath.indexOf(path) !== -1;
+      if (filter) {
+        return filter(path);
+      }
     });
 
     stores.forEach(r => {
       r.fetch();
     });
 
-    if (path.startsWith('/news/') && path.length > 6) {
-      this.article.fetch(parseInt(path.slice(6, -1)));
-    }
+    // if (path.startsWith('/news/') && path.length > 6) {
+    //   this.article.fetch(parseInt(path.slice(6, -1)));
+    // }
   }
 }
 

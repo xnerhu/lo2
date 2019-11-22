@@ -7,11 +7,26 @@ import { StyledSlider, Controls, Control, Arrow } from './style';
 
 export const Slider = observer(() => {
   const store = useStore();
-  const { selected, fetched } = store.slider;
+  const items = store.home.sliderItems;
+
+  const [selected, setSelected] = React.useState(0);
+
+  const selectedUrl = React.useMemo(() => {
+    if (!items || !items.length) return null;
+    return items[selected];
+  }, [selected, items]);
 
   const onControlClick = (index: number) => () => {
-    store.slider.selectedIndex = index;
+    setSelected(index);
   }
+
+  const onSwitchLeft = React.useCallback(() => {
+    setSelected(selected - 1 < 0 ? items.length - 1 : selected - 1);
+  }, [selected]);
+
+  const onSwitchRight = React.useCallback(() => {
+    setSelected(selected + 1 >= items.length ? 0 : selected + 1);
+  }, [selected]);
 
   const style: React.CSSProperties = {
     width: '100%',
@@ -22,16 +37,16 @@ export const Slider = observer(() => {
 
   return (
     <StyledSlider>
-      <Image alt='slider' src={selected} forceSkeleton={!fetched} style={style} />
+      <Image alt='slider' src={selectedUrl} forceSkeleton={!store.home.sliderReady} style={style} />
       <Controls>
-        {store.slider.items.map((r, index) => (
-          <Control key={r} onClick={onControlClick(index)} selected={selected === r} />
+        {items.map((r, index) => (
+          <Control key={r} onClick={onControlClick(index)} selected={selectedUrl === r} />
         ))}
       </Controls>
-      {fetched && (
+      {store.home.sliderReady && (
         <>
-          <Arrow className='arrow' onClick={store.slider.switchLeft} />
-          <Arrow className='arrow' onClick={store.slider.switchRight} right />
+          <Arrow className='arrow' onClick={onSwitchLeft} />
+          <Arrow className='arrow' onClick={onSwitchRight} right />
         </>
       )}
     </StyledSlider>

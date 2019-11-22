@@ -13,12 +13,12 @@ export const ShortNews = observer(() => {
 
   if (IS_BROWSER) {
     React.useEffect(() => {
-      store.shortNews.onWindowResize();
+      store.home.onWindowResize();
 
-      window.addEventListener('resize', store.shortNews.onWindowResize);
+      window.addEventListener('resize', store.home.onWindowResize);
 
       return () => {
-        window.removeEventListener('resize', store.shortNews.onWindowResize);
+        window.removeEventListener('resize', store.home.onWindowResize);
       }
     }, []);
   }
@@ -27,7 +27,7 @@ export const ShortNews = observer(() => {
     <Section>
       <SectionTitle>Nowości</SectionTitle>
       <NewsContainer>
-        {store.shortNews.news.map(r => (
+        {store.home.news.map(r => (
           <NewsCard key={r._id} data={r} />
         ))}
       </NewsContainer>

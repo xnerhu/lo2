@@ -24,6 +24,8 @@ const Error = () => {
 }
 
 export default withRouter(observer((props: IWithRouterProps) => {
+  return <div>xdd</div>
+
   const store = useStore();
   const filter = store.news.filter;
 

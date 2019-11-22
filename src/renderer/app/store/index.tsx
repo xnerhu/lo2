@@ -3,19 +3,24 @@ import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
 import { IAppState, INews, IGallerySection } from '~/interfaces';
-import { ShortNewsStore } from './short-news';
+import { HomeStore } from './home';
+
+
 import { NewsStore } from './news';
 import { ArticleStore } from './article';
-import { SliderStore } from './slider';
 import { MenuStore } from './menu';
 import { PressStore } from './press';
 import { StoreBase } from '../models';
 
 class Store {
-  public shortNews = new ShortNewsStore();
+  public home = new HomeStore();
+
+
+
+
+
   public news = new NewsStore();
   public article = new ArticleStore();
-  public slider = new SliderStore();
 
   public teachers = new StoreBase<INews>({
     api: 'teachers',
@@ -37,38 +42,44 @@ class Store {
 
   constructor(state?: IAppState) {
     if (state) {
-      const stores = this.getStores();
+      this.home.inject(state);
 
-      stores.forEach(r => {
-        r.inject(state);
-      });
+      // const stores = this.getStores();
+
+      // stores.forEach(r => {
+      //   r.inject(state);
+      // });
 
       // this.article.inject(state);
     }
   }
 
-  private getStores(): StoreBase<any>[] {
-    const names = Object.getOwnPropertyNames(this);
-    return names.filter(r => (this as any)[r] instanceof StoreBase).map(r => (this as any)[r]);
-  }
+  // private getStores(): StoreBase<any>[] {
+  //   const names = Object.getOwnPropertyNames(this);
+  //   return names.filter(r => (this as any)[r] instanceof StoreBase).map(r => (this as any)[r]);
+  // }
 
   public fetch(path: string) {
-    const stores = this.getStores().filter(r => {
-      const storePath = r.options.path;
-      const filter = r.options.filter;
+    if (path === '/') {
+      this.home.load();
+    }
 
-      if (storePath) {
-        return storePath === path;
-      }
+    // const stores = this.getStores().filter(r => {
+    //   const storePath = r.options.path;
+    //   const filter = r.options.filter;
 
-      if (filter) {
-        return filter(path);
-      }
-    });
+    //   if (storePath) {
+    //     return storePath === path;
+    //   }
 
-    stores.forEach(r => {
-      r.fetch();
-    });
+    //   if (filter) {
+    //     return filter(path);
+    //   }
+    // });
+
+    // stores.forEach(r => {
+    //   r.fetch();
+    // });
 
     // if (path.startsWith('/news/') && path.length > 6) {
     //   this.article.fetch(parseInt(path.slice(6, -1)));

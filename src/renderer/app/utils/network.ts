@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { IS_BROWSER } from '~/renderer/constants';
 
 const fetched: string[] = [];
@@ -16,4 +18,9 @@ export const preFetchImage = (src: string, ext = 'webp'): Promise<void> => {
     img.src = src;
     img.onerror = reject;
   });
+}
+
+export const callApi = async <T>(name: string, params?: any): Promise<T> => {
+  const { data } = await axios.get(`/api/${name}`, { params });
+  return data;
 }

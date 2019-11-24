@@ -23,7 +23,7 @@ class Store {
   public fetch(path: string) {
     if (path === '/') {
       this.home.load();
-    } else if (path.startsWith('/news/') && path.length > 6) {
+    } else if (path.startsWith('/news') && path.length >= 5) {
       this.news.load();
     }
   }

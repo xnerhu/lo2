@@ -12,7 +12,7 @@ import { IWithRouterProps } from '~/renderer/app/interfaces';
 import { Pagination } from './Pagination';
 import { NewsContainer } from '~/renderer/components/NewsCard/style';
 import { Toolbar, StyledError, ErrorCircle, ErrorDescription } from './style';
-import { INewsFilter } from '~/interfaces';
+import { DEFAULT_NEWS_FILTER } from '~/constants';
 
 const Error = () => {
   return (
@@ -20,7 +20,7 @@ const Error = () => {
       <ErrorCircle>
         404
       </ErrorCircle>
-      <b><h4>Oops! Nic nie znaleziono!</h4></b>
+      <b><h4 style={{ fontWeight: 500 }}>Oops! Nic nie znaleziono!</h4></b>
       <ErrorDescription>Posty, które szukasz mogły zostać usunięte lub zmienione.</ErrorDescription>
     </StyledError>
   );
@@ -29,44 +29,45 @@ const Error = () => {
 export default withRouter(observer((props: IWithRouterProps) => {
   const store = useStore();
   const { match, history } = props;
-  const filter = React.useRef<INewsFilter>(formatNewsFilter(match.params));
+
+  const inputRef = React.useRef<HTMLInputElement>();
+  const filter = React.useMemo(() => {
+    return { ...DEFAULT_NEWS_FILTER, ...formatNewsFilter(match.params) };
+  }, [match.params]);
 
   const onDropdown = React.useCallback((e: IDropDownItem) => {
     store.news.paginationOffset = 0;
 
     history.push({
       pathname: store.news.stringifyFilter({
-        ...filter.current,
+        text: filter.text,
         category: e._id,
-        page: 1,
-      }),
+      })
     });
-
-    store.news.loadNews(filter.current);
   }, [filter]);
 
   const onSearch = React.useCallback((text: string) => {
+    store.news.paginationOffset = 0;
+
     history.push({
       pathname: store.news.stringifyFilter({
-        ...filter.current,
+        category: filter.category,
         text,
-        page: 1,
-      }),
+      })
     });
   }, [filter]);
 
   useDidMountEffect(() => {
-    filter.current = formatNewsFilter(match.params);
-    store.news.loadNews(filter.current);
-  }, [match.params]);
-
-  console.log('xd');
+    inputRef.current.value = filter.text;
+    store.news.loadNews(filter);
+    store.news.setPaginationOffset(filter.page);
+  }, [filter], !!store.news.items.length);
 
   return (
     <>
       <Toolbar>
-        <Dropdown items={store.news.categories} onChange={onDropdown} value={filter.current.category || -1} />
-        <Input innerRef={store.news.inputRef} placeholder='Wyszukaj' onChange={onSearch} style={{ marginLeft: 'auto' }} />
+        <Dropdown items={store.news.categories} onChange={onDropdown} value={filter.category} />
+        <Input innerRef={inputRef} placeholder='Wyszukaj' onChange={onSearch} style={{ marginLeft: 'auto' }} defaultValue={filter.text} />
       </Toolbar>
       <>
         <NewsContainer>
@@ -74,8 +75,9 @@ export default withRouter(observer((props: IWithRouterProps) => {
             <NewsCard key={r._id} data={r} />
           ))}
         </NewsContainer>
-        <Pagination filter={filter.current} />
+        {!store.news.error && <Pagination filter={filter} />}
       </>
+      {store.news.error && <Error />}
     </>
   );
 }));

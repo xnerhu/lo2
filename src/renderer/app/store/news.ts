@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { observable, action, computed } from 'mobx';
 
 import { INewsCategory, INews, IAppState, INewsChunk, INewsFilter } from '~/interfaces';
@@ -28,8 +27,6 @@ export class NewsStore {
   @observable
   public error = false;
 
-  public inputRef = React.createRef<HTMLInputElement>();
-
   public inject({ news, newsCategories }: IAppState) {
     if (news && newsCategories) {
       this.items = news.items;
@@ -53,17 +50,23 @@ export class NewsStore {
 
     this.items = chunk.items;
     this.pagesCount = chunk.pagesCount;
+    this.error = chunk.items.length === 0;
   }
 
   @action
   public async loadCategories() {
-    const items = await callApi('news-categories');
-    this.categories = [...this.categories, items];
+    const items = await callApi<INewsCategory[]>('news-categories');
+    this.categories = [...this.categories, ...items];
   }
 
   public stringifyFilter(filter: INewsFilter) {
     filter = { page: 1, category: -1, text: '', ...filter };
     return `/news/${filter.page}/${filter.category}/${filter.text}`;
+  }
+
+  @action
+  public setPaginationOffset(page: number) {
+    this.paginationOffset = Math.ceil(page / PAGINATION_COUNT) - 1;
   }
 
   @computed

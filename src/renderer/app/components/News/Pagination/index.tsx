@@ -3,11 +3,11 @@ import { observer } from 'mobx-react-lite';
 
 import { useStore } from '~/renderer/app/store';
 import { Pages, Page, Chevron, Container } from './style';
+import { INewsFilter } from '~/interfaces';
 
-export const Pagination = observer(() => {
+export const Pagination = observer(({ filter }: { filter: INewsFilter }) => {
   const store = useStore();
   const length = store.news.paginationLength;
-  const filter = store.news.filter;
 
   return (
     <Pages>
@@ -20,7 +20,7 @@ export const Pagination = observer(() => {
         return (
           <Page
             key={i}
-            to={store.news.getPathname({ page })}
+            to={store.news.stringifyFilter({ ...filter, page })}
             selected={filter.page === page}
             disabled={disabled}
           >

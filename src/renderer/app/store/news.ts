@@ -1,13 +1,16 @@
 import * as React from 'react';
-import { computed, observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 
-import { StoreBase } from '../models';
-import { INews, INewsChunk, INewsFilter, INewsCategory } from '~/interfaces';
+import { INewsCategory, INews, IAppState, INewsChunk, INewsFilter } from '~/interfaces';
+import { callApi } from '../utils';
 import { PAGINATION_COUNT } from '~/renderer/constants';
-import { IDropDownItem } from '~/renderer/components/Dropdown';
-import { IWithRouterProps } from '../interfaces';
 
-export class NewsStore extends StoreBase<INews> {
+export class NewsStore {
+  public loaded = false;
+
+  @observable
+  public items: INews[] = [];
+
   @observable
   public categories: INewsCategory[] = [
     {
@@ -20,13 +23,6 @@ export class NewsStore extends StoreBase<INews> {
   public pagesCount = 0;
 
   @observable
-  public filter: INewsFilter = {
-    page: 0,
-    category: -1,
-    text: '',
-  }
-
-  @observable
   public paginationOffset = 0;
 
   @observable
@@ -34,65 +30,40 @@ export class NewsStore extends StoreBase<INews> {
 
   public inputRef = React.createRef<HTMLInputElement>();
 
-  protected history: any;
-
-  constructor() {
-    super({
-      api: 'news',
-      name: 'news',
-      filter: (str) => {
-        return str.startsWith('/news');
-      },
-    });
-
-    this.on('inject', appState => {
-      this.categories = [...this.categories, ...appState.newsCategories];
-    });
+  public inject({ news, newsCategories }: IAppState) {
+    if (news && newsCategories) {
+      this.items = news.items;
+      this.pagesCount = news.pagesCount;
+      this.categories = [...this.categories, ...newsCategories];
+      this.loaded = true;
+    }
   }
 
-  @action
-  public onLoad = (props: IWithRouterProps) => {
-    const { text, page } = props.match.params;
-
-    if (text) {
-      this.inputRef.current.value = text;
-    }
-
-    if (page) {
-      const _page = parseInt(page);
-
-      console.log(_page);
+  public load() {
+    if (!this.loaded) {
+      this.loadNews();
+      this.loadCategories();
+      this.loaded = true;
     }
   }
 
   @action
-  protected updateItems(data: INewsChunk) {
-    if (data) {
-      this.items = data.items;
-      this.pagesCount = data.pagesCount;
-      // this.error = data.error;
-    }
+  public async loadNews(filter: INewsFilter = {}) {
+    const chunk = await callApi<INewsChunk>('news', filter);
+
+    this.items = chunk.items;
+    this.pagesCount = chunk.pagesCount;
   }
 
   @action
-  public onDropdown = (item: IDropDownItem) => {
-    this.paginationOffset = 0;
-
-    this.history.push({
-      pathname: this.getPathname({ page: 1, category: item._id })
-    });
+  public async loadCategories() {
+    const items = await callApi('news-categories');
+    this.categories = [...this.categories, items];
   }
 
-  @action
-  public onSearch = (str: string) => {
-    this.history.push({
-      pathname: this.getPathname({ page: 1, text: str })
-    });
-  }
-
-  @action
-  public refresh() {
-    this.fetch(this.filter, true);
+  public stringifyFilter(filter: INewsFilter) {
+    filter = { page: 1, category: -1, text: '', ...filter };
+    return `/news/${filter.page}/${filter.category}/${filter.text}`;
   }
 
   @computed
@@ -142,34 +113,5 @@ export class NewsStore extends StoreBase<INews> {
   @action
   public goEnd = () => {
     this.paginationOffset = this.maxPaginationLength;
-  }
-
-  public hasChanged({ page, category, text }: INewsFilter) {
-    const f = this.filter;
-    return f.page !== page || f.category !== category || f.text !== text;
-  }
-
-  @action
-  public syncWithRouter({ match, history }: IWithRouterProps) {
-    const { page, category, text } = match.params;
-
-    this.history = history;
-
-    const filter: INewsFilter = {
-      page: parseInt(page || 1),
-      category: parseInt(category || -1),
-      text: text || '',
-    }
-
-    if (this.hasChanged(filter)) {
-      this.filter = filter;
-      this.refresh();
-    }
-  }
-
-  public getPathname(filter: INewsFilter = {}) {
-    filter = { ...this.filter, ...filter };
-
-    return `/news/${filter.page}/${filter.category}/${filter.text}`;
   }
 }

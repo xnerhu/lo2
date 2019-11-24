@@ -3,6 +3,7 @@ import { Router } from 'express';
 import db from '~/server/models/db';
 import { INewsFilter, INewsChunk } from '~/interfaces';
 import { formatArticle, getNewsQueryFilter } from '~/server/utils';
+import { formatNewsFilter } from '~/utils';
 
 const router = Router();
 
@@ -44,13 +45,8 @@ export const getNewsChunk = async (filter?: INewsFilter): Promise<INewsChunk> =>
 }
 
 export const handleNewsRequest = async (query: any) => {
-  const { page, category, text } = query;
-
-  const data = await getNewsChunk({
-    page: page && parseInt(page),
-    category: category && parseInt(category),
-    text: text && text,
-  });
+  const filter = formatNewsFilter(query);
+  const data = await getNewsChunk(filter);
 
   return data;
 }

@@ -14,15 +14,6 @@ interface Props {
   value: any;
 }
 
-const getItem = (items: IDropDownItem[], value: any) => {
-  if (items.length) {
-    const index = !value ? 0 : items.findIndex(r => r._id === value);
-    return items[index];
-  } else {
-    return null;
-  }
-}
-
 export const Dropdown = ({ items, onChange, value }: Props) => {
   const [expanded, setExpanded] = React.useState(false);
   const selected = React.useMemo(() => items.find(r => r._id === value), [value]);

@@ -5,19 +5,26 @@ import { useLocalStore } from 'mobx-react-lite';
 import { IAppState } from '~/interfaces';
 import { HomeStore } from './home';
 import { NewsStore } from './news';
+import { ArticleStore } from './article';
+
 import { MenuStore } from './menu';
 
 class Store {
   public home = new HomeStore();
   public news = new NewsStore();
+  public article = new ArticleStore();
+
   public menu = new MenuStore();
 
   @observable
   public loggedIn = false;
 
   constructor(state?: IAppState) {
-    this.home.inject(state);
-    this.news.inject(state);
+    if (typeof state === 'object') {
+      this.home.inject(state);
+      this.news.inject(state);
+      this.article.inject(state);
+    }
   }
 
   public fetch(path: string) {

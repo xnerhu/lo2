@@ -67,7 +67,7 @@ export default withRouter(observer((props: IWithRouterProps) => {
     <>
       <Toolbar>
         <Dropdown items={store.news.categories} onChange={onDropdown} value={filter.category} />
-        <Input innerRef={inputRef} placeholder='Wyszukaj' onChange={onSearch} style={{ marginLeft: 'auto' }} defaultValue={filter.text} />
+        <Input innerRef={inputRef} placeholder='Wyszukaj' onChange={onSearch} style={{ marginLeft: 'auto' }} defaultValue={filter.text} label='Wyszukaj' />
       </Toolbar>
       <>
         <NewsContainer>

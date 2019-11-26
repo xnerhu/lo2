@@ -9,9 +9,10 @@ interface Props {
   innerRef?: React.Ref<HTMLInputElement>;
   style?: React.CSSProperties;
   defaultValue?: string;
+  label?: string;
 }
 
-export const Input = ({ placeholder, onChange, innerRef, style, defaultValue }: Props) => {
+export const Input = ({ placeholder, onChange, innerRef, style, defaultValue, label }: Props) => {
   const timer = React.useRef<number>(null);
 
   const onInput = React.useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -33,7 +34,7 @@ export const Input = ({ placeholder, onChange, innerRef, style, defaultValue }: 
   return (
     <Container style={style}>
       <SearchIcon src={icons.search} size={20} />
-      <StyledInput ref={innerRef} onKeyDown={onInput} placeholder={placeholder} autoCorrect='off' spellCheck={false} defaultValue={defaultValue} />
+      <StyledInput ref={innerRef} onKeyDown={onInput} placeholder={placeholder} autoCorrect='off' spellCheck={false} defaultValue={defaultValue} label={label} />
     </Container>
   )
 }

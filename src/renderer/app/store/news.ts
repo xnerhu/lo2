@@ -3,10 +3,9 @@ import { observable, action, computed } from 'mobx';
 import { INewsCategory, INews, IAppState, INewsChunk, INewsFilter } from '~/interfaces';
 import { callApi } from '../utils';
 import { PAGINATION_COUNT } from '~/renderer/constants';
+import { StoreBase } from '../models';
 
-export class NewsStore {
-  public loaded = false;
-
+export class NewsStore extends StoreBase {
   @observable
   public items: INews[] = [];
 
@@ -32,6 +31,7 @@ export class NewsStore {
       this.items = news.items;
       this.pagesCount = news.pagesCount;
       this.categories = [...this.categories, ...newsCategories];
+      this.error = this.items.length === 0;
       this.loaded = true;
     }
   }

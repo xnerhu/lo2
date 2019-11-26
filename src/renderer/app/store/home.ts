@@ -3,10 +3,9 @@ import { observable, action, computed } from 'mobx';
 import { IAppState, INews } from '~/interfaces';
 import { callApi, preFetchImage } from '../utils';
 import { IS_BROWSER } from '~/renderer/constants';
+import { StoreBase } from '../models';
 
-export class HomeStore {
-  public loaded = false;
-
+export class HomeStore extends StoreBase {
   @observable
   public sliderItems: string[] = [];
 

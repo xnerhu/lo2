@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { noUserSelect } from '~/renderer/mixins';
-import { GRADIENT } from '~/renderer/constants';
+import { GRADIENT, CONTENT_WIDTH } from '~/renderer/constants';
 
 export const Section = styled.section`
   width: 100%;
@@ -25,4 +25,23 @@ export const SectionTitle = styled.h5`
     bottom: 0;
     background: ${GRADIENT};
   }
+`;
+
+export const Content = styled.div`
+  width: 100%;
+  max-width: ${CONTENT_WIDTH}px;
+  margin: 0 auto;
+
+  @media(max-width: ${CONTENT_WIDTH + 48 * 2}px) {
+    max-width: calc(100% - 128px);
+  }
+
+  @media(max-width: 767px) {
+    max-width: calc(100% - 64px);
+  }
+`;
+
+export const DarkBackground = styled.div`
+  width: 100%;
+  background-color: #fafafa;
 `;

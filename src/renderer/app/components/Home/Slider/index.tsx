@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 
 import { useStore } from '~/renderer/app/store';
 import { Image } from '~/renderer/components/Image';
+import { Content } from '~/renderer/components/Section';
 import { StyledSlider, Controls, Control, Arrow } from './style';
 
 export const Slider = observer(() => {
@@ -36,19 +37,21 @@ export const Slider = observer(() => {
   }
 
   return (
-    <StyledSlider>
-      <Image alt='slider' src={selectedUrl} forceSkeleton={!store.home.sliderReady} style={style} />
-      <Controls>
-        {items.map((r, index) => (
-          <Control key={r} onClick={onControlClick(index)} selected={selectedUrl === r} />
-        ))}
-      </Controls>
-      {store.home.sliderReady && (
-        <>
-          <Arrow className='arrow' onClick={onSwitchLeft} />
-          <Arrow className='arrow' onClick={onSwitchRight} right />
-        </>
-      )}
-    </StyledSlider>
+    <Content>
+      <StyledSlider>
+        <Image alt='slider' src={selectedUrl} forceSkeleton={!store.home.sliderReady} style={style} />
+        <Controls>
+          {items.map((r, index) => (
+            <Control key={r} onClick={onControlClick(index)} selected={selectedUrl === r} />
+          ))}
+        </Controls>
+        {store.home.sliderReady && (
+          <>
+            <Arrow className='arrow' onClick={onSwitchLeft} />
+            <Arrow className='arrow' onClick={onSwitchRight} right />
+          </>
+        )}
+      </StyledSlider>
+    </Content>
   );
 });

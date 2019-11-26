@@ -6,6 +6,7 @@ import { useStore } from '~/renderer/app/store';
 import { Menu } from './Menu';
 import { Icon } from '~/renderer/components/Icon';
 import { icons } from '~/renderer/constants';
+import { Content } from '~/renderer/components/Section';
 import { MenuItem } from './Menu/style';
 import { Header, Navbar, StyledNavItem, MenuButton, ExpandIcon } from './style';
 
@@ -50,9 +51,9 @@ export const Appbar = observer(() => {
   }, []);
 
   return (
-    <>
+    <Content>
       <Header>Publiczne Liceum Ogólnokształcące Nr II w Opolu</Header>
-      <Navbar visible={store.menu.visible}>
+      <Navbar>
         <NavItem to='/' label='Strona główna' />
         <NavItem label='O nas'>
           <Menu>
@@ -72,6 +73,6 @@ export const Appbar = observer(() => {
         <NavItem to='/contact' label='Kontakt' />
       </Navbar>
       <MenuButton onClick={onMenuClick} />
-    </>
+    </Content>
   );
 });

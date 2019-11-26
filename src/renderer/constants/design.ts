@@ -1,6 +1,8 @@
-export const BACKGROUND_COLOR = '#fafafa';
+export const BACKGROUND_COLOR = '#fff'; //'#fafafa';
 
-export const FOOTER_COLOR = '#fff';
+export const FOOTER_COLOR = '#fafafa';
+
+export const SECTION_COLOR = '#f8f7fc';
 
 export const PRIMARY_COLOR = 'rgba(246,16,80,1)';
 

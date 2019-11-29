@@ -6,4 +6,5 @@ export interface IUser {
   description?: string;
   image?: string;
   createdAt?: Date;
+  password?: string;
 }

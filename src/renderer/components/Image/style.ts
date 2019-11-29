@@ -7,6 +7,7 @@ export const Container = styled.div`
   width: 100%;
   height: auto;
   position: relative;
+  overflow: hidden;
   ${noUserSelect()};
 
   ${({ ratio }: { ratio: number }) => css`
@@ -42,7 +43,7 @@ export const StyledSkeleton = styled(Skeleton)`
   position: absolute;
   left: 0;
 
-  ${({ borderRadius }: { borderRadius: number }) => css`
+  ${({ borderRadius }: { borderRadius: number | string }) => css`
     border-radius: ${borderRadius == null ? 12 : borderRadius}px;
   `}
 `;

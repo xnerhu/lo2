@@ -6,8 +6,8 @@ export interface INews {
   content?: string;
   image?: string;
   _categoryId?: number;
-  category?: string;
-  createdAt?: Date;
+  category?: INewsCategory;
+  createdAt?: Date | string;
   _authorId?: number;
   author?: IUser;
 }

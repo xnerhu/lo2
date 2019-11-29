@@ -10,7 +10,7 @@ export const NewsCard = ({ data }: { data: INews }) => {
 
   return (
     <StyledNews to={`/article/${_id}`}>
-      {image && <Image alt={title} src={image} ratio={16 / 9} skeletonBorder={0} />}
+      {image && <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />}
       <Container>
         <Category>
           {category}

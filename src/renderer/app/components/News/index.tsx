@@ -10,7 +10,7 @@ import { Dropdown, IDropDownItem } from '~/renderer/components/Dropdown';
 import { Input } from '~/renderer/components/Input';
 import { IWithRouterProps } from '~/renderer/app/interfaces';
 import { Pagination } from './Pagination';
-import { NewsContainer } from '~/renderer/components/NewsCard/style';
+import { NewsContainer } from '~/renderer/components/NewsContainer';
 import { Toolbar, StyledError, ErrorCircle, ErrorDescription } from './style';
 import { DEFAULT_NEWS_FILTER } from '~/constants';
 
@@ -70,11 +70,7 @@ export default withRouter(observer((props: IWithRouterProps) => {
         <Input innerRef={inputRef} placeholder='Wyszukaj' onChange={onSearch} style={{ marginLeft: 'auto' }} defaultValue={filter.text} label='Wyszukaj' />
       </Toolbar>
       <>
-        <NewsContainer>
-          {store.news.items.map(r => (
-            <NewsCard key={r._id} data={r} />
-          ))}
-        </NewsContainer>
+        <NewsContainer data={store.news.items} />
         {!store.news.error && <Pagination filter={filter} />}
       </>
       {store.news.error && <Error />}

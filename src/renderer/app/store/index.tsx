@@ -3,18 +3,16 @@ import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
 import { IAppState } from '~/interfaces';
+import { AppbarStore } from './appbar';
 import { HomeStore } from './home';
 import { NewsStore } from './news';
 import { ArticleStore } from './article';
 
-import { MenuStore } from './menu';
-
 class Store {
+  public appbar = new AppbarStore();
   public home = new HomeStore();
   public news = new NewsStore();
   public article = new ArticleStore();
-
-  public menu = new MenuStore();
 
   @observable
   public loggedIn = false;

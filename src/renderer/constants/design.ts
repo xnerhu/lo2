@@ -31,3 +31,7 @@ export const GALLERY_CARD_MARGIN = 24;
 
 export const PAGE_ITEM_SIZE = 40;
 export const PAGINATION_COUNT = 5;
+
+export const DEFAULT_NEWS_COLUMNS_COUNT = 4;
+export const NEWS_CARD_WIDTH = 348;
+export const NEWS_CARD_MARGIN = 48;

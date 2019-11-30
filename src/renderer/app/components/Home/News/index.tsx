@@ -6,7 +6,7 @@ import { Section, SectionTitle } from '~/renderer/components/Section';
 import { NewsCard } from '~/renderer/components/NewsCard';
 import { Button } from '~/renderer/components/Button';
 import { IS_BROWSER } from '~/renderer/constants';
-import { NewsContainer } from '~/renderer/components/NewsCard/style';
+import { NewsContainer } from '~/renderer/components/NewsContainer';
 
 export const ShortNews = observer(() => {
   const store = useStore();
@@ -26,11 +26,7 @@ export const ShortNews = observer(() => {
   return (
     <Section>
       <SectionTitle>Nowości</SectionTitle>
-      <NewsContainer>
-        {store.home.news.map(r => (
-          <NewsCard key={r._id} data={r} />
-        ))}
-      </NewsContainer>
+      <NewsContainer data={store.home.news} />
       <Button to='/news' style={{ marginTop: 32, marginBottom: 48 }}>Zobacz więcej</Button>
     </Section>
   );

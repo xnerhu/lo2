@@ -5,6 +5,7 @@ import { transparency, CARD_SHADOW } from '~/renderer/constants';
 import { noUserSelect, overline } from '~/renderer/mixins';
 
 export const StyledNews = styled(Link)`
+  height: fit-content;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -49,4 +50,8 @@ export const NewsContainer = styled.div`
   grid-row-gap: 48px;
   grid-column-gap: 48px;
   grid-template-columns: repeat(auto-fill, minmax(348px, 1fr));
+
+  @media(max-width: 872px) {
+    grid-template-columns: unset;
+  }
 `;

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { icons, transparency, CARD_SHADOW, SHORTCUT_CARD_SIZE } from '~/renderer/constants';
+import { icons, transparency, CARD_SHADOW, SHORTCUT_CARD_SIZE, MOBILE_VIEW, PRIMARY_COLOR } from '~/renderer/constants';
 import { centerIcon } from '~/renderer/mixins';
 
 const GAP_SIZE = 64;
@@ -16,6 +16,7 @@ export const Container = styled.div`
 
   @media(max-width: 967px) {
     grid-template-columns: repeat(2, 1fr);
+    grid-gap: 48px;
   }
 
   @media(max-width: 576px) {
@@ -63,9 +64,38 @@ export const Circle = styled.div`
   background-color: #fff;
   box-shadow: ${CARD_SHADOW};
   transition: 0.1s transform;
+
+  @media(max-width: 967px) {
+    width: 128px;
+    height: 128px;
+  }
+
+  @media(max-width: 372px) {
+    width: 96px;
+    height: 96px;
+  }
+`;
+
+export const Icon = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: ${PRIMARY_COLOR};
+  ${centerIcon(64, true)};
+
+  ${({ src }: { src: string }) => css`
+    mask-image: url(${src});
+  `}
+
+  @media(max-width: 967px) {
+    ${centerIcon(48, true)};
+  }
 `;
 
 export const Title = styled.h6`
   margin-top: 20px;
   font-weight: 400;
+
+  @media(max-width: 967px) {
+    font-size: 16px;
+  }
 `;

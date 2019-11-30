@@ -10,9 +10,11 @@ export interface IImageProps extends React.HTMLAttributes<HTMLDivElement> {
   skeletonBorder?: number | string;
   forceSkeleton?: boolean;
   children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
-export const Image = ({ src, alt, ratio, skeletonBorder, forceSkeleton, children, ...props }: IImageProps) => {
+export const Image = ({ src, alt, ratio, skeletonBorder, forceSkeleton, children, style, className }: IImageProps) => {
   const [fetched, setFetched] = React.useState(forceSkeleton);
 
   React.useEffect(() => {
@@ -32,10 +34,10 @@ export const Image = ({ src, alt, ratio, skeletonBorder, forceSkeleton, children
   }, [src]);
 
   const isFetched = !forceSkeleton && fetched;
-  const className = `dynamic-image ${props.className || ''}`;
+  const _className = `dynamic-image ${className || ''}`;
 
   return (
-    <Container className={className} ratio={ratio} {...props}>
+    <Container className={_className} ratio={ratio} style={style}>
       <Picture fetched={isFetched}>
         <source srcSet={src + '.webp'} type='image/webp' />
         <StyledImage src={src + '.jpg'} alt={alt} />

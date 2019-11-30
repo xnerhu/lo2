@@ -1,58 +1,60 @@
 import * as React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '~/renderer/app/store';
 import { Menu } from './Menu';
-import { Icon } from '~/renderer/components/Icon';
-import { icons } from '~/renderer/constants';
+import { MOBILE_VIEW } from '~/renderer/constants';
 import { MenuItem } from './Menu/style';
-import { Header, Navbar, StyledNavItem, MenuButton, ExpandIcon } from './style';
+import { isAppbarItemSelected } from '~/renderer/app/utils';
+import { StyledAppbar, Header, Navbar, StyledNavItem, ExpandIcon, MenuButton } from './style';
 
-interface Props extends RouteComponentProps {
+export interface IAppBarItemProps extends RouteComponentProps {
   label: string;
   to?: string;
+  subpages?: string[];
   children?: React.ReactNode;
 }
 
-const NavItem = withRouter(({ label, to, children, location }: Props) => {
-  const [expanded, setExpanded] = React.useState(true);
-
+const NavItem = withRouter((props: IAppBarItemProps) => {
   const store = useStore();
 
-  const { pathname } = location;
-  const selected = to && (to === '/' ? pathname === to : pathname.startsWith(to));
+  const { to, label, location, children } = props;
+  const [expanded, setExpanded] = React.useState(false);
+  const selected = React.useMemo(() => isAppbarItemSelected(props), [location.pathname]);
 
   const onClick = React.useCallback(() => {
-    if (to) {
-      store.menu.visible = false;
-    } else {
+    if (!children) {
+      store.appbar.expanded = false;
+    }
+
+    if (window.innerWidth <= MOBILE_VIEW) {
       setExpanded(!expanded);
     }
-  }, [expanded, to]);
+  }, [expanded, !!children]);
 
   return (
-    <>
-      <StyledNavItem to={to} selected={selected} onClick={onClick}>
+    <StyledNavItem onClick={onClick} selected={selected} menuVisible={!!children} expanded={expanded}>
+      <Link to={to || '/'}>
         {label}
-        {!to && <ExpandIcon src={icons.chevron} size={24} expanded={expanded} />}
-        {expanded && children}
-      </StyledNavItem>
-    </>
+        {children && (
+          <>
+            <ExpandIcon className='appbar-expand-icon' expanded={expanded} />
+            {children}
+          </>
+        )}
+      </Link>
+    </StyledNavItem>
   );
 });
 
 export const Appbar = observer(() => {
-  const store = useStore();
-
-  const onMenuClick = React.useCallback(() => {
-    store.menu.visible = !store.menu.visible;
-  }, []);
+  const store = useStore()
 
   return (
-    <>
+    <StyledAppbar>
       <Header>Publiczne Liceum Ogólnokształcące Nr II w Opolu</Header>
-      <Navbar visible={store.menu.visible}>
+      <Navbar expanded={store.appbar.expanded}>
         <NavItem to='/' label='Strona główna' />
         <NavItem label='O nas'>
           <Menu>
@@ -64,14 +66,14 @@ export const Appbar = observer(() => {
             <MenuItem>Piszą o nas</MenuItem>
           </Menu>
         </NavItem>
-        <NavItem to='/news' label='Aktualności' />
+        <NavItem to='/news' subpages={['/article']} label='Aktualności' />
         <NavItem to='/gallery' label='Galeria' />
         <NavItem to='/students' label='Dla uczniów' />
         <NavItem to='/parents' label='Dla rodziców' />
         <NavItem to='/recruitment' label='Rekrutacja' />
         <NavItem to='/contact' label='Kontakt' />
       </Navbar>
-      <MenuButton onClick={onMenuClick} />
-    </>
+      <MenuButton onClick={store.appbar.onMenuButtonClick} />
+    </StyledAppbar>
   );
 });

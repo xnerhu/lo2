@@ -20,6 +20,12 @@ export const Style = css`
     ${noTapHighlight()};
   }
 
+  main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -42,7 +48,6 @@ export const Style = css`
   }
 
   b {
-    ${body2()};
     ${robotoMedium()};
   }
 

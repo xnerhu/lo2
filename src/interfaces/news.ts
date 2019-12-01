@@ -6,7 +6,7 @@ export interface INews {
   content?: string;
   image?: string;
   _categoryId?: number;
-  category?: INewsCategory;
+  category?: string;
   createdAt?: Date | string;
   _authorId?: number;
   author?: IUser;

@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { Container, Column } from '../About/style';
 import { Item, Map } from './style';
 
 const Policy = () => {
@@ -59,7 +58,8 @@ const Policy = () => {
 export default () => {
   return (
     <>
-      <Container maxWidth={1216}>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem corrupti, vitae, iste minima ea, ipsam provident commodi ullam reprehenderit impedit odio quae porro inventore facere eos odit obcaecati. Architecto, omnis.
+      {/* <Container maxWidth={1216}>
         <Column>
           <b>
             <h6>Publiczne Liceum Ogółnokształcące nr II</h6>
@@ -88,7 +88,7 @@ export default () => {
         </Column>
         <Map src="http://maps.google.pl/maps?f=q&amp;hl=pl&amp;geocode=&amp;q=ul.+Kazimierza+Pu%C5%82askiego+3,+Opole,+Poland&amp;ie=UTF8&amp;s=AARTsJrW9sAySn-ob6ZLOl2QVCS3Fkl7rA&amp;ll=50.675304,17.928743&amp;spn=0.010606,0.021029&amp;z=15&amp;iwloc=addr&amp;output=embed" />
       </Container>
-      <Policy />
+      <Policy /> */}
     </>
   );
 };

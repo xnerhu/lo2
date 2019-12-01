@@ -34,6 +34,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   margin-top: 4px;
+  line-height: 20px;
   color: rgba(0, 0, 0, ${transparency.text.medium});
 `;
 
@@ -49,4 +50,8 @@ export const NewsContainer = styled.div`
   grid-row-gap: 48px;
   grid-column-gap: 48px;
   grid-template-columns: repeat(auto-fill, minmax(348px, 1fr));
+
+  @media(max-width: 872px) {
+    grid-template-columns: unset;
+  }
 `;

@@ -7,8 +7,15 @@ export interface IGallerySection {
 export interface IGalleryAlbum {
   _id?: number;
   title?: string;
-  images?: string[];
-  createdAt?: Date;
+  createdAt?: Date | string;
   image?: string;
   _authorId?: number;
+  pictures?: IGalleryPicture[];
+}
+
+export interface IGalleryPicture {
+  _id?: number;
+  _albumId?: number;
+  name?: string;
+  createdAt?: Date;
 }

@@ -1,7 +1,7 @@
 import { INews, INewsCategory, INewsChunk } from './news';
 import { IPress } from './press';
 import { ITeachersSection } from './teachers';
-import { IGallerySection } from './gallery';
+import { IGallerySection, IGalleryAlbum } from './gallery';
 
 export interface IAppState {
   shortNews?: INews[];
@@ -10,7 +10,8 @@ export interface IAppState {
   article?: INews;
   slider?: string[];
   teachers?: ITeachersSection[];
-  gallery?: IGallerySection[];
+  gallerySections?: IGallerySection[];
+  album?: IGalleryAlbum;
 
   pressItems?: IPress[];
 }

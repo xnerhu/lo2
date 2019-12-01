@@ -12,15 +12,9 @@ export const NewsCard = ({ data }: { data: INews }) => {
     <StyledNews to={`/article/${_id}`}>
       {image && <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />}
       <Container>
-        <Category>
-          {category}
-        </Category>
-        <h6>
-          {title}
-        </h6>
-        <Content>
-          {content}
-        </Content>
+        <Category>{category}</Category>
+        <h6>{title}</h6>
+        <Content>{content}</Content>
       </Container>
       <Date>
         {formatDate(createdAt)}

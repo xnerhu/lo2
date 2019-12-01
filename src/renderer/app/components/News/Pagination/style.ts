@@ -12,14 +12,6 @@ export const Pages = styled.div`
   justify-content: center;
   margin-top: 64px;
   border-top: 1px solid rgba(0, 0, 0, ${transparency.dividers});
-
-  &:first-child {
-    margin-right: 24px;
-  }
-
-  &:last-child {
-    margin-left: 24px;
-  }
 `;
 
 export const Container = styled.div`

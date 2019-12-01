@@ -3,18 +3,22 @@ import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
 import { IAppState } from '~/interfaces';
+import { AppbarStore } from './appbar';
 import { HomeStore } from './home';
 import { NewsStore } from './news';
 import { ArticleStore } from './article';
-
-import { MenuStore } from './menu';
+import { GalleryStore } from './gallery';
+import { AlbumStore } from './album';
+import { TeachersStore } from './teachers';
 
 class Store {
+  public appbar = new AppbarStore();
   public home = new HomeStore();
   public news = new NewsStore();
   public article = new ArticleStore();
-
-  public menu = new MenuStore();
+  public gallery = new GalleryStore();
+  public album = new AlbumStore();
+  public teachers = new TeachersStore();
 
   @observable
   public loggedIn = false;
@@ -24,6 +28,9 @@ class Store {
       this.home.inject(state);
       this.news.inject(state);
       this.article.inject(state);
+      this.gallery.inject(state);
+      this.album.inject(state);
+      this.teachers.inject(state);
     }
   }
 
@@ -32,6 +39,10 @@ class Store {
       this.home.load();
     } else if (path.startsWith('/news') && path.length >= 5) {
       this.news.load();
+    } else if (path.startsWith('/gallery')) {
+      this.gallery.load();
+    } else if (path.startsWith('/teachers')) {
+      this.teachers.load();
     }
   }
 }

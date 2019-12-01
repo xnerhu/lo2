@@ -1,7 +1,7 @@
 import { Client, IConfig, Database as SQLDatabase, Table } from 'sql-next';
 import { platform } from 'os';
 
-import { IGalleryAlbum, INews, INewsCategory, IUser } from '~/interfaces';
+import { IGalleryAlbum, INews, INewsCategory, IUser, IGalleryPicture } from '~/interfaces';
 
 export class Database {
   public client = new Client();
@@ -9,8 +9,9 @@ export class Database {
 
   public news: Table<INews>;
   public newsCategories: Table<INewsCategory>;
-  public gallery: Table<IGalleryAlbum>;
   public users: Table<IUser>;
+  public galleryAlbums: Table<IGalleryAlbum>;
+  public galleryPictures: Table<IGalleryPicture>;
 
   protected _getConfig() {
     const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD } = process.env;
@@ -47,8 +48,9 @@ export class Database {
   protected _prepareTables() {
     this.news = this.sql.table('news');
     this.newsCategories = this.sql.table('news-categories');
-    this.gallery = this.sql.table('gallery-albums');
     this.users = this.sql.table('users');
+    this.galleryAlbums = this.sql.table('gallery-albums');
+    this.galleryPictures = this.sql.table('gallery-pictures');
   }
 }
 

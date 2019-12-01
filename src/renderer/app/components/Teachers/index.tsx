@@ -4,25 +4,20 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '~/renderer/app/store';
 import { ITeachersSection, ITeacher } from '~/interfaces';
 import { SectionTitle } from '~/renderer/components/Section';
+import { Link } from '~/renderer/components/Link';
 import { Container, Title, StyledSection } from './style';
 
 const Item = ({ data }: { data: ITeacher }) => {
   const name = data instanceof Array ? data[0] : data;
-  const href = data instanceof Array ? data[1] : null;
+  const href = data instanceof Array && data[1];
 
-  const Wrapper = (
-    <li>
+  return (
+    <Link to={href} target='_blank' rel='noopener' list>
       <span style={{ color: href ? '#F61050' : 'inherit', fontSize: 16 }}>
         {name}
       </span>
-    </li>
+    </Link>
   );
-
-  if (href) {
-    return (<a href={href} target='_blank'>{Wrapper}</a>);
-  }
-
-  return Wrapper;
 }
 
 const Section = ({ data }: { data: ITeachersSection }) => {
@@ -32,8 +27,8 @@ const Section = ({ data }: { data: ITeachersSection }) => {
     <div>
       <Title>{subject}</Title>
       <StyledSection>
-        {teachers.map(r => (
-          <Item data={r} />
+        {teachers.map((r, index) => (
+          <Item key={index} data={r} />
         ))}
       </StyledSection>
     </div>
@@ -43,11 +38,15 @@ const Section = ({ data }: { data: ITeachersSection }) => {
 export default observer(() => {
   const store = useStore();
 
+  const data = store.teachers.data;
+
+  if (!data) return null;
+
   return (
     <>
-      <SectionTitle>Nauczyciele, dyrekcja i administracja</SectionTitle>
+      <SectionTitle>Kadra</SectionTitle>
       <Container>
-        {store.teachers.items.map(r => (
+        {data.map(r => (
           <Section key={r.subject} data={r} />
         ))}
       </Container>

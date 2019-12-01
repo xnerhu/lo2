@@ -1,21 +1,29 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import { body1 } from '~/renderer/mixins';
-import { transparency } from '~/renderer/constants';
+import { longText } from '~/renderer/mixins';
+import { transparency, PRIMARY_COLOR } from '~/renderer/constants';
 import { Image } from '~/renderer/components/Image';
 
+export const Container = styled.div`
+  width: 100%;
+  max-width: 768px;
+  margin: 0 auto;
+  margin-bottom: 16px;
+`;
+
 export const Info = styled.div`
-  margin-top: 12px;
+  margin-top: 8px;
   display: flex;
   align-items: center;
 `;
 
 export const AuthorInfo = styled.div`
-  padding-left: 16px;
+  margin-left: 12px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  font-size: 16px;
+  font-size: 14px;
 
   &, & a {
     color: rgba(0, 0, 0, ${transparency.text.medium});
@@ -26,16 +34,22 @@ export const AuthorInfo = styled.div`
   }
 `;
 
+export const Category = styled(Link)`
+  font-size: 14px;
+  margin-left: 8px;
+  text-decoration: underline;
+  color: ${PRIMARY_COLOR} !important;
+`;
+
 export const StyledAvatar = styled(Image)`
-  width: 56px;
-  height: 56px;
+  width: 46px;
+  height: 46px;
   border-radius: 100%;
 `;
 
 export const Author = styled.div`
-  font-size: 20px;
-  margin-bottom: 2px;
   color: #000;
+  margin-bottom: 2px;
 `;
 
 export const ArticleImage = styled(Image)`
@@ -44,6 +58,6 @@ export const ArticleImage = styled(Image)`
 `;
 
 export const Body = styled.div`
-  margin-top: 24px;
-  ${body1()};
+  margin-top: 40px;
+  ${longText()};
 `;

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '~/renderer/app/store';
 import { Image } from '~/renderer/components/Image';
 import { IGallerySection, IGalleryAlbum } from '~/interfaces';
-import { SectionContainer, Header, StyledAlbum, Title } from './style';
+import { StyledSection, Header, StyledAlbum, Title } from './style';
 
 const Section = ({ data }: { data: IGallerySection }) => {
   const { label, albums } = data;
@@ -12,21 +12,21 @@ const Section = ({ data }: { data: IGallerySection }) => {
   return (
     <>
       <Header>{label}</Header>
-      <SectionContainer>
+      <StyledSection>
         {albums.map(r => (
           <Album key={r.title} data={r} />
         ))}
-      </SectionContainer>
+      </StyledSection>
     </>
   )
 }
 
 const Album = ({ data }: { data: IGalleryAlbum }) => {
-  const { title, image } = data;
+  const { _id, title, image } = data;
 
   return (
-    <StyledAlbum to='/gallery'>
-      <Image src={image} />
+    <StyledAlbum to={`/gallery/${_id}`}>
+      <Image src={image} ratio={1} />
       <Title>{title}</Title>
     </StyledAlbum>
   )
@@ -37,7 +37,7 @@ export default observer(() => {
 
   return (
     <>
-      {store.gallery.items.map(r => (
+      {store.gallery.sections.map(r => (
         <Section key={r.label} data={r} />
       ))}
     </>

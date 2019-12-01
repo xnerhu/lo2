@@ -9,7 +9,7 @@ export default () => {
   return (
     <Container>
       <Column>
-        <ListCard to={EDZIENNIK_URL} target='_blank' icon={icons.register} style={{ marginTop: 0 }}>
+        <ListCard to={EDZIENNIK_URL} target='_blank' rel='noopener' icon={icons.register} style={{ marginTop: 0 }}>
           E-dziennik
         </ListCard>
         <ListCard to='/' icon={icons.group}>Kółka i olimpiady</ListCard>

@@ -1,33 +1,16 @@
 import { Router } from 'express';
 
 import db from '~/server/models/db';
-import { IGallerySection } from '~/interfaces';
+import { formatGallerySections } from '~/server/utils';
 
 const router = Router();
 
 export const getGallerySections = async () => {
-  const albums = await db.gallery.find({}, {
+  const albums = await db.galleryAlbums.find({}, {
     sort: { createdAt: false }
   })
 
-  const sections: IGallerySection[] = [];
-
-  for (const album of albums) {
-    const year = album.createdAt.getFullYear();
-    let section = sections.find(r => r.year === year);
-
-    if (!section) {
-      section = {
-        year,
-        albums: [],
-        label: `${year}-${year + 1}`
-      }
-
-      sections.push(section);
-    }
-
-    section.albums.push(album);
-  }
+  const sections = formatGallerySections(albums);
 
   return sections;
 }

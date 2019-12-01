@@ -37,7 +37,7 @@ export const Slider = observer(() => {
 
   return (
     <StyledSlider>
-      <Image alt='slider' src={selectedUrl} forceSkeleton={!store.home.sliderReady} style={style} />
+      <Image alt='slider' src={selectedUrl} forceSkeleton={!store.home.sliderReady} style={style} cache />
       <Controls>
         {items.map((r, index) => (
           <Control key={r} onClick={onControlClick(index)} selected={selectedUrl === r} />

@@ -4,13 +4,12 @@ import { withRouter } from 'react-router-dom';
 
 import { useStore } from '../../store';
 import { IWithRouterProps } from '~/renderer/app/interfaces';
-import { WIDE_RATIO } from '~/renderer/constants';
 import { formatArticleDate } from '~/renderer/app/utils';
-import { Info, StyledAvatar, Author, AuthorInfo, ArticleImage, Body } from './style';
+import { Container, Info, StyledAvatar, Author, AuthorInfo, ArticleImage, Body, Category } from './style';
 
 const Details = observer(() => {
   const store = useStore();
-  const { title, author, category } = store.article.data;
+  const { title, author, category, _categoryId } = store.article.data;
 
   if (!author) return null;
 
@@ -21,7 +20,7 @@ const Details = observer(() => {
         <StyledAvatar src={author.image} ratio={1} skeletonBorder='100%' />
         <AuthorInfo>
           <Author>Mikołaj Palkiewicz</Author>
-          <span>{formatArticleDate(store.article.data)}, <a href={`/news/1/${category._id}`}>{category.title}</a></span>
+          <span>{formatArticleDate(store.article.data)} <Category to={`/news/1/${_categoryId}`}>{category}</Category></span>
         </AuthorInfo>
       </Info>
     </>
@@ -49,11 +48,11 @@ export default withRouter(observer((props: IWithRouterProps) => {
   const { image, content } = data;
 
   return (
-    <>
+    <Container>
       <Details />
-      {image && <ArticleImage src={image} ratio={WIDE_RATIO} skeletonBorder={16} />}
+      {image && <ArticleImage src={image} ratio={16 / 9} skeletonBorder={16} shadow />}
       <Body>{content}</Body>
-    </>
+    </Container>
   );
 }));
 

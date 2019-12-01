@@ -20,7 +20,8 @@ export const getArticle = async (_id: number): Promise<INews> => {
   return {
     ...formatArticle(data, categories, false),
     author: formatUser(author),
-    category,
+    category: category.title,
+    _categoryId: category._id,
   };
 }
 

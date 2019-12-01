@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-import { aspectRatio } from '~/renderer/mixins';
+export const StyledHistory = styled.div`
+  font-size: 16px;
+`;
 
 export const Container = styled.div`
   width: 100%;
@@ -31,8 +33,4 @@ export const MastersContainer = styled.div`
   grid-gap: 16px;
   grid-row-gap: 16px;
   grid-template-columns: repeat( auto-fit, minmax(200px, 1fr));
-`;
-
-export const Item = styled.div`
- 
 `;

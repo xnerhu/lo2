@@ -31,7 +31,7 @@ export const ShortNews = observer(() => {
           <NewsCard key={r._id} data={r} />
         ))}
       </NewsContainer>
-      <Button to='/news' style={{ marginTop: 32, marginBottom: 48 }}>Zobacz więcej</Button>
+      <Button to='/news' style={{ marginTop: 32, marginBottom: 16 }}>Zobacz więcej</Button>
     </Section>
   );
 });

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 import { noUserSelect, robotoRegular, robotoLight } from '~/renderer/mixins';
-import { transparency, FOOTER_WIDTH, FOOTER_COLOR } from '~/renderer/constants';
+import { transparency, FOOTER_WIDTH, FOOTER_COLOR, MOBILE_VIEW } from '~/renderer/constants';
 import { Icon } from '~/renderer/components/Icon';
 
 export const StyledFooter = styled.footer`
   width: 100vw;
   background-color: ${FOOTER_COLOR};
-  margin-top: 32px;
+  margin-top: auto;
 `;
 
 export const Container = styled.div`
@@ -45,6 +45,10 @@ export const Subtitle = styled(Title)`
 export const Contact = styled.div`
   width: 100%;
   display: flex;
+
+  @media(max-width: ${MOBILE_VIEW}px) {
+    flex-direction: column;
+  }
 `;
 
 export const StyledContactItem = styled.div`
@@ -53,6 +57,10 @@ export const StyledContactItem = styled.div`
 
   &:not(:first-child) {
     margin-left: 24px;
+  }
+
+  @media(max-width: ${MOBILE_VIEW}px) {
+    margin-left: 0px !important;
   }
 `;
 

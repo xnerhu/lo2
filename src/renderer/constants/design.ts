@@ -26,8 +26,7 @@ export const MOBILE_VIEW = 1020;
 
 export const SHORTCUT_CARD_SIZE = 164;
 
-export const GALLERY_CARD_SIZE = 256;
-export const GALLERY_CARD_MARGIN = 24;
+export const GALLERY_CARD_MARGIN = 32;
 
 export const PAGE_ITEM_SIZE = 40;
 export const PAGINATION_COUNT = 5;

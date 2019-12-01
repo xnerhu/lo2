@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { aspectRatio, noUserSelect } from '~/renderer/mixins';
 import { Skeleton } from '../Skeleton';
+import { CARD_SHADOW } from '~/renderer/constants';
 
 export const Container = styled.div`
   width: 100%;
@@ -10,8 +11,11 @@ export const Container = styled.div`
   overflow: hidden;
   ${noUserSelect()};
 
-  ${({ ratio }: { ratio: number }) => css`
+  ${({ ratio, shadow }: { ratio: number, shadow: boolean }) => css`
     ${ratio && aspectRatio(ratio)};
+    ${shadow && css`
+      box-shadow: ${CARD_SHADOW};
+    `}
   `}   
 `;
 

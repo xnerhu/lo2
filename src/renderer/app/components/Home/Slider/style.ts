@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { aspectRatio, shadows } from '~/renderer/mixins';
-import { WIDE_RATIO, STANDARD_RATIO, icons, transparency } from '~/renderer/constants';
+import { WIDE_RATIO, STANDARD_RATIO, icons, transparency, MOBILE_VIEW } from '~/renderer/constants';
 
 export const StyledSlider = styled.div`
   border-radius: 16px;
@@ -47,6 +47,12 @@ export const Control = styled.div`
   &:hover {
     background-color: #fff;
   }
+
+  @media(max-width: ${MOBILE_VIEW}px) {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #fff;
+  }
 `;
 
 export const Arrow = styled.div`
@@ -88,5 +94,9 @@ export const Arrow = styled.div`
     &::before {
       opacity: 1;
     }
+  }
+
+  @media(max-width: ${MOBILE_VIEW}px) {
+    width: 32px;
   }
 `;

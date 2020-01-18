@@ -61,7 +61,7 @@ export class HomeStore extends StoreBase {
   @computed
   public get news() {
     const length = 9;
-    return this._newsItems.slice(0, this.renderLastNews ? length : length - 1)
+    return this._newsItems.slice(0, this.renderLastNews ? length : length - 1);
   }
 
   @action
@@ -69,7 +69,7 @@ export class HomeStore extends StoreBase {
     const width = window.innerWidth;
 
     if (IS_BROWSER) {
-      this.renderLastNews = width <= 1632 && width >= 1268 || width <= 871;
+      this.renderLastNews = (width <= 1632 && width >= 1268) || width <= 871;
     }
-  }
+  };
 }

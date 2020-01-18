@@ -95,6 +95,7 @@ const getFileLoader = (emitFile = true) => {
       {
         loader: 'file-loader',
         options: {
+          esModule: false,
           emitFile,
         },
       },

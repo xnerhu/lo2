@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { GRADIENT } from '~/renderer/constants';
+import { PRIMARY_COLOR } from '~/renderer/constants';
 import { noUserSelect, robotoMedium } from '~/renderer/mixins';
 
 export const Button = styled(Link)`
@@ -12,17 +12,30 @@ export const Button = styled(Link)`
   align-items: center;
   justify-content: center;
   border-radius: 64px;
-  background: ${GRADIENT};
+  background-color: ${PRIMARY_COLOR};
   color: #fff;
   margin: 0 auto;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0px 8px 24px 0px rgba(246, 16, 80, 0.32);
-  transition: 0.1s transform;
+  position: relative;
+  overflow: hidden;
   ${noUserSelect()};
   ${robotoMedium()};
 
-  &:hover {
-    transform: scale(1.05);
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.12);
+    opacity: 0;
+    transition: 0.1s opacity;
+  }
+
+  &:hover::before {
+    opacity: 1;
   }
 `;

@@ -23,4 +23,5 @@ export const icons = {
   email: require('~/renderer/resources/icons/email.svg'),
   search: require('~/renderer/resources/icons/search.svg'),
   drop: require('~/renderer/resources/icons/drop.svg'),
-}
+  banner: require('~/renderer/resources/icons/banner.svg'),
+};

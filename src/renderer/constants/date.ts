@@ -9,5 +9,5 @@ export const SHORT_MONTHS = [
   'Wrz',
   'Paź',
   'Lis',
-  'Gru'
-]
+  'Gru',
+];

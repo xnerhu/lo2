@@ -8,4 +8,4 @@ export const formatArticleDate = (data: INews) => {
   const month = SHORT_MONTHS[date.getMonth()];
 
   return `${month} ${date.getDate()}, ${date.getFullYear()}`;
-}
+};

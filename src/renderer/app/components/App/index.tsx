@@ -12,7 +12,7 @@ import { StyledApp } from './style';
 
 const GlobalStyle = createGlobalStyle`${Style}`;
 
-const options: Options<any> = { ssr: true, };
+const options: Options<any> = { ssr: true };
 
 const LazyHome = loadable(() => import('../Home'), options);
 const LazyNews = loadable(() => import('../News'), options);

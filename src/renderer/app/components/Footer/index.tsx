@@ -1,53 +1,66 @@
 import * as React from 'react';
 
 import { icons, PRIMARY_COLOR } from '~/renderer/constants';
-import { Icon } from '~/renderer/components/Icon';
-import { StyledFooter, Container, Column, Title, Subtitle, Copyright, Contact, StyledContactItem, Label, MediaIcon } from './style';
+import {
+  StyledFooter,
+  Title,
+  Subtitle,
+  Container,
+  ColumnContainer,
+  Column,
+  Label,
+  StyledSocial,
+  FacebookIcon,
+  YoutubeIcon,
+  Copyright,
+} from './style';
 
-interface Props {
-  icon: string;
-  label: string;
-  sublabel: string;
-  iconSize?: number;
-  style?: React.CSSProperties;
-}
-
-const ContactItem = ({ icon, iconSize, label, sublabel, style }: Props) => {
+const Header = () => {
   return (
-    <StyledContactItem>
-      <Icon src={icon} size={iconSize || 36} fill={PRIMARY_COLOR} style={{ marginRight: 8 }} />
-      <div style={style}>
-        <Label>{label}</Label>
-        <Label>{sublabel}</Label>
-      </div>
-    </StyledContactItem>
-  )
-}
+    <>
+      <Title>Liceum Ogólnokształcące Nr II</Title>
+      <Subtitle>im. Marii Konopnickiej w Opolu</Subtitle>
+    </>
+  );
+};
+
+const Details = () => {
+  return (
+    <ColumnContainer style={{ marginTop: 32 }}>
+      <Column>
+        <Label>ul. Generała Kazimierza Pułaskiego 3</Label>
+        <Label>46-020 Opole</Label>
+      </Column>
+      <Column>
+        <Label>sekretariat@lo2.opole.pl</Label>
+        <Label>(0-77) 454-22-86</Label>
+      </Column>
+    </ColumnContainer>
+  );
+};
+
+export const Social = () => {
+  return (
+    <StyledSocial>
+      <Container>
+        <FacebookIcon />
+        <YoutubeIcon />
+        <Copyright href="https://www.github.com/xnerhu" target="_blank">
+          © 2020 Mikołaj Palkiewicz
+        </Copyright>
+      </Container>
+    </StyledSocial>
+  );
+};
 
 export const Footer = () => {
   return (
     <StyledFooter>
       <Container>
-        <Column>
-          <Title>Liceum Ogólnokształcące Nr II</Title>
-          <Subtitle>im. Marii Konopnickiej w Opolu</Subtitle>
-          <Contact>
-            <ContactItem icon={icons.location} label='46-020 Opole' sublabel='Generała Kazimierza Pułaskiego 3' />
-            <ContactItem icon={icons.email} iconSize={32} label='sekretariat@lo2.opole.pl' sublabel='(0-77) 454-22-86' style={{ marginLeft: 6 }} />
-          </Contact>
-        </Column>
-        <Column>
-          <Title>Znajdź nas</Title>
-          <Subtitle>informacje i aktualności</Subtitle>
-          <a href='https://www.facebook.com/WilkiZWarynskiego/' target='_blank' rel='noopener' aria-label='facebook'>
-            <MediaIcon src={icons.facebook} size={32} fill='#3b5998' />
-          </a>
-          <a href='https://www.youtube.com/channel/UCWhfUoBYJxxZL4yj0GI1njw' target='_blank' rel='noopener' aria-label='youtube'>
-            <MediaIcon src={icons.youtube} size={32} fill='#ff0000' style={{ marginLeft: 8 }} />
-          </a>
-        </Column>
+        <Header />
+        <Details />
       </Container>
-      <Copyright href='https://www.github.com/xnerhu' target='_blank'>© 2019 Mikołaj Palkiewicz</Copyright>
+      <Social />
     </StyledFooter>
   );
-}
+};

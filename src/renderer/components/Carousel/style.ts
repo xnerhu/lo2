@@ -1,9 +1,10 @@
 import styled, { css } from 'styled-components';
 
-import { aspectRatio, shadows } from '~/renderer/mixins';
-import { WIDE_RATIO, STANDARD_RATIO, icons, transparency, MOBILE_VIEW } from '~/renderer/constants';
+import { Image as DynamicImage } from '~/renderer/components/Image';
+import { aspectRatio, centerVertical } from '~/renderer/mixins';
+import { WIDE_RATIO, icons, transparency } from '~/renderer/constants';
 
-export const StyledSlider = styled.div`
+export const StyledCarousel = styled.div`
   border-radius: 16px;
   overflow: hidden;
   position: relative;
@@ -12,10 +13,13 @@ export const StyledSlider = styled.div`
   &:hover > .arrow {
     opacity: 1;
   }
+`;
 
-  @media(max-width: 967px) {
-    ${aspectRatio(STANDARD_RATIO)};
-  }
+export const Image = styled(DynamicImage)`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
 `;
 
 export const Controls = styled.div`
@@ -23,21 +27,19 @@ export const Controls = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  bottom: 16px;
+  margin-top: 12px;
 `;
 
 export const Control = styled.div`
-  width: 16px;
-  height: 16px;
-  border: 2px solid #fff;
+  width: 12px;
+  height: 12px;
   border-radius: 100%;
   cursor: pointer;
-  box-shadow: ${shadows(4)};
-  transition: 0.1s background-color;
+  background-color: #000;
+  transition: 0.1s opacity;
 
   ${({ selected }: { selected: boolean }) => css`
-    background-color: ${selected ? '#fff' : 'unset'};
+    opacity: ${selected ? 0.87 : 0.16};
   `}
 
   &:not(:first-child) {
@@ -45,32 +47,27 @@ export const Control = styled.div`
   }
 
   &:hover {
-    background-color: #fff;
-  }
-
-  @media(max-width: ${MOBILE_VIEW}px) {
-    width: 12px;
-    height: 12px;
-    border: 1px solid #fff;
+    opacity: 0.87;
   }
 `;
 
 export const Arrow = styled.div`
-  width: 64px;
-  height: 100%;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
   position: absolute;
-  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.16);
-  opacity: 0;
-  transition: 0.1s opacity, 0.1s background-color;
   cursor: pointer;
+  opacity: 0;
+  background-color: rgba(255, 255, 255, 0.48);
+  ${centerVertical()};
+  transition: 0.1s opacity, 0.1s background-color;
 
   ${({ right }: { right?: boolean }) => css`
-    left: ${right ? 'unset' : 0};
-    right: ${right ? 0 : 'unset'};
+    left: ${right ? 'unset' : '16px'};
+    right: ${right ? '16px' : 'unset'};
 
     &::before {
       transform: ${right ? 'unset' : 'rotate(180deg)'};
@@ -86,17 +83,6 @@ export const Arrow = styled.div`
     opacity: ${transparency.icons.inactive};
     filter: invert(100%);
     transition: 0.1s opacity;
-  }
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.24);
-
-    &::before {
-      opacity: 1;
-    }
-  }
-
-  @media(max-width: ${MOBILE_VIEW}px) {
-    width: 32px;
+    position: relative;
   }
 `;

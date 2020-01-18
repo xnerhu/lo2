@@ -1,6 +1,10 @@
 import { IAppBarItemProps } from '~/renderer/app/components/Appbar';
 
-export const isAppbarItemSelected = ({ to, location, subpages }: IAppBarItemProps) => {
+export const isAppbarItemSelected = ({
+  to,
+  location,
+  subpages,
+}: IAppBarItemProps) => {
   const { pathname } = location;
   const path = pathname.toLowerCase();
 
@@ -12,4 +16,4 @@ export const isAppbarItemSelected = ({ to, location, subpages }: IAppBarItemProp
   }
 
   return false;
-}
+};

@@ -1,7 +1,19 @@
 import { css } from 'styled-components';
 
-import { body2, robotoRegular, noUserSelect, robotoMedium, h6, h5, h4, h3, h2, h1, noTapHighlight } from '~/renderer/mixins';
-import { BACKGROUND_COLOR } from '../constants';
+import {
+  body2,
+  robotoRegular,
+  noUserSelect,
+  robotoMedium,
+  h6,
+  h5,
+  h4,
+  h3,
+  h2,
+  h1,
+  noTapHighlight,
+} from '~/renderer/mixins';
+import { BACKGROUND_COLOR, PRIMARY_COLOR } from '../constants';
 
 export const Style = css`
   body {
@@ -35,7 +47,7 @@ export const Style = css`
       left: -100%;
     }
     100% {
-      left: 100%
+      left: 100%;
     }
   }
 
@@ -51,7 +63,12 @@ export const Style = css`
     ${robotoMedium()};
   }
 
-  h6, h5, h4, h3, h2, h1 {
+  h6,
+  h5,
+  h4,
+  h3,
+  h2,
+  h1 {
     margin: 0;
   }
 
@@ -70,7 +87,7 @@ export const Style = css`
   h3 {
     ${h3()};
   }
-  
+
   h2 {
     ${h2()};
   }
@@ -80,7 +97,7 @@ export const Style = css`
   }
 
   ::selection {
-    background: #F61050;
+    background: ${PRIMARY_COLOR};
     color: #fff;
   }
 `;

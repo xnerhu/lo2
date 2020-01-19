@@ -75,10 +75,11 @@ export const NavItems = styled.nav`
     width: 100%;
     height: 100%;
     top: 0px;
+    padding-top: ${APPBAR_MOBILE_HEIGHT}px;
     flex-direction: column;
     left: 0;
     position: fixed;
-    justify-content: center;
+    overflow-y: auto;
     z-index: 10;
     opacity: 0;
     background-color: #fff;

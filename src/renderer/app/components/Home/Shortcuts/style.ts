@@ -25,6 +25,7 @@ export const StyledItem = styled.a`
   cursor: pointer;
 
   &:hover > :first-child {
+    background-color: rgba(0, 174, 239, 0.04);
     transform: scale(1.1);
   }
 `;
@@ -35,7 +36,7 @@ export const Circle = styled.div`
   border-radius: 100%;
   background-color: #fff;
   border: 1px solid ${PRIMARY_COLOR};
-  transition: 0.1s transform;
+  transition: 0.1s transform, 0.1s background-color;
 `;
 
 export const Icon = styled.div`

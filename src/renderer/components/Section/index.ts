@@ -29,8 +29,10 @@ export const Background = styled.div`
 `;
 
 export const SectionTitle = styled.h5`
-  padding: 32px 0px;
   width: fit-content;
+  height: 96px;
+  display: flex;
+  align-items: center;
   position: relative;
   ${noUserSelect()};
   ${robotoMedium()};

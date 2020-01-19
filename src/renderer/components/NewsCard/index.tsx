@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { withRouter } from 'react-router';
 
 import { formatDate } from '~/renderer/app/utils';
 import { INews } from '~/interfaces';
 import { Image } from '../Image';
+import { IRouterProps } from '~/renderer/app/interfaces';
 import {
   StyledNewsCard,
   Container,
@@ -12,8 +14,18 @@ import {
   Title,
 } from './style';
 
-export const NewsCard = ({ data }: { data: INews }) => {
+interface Props {
+  data: INews;
+}
+
+export const NewsCard = withRouter(({ data, history }: IRouterProps<Props>) => {
   const { _id, image, category, title, content, createdAt } = data;
+
+  const onCategoryClick = React.useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+
+    history.push(`/news/`);
+  }, []);
 
   return (
     <StyledNewsCard to={`/article/${_id}`}>
@@ -21,11 +33,11 @@ export const NewsCard = ({ data }: { data: INews }) => {
         <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />
       )}
       <Container>
-        <Category>{category}</Category>
+        <Category onClick={onCategoryClick}>{category}</Category>
         <Title>{title}</Title>
         <Content>{content}</Content>
-        <Date>{formatDate(createdAt)}</Date>
       </Container>
+      <Date>{formatDate(createdAt)}</Date>
     </StyledNewsCard>
   );
-};
+});

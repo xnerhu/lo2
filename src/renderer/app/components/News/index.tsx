@@ -8,54 +8,70 @@ import { useStore } from '~/renderer/app/store';
 import { NewsCard } from '~/renderer/components/NewsCard';
 import { Dropdown, IDropDownItem } from '~/renderer/components/Dropdown';
 import { Input } from '~/renderer/components/Input';
-import { IWithRouterProps } from '~/renderer/app/interfaces';
+import { IWithRouterProps, IRouterProps } from '~/renderer/app/interfaces';
 import { Pagination } from './Pagination';
-import { Toolbar, StyledError, ErrorCircle, ErrorDescription } from './style';
+import { Background, Content } from '~/renderer/components/Section';
 import { DEFAULT_NEWS_FILTER } from '~/constants';
+import { NewsGrid } from '~/renderer/components/NewsGrid';
+import { INewsFilter } from '~/interfaces';
+import { StyledToolbar } from './style';
 
-// const Error = () => {
-//   return (
-//     <StyledError>
-//       <ErrorCircle>
-//         404
-//       </ErrorCircle>
-//       <b><h4 style={{ fontWeight: 500 }}>Oops! Nic nie znaleziono!</h4></b>
-//       <ErrorDescription>Posty, które szukasz mogły zostać usunięte lub zmienione.</ErrorDescription>
-//     </StyledError>
-//   );
-// }
+interface ToolbarProps {
+  filter: INewsFilter;
+}
+
+const Toolbar = withRouter(
+  observer((props: IRouterProps<ToolbarProps>) => {
+    const { match, history, filter } = props;
+
+    const store = useStore();
+    const inputRef = React.useRef<HTMLInputElement>();
+
+    const onDropdown = React.useCallback(
+      (e: IDropDownItem) => {
+        store.news.paginationOffset = 0;
+
+        history.push({
+          pathname: store.news.stringifyFilter({
+            text: filter.text,
+            category: e._id,
+          }),
+        });
+      },
+      [filter],
+    );
+
+    const onSearch = React.useCallback(
+      (text: string) => {
+        store.news.paginationOffset = 0;
+
+        history.push({
+          pathname: store.news.stringifyFilter({
+            category: filter.category,
+            text,
+          }),
+        });
+      },
+      [filter],
+    );
+
+    return (
+      <StyledToolbar>
+        <Dropdown items={store.news.categories} value={-1} />
+        <Input placeholder="Wyszukaj" style={{ marginLeft: 8 }} />
+      </StyledToolbar>
+    );
+  }),
+);
 
 export default withRouter(
   observer((props: IWithRouterProps) => {
-    // const store = useStore();
-    // const { match, history } = props;
+    const store = useStore();
+    const { match, history } = props;
 
-    // const inputRef = React.useRef<HTMLInputElement>();
-    // const filter = React.useMemo(() => {
-    //   return { ...DEFAULT_NEWS_FILTER, ...formatNewsFilter(match.params) };
-    // }, [match.params]);
-
-    // const onDropdown = React.useCallback((e: IDropDownItem) => {
-    //   store.news.paginationOffset = 0;
-
-    //   history.push({
-    //     pathname: store.news.stringifyFilter({
-    //       text: filter.text,
-    //       category: e._id,
-    //     })
-    //   });
-    // }, [filter]);
-
-    // const onSearch = React.useCallback((text: string) => {
-    //   store.news.paginationOffset = 0;
-
-    //   history.push({
-    //     pathname: store.news.stringifyFilter({
-    //       category: filter.category,
-    //       text,
-    //     })
-    //   });
-    // }, [filter]);
+    const filter = React.useMemo(() => {
+      return { ...DEFAULT_NEWS_FILTER, ...formatNewsFilter(match.params) };
+    }, [match.params]);
 
     // useDidMountEffect(() => {
     //   inputRef.current.value = filter.text;
@@ -63,7 +79,14 @@ export default withRouter(
     //   store.news.setPaginationOffset(filter.page);
     // }, [filter], !!store.news.items.length);
 
-    return <>xd</>;
+    return (
+      <Background style={{ paddingBottom: 48 }}>
+        <Content>
+          <Toolbar filter={filter} />
+          <NewsGrid items={store.news.items} />
+        </Content>
+      </Background>
+    );
   }),
 );
 

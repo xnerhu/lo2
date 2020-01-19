@@ -29,7 +29,7 @@ export const ShortNews = observer(() => {
   return (
     <Background style={{ marginTop: 56 }}>
       <Content>
-        <SectionTitle>Nowości</SectionTitle>
+        <SectionTitle>Aktualności</SectionTitle>
         <NewsGrid items={store.home.news} />
         <Button to="/news" style={{ marginTop: 32, marginBottom: 16 }}>
           Zobacz więcej

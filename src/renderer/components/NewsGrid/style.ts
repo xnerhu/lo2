@@ -1,30 +1,15 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-import { NEWS_GRID_GAP, MOBILE_VIEW } from '~/renderer/constants';
+import { NEWS_GRID_GAP } from '~/renderer/constants';
 
 export const StyledNewsGrid = styled.div`
   width: 100%;
-  column-count: 4;
-  grid-gap: ${NEWS_GRID_GAP}px;
-  margin-top: -${NEWS_GRID_GAP}px;
-
-  ${({ visible }: { visible: boolean }) => css`
-    visibility: ${visible ? 'visible' : 'hidden'};
-  `}
-
-  & > * {
-    margin-top: ${NEWS_GRID_GAP}px;
-  }
-
-  @media (max-width: 1366px) {
-    column-count: 3;
-  }
-
-  @media (max-width: ${MOBILE_VIEW}px) {
-    column-count: 2;
-  }
+  display: grid;
+  grid-row-gap: ${NEWS_GRID_GAP}px;
+  grid-column-gap: ${NEWS_GRID_GAP}px;
+  grid-template-columns: repeat(auto-fill, minmax(348px, 1fr));
 
   @media (max-width: 872px) {
-    column-count: 1;
+    grid-template-columns: unset;
   }
 `;

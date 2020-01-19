@@ -36,6 +36,7 @@ export const Category = styled.div`
 
   &:hover {
     color: ${PRIMARY_COLOR};
+    text-decoration: underline;
     ${robotoMedium()};
   }
 `;
@@ -51,6 +52,7 @@ export const Content = styled.div`
 `;
 
 export const Date = styled.div`
-  padding: 16px 0px;
+  padding: 16px 24px;
   color: rgba(0, 0, 0, ${transparency.text.medium});
+  margin-top: auto;
 `;

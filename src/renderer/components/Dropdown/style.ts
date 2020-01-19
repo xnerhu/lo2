@@ -1,32 +1,42 @@
 import styled, { css } from 'styled-components';
 
-import { noUserSelect, singleLine, shadows, noButtons } from '~/renderer/mixins';
-import { Icon } from '../Icon';
-import { transparency } from '~/renderer/constants';
+import {
+  noUserSelect,
+  singleLine,
+  shadows,
+  noButtons,
+  centerIcon,
+  robotoMedium,
+} from '~/renderer/mixins';
+import { transparency, icons, EASING_FUNCTION } from '~/renderer/constants';
 
 export const StyledDropdown = styled.div`
-  width: 200px;
-  height: 32px;
-  background-color: rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
+  cursor: pointer;
+  height: 96px;
   display: flex;
   align-items: center;
-  cursor: pointer;
   position: relative;
   ${noUserSelect()};
+
+  &:hover .drop-down-icon {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
 `;
 
-export const Label = styled.div`
-  font-size: 13px;
-  margin-left: 12px;
+export const Label = styled.h5`
+  ${robotoMedium()};
   ${singleLine()};
 `;
 
-export const DropIcon = styled(Icon)`
-  margin-left: auto;
-  margin-right: 4px;
+export const DropIcon = styled.div`
+  width: 40px;
+  height: 40px;
+  margin-left: 2px;
   opacity: ${transparency.icons.inactive};
-  transition: 0.1s ease-out transform;
+  transition: 0.2s ${EASING_FUNCTION} transform;
+  background-image: url(${icons.drop});
+  border-radius: 100%;
+  ${centerIcon(20)};
 
   ${({ expanded }: { expanded: boolean }) => css`
     transform: ${expanded ? 'rotate(180deg)' : 'rotate(0deg)'};
@@ -34,7 +44,7 @@ export const DropIcon = styled(Icon)`
 `;
 
 export const Menu = styled.div`
-  width: 100%;
+  width: 256px;
   max-height: 264px;
   overflow-y: auto;
   background-color: #fff;
@@ -44,7 +54,8 @@ export const Menu = styled.div`
   z-index: 9;
   padding: 8px 0px;
   box-shadow: ${shadows(6)};
-  transition: 0.1s opacity, 0.1s ease-out margin-top;
+  transition: 0.2s opacity, 0.2s margin-top;
+  transition-timing-function: ${EASING_FUNCTION};
   ${noButtons()};
 
   ${({ expanded }: { expanded: boolean }) => css`

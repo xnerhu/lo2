@@ -16,19 +16,24 @@ interface Props {
 
 export const Dropdown = ({ items, onChange, value }: Props) => {
   const [expanded, setExpanded] = React.useState(false);
-  const selected = React.useMemo(() => items.find(r => r._id === value), [value]);
+  const selected = React.useMemo(() => items.find(r => r._id === value), [
+    value,
+  ]);
 
-  const onClick = React.useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
+  const onClick = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
 
-    if (!expanded) {
-      window.addEventListener('click', onWindowClick);
-    } else {
-      window.removeEventListener('click', onWindowClick);
-    }
+      if (!expanded) {
+        window.addEventListener('click', onWindowClick);
+      } else {
+        window.removeEventListener('click', onWindowClick);
+      }
 
-    setExpanded(!expanded);
-  }, [expanded]);
+      setExpanded(!expanded);
+    },
+    [expanded],
+  );
 
   const onWindowClick = React.useCallback(() => {
     setExpanded(false);
@@ -43,20 +48,28 @@ export const Dropdown = ({ items, onChange, value }: Props) => {
   React.useEffect(() => {
     return () => {
       window.removeEventListener('click', onWindowClick);
-    }
+    };
   }, []);
 
   return (
     <StyledDropdown onClick={onClick}>
-      {selected && <>
-        <Label>{selected.title}</Label>
-        <DropIcon src={icons.drop} size={20} expanded={expanded} />
-        <Menu expanded={expanded}>
-          {items.map(r => (
-            <MenuItem key={r._id} selected={r._id === selected._id} onClick={onItemClick(r)}>{r.title}</MenuItem>
-          ))}
-        </Menu>
-      </>}
+      {selected && (
+        <>
+          <Label>{selected.title}</Label>
+          <DropIcon className="drop-down-icon" expanded={expanded} />
+          <Menu expanded={expanded}>
+            {items.map(r => (
+              <MenuItem
+                key={r._id}
+                selected={r._id === selected._id}
+                onClick={onItemClick(r)}
+              >
+                {r.title}
+              </MenuItem>
+            ))}
+          </Menu>
+        </>
+      )}
     </StyledDropdown>
-  )
-}
+  );
+};

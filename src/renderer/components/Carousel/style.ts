@@ -2,7 +2,12 @@ import styled, { css } from 'styled-components';
 
 import { Image as DynamicImage } from '~/renderer/components/Image';
 import { aspectRatio, centerVertical } from '~/renderer/mixins';
-import { WIDE_RATIO, icons, transparency } from '~/renderer/constants';
+import {
+  WIDE_RATIO,
+  STANDARD_RATIO,
+  icons,
+  transparency,
+} from '~/renderer/constants';
 
 export const StyledCarousel = styled.div`
   border-radius: 16px;
@@ -12,6 +17,10 @@ export const StyledCarousel = styled.div`
 
   &:hover > .arrow {
     opacity: 1;
+  }
+
+  @media (max-width: 967px) {
+    ${aspectRatio(STANDARD_RATIO)};
   }
 `;
 
@@ -27,7 +36,7 @@ export const Controls = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 12px;
+  margin-top: 16px;
 `;
 
 export const Control = styled.div`

@@ -1,45 +1,42 @@
 import * as React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '~/renderer/app/store';
-import { StyledAppbar, MenuItems, StyledMenuItem } from './style';
 import { icons, navigationItems } from '~/renderer/constants';
-import { INavItem, IRouterProps } from '../../interfaces';
-import { isAppbarItemSelected } from '../../utils';
-
-const MenuItem = withRouter((props: IRouterProps<INavItem>) => {
-  const { to, label, location } = props;
-  const selected = React.useMemo(() => isAppbarItemSelected(props), [
-    location.pathname,
-  ]);
-
-  return (
-    <StyledMenuItem selected={selected} to={to}>
-      {label}
-    </StyledMenuItem>
-  );
-});
+import {
+  StyledAppbar,
+  Banner,
+  NavItems,
+  MenuIcon,
+  Container,
+  Placeholder,
+} from './style';
+import { NavItem } from './NavItem';
 
 export const Appbar = observer(() => {
   const store = useStore();
 
   return (
-    <StyledAppbar>
-      <img height={56} src={icons.banner} alt="logo szkoły" />
-      <MenuItems>
-        {navigationItems.map(r => (
-          <MenuItem key={r.to} {...r} />
-        ))}
-      </MenuItems>
-    </StyledAppbar>
+    <>
+      <StyledAppbar
+        visible={store.appbar.visible}
+        hideShadow={store.appbar.hideShadow}
+      >
+        <Container>
+          <NavItems expanded={store.appbar.expanded}>
+            {navigationItems.map(r => (
+              <NavItem key={r.label} {...r} />
+            ))}
+          </NavItems>
+          <Banner src={icons.banner} alt="logo szkoły" draggable={false} />
+        </Container>
+        <MenuIcon
+          expanded={store.appbar.expanded}
+          onClick={store.appbar.onMenuButtonClick}
+        />
+      </StyledAppbar>
+      <Placeholder />
+    </>
   );
 });
-
-// <MenuItem>Aktualności</MenuItem>
-// <MenuItem>O nas</MenuItem>
-// <MenuItem>Gazetka</MenuItem>
-// <MenuItem>Dla uczniów</MenuItem>
-// <MenuItem>Dla rodziców</MenuItem>
-// <MenuItem>Rekrutacja</MenuItem>
-// <MenuItem>Kontakt</MenuItem>

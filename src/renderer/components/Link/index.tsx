@@ -11,11 +11,30 @@ interface Props extends React.HTMLAttributes<HTMLAnchorElement> {
 
 export const Link = ({ to, children, list, ...props }: Props) => {
   if (!to) {
-    if (!list) return <div {...props as any}>{children}</div>;
-    return <li {...props as any}>{children}</li>;
+    if (!list) return <div className={props.className}>{children}</div>;
+    return <li className={props.className}>{children}</li>;
   }
 
-  if (to.startsWith('http')) return <a href={to} {...props}>{children}</a>;
+  if (to.startsWith('http'))
+    return (
+      <a
+        href={to}
+        className={props.className}
+        target={props.target}
+        rel={props.rel}
+      >
+        {children}
+      </a>
+    );
 
-  return <RouterLink to={to} {...props}>{children}</RouterLink>
-}
+  return (
+    <RouterLink
+      to={to}
+      className={props.className}
+      target={props.target}
+      rel={props.rel}
+    >
+      {children}
+    </RouterLink>
+  );
+};

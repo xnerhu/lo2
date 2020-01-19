@@ -26,7 +26,7 @@ export const Container = styled.div`
   padding: 0px 24px;
 `;
 
-export const Category = styled(Link)`
+export const Category = styled.div`
   margin-top: 16px;
   margin-bottom: 8px;
   display: block;

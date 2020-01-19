@@ -21,7 +21,7 @@ export const NewsCard = ({ data }: { data: INews }) => {
         <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />
       )}
       <Container>
-        <Category to={`/news/`}>{category}</Category>
+        <Category>{category}</Category>
         <Title>{title}</Title>
         <Content>{content}</Content>
         <Date>{formatDate(createdAt)}</Date>

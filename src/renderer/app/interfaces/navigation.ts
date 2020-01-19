@@ -1,9 +1,14 @@
 import { RouteComponentProps } from 'react-router-dom';
 
-export type IRouterProps<T> = T & RouteComponentProps;
+export type IRouterProps<T> = T &
+  RouteComponentProps & {
+    children?: React.ReactNode;
+  };
 
 export interface INavItem {
-  to: string;
+  to?: string;
   label: string;
-  openInNewTab?: boolean;
+  subpages?: INavSubItem[];
 }
+
+export type INavSubItem = Omit<INavItem, 'subpages'>;

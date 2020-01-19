@@ -49,14 +49,22 @@ class Store {
 
 export const createStore = (data: any) => () => {
   return new Store(data);
-}
+};
 
-const StoreContext = React.createContext<Store>(null)
+const StoreContext = React.createContext<Store>(null);
 
-export const StoreProvider = ({ data, children }: { data?: IAppState, children: any }) => {
+export const StoreProvider = ({
+  data,
+  children,
+}: {
+  data?: IAppState;
+  children: any;
+}) => {
   const store = useLocalStore(createStore(data));
-  return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
-}
+  return (
+    <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
+  );
+};
 
 export const useStore = () => {
   const store = React.useContext(StoreContext);
@@ -65,5 +73,5 @@ export const useStore = () => {
     throw new Error('useStore must be used within a StoreProvider.');
   }
 
-  return store
-}
+  return store;
+};

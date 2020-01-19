@@ -19,7 +19,7 @@ interface Props {
 const Item = ({ icon, to, children }: Props) => {
   return (
     <StyledItem href={to} target="_blank" rel="noopener">
-      <Circle className="shortcuts-circle">
+      <Circle>
         <Icon src={icon} />
       </Circle>
       <Title>{children}</Title>
@@ -29,21 +29,19 @@ const Item = ({ icon, to, children }: Props) => {
 
 export const Shortcuts = () => {
   return (
-    <Section>
-      <Container>
-        <Item to={EDZIENNIK_URL} icon={icons.register}>
-          E-dziennik
-        </Item>
-        <Item to={LESSONS_PLAN_URL} icon={icons.plan}>
-          Plan lekcji
-        </Item>
-        <Item to={REPLACEMENTS_URL} icon={icons.replacement}>
-          Zastępstwa
-        </Item>
-        <Item to={GOOGLE_MAPS_URL} icon={icons.locationOutline}>
-          Google maps
-        </Item>
-      </Container>
-    </Section>
+    <Container>
+      <Item to={EDZIENNIK_URL} icon={icons.register}>
+        E-dziennik
+      </Item>
+      <Item to={LESSONS_PLAN_URL} icon={icons.plan}>
+        Plan lekcji
+      </Item>
+      <Item to={REPLACEMENTS_URL} icon={icons.replacement}>
+        Zastępstwa
+      </Item>
+      <Item to={GOOGLE_MAPS_URL} icon={icons.locationOutline}>
+        Google maps
+      </Item>
+    </Container>
   );
 };

@@ -14,17 +14,17 @@ import { NewsGrid } from '~/renderer/components/NewsGrid';
 export const ShortNews = observer(() => {
   const store = useStore();
 
-  // if (IS_BROWSER) {
-  //   React.useEffect(() => {
-  //     store.home.onWindowResize();
+  if (IS_BROWSER) {
+    React.useEffect(() => {
+      store.home.onWindowResize();
 
-  //     window.addEventListener('resize', store.home.onWindowResize);
+      window.addEventListener('resize', store.home.onWindowResize);
 
-  //     return () => {
-  //       window.removeEventListener('resize', store.home.onWindowResize);
-  //     }
-  //   }, []);
-  // }
+      return () => {
+        window.removeEventListener('resize', store.home.onWindowResize);
+      };
+    }, []);
+  }
 
   return (
     <Background style={{ marginTop: 56 }}>

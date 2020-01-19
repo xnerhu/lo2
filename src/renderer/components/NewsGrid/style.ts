@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { NEWS_GRID_GAP, MOBILE_VIEW } from '~/renderer/constants';
 
@@ -7,6 +7,10 @@ export const StyledNewsGrid = styled.div`
   column-count: 4;
   grid-gap: ${NEWS_GRID_GAP}px;
   margin-top: -${NEWS_GRID_GAP}px;
+
+  ${({ visible }: { visible: boolean }) => css`
+    visibility: ${visible ? 'visible' : 'hidden'};
+  `}
 
   & > * {
     margin-top: ${NEWS_GRID_GAP}px;

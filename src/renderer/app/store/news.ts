@@ -1,6 +1,12 @@
 import { observable, action, computed } from 'mobx';
 
-import { INewsCategory, INews, IAppState, INewsChunk, INewsFilter } from '~/interfaces';
+import {
+  INewsCategory,
+  INews,
+  IAppState,
+  INewsChunk,
+  INewsFilter,
+} from '~/interfaces';
 import { callApi } from '../utils';
 import { PAGINATION_COUNT } from '~/renderer/constants';
 import { StoreBase } from '../models';
@@ -13,9 +19,9 @@ export class NewsStore extends StoreBase {
   public categories: INewsCategory[] = [
     {
       _id: -1,
-      title: 'Wszystko'
-    }
-  ]
+      title: 'Wszystko',
+    },
+  ];
 
   @observable
   public pagesCount = 0;
@@ -99,22 +105,22 @@ export class NewsStore extends StoreBase {
     if (--this.paginationOffset < 0) {
       this.goEnd();
     }
-  }
+  };
 
   @action
   public goForward = () => {
     if (++this.paginationOffset > this.maxPaginationLength) {
       this.goStart();
     }
-  }
+  };
 
   @action
   public goStart = () => {
     this.paginationOffset = 0;
-  }
+  };
 
   @action
   public goEnd = () => {
     this.paginationOffset = this.maxPaginationLength;
-  }
+  };
 }

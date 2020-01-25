@@ -1,13 +1,16 @@
 import { Router } from 'express';
 
 import { IRequest } from '../../interfaces';
-import { getShortNews } from '../api/short-news';
-import { getSliderItems } from '../api/slider';
+import { getShortNews, getSliderItems } from '~/server/services';
 
 const router = Router();
 
 router.get('/', async (req: IRequest, res, next) => {
-  const [shortNews, slider] = await Promise.all([getShortNews(), getSliderItems()]);
+  const [shortNews, slider] = await Promise.all([
+    getShortNews(),
+    getSliderItems(),
+  ]);
+
   req.appState = { shortNews, slider };
 
   next();

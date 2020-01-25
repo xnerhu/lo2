@@ -8,6 +8,7 @@ export interface IAppState {
   news?: INewsChunk;
   newsCategories?: INewsCategory[];
   article?: INews;
+  proposedNews?: INews[];
   slider?: string[];
   teachers?: ITeachersSection[];
   gallerySections?: IGallerySection[];

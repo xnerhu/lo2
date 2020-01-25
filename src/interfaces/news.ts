@@ -1,30 +1,31 @@
 import { IUser } from './user';
 
 export interface INews {
-  _id?: number;
+  id?: number;
   title?: string;
   content?: string;
   image?: string;
-  _categoryId?: number;
-  category?: string;
-  createdAt?: Date | string;
-  _authorId?: number;
-  author?: IUser;
+  createdAt?: string;
+  categoryId?: number;
+  authorId?: number;
+  _category?: INewsCategory;
+  _author?: IUser;
 }
 
 export interface INewsCategory {
-  _id?: number;
-  title?: string;
+  id?: number;
+  name?: string;
+  label?: string;
 }
 
 export interface INewsChunk {
   items?: INews[];
-  pagesCount?: number;
+  nextPage?: boolean;
 }
 
 export interface INewsFilter {
   page?: number;
   limit?: number;
-  text?: string;
-  category?: number;
+  categoryLabel?: string;
+  excludedId?: number;
 }

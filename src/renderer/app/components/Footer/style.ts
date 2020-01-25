@@ -23,7 +23,7 @@ export const StyledFooter = styled.footer`
 `;
 
 export const Container = styled.div`
-  width: 100%;
+  width: calc(100% - 64px);
   max-width: ${FOOTER_WIDTH}px;
   margin: 0 auto;
 `;
@@ -57,7 +57,6 @@ export const Column = styled.div`
 `;
 
 export const StyledSocial = styled.div`
-  width: 100%;
   margin-top: 32px;
   border-top: 1px solid rgba(0, 0, 0, ${transparency.dividers});
 
@@ -68,15 +67,19 @@ export const StyledSocial = styled.div`
   }
 `;
 
-export const Icon = styled.div`
-  width: 24px;
-  height: 24px;
+export const Icon = styled.a`
+  width: 48px;
+  height: 48px;
   cursor: pointer;
   position: relative;
-  ${centerIcon()};
+  ${centerIcon(24)};
+
+  &:first-child {
+    margin-left: -16px;
+  }
 
   &:not(:first-child) {
-    margin-left: 32px;
+    margin: 8px;
   }
 
   &::before {

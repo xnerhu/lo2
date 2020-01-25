@@ -14,7 +14,9 @@ const getColor = type => {
 const print = (name, message, type = 'info') => {
   const color = getColor(type);
 
-  console.log(`${chalk.cyan.bold(`[${name}]`)} ${chalk[color](message)}`);
+  process.stdout.write(
+    `${chalk.cyan.bold(`[${name}]`)} ${chalk[color](message)}\n`,
+  );
 };
 
 const compilerPromise = (name, compiler) => {

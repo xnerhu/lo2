@@ -1,3 +1,3 @@
-export type IStr<T> = {
-  [P in keyof T]?: string;;
+export type IStringified<T> = {
+  [P in keyof T]?: string;
 };

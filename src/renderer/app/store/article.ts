@@ -8,9 +8,13 @@ export class ArticleStore extends StoreBase {
   @observable
   public data: INews = {};
 
-  public inject({ article }: IAppState) {
-    if (article) {
+  @observable
+  public proposedNews: INews[] = [];
+
+  public inject({ article, proposedNews }: IAppState) {
+    if (article && proposedNews) {
       this.data = article;
+      this.proposedNews = proposedNews;
       this.loaded = true;
     }
   }
@@ -21,14 +25,20 @@ export class ArticleStore extends StoreBase {
 
     if (!Number.isInteger(_id)) return;
 
-    if (this.data._id !== _id) {
+    if (this.data.id !== _id) {
       this.loadArticle(_id);
+      this.loadProposed(_id);
       this.loaded = true;
     }
   }
 
   @action
-  public async loadArticle(_id: number) {
-    this.data = await callApi<INews>('article', { _id });
+  public async loadArticle(id: number) {
+    this.data = await callApi<INews>('article', { id });
+  }
+
+  @action
+  public async loadProposed(id: number) {
+    this.proposedNews = await callApi<INews[]>('proposed-news', { id });
   }
 }

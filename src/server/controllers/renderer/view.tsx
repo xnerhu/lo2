@@ -18,7 +18,7 @@ const router = Router();
 router.get('*', (req: IRequest, res, next) => {
   const sheet = new ServerStyleSheet();
   const routerContext = {};
-  const extractor = new ChunkExtractor({ statsFile, entrypoints: ["app"] });
+  const extractor = new ChunkExtractor({ statsFile, entrypoints: ['app'] });
 
   const Content = extractor.collectChunks(
     <StaticRouter location={req.originalUrl} context={routerContext}>
@@ -27,15 +27,19 @@ router.get('*', (req: IRequest, res, next) => {
           <App />
         </StoreProvider>
       </StyleSheetManager>
-    </StaticRouter>
+    </StaticRouter>,
   );
 
   const html = renderToString(Content);
 
   const str = renderToString(
-    <Html scripts={extractor.getScriptElements()} styles={sheet.getStyleElement()} state={req.appState}>
+    <Html
+      scripts={extractor.getScriptElements()}
+      styles={sheet.getStyleElement()}
+      state={req.appState}
+    >
       {html}
-    </Html>
+    </Html>,
   );
 
   res.send(`<!doctype html>${str}`);

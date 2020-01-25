@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { icons, PRIMARY_COLOR } from '~/renderer/constants';
+import { FACEBOOK_URL, YOUTUBE_URL } from '~/renderer/constants';
 import {
   StyledFooter,
   Title,
@@ -43,8 +43,8 @@ export const Social = () => {
   return (
     <StyledSocial>
       <Container>
-        <FacebookIcon />
-        <YoutubeIcon />
+        <FacebookIcon href={FACEBOOK_URL} />
+        <YoutubeIcon href={YOUTUBE_URL} />
         <Copyright href="https://www.github.com/xnerhu" target="_blank">
           © 2020 Mikołaj Palkiewicz
         </Copyright>

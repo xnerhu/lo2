@@ -31,3 +31,8 @@ export const PRESS_URL = '/news/1/25/';
 export const PARENTS_URL = '/news/1/5/';
 
 export const RECRUITMENT_URL = '/news/1/4/';
+
+export const FACEBOOK_URL = 'https://www.facebook.com/lo2.opole';
+
+export const YOUTUBE_URL =
+  'https://www.youtube.com/channel/UCWhfUoBYJxxZL4yj0GI1njw';

@@ -25,7 +25,11 @@ const { PORT } = process.env;
 app.listen(PORT, async () => {
   await db.connect();
 
-  console.log(`${chalk.cyanBright.bold('Server is running at')} ${chalk.greenBright(`http://localhost:${PORT}`)}`);
+  console.log(
+    `${chalk.cyanBright.bold('Server is running at')} ${chalk.greenBright(
+      `http://localhost:${PORT}`,
+    )}`,
+  );
 });
 
 export default app;

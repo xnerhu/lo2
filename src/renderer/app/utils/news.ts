@@ -1,5 +1,5 @@
-import { INews } from '~/interfaces';
-import { SHORT_MONTHS, IS_BROWSER, MOBILE_VIEW } from '~/renderer/constants';
+import { INews, INewsFilter } from '~/interfaces';
+import { SHORT_MONTHS } from '~/renderer/constants';
 
 export const formatArticleDate = (data: INews) => {
   const { createdAt } = data;
@@ -8,4 +8,8 @@ export const formatArticleDate = (data: INews) => {
   const month = SHORT_MONTHS[date.getMonth()];
 
   return `${month} ${date.getDate()}, ${date.getFullYear()}`;
+};
+
+export const stringifyNewsFilter = (filter: INewsFilter) => {
+  return `/news/${filter.categoryLabel}${filter.page ? `/${filter.page}` : ''}`;
 };

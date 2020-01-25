@@ -1,87 +1,64 @@
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
 
-import { transparency, PAGE_ITEM_SIZE, PRIMARY_COLOR, icons } from '~/renderer/constants';
-import { noUserSelect, centerIcon } from '~/renderer/mixins';
+import { PRIMARY_COLOR, icons, transparency } from '~/renderer/constants';
+import { robotoMedium, centerIcon, noUserSelect } from '~/renderer/mixins';
 
-export const Pages = styled.div`
+export const StyledPagination = styled.div`
   width: 100%;
-  padding-top: 24px;
+  max-width: 512px;
+  margin-top: 48px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Button = styled.div`
+  width: 144px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 64px;
-  border-top: 1px solid rgba(0, 0, 0, ${transparency.dividers});
-`;
-
-export const Container = styled.div`
-  margin: 0px 16px;
-`;
-
-export const Page = styled(Link)`
-  width: ${PAGE_ITEM_SIZE}px;
-  height: ${PAGE_ITEM_SIZE}px;
+  border: 2px solid ${PRIMARY_COLOR};
+  color: ${PRIMARY_COLOR};
+  border-radius: 64px;
   font-size: 16px;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100%;
-  transition: 0.1s color;
-  position: relative;
-  ${noUserSelect()};
+  transition: 0.2s background-color, 0.2s color;
+  ${robotoMedium()};
+  ${noUserSelect()}
 
-  ${({ selected, disabled }: { selected: boolean, disabled: boolean }) => css`
-    color: ${selected ? '#fff' : '#000'};
-    font-weight: ${selected ? 500 : 400};
+  ${({ disabled }: { disabled: boolean }) => css`
+    pointer-events: ${disabled ? 'none' : 'all'};
     opacity: ${disabled ? transparency.text.disabled : 1};
-    pointer-events: ${disabled ? 'none' : 'auto'};
-
-    &::before {
-      width: ${selected ? 100 : 0}%;
-      height: ${selected ? 100 : 0}%;
-    }
-
-    ${!selected && css`
-      &:hover {
-        color: ${PRIMARY_COLOR};
-        font-weight: 500;
-      }
-    `}
-
   `}
 
-  &:not(:first-child) {
-    margin-left: 4px;
-  }
-
-  &::before {
+  &::after {
     content: '';
     display: block;
+    width: 24px;
+    height: 24px;
     background-color: ${PRIMARY_COLOR};
-    position: absolute;
-    z-index: -1;
-    border-radius: 100%;
-    pointer-events: none;
-    transition: 0.1s ease-out width, 0.1s ease-out height;
+    mask-image: url(${icons.chevron});
+    transition: 0.2s background-color;
+    ${centerIcon(24, true)};
   }
-`;
 
-export const Chevron = styled.div`
-  width: ${PAGE_ITEM_SIZE}px;
-  height: ${PAGE_ITEM_SIZE}px;
-  cursor: pointer;
-  transition: 0.1s opacity;
-  ${centerIcon(20)};
+  &:first-child {
+    margin-right: 6px;
+    flex-direction: row-reverse;
 
-  ${({ double, right, disabled }: { double?: boolean, right?: boolean, disabled?: boolean }) => css`
-    background-image: url(${double ? icons.chevronDouble : icons.chevron});
-    transform: rotate(${right ? 0 : 180}deg);
-    opacity: ${disabled ? transparency.icons.disabled : transparency.icons.inactive};
-    pointer-events: ${disabled ? 'none' : 'auto'};
-  `}
+    &::after {
+      transform: rotate(-180deg);
+    }
+  }
 
   &:hover {
-    opacity: 1;
+    background-color: ${PRIMARY_COLOR};
+    color: #fff;
+
+    &::after {
+      background-color: #fff;
+    }
   }
 `;

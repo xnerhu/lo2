@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { noUserSelect, robotoMedium } from '~/renderer/mixins';
-import { PRIMARY_COLOR, CONTENT_WIDTH } from '~/renderer/constants';
+import { CONTENT_WIDTH } from '~/renderer/constants';
 
 export const Section = styled.section`
   width: 100%;
@@ -29,11 +29,15 @@ export const Background = styled.div`
 `;
 
 export const SectionTitle = styled.h5`
-  width: fit-content;
   height: 96px;
   display: flex;
   align-items: center;
   position: relative;
   ${noUserSelect()};
   ${robotoMedium()};
+
+  ${({ center }: { center?: boolean }) => css`
+    width: ${center ? '100%' : 'fit-content'};
+    justify-content: ${center ? 'center' : 'unset'};
+  `}
 `;

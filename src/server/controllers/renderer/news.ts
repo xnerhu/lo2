@@ -1,14 +1,17 @@
 import { Router } from 'express';
 
 import { IRequest } from '../../interfaces';
-import { getNewsCategories, handleNewsRequest } from '../api/news';
+import { getNewsChunk, getNewsCategories } from '~/server/services';
+import { formatNewsFilter } from '~/utils';
 
 const router = Router();
 
-router.get('/news/:page?/:category?/:text?', async (req: IRequest, res, next) => {
+router.get('/news/:categoryLabel?/:page?', async (req: IRequest, res, next) => {
+  const filter = formatNewsFilter(req.params);
+
   const [news, newsCategories] = await Promise.all([
-    handleNewsRequest(req.params),
-    getNewsCategories()
+    getNewsChunk(filter),
+    getNewsCategories(),
   ]);
 
   req.appState = { news, newsCategories };

@@ -45,8 +45,8 @@ const App = withRouter((props: RouteProps) => {
           <Route path="/teachers" component={LazyTeachers} />
           <Route path="/gallery/:_id" component={LazyAlbum} />
           <Route path="/gallery" component={LazyGallery} />
-          <Route path="/article/:_id" component={LazyArticle} />
-          <Route path="/news/:page?/:category?/:text?" component={LazyNews} />
+          <Route path="/article/:id" component={LazyArticle} />
+          <Route path="/news/:categoryLabel?/:page?" component={LazyNews} />
           <Route path="/" component={LazyHome} />
         </Switch>
       </StyledApp>

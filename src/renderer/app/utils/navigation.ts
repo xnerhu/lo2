@@ -1,10 +1,10 @@
-import { IAppBarItemProps } from '~/renderer/app/components/Appbar';
+import { IRouterProps, INavItem } from '../interfaces';
 
 export const isAppbarItemSelected = ({
   to,
   location,
   subpages,
-}: IAppBarItemProps) => {
+}: IRouterProps<INavItem>) => {
   const { pathname } = location;
   const path = pathname.toLowerCase();
 
@@ -12,7 +12,7 @@ export const isAppbarItemSelected = ({
   if (path.startsWith(to)) return true;
 
   if (subpages) {
-    return subpages.findIndex(r => path.startsWith(r)) !== -1;
+    return !!subpages.find(r => path.startsWith(r.to));
   }
 
   return false;

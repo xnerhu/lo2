@@ -1,20 +1,19 @@
 import { Router } from 'express';
 
 import { IRequest } from '../../interfaces';
-import { getArticle } from '../api/article';
-import { getNewsCategories } from '../api/news';
+import { getArticle, getProposedNews } from '~/server/services';
 
 const router = Router();
 
-router.get('/article/:_id', async (req: IRequest, res, next) => {
-  const { _id } = req.params;
+router.get('/article/:id', async (req: IRequest, res, next) => {
+  const id = req.params.id as any;
 
-  const [article, newsCategories] = await Promise.all([
-    getArticle(parseInt(_id)),
-    getNewsCategories()
+  const [article, proposedNews] = await Promise.all([
+    getArticle(id),
+    getProposedNews(id),
   ]);
 
-  req.appState = { article, newsCategories };
+  req.appState = { article, proposedNews };
 
   next();
 });

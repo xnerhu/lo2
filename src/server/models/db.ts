@@ -1,27 +1,33 @@
-import { Client, IConfig, Database as SQLDatabase, Table } from 'sql-next';
 import { platform } from 'os';
+import knex, { MySqlConnectionConfig } from 'knex';
 
-import { IGalleryAlbum, INews, INewsCategory, IUser, IGalleryPicture } from '~/interfaces';
+import {
+  IGalleryAlbum,
+  INews,
+  INewsCategory,
+  IUser,
+  IGalleryPicture,
+} from '~/interfaces';
 
 export class Database {
-  public client = new Client();
-  public sql: SQLDatabase;
-
-  public news: Table<INews>;
-  public newsCategories: Table<INewsCategory>;
-  public users: Table<IUser>;
-  public galleryAlbums: Table<IGalleryAlbum>;
-  public galleryPictures: Table<IGalleryPicture>;
+  public client: knex;
 
   protected _getConfig() {
-    const { MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD } = process.env;
+    const {
+      MYSQL_HOST,
+      MYSQL_PORT,
+      MYSQL_USER,
+      MYSQL_PASSWORD,
+      MYSQL_DB_NAME,
+    } = process.env;
 
-    const config: IConfig = {
+    const config: MySqlConnectionConfig = {
       host: MYSQL_HOST,
       user: MYSQL_USER,
       password: MYSQL_PASSWORD,
       port: parseInt(MYSQL_PORT),
-    }
+      database: MYSQL_DB_NAME,
+    };
 
     if (platform() === 'linux') {
       config.socketPath = '/var/run/mysqld/mysqld.sock';
@@ -31,26 +37,10 @@ export class Database {
   }
 
   public async connect() {
-    const { MYSQL_DB_NAME } = process.env;
-    const config = this._getConfig();
-
-    try {
-      await this.client.connect(config);
-      console.log('Connected to db!');
-    } catch (error) {
-      console.log('Error occured while connecting to db', error);
-    }
-
-    this.sql = this.client.db(MYSQL_DB_NAME);
-    this._prepareTables();
-  }
-
-  protected _prepareTables() {
-    this.news = this.sql.table('news');
-    this.newsCategories = this.sql.table('news-categories');
-    this.users = this.sql.table('users');
-    this.galleryAlbums = this.sql.table('gallery-albums');
-    this.galleryPictures = this.sql.table('gallery-pictures');
+    this.client = knex({
+      client: 'mysql',
+      connection: this._getConfig(),
+    });
   }
 }
 

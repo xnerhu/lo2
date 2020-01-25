@@ -9,10 +9,12 @@ interface Props {
 }
 
 export const NewsGrid = ({ items }: Props) => {
+  if (!items) return null;
+
   return (
     <StyledNewsGrid>
       {items.map(r => (
-        <NewsCard key={r._id} data={r} />
+        <NewsCard key={r.id} data={r} />
       ))}
     </StyledNewsGrid>
   );

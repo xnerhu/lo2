@@ -1,6 +1,6 @@
 import { RouteComponentProps } from 'react-router-dom';
 
-export type IRouterProps<T> = T &
+export type IRouterProps<T = {}> = T &
   RouteComponentProps & {
     children?: React.ReactNode;
   };

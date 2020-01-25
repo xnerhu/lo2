@@ -8,10 +8,9 @@ import {
   INewsFilter,
 } from '~/interfaces';
 import { callApi } from '../utils';
-import { StoreBase } from '../models';
 import { IDropDownItem } from '~/renderer/components/Dropdown';
 
-export class NewsStore extends StoreBase {
+export class NewsStore {
   @observable
   public items: INews[] = [];
 
@@ -29,32 +28,37 @@ export class NewsStore extends StoreBase {
   @observable
   public error = false;
 
+  protected categoriesLoaded = false;
+
   public inject({ news, newsCategories }: IAppState) {
     if (news && newsCategories) {
-      this.items = news.items;
-      this.nextPage = news.nextPage;
-      this.error = this.items.length === 0;
-      this.dropdownItems = [
-        ...this.dropdownItems,
-        ...newsCategories.map(r => {
-          return { id: r.label, name: r.name } as IDropDownItem;
-        }),
-      ];
-      this.loaded = true;
-    }
-  }
-
-  public load() {
-    if (!this.loaded) {
-      this.loadNews();
-      this.loadCategories();
-      this.loaded = true;
+      this.updateNews(news);
+      this.updateCategories(newsCategories);
+      this.categoriesLoaded = true;
     }
   }
 
   @action
-  public async loadNews(filter: INewsFilter = {}) {
-    const { items, nextPage } = await callApi<INewsChunk>('news', filter);
+  public async fetchNews(filter: INewsFilter = {}) {
+    const data = await callApi<INewsChunk>('news', filter);
+
+    this.updateNews(data);
+  }
+
+  @action
+  public async fetchCategories() {
+    if (this.categoriesLoaded) return;
+
+    this.categoriesLoaded = true;
+
+    const items = await callApi<INewsCategory[]>('news-categories');
+
+    this.updateCategories(items);
+  }
+
+  @action
+  protected updateNews(data: INewsChunk) {
+    const { items, nextPage } = data;
 
     this.items = items;
     this.nextPage = nextPage;
@@ -62,9 +66,7 @@ export class NewsStore extends StoreBase {
   }
 
   @action
-  public async loadCategories() {
-    const items = await callApi<INewsCategory[]>('news-categories');
-
+  protected updateCategories(items: INewsCategory[]) {
     this.dropdownItems = [
       ...this.dropdownItems,
       ...items.map(r => {

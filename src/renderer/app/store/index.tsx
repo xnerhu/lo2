@@ -37,8 +37,6 @@ class Store {
   public fetch(path: string) {
     if (path === '/') {
       this.home.load();
-    } else if (path.startsWith('/news') && path.length >= 5) {
-      this.news.load();
     } else if (path.startsWith('/gallery')) {
       this.gallery.load();
     } else if (path.startsWith('/teachers')) {

@@ -21,13 +21,13 @@ export default withRouter(
       return formatNewsFilter(match.params);
     }, [match.params]);
 
-    useDidMountEffect(
-      () => {
-        store.news.loadNews(filter);
-      },
-      [filter],
-      !!store.news.items.length,
-    );
+    React.useEffect(() => {
+      store.news.fetchNews(filter);
+    }, [filter]);
+
+    React.useEffect(() => {
+      store.news.fetchCategories();
+    });
 
     return (
       <Background style={{ paddingBottom: 48 }}>

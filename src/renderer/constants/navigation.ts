@@ -1,19 +1,9 @@
 import { INavItem } from '~/renderer/app/interfaces';
 import {
   STATUE_URL,
-  ACHIEVEMENTS_URL,
-  PRESS_URL,
   EDZIENNIK_URL,
-  CONTEST_URL,
   LESSONS_PLAN_URL,
   REPLACEMENTS_URL,
-  PSYCHOLOGIST_URL,
-  EDUCATOR_URL,
-  CAREER_URL,
-  EXAM_URL,
-  INTERNSHIPS_URL,
-  PARENTS_URL,
-  RECRUITMENT_URL,
 } from './env';
 
 export const navigationItems: INavItem[] = [
@@ -45,11 +35,11 @@ export const navigationItems: INavItem[] = [
         label: 'Historia szkoły',
       },
       {
-        to: ACHIEVEMENTS_URL,
+        to: '/news/osiągnięcia',
         label: 'Osiągnięcia',
       },
       {
-        to: PRESS_URL,
+        to: '/news/piszą-o-nas',
         label: 'Piszą o nas',
       },
     ],
@@ -62,10 +52,6 @@ export const navigationItems: INavItem[] = [
         label: 'E-dziennik',
       },
       {
-        to: CONTEST_URL,
-        label: 'Kółka i olimpiady',
-      },
-      {
         to: LESSONS_PLAN_URL,
         label: 'Plany zajęć',
       },
@@ -74,33 +60,45 @@ export const navigationItems: INavItem[] = [
         label: 'Zastępstwa',
       },
       {
-        to: PSYCHOLOGIST_URL,
+        to: '/news/kółka',
+        label: 'Kółka',
+      },
+      {
+        to: '/news/olimpiady',
+        label: 'Olimpiady',
+      },
+      {
+        to: '/news/wolontariat',
+        label: 'Wolontariat',
+      },
+      {
+        to: '/news/matura',
+        label: 'Matura',
+      },
+      {
+        to: '/news/psycholog',
         label: 'Psycholog',
       },
       {
-        to: EDUCATOR_URL,
+        to: '/news/pedagog',
         label: 'Pedagog',
       },
       {
-        to: CAREER_URL,
+        to: '/news/doradca-zawodowy',
         label: 'Doradca zawodowy',
       },
       {
-        to: INTERNSHIPS_URL,
+        to: '/news/staże-zawodowe',
         label: 'Staże zawodowe',
-      },
-      {
-        to: EXAM_URL,
-        label: 'Matura',
       },
     ],
   },
   {
-    to: PARENTS_URL,
+    to: '/news/dla-rodziców',
     label: 'Dla rodziców',
   },
   {
-    to: RECRUITMENT_URL,
+    to: '/news/rekrutacja',
     label: 'Rekrutacja',
   },
   {

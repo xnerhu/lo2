@@ -34,6 +34,8 @@ export const getNews = async (filter: INewsFilter = {}): Promise<INews[]> => {
       .where({ label: categoryLabel })
       .limit(1);
 
+    if (!data) return [];
+
     category = data;
     query = query.where('news.categoryId', data.id);
   } else {

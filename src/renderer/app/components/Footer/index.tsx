@@ -1,11 +1,11 @@
 import * as React from 'react';
 
 import { FACEBOOK_URL, YOUTUBE_URL } from '~/renderer/constants';
+import { Content } from '~/renderer/components/Section';
 import {
   StyledFooter,
   Title,
   Subtitle,
-  Container,
   ColumnContainer,
   Column,
   Label,
@@ -42,13 +42,13 @@ const Details = () => {
 export const Social = () => {
   return (
     <StyledSocial>
-      <Container>
+      <Content>
         <FacebookIcon href={FACEBOOK_URL} />
         <YoutubeIcon href={YOUTUBE_URL} />
         <Copyright href="https://www.github.com/xnerhu" target="_blank">
           © 2020 Mikołaj Palkiewicz
         </Copyright>
-      </Container>
+      </Content>
     </StyledSocial>
   );
 };
@@ -56,10 +56,10 @@ export const Social = () => {
 export const Footer = () => {
   return (
     <StyledFooter>
-      <Container>
+      <Content>
         <Header />
         <Details />
-      </Container>
+      </Content>
       <Social />
     </StyledFooter>
   );

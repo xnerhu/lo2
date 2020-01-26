@@ -1,5 +1,11 @@
 import db from '~/server/models/db';
-import { INewsFilter, INewsChunk, INewsCategory, INews } from '~/interfaces';
+import {
+  INewsFilter,
+  INewsChunk,
+  INewsCategory,
+  INews,
+  IArticleChunk,
+} from '~/interfaces';
 import { IDbNewsPacket } from '../interfaces';
 import { formatArticle } from '~/server/utils';
 import { formatUser } from '../utils/user';
@@ -12,7 +18,7 @@ export const getNewsCategories = async (): Promise<INewsCategory[]> => {
 
 export const getNews = async (filter: INewsFilter = {}): Promise<INews[]> => {
   const postsPerPage = parseInt(process.env.POSTS_PER_PAGE);
-  const { limit, page, categoryLabel, excludedId } = filter;
+  const { limit, page, categoryLabel, excluded } = filter;
   const offset = page != null ? (page - 1) * postsPerPage : 0;
 
   let category: INewsCategory;
@@ -24,8 +30,8 @@ export const getNews = async (filter: INewsFilter = {}): Promise<INews[]> => {
     .limit(limit || postsPerPage)
     .options({ nestTables: true });
 
-  if (excludedId != null) {
-    query = query.whereNot('news.id', excludedId);
+  if (excluded != null) {
+    query = query.whereNot('news.label', excluded);
   }
 
   if (categoryLabel && categoryLabel !== 'all') {
@@ -70,10 +76,12 @@ export const getNewsChunk = async (
   };
 };
 
-export const getArticle = async (id: number): Promise<INews> => {
+export const getArticle = async (label: string): Promise<INews> => {
+  if (!label) return null;
+
   const query = db
     .client<INews>('news')
-    .where('news.id', id)
+    .where('news.label', label)
     .limit(1)
     .leftJoin('news-categories', {
       'news.categoryId': 'news-categories.id',
@@ -85,6 +93,8 @@ export const getArticle = async (id: number): Promise<INews> => {
 
   const [data]: IDbNewsPacket[] = await query.select();
 
+  if (data == null) return null;
+
   return {
     ...formatArticle(data.news, false),
     _category: data['news-categories'],
@@ -92,6 +102,17 @@ export const getArticle = async (id: number): Promise<INews> => {
   };
 };
 
-export const getProposedNews = (excludedId: number) => {
-  return getNews({ limit: 3, excludedId });
+export const getProposedNews = (excluded: string) => {
+  return getNews({ limit: 3, excluded });
+};
+
+export const getArticleChunk = async (
+  label: string,
+): Promise<IArticleChunk> => {
+  const [data, proposed] = await Promise.all([
+    getArticle(label),
+    getProposedNews(label),
+  ]);
+
+  return { data: data || { label }, proposed, error: data == null };
 };

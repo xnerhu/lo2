@@ -10,7 +10,6 @@ export const EASING_FUNCTION = 'cubic-bezier(0.4, 0, 0.2, 1)';
 
 export const MOBILE_VIEW = 1020;
 export const CONTENT_WIDTH = 1536;
-export const FOOTER_WIDTH = 896;
 
 export const STANDARD_RATIO = 16 / 9;
 export const WIDE_RATIO = 16 / 5;

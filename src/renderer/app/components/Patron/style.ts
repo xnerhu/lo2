@@ -10,16 +10,16 @@ export const Container = styled.div`
   justify-content: space-between;
   padding-bottom: 24px;
 
-  @media(max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     flex-direction: column;
   }
 `;
 
-export const Content = styled.div`
+export const Text = styled.div`
   flex: 1;
   ${longText()};
 
-  @media(max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     max-width: 100%;
   }
 `;
@@ -33,9 +33,9 @@ export const Image = styled(DynamicImage)`
   border-radius: 16px;
   flex: 1;
 
-  @media(max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${MOBILE_VIEW}px) {
     margin-left: auto;
-    margin-right:auto;
+    margin-right: auto;
     margin-top: 48px;
   }
 `;

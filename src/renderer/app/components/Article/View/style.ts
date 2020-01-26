@@ -9,7 +9,7 @@ export const StyledView = styled.div`
   width: calc(100% - 64px);
   max-width: 768px;
   margin: 0 auto;
-  margin-bottom: 32px;
+  margin-bottom: 48px;
 `;
 
 export const Info = styled.div`

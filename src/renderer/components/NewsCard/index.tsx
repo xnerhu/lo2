@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const NewsCard = withRouter(({ data, history }: IRouterProps<Props>) => {
-  const { id, image, _category, title, content, createdAt } = data;
+  const { label, image, _category, title, content, createdAt } = data;
 
   const onCategoryClick = React.useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ export const NewsCard = withRouter(({ data, history }: IRouterProps<Props>) => {
   }, []);
 
   return (
-    <StyledNewsCard className="news-card" to={`/article/${id}`}>
+    <StyledNewsCard className="news-card" to={`/article/${label}`}>
       {image && (
         <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />
       )}

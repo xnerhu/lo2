@@ -18,6 +18,7 @@ export const Dropdown = ({ items, onChange, value }: Props) => {
   const [expanded, setExpanded] = React.useState(false);
   const selected = React.useMemo(() => items.find(r => r.id === value), [
     value,
+    items,
   ]);
 
   const onClick = React.useCallback(

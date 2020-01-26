@@ -1,31 +1,12 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-import {
-  noUserSelect,
-  robotoRegular,
-  robotoLight,
-  robotoMedium,
-  centerIcon,
-  centerBoth,
-} from '~/renderer/mixins';
-import {
-  transparency,
-  FOOTER_WIDTH,
-  FOOTER_COLOR,
-  MOBILE_VIEW,
-  icons,
-} from '~/renderer/constants';
+import { robotoMedium, centerIcon, centerBoth } from '~/renderer/mixins';
+import { transparency, icons } from '~/renderer/constants';
 
 export const StyledFooter = styled.footer`
   width: 100%;
   min-height: 128px;
   margin-top: auto;
-`;
-
-export const Container = styled.div`
-  width: calc(100% - 64px);
-  max-width: ${FOOTER_WIDTH}px;
-  margin: 0 auto;
 `;
 
 export const Title = styled.div`

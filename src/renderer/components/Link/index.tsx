@@ -7,15 +7,22 @@ interface Props extends React.HTMLAttributes<HTMLAnchorElement> {
   tag?: React.ReactNode;
   list?: boolean;
   to?: string;
+  useDefaultLink?: boolean;
 }
 
-export const Link = ({ to, children, list, ...props }: Props) => {
+export const Link = ({
+  to,
+  children,
+  list,
+  useDefaultLink,
+  ...props
+}: Props) => {
   if (!to) {
     if (!list) return <div className={props.className}>{children}</div>;
     return <li className={props.className}>{children}</li>;
   }
 
-  if (to.startsWith('http'))
+  if (to.startsWith('http') || useDefaultLink)
     return (
       <a
         href={to}

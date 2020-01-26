@@ -11,17 +11,20 @@ import {
 import { Content } from '~/renderer/components/Section';
 import { centerIcon, noUserSelect, centerVertical } from '~/renderer/mixins';
 
+const appbarTransition = '0.2s box-shadow';
+
 export const StyledAppbar = styled.div`
   width: 100%;
   height: ${APPBAR_DESKTOP_HEIGHT}px;
   z-index: 10;
   background-color: #fff;
   position: relative;
+  transition: ${appbarTransition};
   ${noUserSelect()};
 
   ${({ visible, hideShadow }: { visible: boolean; hideShadow: boolean }) => css`
     margin-top: ${visible ? 0 : -72}px;
-    transition: 0.3s ${EASING_FUNCTION} margin-top;
+    transition: 0.3s ${EASING_FUNCTION} margin-top, ${appbarTransition};
 
     ${!hideShadow &&
       css`
@@ -36,6 +39,18 @@ export const StyledAppbar = styled.div`
     position: fixed;
     top: 0;
     left: 0;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 72px; 
+      top: 0;
+      left: 0;
+      position: absolute;
+      background-color: #fff;
+      z-index: 10;
+    }
   }
 `;
 
@@ -51,7 +66,7 @@ export const Banner = styled.img`
   height: 56px;
   position: absolute;
   left: 0;
-  z-index: 10;
+  z-index: 11;
 
   @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
     height: 40px;
@@ -61,7 +76,6 @@ export const Banner = styled.img`
 export const NavItems = styled.nav`
   margin-left: auto;
   display: flex;
-  transition: 0.1s opacity;
 
   ${({ expanded }: { expanded: boolean }) => css`
     ${expanded &&
@@ -80,7 +94,7 @@ export const NavItems = styled.nav`
     left: 0;
     position: fixed;
     overflow-y: auto;
-    z-index: 10;
+    z-index: 9;
     opacity: 0;
     background-color: #fff;
     pointer-events: none;
@@ -95,7 +109,7 @@ export const MenuIcon = styled.div`
   border-radius: 100%;
   cursor: pointer;
   display: none;
-  z-index: 10;
+  z-index: 11;
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
   ${centerIcon(24)}

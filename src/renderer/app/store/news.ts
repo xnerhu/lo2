@@ -38,20 +38,21 @@ export class NewsStore {
     }
   }
 
-  @action
   public async fetchNews(filter: INewsFilter = {}) {
     const data = await callApi<INewsChunk>('news', filter);
 
     this.updateNews(data);
   }
 
-  @action
   public async fetchCategories() {
-    if (this.categoriesLoaded) return;
+    // console.log('xdd');
 
+    if (this.categoriesLoaded) return;
     this.categoriesLoaded = true;
 
     const items = await callApi<INewsCategory[]>('news-categories');
+
+    // console.log(items);
 
     this.updateCategories(items);
   }

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { robotoMedium } from '~/renderer/mixins';
+
 export const StyledHistory = styled.div`
   font-size: 16px;
 `;
@@ -13,7 +15,7 @@ export const Container = styled.div`
     margin-left: 24px;
   }
 
-  @media(max-width: 967px) {
+  @media (max-width: 967px) {
     width: fit-content;
     flex-direction: column;
 
@@ -32,5 +34,11 @@ export const MastersContainer = styled.div`
   display: grid;
   grid-gap: 16px;
   grid-row-gap: 16px;
-  grid-template-columns: repeat( auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+`;
+
+export const MasterName = styled.div`
+  margin-top: 12px;
+  margin-bottom: 4px;
+  ${robotoMedium()};
 `;

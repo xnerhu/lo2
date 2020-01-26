@@ -1,26 +1,49 @@
 import styled, { css } from 'styled-components';
 
-import { Link } from '~/renderer/components/Link';
 import { transparency, icons, APPBAR_MOBILE_VIEW } from '~/renderer/constants';
 import { centerIcon } from '~/renderer/mixins';
+import { Link as DynamicLink } from '~/renderer/components/Link';
 
-const NavItemHover = css`
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
-  }
-`;
-
-export const StyledNavItem = styled(Link)`
+export const StyledNavItem = styled.div`
   display: flex;
   align-items: center;
-  padding: 16px;
   border-radius: 64px;
-  font-size: 18px;
   cursor: pointer;
   white-space: nowrap;
   position: relative;
   color: rgba(0, 0, 0, ${transparency.text.high});
   transition: 0.1s background-color;
+
+  @media (min-width: ${APPBAR_MOBILE_VIEW + 1}px) {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+
+      & .nav-menu {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
+    height: 100%;
+    min-height: 64px;
+    flex-direction: column;
+    justify-content: center;
+
+    & .nav-menu {
+      display: none;
+    }
+  }
+`;
+
+export const Link = styled(DynamicLink)`
+  height: 52px;
+  font-size: 16px;
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   ${({
     selected,
@@ -30,35 +53,13 @@ export const StyledNavItem = styled(Link)`
     hasSubpages: boolean;
   }) => css`
     font-weight: ${selected ? 500 : 400};
-
-    ${!hasSubpages && NavItemHover}
-
-    ${hasSubpages &&
-      css`
-        @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
-          ${NavItemHover}
-        }
-      `}
+    padding-right: ${hasSubpages ? 0 : 16}px;
   `}
 
   @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
-    width: calc(100% - 24px);
-    margin: 0 auto;
-    display: block;
-    text-align: center;
-
-    &:not(:first-child) {
-      margin-top: 16px;
-      }
-
-    & .nav-menu {
-      display: none;
-    }
-  }
-
-  &:hover .nav-menu {
-    opacity: 1;
-    pointer-events: auto;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
   }
 `;
 
@@ -68,7 +69,7 @@ export const ExpandIcon = styled.div`
   opacity: ${transparency.icons.disabled};
   background-image: url(${icons.chevron});
   margin-left: 4px;
-  margin-right: 4px;
+  margin-right: 8px;
   transform: rotate(90deg);
   border-radius: 100%;
   ${centerIcon(20)};

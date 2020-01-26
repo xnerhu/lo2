@@ -17,13 +17,11 @@ import { BACKGROUND_COLOR, PRIMARY_COLOR } from '../constants';
 
 export const Style = css`
   body {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     cursor: default;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
     background-color: ${BACKGROUND_COLOR};
     color: #000;
     backface-visibility: hidden;
@@ -32,8 +30,10 @@ export const Style = css`
     ${noTapHighlight()};
   }
 
-  main {
+  #app {
+    width: 100%;
     height: 100%;
+    height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
   }

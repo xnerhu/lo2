@@ -1,44 +1,38 @@
 import { action, observable } from 'mobx';
 
-import { StoreBase } from '../models';
-import { IAppState, INews } from '~/interfaces';
+import { IAppState, INews, IArticleChunk } from '~/interfaces';
 import { callApi } from '../utils';
 
-export class ArticleStore extends StoreBase {
+export class ArticleStore {
   @observable
   public data: INews = {};
 
   @observable
   public proposedNews: INews[] = [];
 
-  public inject({ article, proposedNews }: IAppState) {
-    if (article && proposedNews) {
-      this.data = article;
-      this.proposedNews = proposedNews;
-      this.loaded = true;
+  @observable
+  public error = false;
+
+  public inject({ article }: IAppState) {
+    if (article) {
+      this.update(article);
     }
   }
 
-  @action
-  public load(id: string) {
-    const _id = parseInt(id);
+  public async fetch(label: string) {
+    if (this.data && this.data.label === label) return;
 
-    if (!Number.isInteger(_id)) return;
+    const data = await callApi<IArticleChunk>('article', { label });
 
-    if (this.data.id !== _id) {
-      this.loadArticle(_id);
-      this.loadProposed(_id);
-      this.loaded = true;
-    }
+    this.update(data);
   }
 
   @action
-  public async loadArticle(id: number) {
-    this.data = await callApi<INews>('article', { id });
-  }
+  protected update(article: IArticleChunk) {
+    const { data, proposed, error } = article;
 
-  @action
-  public async loadProposed(id: number) {
-    this.proposedNews = await callApi<INews[]>('proposed-news', { id });
+    this.data = data;
+    this.proposedNews = proposed;
+    this.error = error;
   }
 }

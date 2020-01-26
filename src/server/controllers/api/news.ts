@@ -5,6 +5,7 @@ import {
   getNewsCategories,
   getShortNews,
   getProposedNews,
+  getArticleChunk,
 } from '~/server/services';
 import { formatNewsFilter } from '~/utils';
 
@@ -31,6 +32,12 @@ router.get('/short-news', async (req, res) => {
 
 router.get('/proposed-news', async (req, res) => {
   const data = await getProposedNews(req.query.id);
+
+  res.json(data);
+});
+
+router.get('/article', async (req, res) => {
+  const data = await getArticleChunk(req.query.label);
 
   res.json(data);
 });

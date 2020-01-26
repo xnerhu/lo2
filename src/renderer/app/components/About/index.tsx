@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 import { LinkPage } from '~/renderer/components/LinkPage';
-import { studentsPage } from '~/renderer/constants';
+import { aboutUsPage } from '~/renderer/constants';
 
 export default () => {
-  return <LinkPage item={studentsPage} />;
+  return <LinkPage item={aboutUsPage} />;
 };

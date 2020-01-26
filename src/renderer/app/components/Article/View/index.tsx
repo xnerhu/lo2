@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { observer } from 'mobx-react-lite';
-import { withRouter } from 'react-router-dom';
 
-import { IRouterProps } from '~/renderer/app/interfaces';
 import { formatArticleDate } from '~/renderer/app/utils';
+import { Error } from '~/renderer/components/Error';
 import { useStore } from '~/renderer/app/store';
 import {
   StyledView,
@@ -43,29 +42,32 @@ const Details = observer(() => {
   );
 });
 
-export const View = withRouter(
-  observer((props: IRouterProps) => {
-    const store = useStore();
-    const { match } = props;
+export const View = observer(() => {
+  const store = useStore();
+  const data = store.article.data;
 
-    const data = store.article.data;
+  if (!data) return null;
 
-    React.useEffect(() => {
-      store.article.load((match.params as any).id);
-    }, [match.params]);
+  const { image, content } = data;
 
-    if (!data) return null;
-
-    const { image, content } = data;
-
-    return (
-      <StyledView>
-        <Details />
-        {image && (
-          <ArticleImage src={image} ratio={16 / 9} skeletonBorder={16} shadow />
+  return (
+    <StyledView>
+      <Details />
+      {image && (
+        <ArticleImage src={image} ratio={16 / 9} skeletonBorder={16} shadow />
+      )}
+      <Body>
+        {content}
+        {store.article.error && (
+          <Error
+            code="404"
+            label="Oops! Nie znaleziono artykułu!"
+            style={{ marginBottom: 64 }}
+          >
+            Mógł zostać usunięty.
+          </Error>
         )}
-        <Body>{content}</Body>
-      </StyledView>
-    );
-  }),
-);
+      </Body>
+    </StyledView>
+  );
+});

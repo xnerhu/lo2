@@ -2,6 +2,7 @@ import { IUser } from './user';
 
 export interface INews {
   id?: number;
+  label?: string;
   title?: string;
   content?: string;
   image?: string;
@@ -27,5 +28,11 @@ export interface INewsFilter {
   page?: number;
   limit?: number;
   categoryLabel?: string;
-  excludedId?: number;
+  excluded?: string;
+}
+
+export interface IArticleChunk {
+  data?: INews;
+  error?: boolean;
+  proposed?: INews[];
 }

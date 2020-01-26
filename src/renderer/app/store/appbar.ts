@@ -34,10 +34,12 @@ export class AppbarStore {
       this.hideShadow = window.scrollY <= 16;
 
       if (window.scrollY >= 16) {
-        this.visible = window.scrollY < this.lastScrollPos;
+        this.visible = window.scrollY < this.lastScrollPos || this.expanded;
       }
 
       this.lastScrollPos = window.scrollY;
+    } else if (!this.visible) {
+      this.visible = true;
     }
   };
 }

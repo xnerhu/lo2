@@ -3,9 +3,8 @@ import { observable, action, computed } from 'mobx';
 import { IAppState, INews } from '~/interfaces';
 import { callApi, preFetchImage } from '../utils';
 import { IS_BROWSER } from '~/renderer/constants';
-import { StoreBase } from '../models';
 
-export class HomeStore extends StoreBase {
+export class HomeStore {
   @observable
   public sliderItems: string[] = [];
 
@@ -18,32 +17,48 @@ export class HomeStore extends StoreBase {
   @observable
   public renderLastNews = false;
 
+  protected loaded = false;
+
   public inject({ slider, shortNews }: IAppState) {
     if (slider && shortNews) {
-      this.sliderItems = slider;
-      this._newsItems = shortNews;
+      this.updateNews(shortNews);
+      this.updateSlider(slider);
 
       this.loaded = true;
-      this.loadSliderItems();
     }
   }
 
-  public load() {
+  public async fetchAll() {
     if (!this.loaded) {
-      this.loadSlider();
-      this.loadNews();
       this.loaded = true;
+
+      this.fetchSlider();
+      this.fetchNews();
     }
   }
 
-  @action
-  public async loadSlider() {
-    this.sliderItems = await callApi('slider');
-    this.loadSliderItems();
+  public async fetchSlider() {
+    const items = await callApi<string[]>('slider');
+
+    await this.updateSlider(items);
+  }
+
+  public async fetchNews() {
+    const items = await callApi<INews[]>('short-news');
+
+    await this.updateNews(items);
   }
 
   @action
-  public async loadSliderItems() {
+  protected updateNews(items: INews[]) {
+    this._newsItems = items;
+  }
+
+  @action
+  protected async updateSlider(items: string[]) {
+    this.sliderReady = false;
+    this.sliderItems = items;
+
     try {
       await Promise.all(this.sliderItems.map(r => preFetchImage(r)));
     } catch (err) {
@@ -51,11 +66,6 @@ export class HomeStore extends StoreBase {
     }
 
     this.sliderReady = true;
-  }
-
-  @action
-  public async loadNews() {
-    this._newsItems = await callApi('short-news');
   }
 
   @computed

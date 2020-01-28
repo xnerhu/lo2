@@ -45,14 +45,10 @@ export class NewsStore {
   }
 
   public async fetchCategories() {
-    // console.log('xdd');
-
     if (this.categoriesLoaded) return;
     this.categoriesLoaded = true;
 
     const items = await callApi<INewsCategory[]>('news-categories');
-
-    // console.log(items);
 
     this.updateCategories(items);
   }

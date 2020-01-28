@@ -14,17 +14,4 @@ export class TeachersStore extends StoreBase {
       this.loaded = true;
     }
   }
-
-  @action
-  public load() {
-    if (!this.loaded) {
-      this.loadTeachers();
-      this.loaded = true;
-    }
-  }
-
-  @action
-  public async loadTeachers() {
-    this.data = await callApi<ITeachersSection[]>('teachers');
-  }
 }

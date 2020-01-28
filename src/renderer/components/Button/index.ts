@@ -1,41 +1,69 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
-import { PRIMARY_COLOR } from '~/renderer/constants';
-import { noUserSelect, robotoMedium } from '~/renderer/mixins';
+import { PRIMARY_COLOR, transparency } from '~/renderer/constants';
+import { noUserSelect, robotoMedium, centerIcon } from '~/renderer/mixins';
+import { Link } from '../Link';
 
 export const Button = styled(Link)`
   width: fit-content;
+  min-width: 144px;
   padding: 0px 16px;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: ${PRIMARY_COLOR};
+  border: 2px solid ${PRIMARY_COLOR};
   border-radius: 64px;
-  background-color: ${PRIMARY_COLOR};
-  color: #fff;
-  margin: 0 auto;
   font-size: 16px;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  ${noUserSelect()};
+  will-change: background-color, color;
+  transition: 0.15s background-color, 0.15s color;
   ${robotoMedium()};
+  ${noUserSelect()}
 
-  &::before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    background-color: rgba(255, 255, 255, 0.12);
-    opacity: 0;
-    transition: 0.1s opacity;
-  }
+  ${({
+    disabled,
+    icon,
+    reversedIcon,
+  }: {
+    disabled?: boolean;
+    icon?: string;
+    reversedIcon?: boolean;
+  }) => css`
+    pointer-events: ${disabled ? 'none' : 'all'};
+    opacity: ${disabled ? transparency.text.disabled : 1};
 
-  &:hover::before {
-    opacity: 1;
+    ${icon &&
+      css`
+        &::after {
+          content: '';
+          display: block;
+          width: 24px;
+          height: 24px;
+          background-color: ${PRIMARY_COLOR};
+          mask-image: url(${icon});
+          transition: 0.2s background-color;
+          ${centerIcon(24, true)};
+        }
+
+        &:hover::after {
+          background-color: #fff;
+        }
+
+        ${reversedIcon &&
+          css`
+            flex-direction: row-reverse;
+
+            &::after {
+              transform: rotate(-180deg);
+            }
+          `}
+      `}
+  `}
+
+  &:hover {
+    background-color: ${PRIMARY_COLOR};
+    color: #fff;
   }
 `;

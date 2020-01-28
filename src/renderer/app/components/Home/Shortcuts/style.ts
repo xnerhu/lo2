@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { SHORTCUT_CARD_SIZE, PRIMARY_COLOR } from '~/renderer/constants';
+import { PRIMARY_COLOR } from '~/renderer/constants';
 import { centerIcon } from '~/renderer/mixins';
 
 export const Container = styled.div`
@@ -31,12 +31,17 @@ export const StyledItem = styled.a`
 `;
 
 export const Circle = styled.div`
-  width: ${SHORTCUT_CARD_SIZE}px;
-  height: ${SHORTCUT_CARD_SIZE}px;
+  width: 128px;
+  height: 128px;
   border-radius: 100%;
   background-color: #fff;
   border: 1px solid ${PRIMARY_COLOR};
   transition: 0.1s transform, 0.1s background-color;
+
+  @media (max-width: 967px) {
+    width: 96px;
+    height: 96px;
+  }
 `;
 
 export const Icon = styled.div`
@@ -48,6 +53,10 @@ export const Icon = styled.div`
   ${({ src }: { src: string }) => css`
     mask-image: url(${src});
   `}
+
+  @media (max-width: 967px) {
+    ${centerIcon(48, true)};
+  }
 `;
 
 export const Title = styled.div`

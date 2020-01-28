@@ -7,7 +7,9 @@ import { IRouterProps } from '~/renderer/app/interfaces';
 import { INewsFilter } from '~/interfaces';
 import { useStore } from '~/renderer/app/store';
 import { stringifyNewsFilter } from '~/renderer/app/utils';
-import { StyledPagination, Button } from './style';
+import { Button } from '~/renderer/components/Button';
+import { icons } from '~/renderer/constants';
+import { StyledPagination } from './style';
 
 interface Props {
   filter: INewsFilter;
@@ -46,10 +48,19 @@ export const Pagination = withRouter(
 
     return (
       <StyledPagination>
-        <Button onClick={onNewer} disabled={page === 1}>
+        <Button
+          onClick={onNewer}
+          disabled={page === 1}
+          icon={icons.chevron}
+          reversedIcon
+        >
           Nowsze
         </Button>
-        <Button onClick={onOlder} disabled={!store.news.nextPage}>
+        <Button
+          onClick={onOlder}
+          disabled={!store.news.nextPage}
+          icon={icons.chevron}
+        >
           Starsze
         </Button>
       </StyledPagination>

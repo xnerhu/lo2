@@ -7,8 +7,6 @@ import { AppbarStore } from './appbar';
 import { HomeStore } from './home';
 import { NewsStore } from './news';
 import { ArticleStore } from './article';
-import { GalleryStore } from './gallery';
-import { AlbumStore } from './album';
 import { TeachersStore } from './teachers';
 
 class Store {
@@ -16,8 +14,6 @@ class Store {
   public home = new HomeStore();
   public news = new NewsStore();
   public article = new ArticleStore();
-  public gallery = new GalleryStore();
-  public album = new AlbumStore();
   public teachers = new TeachersStore();
 
   @observable
@@ -28,19 +24,7 @@ class Store {
       this.home.inject(state);
       this.news.inject(state);
       this.article.inject(state);
-      this.gallery.inject(state);
-      this.album.inject(state);
       this.teachers.inject(state);
-    }
-  }
-
-  public fetch(path: string) {
-    if (path === '/') {
-      this.home.load();
-    } else if (path.startsWith('/gallery')) {
-      this.gallery.load();
-    } else if (path.startsWith('/teachers')) {
-      this.teachers.load();
     }
   }
 }

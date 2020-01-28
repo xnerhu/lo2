@@ -26,7 +26,7 @@ export default withRouter(
 
     React.useEffect(() => {
       store.news.fetchCategories();
-    });
+    }, []);
 
     return (
       <Background style={{ height: '100%', paddingBottom: 48 }}>

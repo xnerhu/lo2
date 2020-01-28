@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { transparency, CARD_SHADOW, PRIMARY_COLOR } from '~/renderer/constants';
+import {
+  transparency,
+  CARD_SHADOW,
+  PRIMARY_COLOR,
+  EASING_FUNCTION,
+} from '~/renderer/constants';
 import { noUserSelect, overline, robotoMedium } from '~/renderer/mixins';
 
 export const StyledNewsCard = styled(Link)`
@@ -15,10 +20,12 @@ export const StyledNewsCard = styled(Link)`
   font-size: 14px;
   position: relative;
   box-shadow: ${CARD_SHADOW};
-  transition: 0.1s transform;
+  will-change: transform;
+  transition: 0.1s ${EASING_FUNCTION} transform;
+  -webkit-backface-visibility: hidden;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(0.95);
   }
 `;
 

@@ -10,6 +10,7 @@ import {
 import { Button } from '~/renderer/components/Button';
 import { IS_BROWSER } from '~/renderer/constants';
 import { NewsGrid } from '~/renderer/components/NewsGrid';
+import { Link } from 'react-router-dom';
 
 export const ShortNews = observer(() => {
   const store = useStore();
@@ -29,9 +30,11 @@ export const ShortNews = observer(() => {
   return (
     <Background style={{ marginTop: 56 }}>
       <Content>
-        <SectionTitle>Aktualności</SectionTitle>
+        <Link to="/news">
+          <SectionTitle>Aktualności</SectionTitle>
+        </Link>
         <NewsGrid items={store.home.news} />
-        <Button to="/news" style={{ marginTop: 32, marginBottom: 16 }}>
+        <Button to="/news" style={{ margin: '32px auto 16px auto' }}>
           Zobacz więcej
         </Button>
       </Content>

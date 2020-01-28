@@ -19,10 +19,3 @@ export const APPBAR_MOBILE_HEIGHT = 72;
 export const APPBAR_MOBILE_VIEW = 1365;
 
 export const NEWS_GRID_GAP = 24;
-
-export const SHORTCUT_CARD_SIZE = 128;
-
-export const GALLERY_CARD_MARGIN = 32;
-
-export const PAGE_ITEM_SIZE = 40;
-export const PAGINATION_COUNT = 5;

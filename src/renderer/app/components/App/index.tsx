@@ -1,10 +1,9 @@
 import { hot } from 'react-hot-loader/root';
 import * as React from 'react';
-import { Route, Switch, withRouter, RouteProps } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import loadable, { Options } from '@loadable/component';
 
-import { useStore } from '~/renderer/app/store';
 import { Appbar } from '../Appbar';
 import { Footer } from '../Footer';
 import { Style } from '~/renderer/app/style';
@@ -23,15 +22,7 @@ const LazyPatron = loadable(() => import('../Patron'), options);
 const LazyHistory = loadable(() => import('../History'), options);
 const LazyContact = loadable(() => import('../Contact'), options);
 
-const App = withRouter((props: RouteProps) => {
-  const store = useStore();
-  const { location } = props;
-  const { pathname } = location;
-
-  React.useEffect(() => {
-    store.fetch(pathname);
-  }, [pathname]);
-
+const App = () => {
   return (
     <>
       <GlobalStyle />
@@ -51,6 +42,6 @@ const App = withRouter((props: RouteProps) => {
       <Footer />
     </>
   );
-});
+};
 
 export default hot(App);

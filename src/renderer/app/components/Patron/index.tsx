@@ -81,7 +81,7 @@ export default () => {
           Chmielewskiego. W dziesięć lat później w sierpniu 1973 roku
           zorganizowano Muzeum Marii Konopnickiej.
         </Text>
-        <Image src="/static/patron" ratio={9 / 16} shadow />
+        <Image src="/static/history/patron-portrait" ratio={9 / 16} shadow />
       </Container>
     </Content>
   );

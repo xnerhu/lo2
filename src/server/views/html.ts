@@ -22,27 +22,28 @@ const fontsCss = `
 `.replace(/\n|\s/g, '');
 
 export const htmlStartView = (state: IAppState) => {
-  const appState = state ? JSON.stringify(state) : '{}';
-
   return `
    <!DOCTYPE html>
     <html lang="pl">
       <head>
-        <meta charSet="utf-8" />
+        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="keywords" content="plo2, opole, lo2, dwójka, dwojka, publiczne, liceum, drugie liceum, drugie, konopicka, solaris" />
+        <meta name="keywords" content="plo2, opole, lo2, dwójka, dwojka, publiczne, liceum, drugie liceum, drugie, konopickiej, dwujęzyczna" />
         <meta name="description" content="Publiczne Liceum Ogólnokształcące nr 2 w Opolu" />
-        <meta name="og:title" property="og:title" content="PLO2" />
-        <meta name="og:description" property="og:description" content="Publiczne Liceum Ogólnokształcące nr 2 w Opolu" />
-        <meta name="og:image" property="og:image" content="http://www.lo2.opole.pl/static/banner.png" />
-        <meta property="og:url" content="http://www.lo2.opole.pl/" />
+        <meta name="og:image" property="og:image" content="/static/banner.jpg" />
         <meta name="robots" content="index, follow" />
         <meta name="google-site-verification" content="kqoyKSVPjg08It3qpIJjnSj-iMvE4KF5ZJNwF8QnwUg" />
         <meta name="author" content="Mikołaj Palkiewicz" />
         <link rel="icon" type="image/png" href="/static/favicon.png" />
-        <title>Publiczne Liceum Ogólnokształcące Nr II im. Marii Konopnickiej w Opolu</title>
+        <title>Publiczne Liceum Ogólnokształcące Nr 2 w Opolu z Oddziałami Dwujęzycznymi im. Marii Konopnickiej w Opolu.</title>
         <style type="text/css">${fontsCss}</style>
-        <script type="text/javascript">window.__APP_STATE__=${appState}</script>
+        ${
+          state
+            ? `<script type="text/javascript">window.__APP_STATE__= ${JSON.stringify(
+                state,
+              )}</script>`
+            : ''
+        }
       </head>
       <body>
         <noscript>

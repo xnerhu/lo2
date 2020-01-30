@@ -1,11 +1,5 @@
 import db from '~/server/models/db';
-import {
-  INewsFilter,
-  INewsChunk,
-  INewsCategory,
-  INews,
-  IArticleChunk,
-} from '~/interfaces';
+import { INewsFilter, INewsChunk, INewsCategory, INews } from '~/interfaces';
 import { IDbNewsPacket } from '../interfaces';
 import { formatArticle } from '~/server/utils';
 import { formatUser } from '../utils/user';
@@ -60,10 +54,6 @@ export const getNews = async (filter: INewsFilter = {}): Promise<INews[]> => {
   });
 };
 
-export const getShortNews = () => {
-  return getNews({ limit: 9 });
-};
-
 export const getNewsChunk = async (
   filter: INewsFilter,
 ): Promise<INewsChunk> => {
@@ -74,6 +64,10 @@ export const getNewsChunk = async (
     items,
     nextPage: items.length >= postsPerPage,
   };
+};
+
+export const getProposedNews = (excluded: string) => {
+  return getNews({ limit: 3, excluded });
 };
 
 export const getArticle = async (label: string): Promise<INews> => {
@@ -100,19 +94,4 @@ export const getArticle = async (label: string): Promise<INews> => {
     _category: data['news-categories'],
     _author: formatUser(data.users),
   };
-};
-
-export const getProposedNews = (excluded: string) => {
-  return getNews({ limit: 3, excluded });
-};
-
-export const getArticleChunk = async (
-  label: string,
-): Promise<IArticleChunk> => {
-  const [data, proposed] = await Promise.all([
-    getArticle(label),
-    getProposedNews(label),
-  ]);
-
-  return { data: data || { label }, proposed, error: data == null };
 };

@@ -1,5 +1,10 @@
 import { IUser } from './user';
 
+export interface INewsChunk {
+  items?: INews[];
+  nextPage?: boolean;
+}
+
 export interface INews {
   id?: number;
   label?: string;
@@ -19,20 +24,9 @@ export interface INewsCategory {
   label?: string;
 }
 
-export interface INewsChunk {
-  items?: INews[];
-  nextPage?: boolean;
-}
-
 export interface INewsFilter {
   page?: number;
   limit?: number;
   categoryLabel?: string;
   excluded?: string;
-}
-
-export interface IArticleChunk {
-  data?: INews;
-  error?: boolean;
-  proposed?: INews[];
 }

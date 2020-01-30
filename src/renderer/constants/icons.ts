@@ -25,4 +25,5 @@ export const icons = {
   drop: require('~/renderer/resources/icons/drop.svg'),
   banner: require('~/renderer/resources/icons/banner.svg'),
   close: require('~/renderer/resources/icons/close.svg'),
+  link: require('~/renderer/resources/icons/link.svg'),
 };

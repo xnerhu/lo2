@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 
+import { BACKGROUND_COLOR, PRIMARY_COLOR } from '../constants';
 import {
   body2,
   robotoRegular,
@@ -12,8 +13,8 @@ import {
   h2,
   h1,
   noTapHighlight,
+  noButtons,
 } from '~/renderer/mixins';
-import { BACKGROUND_COLOR, PRIMARY_COLOR } from '../constants';
 
 export const Style = css`
   body {
@@ -28,6 +29,11 @@ export const Style = css`
     -webkit-font-smoothing: antialiased;
     ${body2()};
     ${noTapHighlight()};
+    ${noButtons({
+      size: 10,
+      color: 'rgba(0, 0, 0, 0.48)',
+      hoverColor: 'rgba(0, 0, 0, 0.64)',
+    })};
   }
 
   #app {

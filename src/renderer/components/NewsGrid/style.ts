@@ -1,6 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { NEWS_GRID_GAP } from '~/renderer/constants';
+
+const showLastCard = css`
+  & > .news-card:last-child {
+    display: block !important;
+  }
+`;
 
 export const StyledNewsGrid = styled.div`
   width: 100%;
@@ -8,6 +14,23 @@ export const StyledNewsGrid = styled.div`
   grid-row-gap: ${NEWS_GRID_GAP}px;
   grid-column-gap: ${NEWS_GRID_GAP}px;
   grid-template-columns: repeat(auto-fill, minmax(348px, 1fr));
+
+  ${({ renderLast }: { renderLast: boolean }) => css`
+    ${!renderLast &&
+      css`
+        & > .news-card:last-child {
+          display: none;
+        }
+
+        @media (min-width: 1230px) and (max-width: 1601px) {
+          ${showLastCard}
+        }
+
+        @media (max-width: 872px) {
+          ${showLastCard}
+        }
+      `}
+  `}
 
   @media (max-width: 872px) {
     grid-template-columns: unset;

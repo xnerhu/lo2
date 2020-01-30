@@ -1,6 +1,6 @@
 import { action, observable } from 'mobx';
 
-import { IAppState, INews, IArticleChunk } from '~/interfaces';
+import { IAppState, INews, IArticlePagePacket } from '~/interfaces';
 import { callApi } from '../utils';
 
 export class ArticleStore {
@@ -13,22 +13,22 @@ export class ArticleStore {
   @observable
   public error = false;
 
-  public inject({ article }: IAppState) {
-    if (article) {
-      this.update(article);
+  public inject({ articlePage }: IAppState) {
+    if (articlePage) {
+      this.update(articlePage);
     }
   }
 
   public async fetch(label: string) {
     if (this.data && this.data.label === label) return;
 
-    const data = await callApi<IArticleChunk>('article', { label });
+    const data = await callApi<IArticlePagePacket>('article', { label });
 
     this.update(data);
   }
 
   @action
-  protected update(article: IArticleChunk) {
+  protected update(article: IArticlePagePacket) {
     const { data, proposed, error } = article;
 
     this.data = data;

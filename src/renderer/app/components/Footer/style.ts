@@ -93,5 +93,6 @@ export const YoutubeIcon = styled(Icon)`
 export const Copyright = styled.a`
   font-size: 16px;
   margin-left: auto;
+  text-align: right;
   ${robotoMedium()};
 `;

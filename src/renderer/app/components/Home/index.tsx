@@ -10,7 +10,7 @@ export default observer(() => {
   const store = useStore();
 
   React.useEffect(() => {
-    store.home.fetchAll();
+    store.home.fetch();
   }, []);
 
   return (

@@ -19,6 +19,7 @@ export const StyledAppbar = styled.div`
   z-index: 10;
   background-color: #fff;
   position: relative;
+  will-change: box-shadow, margin-top;
   transition: ${appbarTransition};
   ${noUserSelect()};
 

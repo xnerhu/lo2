@@ -7,14 +7,18 @@ import { Menu } from '../Menu';
 import { MenuItem } from '../Menu/style';
 import { StyledNavItem, ExpandIcon, Link } from './style';
 
-export const NavItem = withRouter((props: IRouterProps<INavItem>) => {
-  const { to, label, location, subpages, useDefaultLink } = props;
+interface Props extends INavItem {
+  onClick?: () => void;
+}
+
+export const NavItem = withRouter((props: IRouterProps<Props>) => {
+  const { onClick, to, label, location, subpages, useDefaultLink } = props;
   const selected = React.useMemo(() => isAppbarItemSelected(props), [
     location.pathname,
   ]);
 
   return (
-    <StyledNavItem>
+    <StyledNavItem onClick={onClick}>
       <Link
         to={to}
         selected={selected}

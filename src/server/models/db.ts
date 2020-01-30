@@ -1,14 +1,6 @@
 import { platform } from 'os';
 import knex, { MySqlConnectionConfig } from 'knex';
 
-import {
-  IGalleryAlbum,
-  INews,
-  INewsCategory,
-  IUser,
-  IGalleryPicture,
-} from '~/interfaces';
-
 export class Database {
   public client: knex;
 

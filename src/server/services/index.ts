@@ -1,2 +1,2 @@
 export * from './news';
-export * from './slider';
+export * from './pages';

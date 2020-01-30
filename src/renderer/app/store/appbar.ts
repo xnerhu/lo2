@@ -17,19 +17,27 @@ export class AppbarStore {
   constructor() {
     if (IS_BROWSER) {
       window.removeEventListener('scroll', this.onScroll);
-      window.addEventListener('scroll', this.onScroll);
+      window.addEventListener('resize', this.onResize);
+
+      requestAnimationFrame(() => {
+        window.addEventListener('scroll', this.onScroll);
+        window.addEventListener('resize', this.onResize);
+      });
     }
   }
 
   @action
-  public onMenuButtonClick = () => {
-    this.expanded = !this.expanded;
-
-    document.body.style.overflowY = this.expanded ? 'hidden' : 'auto';
+  public toggle = (expanded = true) => {
+    this.expanded = expanded;
+    this.switchScroll(!expanded);
   };
 
+  protected switchScroll(visible: boolean) {
+    document.body.style.overflowY = visible ? 'auto' : 'hidden';
+  }
+
   @action
-  public onScroll = () => {
+  protected onScroll = () => {
     if (window.innerWidth <= APPBAR_MOBILE_VIEW) {
       this.hideShadow = window.scrollY <= 16;
 
@@ -38,8 +46,18 @@ export class AppbarStore {
       }
 
       this.lastScrollPos = window.scrollY;
-    } else if (!this.visible) {
+    }
+  };
+
+  @action
+  protected onResize = () => {
+    if (window.innerWidth > APPBAR_MOBILE_VIEW) {
       this.visible = true;
+
+      if (this.expanded) {
+        this.expanded = false;
+        this.switchScroll(true);
+      }
     }
   };
 }

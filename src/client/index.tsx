@@ -12,11 +12,12 @@ declare const window: {
 };
 
 loadableReady().then(() => {
-  hydrate((
+  hydrate(
     <StoreProvider data={window.__APP_STATE__}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </StoreProvider>
-  ), document.getElementById('app'));
+    </StoreProvider>,
+    document.getElementById('app'),
+  );
 });

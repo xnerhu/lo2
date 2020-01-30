@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '~/renderer/app/store';
@@ -17,6 +16,14 @@ import { NavItem } from './NavItem';
 export const Appbar = observer(() => {
   const store = useStore();
 
+  const onMenuButtonClick = React.useCallback(() => {
+    store.appbar.toggle(!store.appbar.expanded);
+  }, []);
+
+  const onNavItemClick = React.useCallback(() => {
+    store.appbar.toggle(false);
+  }, []);
+
   return (
     <>
       <StyledAppbar
@@ -26,14 +33,14 @@ export const Appbar = observer(() => {
         <Container>
           <NavItems expanded={store.appbar.expanded}>
             {navigationItems.map(r => (
-              <NavItem key={r.label} {...r} />
+              <NavItem key={r.label} onClick={onNavItemClick} {...r} />
             ))}
           </NavItems>
           <Banner src={icons.banner} alt="logo szkoły" draggable={false} />
         </Container>
         <MenuIcon
           expanded={store.appbar.expanded}
-          onClick={store.appbar.onMenuButtonClick}
+          onClick={onMenuButtonClick}
         />
       </StyledAppbar>
       <Placeholder />

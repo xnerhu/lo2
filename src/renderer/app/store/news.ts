@@ -30,10 +30,10 @@ export class NewsStore {
 
   protected categoriesLoaded = false;
 
-  public inject({ news, newsCategories }: IAppState) {
-    if (news && newsCategories) {
-      this.updateNews(news);
-      this.updateCategories(newsCategories);
+  public inject({ newsPage }: IAppState) {
+    if (newsPage) {
+      this.updateNews(newsPage.news);
+      this.updateCategories(newsPage.categories);
       this.categoriesLoaded = true;
     }
   }
@@ -45,12 +45,13 @@ export class NewsStore {
   }
 
   public async fetchCategories() {
-    if (this.categoriesLoaded) return;
-    this.categoriesLoaded = true;
+    if (!this.categoriesLoaded) {
+      this.categoriesLoaded = true;
 
-    const items = await callApi<INewsCategory[]>('news-categories');
+      const items = await callApi<INewsCategory[]>('news-categories');
 
-    this.updateCategories(items);
+      this.updateCategories(items);
+    }
   }
 
   @action

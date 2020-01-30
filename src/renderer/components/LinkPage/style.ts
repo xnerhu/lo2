@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { CARD_SHADOW } from '~/renderer/constants';
+import {
+  CARD_SHADOW,
+  icons,
+  transparency,
+  PRIMARY_COLOR,
+} from '~/renderer/constants';
+import { centerIcon } from '~/renderer/mixins';
 
 export const Card = styled(Link)`
   width: 100%;
@@ -14,14 +20,25 @@ export const Card = styled(Link)`
   align-items: center;
   font-size: 16px;
   box-shadow: ${CARD_SHADOW};
-  transition: 0.1s transform, 0.1s background-color;
+  transition: 0.1s box-shadow;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
-    transform: scale(1.05);
+    background-color: #fff;
+    box-shadow: 0 0 0 2px ${PRIMARY_COLOR};
   }
 
   &:not(:first-child) {
     margin-top: 32px;
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    background-image: url(${icons.link});
+    opacity: ${transparency.icons.disabled};
+    ${centerIcon()};
   }
 `;

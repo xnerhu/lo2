@@ -21,11 +21,14 @@ interface Props {
 export const NewsCard = withRouter(({ data, history }: IRouterProps<Props>) => {
   const { label, image, _category, title, content, createdAt } = data;
 
-  const onCategoryClick = React.useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
+  const onCategoryClick = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
 
-    history.push(`/news/`);
-  }, []);
+      history.push(`/news/${_category.label}`);
+    },
+    [_category],
+  );
 
   return (
     <StyledNewsCard className="news-card" to={`/article/${label}`}>

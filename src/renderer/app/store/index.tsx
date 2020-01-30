@@ -7,14 +7,14 @@ import { AppbarStore } from './appbar';
 import { HomeStore } from './home';
 import { NewsStore } from './news';
 import { ArticleStore } from './article';
-import { TeachersStore } from './teachers';
+import { PersonnelStore } from './personnel';
 
 class Store {
   public appbar = new AppbarStore();
   public home = new HomeStore();
   public news = new NewsStore();
   public article = new ArticleStore();
-  public teachers = new TeachersStore();
+  public personnel = new PersonnelStore();
 
   @observable
   public loggedIn = false;
@@ -24,7 +24,7 @@ class Store {
       this.home.inject(state);
       this.news.inject(state);
       this.article.inject(state);
-      this.teachers.inject(state);
+      this.personnel.inject(state);
     }
   }
 }

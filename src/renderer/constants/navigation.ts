@@ -16,25 +16,29 @@ export const aboutUsPage: INavItem = {
   selectFilter,
   subpages: [
     {
-      to: '/teachers',
-      label: 'Nauczyciele',
+      to: '/news/osiągnięcia',
+      label: 'Osiągnięcia',
     },
     {
       to: '/patron',
       label: 'Nasza patronka',
     },
     {
-      to: STATUE_URL,
-      label: 'Statut szkoły',
-      useDefaultLink: true,
-    },
-    {
       to: '/history',
       label: 'Historia szkoły',
     },
     {
-      to: '/news/osiągnięcia',
-      label: 'Osiągnięcia',
+      to: '/collaboration',
+      label: 'Współpraca zagraniczna',
+    },
+    {
+      to: '/personnel',
+      label: 'Personel',
+    },
+    {
+      to: STATUE_URL,
+      label: 'Statut szkoły',
+      useDefaultLink: true,
     },
     {
       to: '/news/piszą-o-nas',
@@ -45,6 +49,7 @@ export const aboutUsPage: INavItem = {
 
 export const studentsPage: INavItem = {
   label: 'Dla uczniów',
+  to: '/students',
   selectFilter,
   subpages: [
     {
@@ -60,6 +65,10 @@ export const studentsPage: INavItem = {
       to: REPLACEMENTS_URL,
       label: 'Zastępstwa',
       useDefaultLink: true,
+    },
+    {
+      to: '/news/projekty',
+      label: 'Projekty',
     },
     {
       to: '/news/kółka',
@@ -110,6 +119,10 @@ export const navigationItems: INavItem[] = [
   {
     to: '/news/dla-rodziców',
     label: 'Dla rodziców',
+  },
+  {
+    to: 'https://rozdzialiilo2.wordpress.com/',
+    label: 'Gazetka',
   },
   {
     to: '/news/rekrutacja',

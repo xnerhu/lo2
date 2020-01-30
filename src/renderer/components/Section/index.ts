@@ -3,11 +3,6 @@ import styled, { css } from 'styled-components';
 import { noUserSelect, robotoMedium } from '~/renderer/mixins';
 import { CONTENT_WIDTH } from '~/renderer/constants';
 
-export const Section = styled.section`
-  width: 100%;
-  margin-top: 32px;
-`;
-
 export const Content = styled.div`
   width: 100%;
   max-width: ${CONTENT_WIDTH}px;

@@ -7,7 +7,6 @@ import {
   LESSONS_PLAN_URL,
   REPLACEMENTS_URL,
 } from '~/renderer/constants';
-import { Section } from '~/renderer/components/Section';
 import { StyledItem, Container, Circle, Title, Icon } from './style';
 
 interface Props {

@@ -22,6 +22,7 @@ const LazyPersonnel = loadable(() => import('../Personnel'), options);
 const LazyPatron = loadable(() => import('../Patron'), options);
 const LazyHistory = loadable(() => import('../History'), options);
 const LazyContact = loadable(() => import('../Contact'), options);
+const LazyAddArticle = loadable(() => import('../AddArticle'), options);
 const LazyNotFound = loadable(() => import('../NotFound'), options);
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
       <StyledApp>
         <Appbar />
         <Switch>
+          <Route path="/add-article" component={LazyAddArticle} />
           <Route path="/contact" component={LazyContact} />
           <Route path="/history" component={LazyHistory} />
           <Route path="/patron" component={LazyPatron} />

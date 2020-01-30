@@ -8,7 +8,7 @@ export default () => {
     <Background>
       <Content>
         <Error code="404" label="Nie znaleziono strony!">
-          xd
+          Mogła zostać usunięta lub jest tymczasowo niedostępna.
         </Error>
       </Content>
     </Background>

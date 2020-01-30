@@ -33,11 +33,11 @@ export const SectionTitle = styled.h5`
   display: flex;
   align-items: center;
   position: relative;
-  ${noUserSelect()};
   ${robotoMedium()};
 
-  ${({ center }: { center?: boolean }) => css`
+  ${({ center, selectable }: { center?: boolean; selectable?: boolean }) => css`
     width: ${center ? '100%' : 'fit-content'};
     justify-content: ${center ? 'center' : 'unset'};
+    ${!selectable && noUserSelect()}
   `}
 `;

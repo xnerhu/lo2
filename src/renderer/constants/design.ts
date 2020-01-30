@@ -1,7 +1,5 @@
 export const BACKGROUND_COLOR = '#fff';
 
-export const FOOTER_COLOR = '#fff';
-
 export const PRIMARY_COLOR = '#00aeef';
 
 export const CARD_SHADOW = '0px 6px 16px 0px rgba(0, 0, 0, 0.12)';

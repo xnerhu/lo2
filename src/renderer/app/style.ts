@@ -21,7 +21,6 @@ export const Style = css`
   body {
     width: 100%;
     height: 100%;
-    cursor: default;
     margin: 0;
     padding: 0;
     background-color: ${BACKGROUND_COLOR};

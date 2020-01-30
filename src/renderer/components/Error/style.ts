@@ -9,6 +9,7 @@ export const StyledError = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-bottom: 64px;
 `;
 
 export const Circle = styled.h3`

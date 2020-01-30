@@ -22,14 +22,14 @@ export default withRouter(
       store.article.fetch(match.params.label);
     }, [match.params]);
 
-    const loaded = store.article.data != null;
-
     return (
       <>
         <View />
-        <Background style={{ height: '100%' }}>
+        <Background>
           <Content>
-            {loaded && <SectionTitle center>Proponowane</SectionTitle>}
+            {store.article.data != null && (
+              <SectionTitle center>Proponowane</SectionTitle>
+            )}
             <NewsContainer>
               {store.article.proposedNews.map(r => (
                 <NewsCard key={r.id} data={r} />

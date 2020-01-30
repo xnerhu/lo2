@@ -17,6 +17,7 @@ import {
 } from '~/renderer/mixins';
 
 export const Style = css`
+  html,
   body {
     width: 100%;
     height: 100%;
@@ -39,7 +40,6 @@ export const Style = css`
   #app {
     width: 100%;
     height: 100%;
-    height: -webkit-fill-available;
     display: flex;
     flex-direction: column;
   }

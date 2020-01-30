@@ -22,6 +22,7 @@ const LazyPersonnel = loadable(() => import('../Personnel'), options);
 const LazyPatron = loadable(() => import('../Patron'), options);
 const LazyHistory = loadable(() => import('../History'), options);
 const LazyContact = loadable(() => import('../Contact'), options);
+const LazyNotFound = loadable(() => import('../NotFound'), options);
 
 const App = () => {
   return (
@@ -38,7 +39,8 @@ const App = () => {
           <Route path="/about" component={LazyAbout} />
           <Route path="/article/:label" component={LazyArticle} />
           <Route path="/news/:categoryLabel?/:page?" component={LazyNews} />
-          <Route path="/" component={LazyHome} />
+          <Route path="/" component={LazyHome} exact />
+          <Route component={LazyNotFound} />
         </Switch>
       </StyledApp>
       <Footer />

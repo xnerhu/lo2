@@ -25,7 +25,7 @@ export const Content = styled.div`
 export const Background = styled.div`
   width: 100%;
   background-color: #fafafc;
-  padding-bottom: 24px;
+  padding-bottom: 32px;
 `;
 
 export const SectionTitle = styled.h5`

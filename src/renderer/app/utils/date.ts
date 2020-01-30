@@ -1,3 +1,6 @@
+import { INews } from '~/interfaces';
+import { SHORT_MONTHS } from '~/renderer/constants';
+
 export const formatDate = (date: Date | string) => {
   const _date = typeof date === 'string' ? new Date(date) : date;
 
@@ -37,4 +40,13 @@ export const formatDate = (date: Date | string) => {
 
 const pad = (value: number) => {
   return value.toString().padStart(2, '0');
+};
+
+export const formatArticleDate = (data: INews) => {
+  const { createdAt } = data;
+  const date = new Date(createdAt);
+
+  const month = SHORT_MONTHS[date.getMonth()];
+
+  return `${date.getDate()} ${month}, ${date.getFullYear()}`;
 };

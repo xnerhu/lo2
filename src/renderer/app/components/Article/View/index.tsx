@@ -59,11 +59,7 @@ export const View = observer(() => {
       <Body>
         {content}
         {store.article.error && (
-          <Error
-            code="404"
-            label="Oops! Nie znaleziono artykułu!"
-            style={{ marginBottom: 64 }}
-          >
+          <Error code="404" label="Oops! Nie znaleziono artykułu!">
             Mógł zostać usunięty.
           </Error>
         )}

@@ -29,7 +29,7 @@ export default withRouter(
     }, []);
 
     return (
-      <Background style={{ height: '100%', paddingBottom: 48 }}>
+      <Background>
         <Content>
           <Toolbar filter={filter} />
           <NewsGrid items={store.news.items} />

@@ -26,6 +26,22 @@ const plugins = [new LoadablePlugin()];
 
 if (stats) plugins.push(new BundleAnalyzerPlugin());
 
+const splitModules = {
+  slate: [
+    'slate',
+    'slate-react',
+    'esrever',
+    'immer',
+    'is-plain-object',
+    'tiny-warning',
+    'debounce',
+    'direction',
+    'is-hotkey',
+    'scroll-into-view-if-needed',
+    '@emotion',
+  ],
+};
+
 const clientConfig = getConfig(getBaseConfig(), {
   name: 'client',
   target: 'web',
@@ -79,16 +95,30 @@ const clientConfig = getConfig(getBaseConfig(), {
       : [],
     namedModules: true,
     noEmitOnErrors: true,
+    runtimeChunk: true,
     splitChunks: {
       cacheGroups: {
         commons: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
           chunks: 'all',
+          name: module => {
+            const package = getPackageName(module);
+
+            const keys = Object.keys(splitModules);
+            const chunkName =
+              keys.find(r => splitModules[r].indexOf(package) !== -1) ||
+              'vendor';
+
+            return chunkName;
+          },
         },
       },
     },
   },
 });
+
+const getPackageName = module => {
+  return module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+};
 
 module.exports = clientConfig;

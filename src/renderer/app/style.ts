@@ -1,6 +1,11 @@
 import { css } from 'styled-components';
 
-import { BACKGROUND_COLOR, PRIMARY_COLOR } from '../constants';
+import {
+  BACKGROUND_COLOR,
+  PRIMARY_COLOR,
+  transparency,
+  icons,
+} from '../constants';
 import {
   body2,
   robotoRegular,
@@ -14,6 +19,7 @@ import {
   h1,
   noTapHighlight,
   noButtons,
+  centerIcon,
 } from '~/renderer/mixins';
 
 export const Style = css`
@@ -62,6 +68,13 @@ export const Style = css`
     color: #000;
     ${robotoRegular()};
     ${noUserSelect()};
+
+    &.article-link {
+      cursor: pointer;
+      color: #3f51b5;
+      padding-bottom: 2px;
+      text-decoration: underline;
+    }
   }
 
   b {
@@ -99,6 +112,46 @@ export const Style = css`
 
   h1 {
     ${h1()};
+  }
+
+  code {
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+
+  blockquote {
+    color: rgba(0, 0, 0, ${transparency.text.medium});
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 4px;
+      background-image: url(${icons.formatQuote});
+      opacity: ${transparency.icons.disabled};
+      ${centerIcon()};
+      ${noUserSelect()}
+    }
+  }
+
+  p {
+    &.align-left {
+      text-align: left;
+    }
+
+    &.align-center {
+      text-align: center;
+    }
+
+    &.align-right {
+      text-align: right;
+    }
+  }
+
+  span {
+    &.color-highlight {
+      color: ${PRIMARY_COLOR};
+    }
   }
 
   ::selection {

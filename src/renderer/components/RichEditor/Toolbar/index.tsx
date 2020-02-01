@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Editor, Transforms, Range } from 'slate';
-import { useSlate, useSelected, ReactEditor } from 'slate-react';
+import { useSlate, useSelected, ReactEditor, useEditor } from 'slate-react';
 
 import { icons, EDITOR_LIST_TYPES } from '~/renderer/constants';
 import { IEditorSelectionFormat, IEditorListFormat } from '~/interfaces';
@@ -79,10 +79,20 @@ export const wrapLink = (editor: Editor, url: string) => {
   }
 };
 
-export const insertLink = (editor: Editor & ReactEditor, url: string) => {
+export const insertLink = (editor: Editor, url: string) => {
   if (editor.selection) {
     wrapLink(editor, url);
   }
+};
+
+const insertImage = (editor: Editor, url: string) => {
+  const image = { type: 'image', url, children: [{ text: '' }] };
+
+  Transforms.insertNodes(editor, image);
+  Transforms.insertNodes(editor, {
+    type: 'paragraph',
+    children: [{ text: '' }],
+  });
 };
 
 interface ButtonProps {
@@ -123,16 +133,15 @@ const Button = ({ format, icon, block, isActive }: ButtonProps) => {
   );
 };
 
-const LinkButton = ({ onClick }: { onClick?: () => void }) => {
+const LinkButton = () => {
   const editor = useSlate();
   const active = isBlockActive(editor, 'link');
 
-  const _onClick = React.useCallback(() => {
+  const onClick = React.useCallback(() => {
     if (!active) {
-      // const url = window.prompt('Enter the URL of the link:');
-      // if (!url) return;
-      // insertLink(editor, url);
-      onClick();
+      const url = window.prompt('Wklej link');
+      if (!url) return;
+      insertLink(editor, url);
     } else {
       unwrapLink(editor);
     }
@@ -144,7 +153,7 @@ const LinkButton = ({ onClick }: { onClick?: () => void }) => {
 
   return (
     <StyledButton
-      onClick={_onClick}
+      onClick={onClick}
       onMouseDown={onMouseDown}
       active={active}
       icon={icons.formatLink}
@@ -152,11 +161,30 @@ const LinkButton = ({ onClick }: { onClick?: () => void }) => {
   );
 };
 
-interface Props {
-  onLinkButtonClick: () => void;
-}
+const ImageButton = () => {
+  const editor = useEditor();
 
-export const Toolbar = ({ onLinkButtonClick }: Props) => {
+  const onClick = React.useCallback(() => {
+    const url = window.prompt('Wklej link do zdjęcia');
+    if (!url) return;
+    insertImage(editor, url);
+  }, []);
+
+  const onMouseDown = React.useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+  }, []);
+
+  return (
+    <StyledButton
+      onClick={onClick}
+      onMouseDown={onMouseDown}
+      active={false}
+      icon={icons.image}
+    />
+  );
+};
+
+export const Toolbar = () => {
   const editor = useSlate();
 
   const isAlignLeftActive = React.useCallback(() => {
@@ -173,8 +201,9 @@ export const Toolbar = ({ onLinkButtonClick }: Props) => {
       <Button format="underline" icon={icons.formatUnderline} />
       <Button format="color-highlight" icon={icons.formatColorHighlight} />
       <Divider />
-      <LinkButton onClick={onLinkButtonClick} />
+      <LinkButton />
       <Button format="h4" icon={icons.formatHeader4} block />
+      <ImageButton />
       <Divider />
       <Button
         format="align-left"

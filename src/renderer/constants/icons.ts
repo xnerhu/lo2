@@ -25,4 +25,5 @@ export const icons = {
   formatHeader4: require('~/renderer/resources/icons/format-header-4.svg'),
   formatColorHighlight: require('~/renderer/resources/icons/format-color-highlight.svg'),
   formatLink: require('~/renderer/resources/icons/format-link.svg'),
+  image: require('~/renderer/resources/icons/image.svg'),
 };

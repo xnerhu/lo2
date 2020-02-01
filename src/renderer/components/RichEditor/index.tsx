@@ -6,7 +6,6 @@ import { withHistory } from 'slate-history';
 import { Toolbar } from './Toolbar';
 import { Element } from './Element';
 import { Leaf } from './Leaf';
-import { LinkDialog } from './LinkDialog';
 import { Editable } from './style';
 
 const withLinks = (editor: Editor) => {
@@ -19,9 +18,19 @@ const withLinks = (editor: Editor) => {
   return editor;
 };
 
+const withImages = (editor: Editor) => {
+  const { isVoid } = editor;
+
+  editor.isVoid = element => {
+    return element.type === 'image' ? true : isVoid(element);
+  };
+
+  return editor;
+};
+
 export const RichEditor = () => {
   const editor: Editor & ReactEditor = React.useMemo(
-    () => withLinks(withHistory(withReact(createEditor()))) as any,
+    () => withImages(withLinks(withHistory(withReact(createEditor())))) as any,
     [],
   );
 
@@ -29,17 +38,14 @@ export const RichEditor = () => {
   const renderLeaf = React.useCallback(props => <Leaf {...props} />, []);
 
   const [value, setValue] = React.useState<Node[]>(initialValue);
-  const [linkDialogVisible, toggleLinkDialog] = React.useState(false);
-
-  const onLinkButtonClick = React.useCallback(() => {
-    toggleLinkDialog(!linkDialogVisible);
-  }, [linkDialogVisible]);
-
   return (
     <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-      <Toolbar onLinkButtonClick={onLinkButtonClick} />
-      <LinkDialog visible={linkDialogVisible} />
-      <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
+      <Toolbar />
+      <Editable
+        renderElement={renderElement}
+        renderLeaf={renderLeaf}
+        placeholder="Treść"
+      />
     </Slate>
   );
 };

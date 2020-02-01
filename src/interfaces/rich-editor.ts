@@ -12,4 +12,5 @@ export type IEditorSelectionFormat =
   | 'align-right'
   | 'color-highlight'
   | 'link'
+  | 'image'
   | IEditorListFormat;

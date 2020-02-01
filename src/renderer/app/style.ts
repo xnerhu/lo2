@@ -154,6 +154,17 @@ export const Style = css`
     }
   }
 
+  img {
+    &.article-image {
+      display: block;
+      max-width: 100%;
+      max-height: 20em;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 16px;
+    }
+  }
+
   ::selection {
     background: ${PRIMARY_COLOR};
     color: #fff;

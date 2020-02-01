@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { RenderElementProps } from 'slate-react';
+import { RenderElementProps, useFocused, useSelected } from 'slate-react';
 
 import { IEditorSelectionFormat } from '~/interfaces';
+import { PRIMARY_COLOR } from '~/renderer/constants';
 
-export const Element = ({
-  attributes,
-  children,
-  element,
-}: RenderElementProps) => {
+export const Element = (props: RenderElementProps) => {
+  const { attributes, children, element } = props;
+
   switch (element.type as IEditorSelectionFormat) {
     case 'align-center':
       return (
@@ -37,7 +36,31 @@ export const Element = ({
           {children}
         </a>
       );
+    case 'image':
+      return <ImageElement {...props} />;
     default:
       return <p {...attributes}>{children}</p>;
   }
+};
+
+const ImageElement = ({
+  attributes,
+  children,
+  element,
+}: RenderElementProps) => {
+  const selected = useSelected();
+  const focused = useFocused();
+
+  const style: React.CSSProperties = {
+    boxShadow: selected && focused ? `${PRIMARY_COLOR} 0px 0px 0px 2px` : '',
+  };
+
+  return (
+    <div {...attributes}>
+      <div contentEditable={false}>
+        <img className="article-image" src={element.url} style={style} />
+      </div>
+      {children}
+    </div>
+  );
 };

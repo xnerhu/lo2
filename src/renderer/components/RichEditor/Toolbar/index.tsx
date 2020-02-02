@@ -1,99 +1,18 @@
-import * as React from 'react';
-import { Editor, Transforms, Range } from 'slate';
-import { useSlate, useSelected, ReactEditor, useEditor } from 'slate-react';
+import React from 'react';
+import { useSlate, useEditor } from 'slate-react';
 
-import { icons, EDITOR_LIST_TYPES } from '~/renderer/constants';
-import { IEditorSelectionFormat, IEditorListFormat } from '~/interfaces';
+import { icons } from '~/renderer/constants';
+import { IEditorSelectionFormat } from '~/interfaces';
+import {
+  isBlockActive,
+  isMarkActive,
+  toggleMark,
+  toggleBlock,
+  insertLink,
+  unwrapLink,
+  insertImage,
+} from '~/renderer/app/utils/rich-editor';
 import { StyledToolbar, StyledButton, Divider } from './style';
-
-export const isMarkActive = (
-  editor: Editor,
-  format: IEditorSelectionFormat,
-) => {
-  const marks = Editor.marks(editor);
-
-  return marks ? marks[format] === true : false;
-};
-
-export const isBlockActive = (
-  editor: Editor,
-  format: IEditorSelectionFormat,
-) => {
-  const [match] = Editor.nodes(editor, {
-    match: n => n.type === format,
-  });
-
-  return !!match;
-};
-
-export const toggleMark = (editor: Editor, format: IEditorSelectionFormat) => {
-  const isActive = isMarkActive(editor, format);
-
-  if (isActive) {
-    Editor.removeMark(editor, format);
-  } else {
-    Editor.addMark(editor, format, true);
-  }
-};
-
-export const toggleBlock = (editor: Editor, format: IEditorSelectionFormat) => {
-  const isActive = isBlockActive(editor, format);
-  const isList = EDITOR_LIST_TYPES.includes(format as IEditorListFormat);
-
-  Transforms.unwrapNodes(editor, {
-    match: n => EDITOR_LIST_TYPES.includes(n.type),
-    split: true,
-  });
-
-  Transforms.setNodes(editor, {
-    type: isActive ? 'paragraph' : isList ? 'list-item' : format,
-  });
-
-  if (!isActive && isList) {
-    Transforms.wrapNodes(editor, { type: format, children: [] });
-  }
-};
-
-export const unwrapLink = (editor: Editor) => {
-  Transforms.unwrapNodes(editor, { match: n => n.type === 'link' });
-};
-
-export const wrapLink = (editor: Editor, url: string) => {
-  if (isBlockActive(editor, 'link')) {
-    unwrapLink(editor);
-  }
-
-  const { selection } = editor;
-  const isCollapsed = selection && Range.isCollapsed(selection);
-  const link = {
-    type: 'link',
-    url,
-    children: isCollapsed ? [{ text: url }] : [],
-  };
-
-  if (isCollapsed) {
-    Transforms.insertNodes(editor, link);
-  } else {
-    Transforms.wrapNodes(editor, link, { split: true });
-    Transforms.collapse(editor, { edge: 'end' });
-  }
-};
-
-export const insertLink = (editor: Editor, url: string) => {
-  if (editor.selection) {
-    wrapLink(editor, url);
-  }
-};
-
-const insertImage = (editor: Editor, url: string) => {
-  const image = { type: 'image', url, children: [{ text: '' }] };
-
-  Transforms.insertNodes(editor, image);
-  Transforms.insertNodes(editor, {
-    type: 'paragraph',
-    children: [{ text: '' }],
-  });
-};
 
 interface ButtonProps {
   format: IEditorSelectionFormat;
@@ -119,18 +38,7 @@ const Button = ({ format, icon, block, isActive }: ButtonProps) => {
     else toggleBlock(editor, format);
   }, [format, block]);
 
-  const onMouseDown = React.useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-  }, []);
-
-  return (
-    <StyledButton
-      onClick={onClick}
-      onMouseDown={onMouseDown}
-      active={active}
-      icon={icon}
-    />
-  );
+  return <StyledButton onClick={onClick} active={active} icon={icon} />;
 };
 
 const LinkButton = () => {
@@ -147,17 +55,8 @@ const LinkButton = () => {
     }
   }, [active]);
 
-  const onMouseDown = React.useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-  }, []);
-
   return (
-    <StyledButton
-      onClick={onClick}
-      onMouseDown={onMouseDown}
-      active={active}
-      icon={icons.formatLink}
-    />
+    <StyledButton onClick={onClick} active={active} icon={icons.formatLink} />
   );
 };
 
@@ -170,22 +69,15 @@ const ImageButton = () => {
     insertImage(editor, url);
   }, []);
 
-  const onMouseDown = React.useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-  }, []);
-
-  return (
-    <StyledButton
-      onClick={onClick}
-      onMouseDown={onMouseDown}
-      active={false}
-      icon={icons.image}
-    />
-  );
+  return <StyledButton onClick={onClick} active={false} icon={icons.image} />;
 };
 
 export const Toolbar = () => {
   const editor = useSlate();
+
+  const onMouseDown = React.useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+  }, []);
 
   const isAlignLeftActive = React.useCallback(() => {
     return (
@@ -195,7 +87,7 @@ export const Toolbar = () => {
   }, []);
 
   return (
-    <StyledToolbar>
+    <StyledToolbar onMouseDown={onMouseDown}>
       <Button format="bold" icon={icons.formatBold} />
       <Button format="italic" icon={icons.formatItalic} />
       <Button format="underline" icon={icons.formatUnderline} />

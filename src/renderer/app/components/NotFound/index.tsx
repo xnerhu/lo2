@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { Background, Content } from '~/renderer/components/Section';
 import { Error } from '~/renderer/components/Error';

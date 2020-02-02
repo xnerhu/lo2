@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { LinkPage } from '~/renderer/components/LinkPage';
 import { studentsPage } from '~/renderer/constants';

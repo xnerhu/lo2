@@ -149,7 +149,7 @@ export const Style = css`
   }
 
   span {
-    &.color-highlight {
+    &.article-color-highlight {
       color: ${PRIMARY_COLOR};
     }
   }

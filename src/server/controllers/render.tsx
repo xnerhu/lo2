@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { resolve } from 'path';
-import * as React from 'react';
+import React from 'react';
 import { renderToNodeStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { ServerStyleSheet } from 'styled-components';

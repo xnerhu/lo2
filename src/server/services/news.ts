@@ -48,7 +48,7 @@ export const getNews = async (filter: INewsFilter = {}): Promise<INews[]> => {
 
   return news.map(r => {
     return {
-      ...formatArticle(r.news),
+      ...formatArticle(r.news, false),
       _category: category != null ? category : r['news-categories'],
     };
   });
@@ -90,7 +90,7 @@ export const getArticle = async (label: string): Promise<INews> => {
   if (data == null) return null;
 
   return {
-    ...formatArticle(data.news, false),
+    ...formatArticle(data.news, true),
     _category: data['news-categories'],
     _author: formatUser(data.users),
   };

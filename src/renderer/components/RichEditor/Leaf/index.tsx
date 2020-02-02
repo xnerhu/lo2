@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { RenderLeafProps } from 'slate-react';
 
 export const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
@@ -21,7 +21,7 @@ export const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
   }
 
   if (leaf['color-highlight']) {
-    attrs = { className: 'color-highlight' };
+    attrs = { className: 'article-color-highlight' };
   }
 
   return (

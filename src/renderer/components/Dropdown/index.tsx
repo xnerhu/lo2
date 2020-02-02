@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { icons } from '~/renderer/constants';
 import { StyledDropdown, Label, DropIcon, Menu, MenuItem } from './style';

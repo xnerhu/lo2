@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { StyledCarousel, Arrow, Image, Controls, Control } from './style';
 

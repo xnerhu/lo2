@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { RenderElementProps, useFocused, useSelected } from 'slate-react';
 
 import { IEditorSelectionFormat } from '~/interfaces';
@@ -56,7 +56,7 @@ const ImageElement = ({
   };
 
   return (
-    <div {...attributes}>
+    <div className="article-image-wrapper" {...attributes}>
       <div contentEditable={false}>
         <img className="article-image" src={element.url} style={style} />
       </div>

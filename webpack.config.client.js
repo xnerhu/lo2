@@ -27,19 +27,7 @@ const plugins = [new LoadablePlugin()];
 if (stats) plugins.push(new BundleAnalyzerPlugin());
 
 const splitModules = {
-  slate: [
-    'slate',
-    'slate-react',
-    'esrever',
-    'immer',
-    'is-plain-object',
-    'tiny-warning',
-    'debounce',
-    'direction',
-    'is-hotkey',
-    'scroll-into-view-if-needed',
-    '@emotion',
-  ],
+  slate: ['slate', 'slate-react', 'slate-history', 'immer'],
 };
 
 const clientConfig = getConfig(getBaseConfig(), {

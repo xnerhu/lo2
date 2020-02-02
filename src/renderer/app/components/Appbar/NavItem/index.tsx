@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 
 import { IRouterProps, INavItem } from '~/renderer/app/interfaces';

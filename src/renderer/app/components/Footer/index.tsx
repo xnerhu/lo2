@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { FACEBOOK_URL, YOUTUBE_URL } from '~/renderer/constants';
 import { Content } from '~/renderer/components/Section';
@@ -53,14 +53,28 @@ export const Social = () => {
   );
 };
 
-export const Footer = () => {
-  return (
-    <StyledFooter>
-      <Content>
-        <Header />
-        <Details />
-      </Content>
-      <Social />
-    </StyledFooter>
-  );
-};
+export class Footer extends React.PureComponent {
+  render() {
+    return (
+      <StyledFooter>
+        <Content>
+          <Header />
+          <Details />
+        </Content>
+        <Social />
+      </StyledFooter>
+    );
+  }
+}
+
+// export const Footer = () => {
+//   return (
+//     <StyledFooter>
+//       <Content>
+//         <Header />
+//         <Details />
+//       </Content>
+//       <Social />
+//     </StyledFooter>
+//   );
+// };

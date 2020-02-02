@@ -10,6 +10,7 @@ export interface INews {
   label?: string;
   title?: string;
   content?: string;
+  body?: string;
   image?: string;
   createdAt?: string;
   categoryId?: number;

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { Background, SectionTitle, Content } from '../Section';
 import { INavItem } from '~/renderer/app/interfaces';

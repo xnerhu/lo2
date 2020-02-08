@@ -1,8 +1,10 @@
+import { IUser } from './user';
 import {
   IHomePagePacket,
   INewsPagePacket,
   IArticlePagePacket,
   IPersonnelPacket,
+  IAddArticlePacket,
 } from './pages';
 
 export interface IAppState {
@@ -10,4 +12,6 @@ export interface IAppState {
   newsPage?: INewsPagePacket;
   articlePage?: IArticlePagePacket;
   personnelPage?: IPersonnelPacket;
+  addArticlePage?: IAddArticlePacket;
+  user?: IUser;
 }

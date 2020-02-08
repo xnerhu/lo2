@@ -5,3 +5,4 @@ export * from './user';
 export * from './utils';
 export * from './pages';
 export * from './rich-editor';
+export * from './auth';

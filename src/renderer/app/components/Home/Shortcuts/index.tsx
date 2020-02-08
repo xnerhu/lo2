@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 
 import {
   icons,
@@ -7,17 +8,19 @@ import {
   LESSONS_PLAN_URL,
   REPLACEMENTS_URL,
 } from '~/renderer/constants';
+import { useStore } from '~/renderer/app/store';
 import { StyledItem, Container, Circle, Title, Icon } from './style';
 
 interface Props {
   icon: string;
   to?: string;
+  useDefaultLink?: boolean;
   children?: React.ReactNode;
 }
 
-const Item = ({ icon, to, children }: Props) => {
+const Item = ({ icon, to, useDefaultLink, children }: Props) => {
   return (
-    <StyledItem href={to} target="_blank" rel="noopener">
+    <StyledItem to={to} useDefaultLink={useDefaultLink}>
       <Circle>
         <Icon src={icon} />
       </Circle>
@@ -26,7 +29,29 @@ const Item = ({ icon, to, children }: Props) => {
   );
 };
 
-export const Shortcuts = () => {
+const CmsShortcuts = () => {
+  return (
+    <>
+      <Item to="/add-article" icon={icons.addArticle}>
+        Dodaj artykuł
+      </Item>
+      <Item to="/change-password" icon={icons.key}>
+        Zmień hasło
+      </Item>
+      <Item to="/account" icon={icons.account}>
+        Konto
+      </Item>
+      <Item to="/logout" icon={icons.logout} useDefaultLink>
+        Wyloguj się
+      </Item>
+    </>
+  );
+};
+
+export const Shortcuts = observer(() => {
+  const store = useStore();
+  const isLogged = store.account.isLogged;
+
   return (
     <Container>
       <Item to={EDZIENNIK_URL} icon={icons.register}>
@@ -41,6 +66,7 @@ export const Shortcuts = () => {
       <Item to={GOOGLE_MAPS_URL} icon={icons.locationOutline}>
         Google maps
       </Item>
+      {isLogged && <CmsShortcuts />}
     </Container>
   );
-};
+});

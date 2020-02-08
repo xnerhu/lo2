@@ -2,6 +2,8 @@ export const BACKGROUND_COLOR = '#fff';
 
 export const PRIMARY_COLOR = '#00aeef';
 
+export const ERROR_COLOR = '#b00020';
+
 export const CARD_SHADOW = '0px 6px 16px 0px rgba(0, 0, 0, 0.12)';
 
 export const EASING_FUNCTION = 'cubic-bezier(0.4, 0, 0.2, 1)';
@@ -17,3 +19,5 @@ export const APPBAR_MOBILE_HEIGHT = 72;
 export const APPBAR_MOBILE_VIEW = 1365;
 
 export const NEWS_GRID_GAP = 24;
+
+export const FOOTER_MOBILE_VIEW = 768;

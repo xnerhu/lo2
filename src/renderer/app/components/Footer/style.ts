@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 import { robotoMedium, centerIcon, centerBoth } from '~/renderer/mixins';
-import { transparency, icons } from '~/renderer/constants';
+import { transparency, icons, FOOTER_MOBILE_VIEW } from '~/renderer/constants';
+import { Link as DynamicLink } from '~/renderer/components/Link';
 
 export const StyledFooter = styled.footer`
   width: 100%;
@@ -18,22 +19,54 @@ export const Subtitle = styled(Title)`
   font-size: 16px;
 `;
 
-export const Label = styled.div`
+export const Container = styled.div`
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: auto auto;
   font-size: 14px;
+  margin-top: 32px;
 
-  &:not(:first-child) {
-    margin-top: 16px;
+  @media (max-width: ${FOOTER_MOBILE_VIEW}px) {
+    width: 100%;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;
   }
 `;
 
-export const ColumnContainer = styled.div`
-  width: 100%;
-  display: flex;
+export const StyledDetails = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: repeat(3, auto);
+  grid-row-gap: 16px;
+  grid-column-gap: 16px;
+
+  @media (max-width: ${FOOTER_MOBILE_VIEW}px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, auto);
+  }
 `;
 
-export const Column = styled.div`
-  &:not(:first-child) {
-    margin-left: 32px;
+export const StyledLinks = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-row-gap: 16px;
+  grid-column-gap: 16px;
+
+  @media (max-width: ${FOOTER_MOBILE_VIEW}px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, auto);
+    margin-top: 24px;
+  }
+`;
+
+export const Link = styled(DynamicLink)`
+  font-size: 14px;
+  cursor: pointer;
+  ${robotoMedium()};
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
@@ -95,4 +128,8 @@ export const Copyright = styled.a`
   margin-left: auto;
   text-align: right;
   ${robotoMedium()};
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;

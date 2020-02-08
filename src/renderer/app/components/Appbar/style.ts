@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import {
   icons,
@@ -63,11 +64,14 @@ export const Container = styled(Content)`
   position: relative;
 `;
 
-export const Banner = styled.img`
-  height: 56px;
+export const Banner = styled(Link)`
   position: absolute;
   left: 0;
   z-index: 11;
+`;
+
+export const BannerImg = styled.img`
+  height: 56px;
 
   @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
     height: 40px;

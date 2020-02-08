@@ -4,7 +4,7 @@ import { PRIMARY_COLOR, transparency } from '~/renderer/constants';
 import { noUserSelect, robotoMedium, centerIcon } from '~/renderer/mixins';
 import { Link } from '../Link';
 
-export const Button = styled(Link)`
+export const buttonBase = css`
   width: fit-content;
   min-width: 144px;
   padding: 0px 16px;
@@ -12,15 +12,19 @@ export const Button = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${PRIMARY_COLOR};
-  border: 2px solid ${PRIMARY_COLOR};
-  border-radius: 64px;
   font-size: 16px;
   cursor: pointer;
   will-change: background-color, color;
   transition: 0.15s background-color, 0.15s color;
   ${robotoMedium()};
-  ${noUserSelect()}
+  ${noUserSelect()};
+`;
+
+export const Button = styled(Link)`
+  color: ${PRIMARY_COLOR};
+  border: 2px solid ${PRIMARY_COLOR};
+  border-radius: 64px;
+  ${buttonBase};
 
   ${({
     disabled,
@@ -60,10 +64,13 @@ export const Button = styled(Link)`
             }
           `}
       `}
-  `}
 
-  &:hover {
-    background-color: ${PRIMARY_COLOR};
-    color: #fff;
-  }
+    ${!disabled &&
+      css`
+        &:hover {
+          background-color: ${PRIMARY_COLOR};
+          color: #fff;
+        }
+      `}
+  `}
 `;

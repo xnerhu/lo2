@@ -1,7 +1,7 @@
 import { INews } from '~/interfaces';
 import { serializeRichTextToHtml, serializeRichText } from './serializer';
 
-export const formatArticle = (data: INews, full = false): INews => {
+export const formatArticle = (data: INews, full = false) => {
   const maxLength = parseInt(process.env.SHORT_NEWS_MAX_LENGTH);
 
   const body = JSON.parse(data.body);
@@ -10,9 +10,14 @@ export const formatArticle = (data: INews, full = false): INews => {
     ? serializeRichTextToHtml(body)
     : serializeRichText(body, maxLength);
 
+  const image =
+    data.hasImage && `/static/news/${data.id}${!full ? '.thumbnail' : ''}`;
+
   return {
     ...data,
     content,
-    image: `/static/news/${data.image}`,
-  };
+    image,
+    body: undefined,
+    hasImage: undefined,
+  } as INews;
 };

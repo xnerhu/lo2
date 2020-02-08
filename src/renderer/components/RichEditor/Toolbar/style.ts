@@ -1,16 +1,24 @@
 import styled, { css } from 'styled-components';
 
-import { transparency, PRIMARY_COLOR } from '~/renderer/constants';
+import { transparency, PRIMARY_COLOR, MOBILE_VIEW } from '~/renderer/constants';
 import { centerIcon, centerBoth } from '~/renderer/mixins';
 
 export const StyledToolbar = styled.div`
   width: 100%;
-  height: 64px;
   background-color: #fff;
   border-radius: 8px;
-  padding: 0px 16px;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
+
+  @media (max-width: ${MOBILE_VIEW}px) {
+    flex-wrap: wrap;
+    justify-content: center;
+
+    & .rich-editor-divider {
+      display: none;
+    }
+  }
 `;
 
 export const StyledButton = styled.div`
@@ -56,7 +64,7 @@ export const StyledButton = styled.div`
   }
 `;
 
-export const Divider = styled.div`
+export const StyledDivider = styled.div`
   height: 32px;
   width: 1px;
   margin-left: 8px;

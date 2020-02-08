@@ -12,7 +12,7 @@ import {
   unwrapLink,
   insertImage,
 } from '~/renderer/app/utils/rich-editor';
-import { StyledToolbar, StyledButton, Divider } from './style';
+import { StyledToolbar, StyledButton, StyledDivider } from './style';
 
 interface ButtonProps {
   format: IEditorSelectionFormat;
@@ -70,6 +70,10 @@ const ImageButton = () => {
   }, []);
 
   return <StyledButton onClick={onClick} active={false} icon={icons.image} />;
+};
+
+const Divider = () => {
+  return <StyledDivider className="rich-editor-divider" />;
 };
 
 export const Toolbar = () => {

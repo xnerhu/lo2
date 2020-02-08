@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { transparency } from '~/renderer/constants';
+import { transparency, ERROR_COLOR } from '~/renderer/constants';
 import { robotoMedium, noUserSelect } from '~/renderer/mixins';
 
 export const StyledError = styled.div`
@@ -30,4 +30,13 @@ export const Description = styled.div`
   margin-top: 4px;
   font-size: 16px;
   color: rgba(0, 0, 0, ${transparency.text.medium});
+`;
+
+export const StyledErrorLabel = styled.div`
+  font-size: 14px;
+  margin-left: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  color: ${ERROR_COLOR};
+  ${robotoMedium()};
 `;

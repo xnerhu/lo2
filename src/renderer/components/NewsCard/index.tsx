@@ -32,9 +32,9 @@ export const NewsCard = withRouter(({ data, history }: IRouterProps<Props>) => {
 
   return (
     <StyledNewsCard className="news-card" to={`/article/${label}`}>
-      {image && (
+      {image ? (
         <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />
-      )}
+      ) : null}
       <Container>
         <Category onClick={onCategoryClick}>{_category.name}</Category>
         <Title>{title}</Title>

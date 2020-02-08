@@ -42,6 +42,7 @@ export const Image = ({
   if (!forceSkeleton) {
     React.useEffect(() => {
       let canceled = false;
+      let error = false;
 
       (async () => {
         setFetched(false);
@@ -50,9 +51,10 @@ export const Image = ({
           await preFetchImage(src, ext, cache);
         } catch (err) {
           console.warn(src, err);
+          error = true;
         }
 
-        if (!canceled) {
+        if (!canceled && !error) {
           setFetched(true);
         }
       })();
@@ -76,10 +78,12 @@ export const Image = ({
       style={style}
       shadow={shadow}
     >
-      <Picture fetched={isFetched}>
-        {!jpgOnly && <source srcSet={`${src}.${ext}`} type="image/webp" />}
-        <StyledImage src={src + '.jpg'} alt={alt} />
-      </Picture>
+      {src ? (
+        <Picture fetched={isFetched}>
+          {!jpgOnly && <source srcSet={`${src}.${ext}`} type="image/webp" />}
+          <StyledImage src={src + '.jpg'} alt={alt} />
+        </Picture>
+      ) : null}
       {!isFetched && <StyledSkeleton borderRadius={skeletonBorder} />}
       {children && <Label>{children}</Label>}
     </Container>

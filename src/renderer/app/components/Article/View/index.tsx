@@ -53,9 +53,9 @@ export const View = observer(() => {
   return (
     <StyledView>
       <Details />
-      {image && (
+      {image ? (
         <ArticleImage src={image} ratio={16 / 9} skeletonBorder={16} shadow />
-      )}
+      ) : null}
       <Body>
         <div dangerouslySetInnerHTML={{ __html: content }} />
         {store.article.error && (

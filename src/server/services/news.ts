@@ -1,8 +1,15 @@
+// import imagemin from 'imagemin';
+// import imageminJpegtran from 'imagemin-jpegtran';
+import sharp from 'sharp';
+import { createWriteStream } from 'fs';
+import { resolve } from 'path';
+
 import db from '~/server/models/db';
 import { INewsFilter, INewsChunk, INewsCategory, INews } from '~/interfaces';
-import { IDbNewsPacket } from '../interfaces';
-import { formatArticle } from '~/server/utils';
+import { IDbNewsPacket, IInsertArticleData } from '../interfaces';
+import { formatArticle, formatLabel, saveImage, makeId } from '~/server/utils';
 import { formatUser } from '../utils/user';
+import { NEWS_IMAGES_PATH } from '../constants';
 
 export const getNewsCategories = async (): Promise<INewsCategory[]> => {
   const query = db.client('news-categories').select('*');
@@ -87,11 +94,50 @@ export const getArticle = async (label: string): Promise<INews> => {
 
   const [data]: IDbNewsPacket[] = await query.select();
 
-  if (data == null) return null;
+  if (!data) return null;
 
   return {
     ...formatArticle(data.news, true),
     _category: data['news-categories'],
     _author: formatUser(data.users),
   };
+};
+
+export const findCategory = async (label: string): Promise<INewsCategory> => {
+  const [item] = await db
+    .client<INewsCategory>('news-categories')
+    .where({ label })
+    .limit(1);
+
+  return item;
+};
+
+export const insertArticle = async (data: IInsertArticleData) => {
+  const { title, body, categoryId, authorId, image } = data;
+  let label = formatLabel(title);
+
+  const [hasLabel] = await db
+    .client<INews>('news')
+    .where({ label })
+    .limit(1);
+
+  if (hasLabel != null) {
+    label = `${label}-${makeId(96)}`;
+  }
+
+  const [id] = await db.client<INews>('news').insert({
+    label,
+    title,
+    body,
+    categoryId,
+    authorId,
+  });
+
+  if (image) {
+    const path = resolve(NEWS_IMAGES_PATH, id.toString());
+
+    await saveImage(image.buffer, path);
+  }
+
+  return label;
 };

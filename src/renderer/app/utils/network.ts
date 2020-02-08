@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 import { IS_BROWSER } from '~/renderer/constants';
 
@@ -22,7 +22,17 @@ export const preFetchImage = (src: string, ext = 'webp', cache = false) => {
   });
 };
 
-export const callApi = async <T>(name: string, params?: any): Promise<T> => {
-  const { data } = await axios.get(`/api/${name}`, { params });
-  return data;
+export const callApi = async <T>(
+  name: string,
+  params?: any,
+  method: 'get' | 'post' = 'get',
+): Promise<T> => {
+  const url = `/api/${name}`;
+
+  const res: AxiosResponse =
+    method === 'get'
+      ? await axios.get(url, { params })
+      : await axios.post(url, params);
+
+  return res.data;
 };

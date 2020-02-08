@@ -1,18 +1,21 @@
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 
-import { FACEBOOK_URL, YOUTUBE_URL } from '~/renderer/constants';
+import { FACEBOOK_URL, YOUTUBE_URL, STATUE_URL } from '~/renderer/constants';
 import { Content } from '~/renderer/components/Section';
+import { useStore } from '~/renderer/app/store';
 import {
   StyledFooter,
   Title,
   Subtitle,
-  ColumnContainer,
-  Column,
-  Label,
+  StyledDetails,
+  StyledLinks,
   StyledSocial,
   FacebookIcon,
   YoutubeIcon,
   Copyright,
+  Container,
+  Link,
 } from './style';
 
 const Header = () => {
@@ -26,26 +29,40 @@ const Header = () => {
 
 const Details = () => {
   return (
-    <ColumnContainer style={{ marginTop: 32 }}>
-      <Column>
-        <Label>ul. Generała Kazimierza Pułaskiego 3</Label>
-        <Label>46-020 Opole</Label>
-      </Column>
-      <Column>
-        <Label>sekretariat@lo2.opole.pl</Label>
-        <Label>(0-77) 454-22-86</Label>
-      </Column>
-    </ColumnContainer>
+    <StyledDetails>
+      <span>ul. Generała Kazimierza Pułaskiego 3</span>
+      <span>sekretariat@lo2.opole.pl</span>
+      <span>46-020 Opole</span>
+      <span>(0-77) 454-22-86</span>
+    </StyledDetails>
   );
 };
+
+export const Links = observer(() => {
+  const store = useStore();
+  const isLogged = store.account.isLogged;
+
+  return (
+    <StyledLinks>
+      <Link to="/cookies">Cookies</Link>
+      <Link to="/rodo">RODO</Link>
+      <Link to={STATUE_URL} useDefaultLink>
+        Statut szkoły
+      </Link>
+      <Link to={isLogged ? '/logout' : '/login'} useDefaultLink={isLogged}>
+        {isLogged ? 'Wyloguj' : 'Zaloguj'} się
+      </Link>
+    </StyledLinks>
+  );
+});
 
 export const Social = () => {
   return (
     <StyledSocial>
       <Content>
-        <FacebookIcon href={FACEBOOK_URL} />
-        <YoutubeIcon href={YOUTUBE_URL} />
-        <Copyright href="https://www.github.com/xnerhu" target="_blank">
+        <FacebookIcon href={FACEBOOK_URL} aria-label="Facebook" />
+        <YoutubeIcon href={YOUTUBE_URL} aria-label="Youtube" />
+        <Copyright href="https://www.github.com/xnerhu">
           © 2020 Mikołaj Palkiewicz
         </Copyright>
       </Content>
@@ -53,28 +70,17 @@ export const Social = () => {
   );
 };
 
-export class Footer extends React.PureComponent {
-  render() {
-    return (
-      <StyledFooter>
-        <Content>
-          <Header />
+export const Footer = () => {
+  return (
+    <StyledFooter>
+      <Content>
+        <Header />
+        <Container>
           <Details />
-        </Content>
-        <Social />
-      </StyledFooter>
-    );
-  }
-}
-
-// export const Footer = () => {
-//   return (
-//     <StyledFooter>
-//       <Content>
-//         <Header />
-//         <Details />
-//       </Content>
-//       <Social />
-//     </StyledFooter>
-//   );
-// };
+          <Links />
+        </Container>
+      </Content>
+      <Social />
+    </StyledFooter>
+  );
+};

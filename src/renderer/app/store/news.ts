@@ -30,11 +30,12 @@ export class NewsStore {
 
   protected categoriesLoaded = false;
 
-  public inject({ newsPage }: IAppState) {
+  public inject({ newsPage, addArticlePage }: IAppState) {
     if (newsPage) {
       this.updateNews(newsPage.news);
       this.updateCategories(newsPage.categories);
-      this.categoriesLoaded = true;
+    } else if (addArticlePage) {
+      this.updateCategories(addArticlePage.categories);
     }
   }
 
@@ -71,5 +72,7 @@ export class NewsStore {
         return { id: r.label, name: r.name } as IDropDownItem;
       }),
     ];
+
+    this.categoriesLoaded = true;
   }
 }

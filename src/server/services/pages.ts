@@ -7,6 +7,7 @@ import {
   INewsFilter,
   IArticlePagePacket,
   IPersonnelPacket,
+  IAddArticlePacket,
 } from '~/interfaces';
 import {
   getNews,
@@ -58,4 +59,10 @@ export const getPersonnelPacket = async (): Promise<IPersonnelPacket> => {
   ]);
 
   return { sliderItems, sections: JSON.parse(sections as any) };
+};
+
+export const getAddArticlePacket = async (): Promise<IAddArticlePacket> => {
+  const categories = await getNewsCategories();
+
+  return { categories };
 };

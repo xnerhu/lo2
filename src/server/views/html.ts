@@ -1,7 +1,7 @@
 import { IAppState } from '~/interfaces';
 import { fonts } from '~/renderer/constants';
 
-const fallBack = 'font-display: fallback;';
+const fallBack = 'font-display: swap;';
 
 const fontsCss = `
   @font-face {
@@ -41,7 +41,7 @@ export const htmlStartView = (state: IAppState) => {
           state
             ? `<script type="text/javascript">window.__APP_STATE__= ${JSON.stringify(
                 state,
-              )}</script>`
+              ).replace(/</g, '\\u003c')}</script>`
             : ''
         }
       </head>

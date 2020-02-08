@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { PRIMARY_COLOR } from '~/renderer/constants';
 import { centerIcon } from '~/renderer/mixins';
+import { Link } from '~/renderer/components/Link';
 
 export const Container = styled.div`
   width: fit-content;
@@ -16,7 +17,7 @@ export const Container = styled.div`
   }
 `;
 
-export const StyledItem = styled.a`
+export const StyledItem = styled(Link)`
   width: fit-content;
   display: flex;
   align-items: center;

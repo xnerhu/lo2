@@ -21,3 +21,7 @@ export interface IPersonnelPacket {
   sections?: IPersonnelSection[];
   sliderItems?: string[];
 }
+
+export interface IAddArticlePacket {
+  categories?: INewsCategory[];
+}

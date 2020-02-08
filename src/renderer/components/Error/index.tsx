@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { StyledError, Description, Circle } from './style';
+import { StyledError, Description, Circle, StyledErrorLabel } from './style';
 
-interface Props {
+interface ErrorProps {
   code: string;
   label: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
 }
 
-export const Error = ({ code, label, style, children }: Props) => {
+export const Error = ({ code, label, style, children }: ErrorProps) => {
   return (
     <StyledError style={style}>
       <Circle>{code}</Circle>
@@ -19,4 +19,14 @@ export const Error = ({ code, label, style, children }: Props) => {
       {children && <Description>{children}</Description>}
     </StyledError>
   );
+};
+
+interface ErrorLabelProps extends React.HTMLAttributes<HTMLDivElement> {
+  error: string;
+}
+
+export const ErrorLabel = ({ error, ...props }: ErrorLabelProps) => {
+  if (!error) return null;
+
+  return <StyledErrorLabel {...props}>{error}</StyledErrorLabel>;
 };

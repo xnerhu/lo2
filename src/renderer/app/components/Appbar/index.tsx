@@ -3,15 +3,16 @@ import { observer } from 'mobx-react-lite';
 
 import { useStore } from '~/renderer/app/store';
 import { icons, navigationItems } from '~/renderer/constants';
+import { NavItem } from './NavItem';
 import {
   StyledAppbar,
   Banner,
+  BannerImg,
   NavItems,
   MenuIcon,
   Container,
   Placeholder,
 } from './style';
-import { NavItem } from './NavItem';
 
 export const Appbar = observer(() => {
   const store = useStore();
@@ -36,7 +37,9 @@ export const Appbar = observer(() => {
               <NavItem key={r.label} onClick={onNavItemClick} {...r} />
             ))}
           </NavItems>
-          <Banner src={icons.banner} alt="logo szkoły" draggable={false} />
+          <Banner to="/" aria-label="logo szkoły">
+            <BannerImg src={icons.banner} draggable={false} alt="logo szkoły" />
+          </Banner>
         </Container>
         <MenuIcon
           expanded={store.appbar.expanded}

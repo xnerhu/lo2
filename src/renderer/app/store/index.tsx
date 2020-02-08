@@ -8,6 +8,7 @@ import { HomeStore } from './home';
 import { NewsStore } from './news';
 import { ArticleStore } from './article';
 import { PersonnelStore } from './personnel';
+import { AccountStore } from './account';
 
 class Store {
   public appbar = new AppbarStore();
@@ -15,6 +16,7 @@ class Store {
   public news = new NewsStore();
   public article = new ArticleStore();
   public personnel = new PersonnelStore();
+  public account = new AccountStore();
 
   @observable
   public loggedIn = false;
@@ -25,6 +27,7 @@ class Store {
       this.news.inject(state);
       this.article.inject(state);
       this.personnel.inject(state);
+      this.account.inject(state);
     }
   }
 }

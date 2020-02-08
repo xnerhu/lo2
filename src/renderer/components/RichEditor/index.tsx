@@ -50,7 +50,7 @@ export const RichEditor = ({ value, onChange, error, style }: Props) => {
 
   return (
     <Container error={error} style={style}>
-      <Slate editor={editor} value={value || defaultValue} onChange={onChange}>
+      <Slate editor={editor} value={value} onChange={onChange}>
         <Toolbar />
         <Editable
           className="rich-editor-editable"
@@ -63,7 +63,7 @@ export const RichEditor = ({ value, onChange, error, style }: Props) => {
   );
 };
 
-const defaultValue: Node[] = [
+export const defaultRichEditorValue: Node[] = [
   {
     type: 'paragraph',
     children: [

@@ -25,6 +25,7 @@ export const icons = {
   formatHeader4: require('~/renderer/resources/icons/format-header-4.svg'),
   formatColorHighlight: require('~/renderer/resources/icons/format-color-highlight.svg'),
   formatLink: require('~/renderer/resources/icons/format-link.svg'),
+  formatLinkOff: require('~/renderer/resources/icons/format-link-off.svg'),
   image: require('~/renderer/resources/icons/image.svg'),
   addArticle: require('~/renderer/resources/icons/add-article.svg'),
   logout: require('~/renderer/resources/icons/logout.svg'),

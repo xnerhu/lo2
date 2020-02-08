@@ -74,3 +74,14 @@ export const Button = styled(Link)`
       `}
   `}
 `;
+
+export const RaisedButton = styled.div`
+  background-color: rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+  ${buttonBase};
+
+  &:hover,
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+`;

@@ -11,8 +11,10 @@ import {
   insertLink,
   unwrapLink,
   insertImage,
+  openImageDialog,
 } from '~/renderer/app/utils/rich-editor';
 import { StyledToolbar, StyledButton, StyledDivider } from './style';
+import { readFileAsImage } from '~/renderer/app/utils/image';
 
 interface ButtonProps {
   format: IEditorSelectionFormat;
@@ -56,20 +58,46 @@ const LinkButton = () => {
   }, [active]);
 
   return (
-    <StyledButton onClick={onClick} active={active} icon={icons.formatLink} />
+    <StyledButton
+      onClick={onClick}
+      active={active}
+      icon={active ? icons.formatLinkOff : icons.formatLink}
+    />
   );
 };
 
 const ImageButton = () => {
+  const fileInputRef = React.useRef<HTMLInputElement>();
   const editor = useEditor();
 
   const onClick = React.useCallback(() => {
-    const url = window.prompt('Wklej link do zdjęcia');
-    if (!url) return;
-    insertImage(editor, url);
+    fileInputRef.current.click();
   }, []);
 
-  return <StyledButton onClick={onClick} active={false} icon={icons.image} />;
+  const onImageUpload = React.useCallback(() => {
+    (async () => {
+      const files = fileInputRef.current.files;
+
+      if (files.length === 1) {
+        const base64 = await readFileAsImage(files[0]);
+
+        insertImage(editor, base64);
+      }
+    })();
+  }, []);
+
+  return (
+    <>
+      <StyledButton onClick={onClick} active={false} icon={icons.image} />
+      <input
+        ref={fileInputRef}
+        onChange={onImageUpload}
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+      />
+    </>
+  );
 };
 
 const Divider = () => {

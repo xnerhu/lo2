@@ -13,7 +13,7 @@ import {
   centerBoth,
   noUserSelect,
 } from '~/renderer/mixins';
-import { buttonBase } from '~/renderer/components/Button';
+import { buttonBase, RaisedButton } from '~/renderer/components/Button';
 import { ErrorLabel as StyledErrorLabel } from '~/renderer/components/Error';
 
 export const Input = styled(GreyInput)`
@@ -84,17 +84,9 @@ export const ImagePreview = styled.img`
   ${noUserSelect()};
 `;
 
-export const Button = styled.div`
-  background-color: rgba(0, 0, 0, 0.06);
-  border-radius: 8px;
+export const Button = styled(RaisedButton)`
   margin-top: 48px;
   margin-bottom: 16px;
-  ${buttonBase};
-
-  &:hover,
-  &:focus {
-    background-color: rgba(0, 0, 0, 0.12);
-  }
 `;
 
 export const StyledUploadScreen = styled.div`

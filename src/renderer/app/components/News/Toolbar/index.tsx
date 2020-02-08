@@ -1,13 +1,13 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import { stringifyNewsFilter } from '~/renderer/app/utils';
 import { useStore } from '~/renderer/app/store';
 import { Dropdown, IDropDownItem } from '~/renderer/components/Dropdown';
 import { IRouterProps } from '~/renderer/app/interfaces';
 import { INewsFilter } from '~/interfaces';
-import { StyledToolbar } from './style';
+import { StyledToolbar, Button } from './style';
 
 interface Props {
   filter: INewsFilter;
@@ -36,6 +36,11 @@ export const Toolbar = withRouter(
           value={filter.categoryLabel || 'all'}
           onChange={onDropdown}
         />
+        {store.account.isLogged && (
+          <Link to="/add-article">
+            <Button>Dodaj nowy</Button>
+          </Link>
+        )}
       </StyledToolbar>
     );
   }),

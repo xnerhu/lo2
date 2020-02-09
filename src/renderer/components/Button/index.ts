@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { PRIMARY_COLOR, transparency } from '~/renderer/constants';
+import { PRIMARY_COLOR, transparency, ERROR_COLOR } from '~/renderer/constants';
 import { noUserSelect, robotoMedium, centerIcon } from '~/renderer/mixins';
 import { Link } from '../Link';
 
@@ -83,5 +83,17 @@ export const RaisedButton = styled.div`
   &:hover,
   &:focus {
     background-color: rgba(0, 0, 0, 0.12);
+  }
+`;
+
+export const DeleteButton = styled.div`
+  background-color: #fff;
+  border-radius: 8px;
+  color: ${ERROR_COLOR};
+  ${buttonBase};
+
+  &:hover,
+  &:focus {
+    background-color: rgba(176, 0, 32, 0.12);
   }
 `;

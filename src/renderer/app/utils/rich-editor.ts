@@ -91,38 +91,3 @@ export const insertImage = (editor: Editor, url: string) => {
     children: [{ text: '' }],
   });
 };
-
-export const openImageDialog = () => {
-  return new Promise(async (resolve: (base64?: string) => void) => {
-    const input = document.createElement('input');
-
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-
-    input.onchange = () => {
-      console.log('WTF');
-      if (input.files.length === 1) {
-        console.log(input.files);
-        resolve('xd');
-      } else {
-        resolve();
-      }
-    };
-
-    input.onerror = () => {
-      resolve();
-    };
-
-    input.oncancel = () => {
-      console.log('WTFXDWWD');
-      resolve();
-    };
-
-    input.onblur = () => {
-      console.log('aha123');
-    };
-
-    input.focus();
-    input.click();
-  });
-};

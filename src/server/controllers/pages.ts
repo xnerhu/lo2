@@ -9,7 +9,7 @@ import {
   getPersonnelPacket,
   getAddArticlePacket,
 } from '~/server/services';
-import { withAuth } from '../middleware';
+import { withAuth, withAuthNoError } from '../middleware';
 import { verifyAccessToken } from '../utils';
 
 const router = Router();
@@ -31,14 +31,18 @@ router.get('/news/:categoryLabel?/:page?', async (req: IRequest, res, next) => {
   next();
 });
 
-router.get('/article/:label', async (req: IRequest, res, next) => {
-  const { label } = req.params;
-  const articlePage = await getArticlePagePacket(label);
+router.get(
+  '/article/:label',
+  withAuthNoError,
+  async (req: IRequest, res, next) => {
+    const { label } = req.params;
+    const articlePage = await getArticlePagePacket(label, req.user);
 
-  req.appState = { ...req.appState, articlePage };
+    req.appState = { ...req.appState, articlePage };
 
-  next();
-});
+    next();
+  },
+);
 
 router.get('/personnel', async (req: IRequest, res, next) => {
   const personnelPage = await getPersonnelPacket();
@@ -65,13 +69,17 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.get('/*', async (req: IRequest, res, next) => {
-  try {
-    const tokenPayload = await verifyAccessToken(req);
+  if (!req.user) {
+    try {
+      const tokenPayload = await verifyAccessToken(req);
 
-    if (tokenPayload) {
-      req.appState = { ...req.appState, user: tokenPayload.user };
-    }
-  } catch (err) {}
+      if (tokenPayload) {
+        req.appState = { ...req.appState, user: tokenPayload.user };
+      }
+    } catch (err) {}
+  } else {
+    req.appState = { ...req.appState, user: req.user };
+  }
 
   next();
 });

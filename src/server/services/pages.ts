@@ -8,6 +8,8 @@ import {
   IArticlePagePacket,
   IPersonnelPacket,
   IAddArticlePacket,
+  IUser,
+  INews,
 } from '~/interfaces';
 import {
   getNews,
@@ -43,13 +45,21 @@ export const getNewsPagePacket = async (
 
 export const getArticlePagePacket = async (
   label: string,
+  user: IUser,
 ): Promise<IArticlePagePacket> => {
   const [data, proposed] = await Promise.all([
     getArticle(label),
     getProposedNews(label),
   ]);
 
-  return { data: data || { label }, proposed, error: data == null };
+  const _data = data || { label };
+
+  return {
+    data: _data,
+    proposed,
+    error: data == null,
+    editable: isArticleEditable(_data, user),
+  };
 };
 
 export const getPersonnelPacket = async (): Promise<IPersonnelPacket> => {
@@ -65,4 +75,11 @@ export const getAddArticlePacket = async (): Promise<IAddArticlePacket> => {
   const categories = await getNewsCategories();
 
   return { categories };
+};
+
+const isArticleEditable = (article: INews, user: IUser) => {
+  if (!user) return false;
+  if (user.admin) return true;
+
+  return user.id === article.authorId;
 };

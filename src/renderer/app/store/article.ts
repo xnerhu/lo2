@@ -13,6 +13,9 @@ export class ArticleStore {
   @observable
   public error = false;
 
+  @observable
+  public editable = false;
+
   public inject({ articlePage }: IAppState) {
     if (articlePage) {
       this.update(articlePage);
@@ -29,10 +32,11 @@ export class ArticleStore {
 
   @action
   protected update(article: IArticlePagePacket) {
-    const { data, proposed, error } = article;
+    const { data, proposed, error, editable } = article;
 
     this.data = data;
     this.proposedNews = proposed;
     this.error = error;
+    this.editable = editable;
   }
 }

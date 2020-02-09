@@ -11,6 +11,15 @@ import { noUserSelect, overline, robotoMedium } from '~/renderer/mixins';
 
 export const StyledNewsCard = styled(Link)`
   width: 100%;
+
+  &:hover > .news-card-wrapper {
+    transform: scale(0.95);
+  }
+`;
+
+export const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   display: inline-flex;
   flex-direction: column;
@@ -22,11 +31,7 @@ export const StyledNewsCard = styled(Link)`
   box-shadow: ${CARD_SHADOW};
   will-change: transform;
   transition: 0.1s ${EASING_FUNCTION} transform;
-  -webkit-backface-visibility: hidden;
-
-  &:hover {
-    transform: scale(0.95);
-  }
+  backface-visibility: hidden;
 `;
 
 export const Container = styled.div`

@@ -11,7 +11,6 @@ import {
   insertLink,
   unwrapLink,
   insertImage,
-  openImageDialog,
 } from '~/renderer/app/utils/rich-editor';
 import { StyledToolbar, StyledButton, StyledDivider } from './style';
 import { readFileAsImage } from '~/renderer/app/utils/image';

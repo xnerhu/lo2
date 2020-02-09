@@ -9,6 +9,7 @@ import { NewsStore } from './news';
 import { ArticleStore } from './article';
 import { PersonnelStore } from './personnel';
 import { AccountStore } from './account';
+import { AddArticleStore } from './add-article';
 
 class Store {
   public appbar = new AppbarStore();
@@ -17,6 +18,7 @@ class Store {
   public article = new ArticleStore();
   public personnel = new PersonnelStore();
   public account = new AccountStore();
+  public addArticle = new AddArticleStore();
 
   @observable
   public loggedIn = false;

@@ -7,6 +7,7 @@ import { Image } from '../Image';
 import { IRouterProps } from '~/renderer/app/interfaces';
 import {
   StyledNewsCard,
+  Wrapper,
   Container,
   Content,
   Date,
@@ -32,15 +33,17 @@ export const NewsCard = withRouter(({ data, history }: IRouterProps<Props>) => {
 
   return (
     <StyledNewsCard className="news-card" to={`/article/${label}`}>
-      {image ? (
-        <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />
-      ) : null}
-      <Container>
-        <Category onClick={onCategoryClick}>{_category.name}</Category>
-        <Title>{title}</Title>
-        <Content>{content}</Content>
-      </Container>
-      <Date>{formatDate(createdAt)}</Date>
+      <Wrapper className="news-card-wrapper">
+        {image ? (
+          <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />
+        ) : null}
+        <Container>
+          <Category onClick={onCategoryClick}>{_category.name}</Category>
+          <Title>{title}</Title>
+          <Content>{content}</Content>
+        </Container>
+        <Date>{formatDate(createdAt)}</Date>
+      </Wrapper>
     </StyledNewsCard>
   );
 });

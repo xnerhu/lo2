@@ -62,14 +62,3 @@ export const RichEditor = ({ value, onChange, error, style }: Props) => {
     </Container>
   );
 };
-
-export const defaultRichEditorValue: Node[] = [
-  {
-    type: 'paragraph',
-    children: [
-      {
-        text: '',
-      },
-    ],
-  },
-];

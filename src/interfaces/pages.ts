@@ -15,6 +15,7 @@ export interface IArticlePagePacket {
   data?: INews;
   error?: boolean;
   proposed?: INews[];
+  editable?: boolean;
 }
 
 export interface IPersonnelPacket {

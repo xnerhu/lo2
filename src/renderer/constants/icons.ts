@@ -32,4 +32,5 @@ export const icons = {
   key: require('~/renderer/resources/icons/key.svg'),
   account: require('~/renderer/resources/icons/account.svg'),
   imageOutline: require('~/renderer/resources/icons/image-outline.svg'),
+  more: require('~/renderer/resources/icons/more.svg'),
 };

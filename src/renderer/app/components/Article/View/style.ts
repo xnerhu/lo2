@@ -62,3 +62,14 @@ export const Body = styled.div`
   margin-top: 40px;
   ${longText()};
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 32px;
+
+  & > div:first-child {
+    margin-right: 16px;
+  }
+`;

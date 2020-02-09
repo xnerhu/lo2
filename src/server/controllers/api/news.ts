@@ -3,7 +3,7 @@ import multer from 'multer';
 
 import { formatNewsFilter } from '~/utils';
 import { IAddArticleReq, IAddArticleRes, INewsCategory } from '~/interfaces';
-import { withAuth } from '~/server/middleware';
+import { withAuth, withAuthNoError } from '~/server/middleware';
 import { serializeRichText } from '~/server/utils';
 import { IRequest } from '~/server/interfaces';
 import {
@@ -31,8 +31,8 @@ router.get('/news-categories', async (req, res) => {
   res.json(data);
 });
 
-router.get('/article', async (req, res) => {
-  const data = await getArticlePagePacket(req.query.label);
+router.get('/article', withAuthNoError, async (req: IRequest, res) => {
+  const data = await getArticlePagePacket(req.query.label, req.user);
 
   res.json(data);
 });

@@ -7,4 +7,5 @@ export interface IUser {
   description?: string;
   createdAt?: string;
   image?: string;
+  admin?: boolean;
 }

@@ -3,7 +3,7 @@ import { Response, NextFunction } from 'express';
 import { verifyAccessToken } from '../utils';
 import { IRequest } from '../interfaces';
 
-export const withAuth = (redirect?: string) => async (
+export const withAuth = (redirect?: string, throwError = true) => async (
   req: IRequest,
   res: Response,
   next: NextFunction,
@@ -14,9 +14,13 @@ export const withAuth = (redirect?: string) => async (
     next();
   } catch (error) {
     if (!redirect) {
-      res.status(401).send({ success: false, error });
+      if (throwError) {
+        res.status(401).send({ success: false, error });
+      }
     } else {
       res.redirect(redirect);
     }
   }
 };
+
+export const withAuthNoError = withAuth(null, false);

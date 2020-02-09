@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { formatArticleDate } from '~/renderer/app/utils';
 import { Error } from '~/renderer/components/Error';
 import { useStore } from '~/renderer/app/store';
+import { RaisedButton, DeleteButton } from '~/renderer/components/Button';
 import {
   StyledView,
   Info,
@@ -13,6 +14,7 @@ import {
   ArticleImage,
   Body,
   Category,
+  ButtonsContainer,
 } from './style';
 
 const Details = observer(() => {
@@ -42,6 +44,17 @@ const Details = observer(() => {
   );
 });
 
+const Buttons = () => {
+  return (
+    <>
+      <ButtonsContainer>
+        <RaisedButton>Edytuj</RaisedButton>
+        <DeleteButton>Usuń</DeleteButton>
+      </ButtonsContainer>
+    </>
+  );
+};
+
 export const View = observer(() => {
   const store = useStore();
   const data = store.article.data;
@@ -52,6 +65,7 @@ export const View = observer(() => {
 
   return (
     <StyledView>
+      {store.article.editable && <Buttons />}
       <Details />
       {image ? (
         <ArticleImage src={image} ratio={16 / 9} skeletonBorder={16} shadow />

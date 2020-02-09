@@ -4,10 +4,7 @@ import { Node } from 'slate';
 import { observer } from 'mobx-react-lite';
 import { withRouter } from 'react-router-dom';
 
-import {
-  RichEditor,
-  defaultRichEditorValue,
-} from '~/renderer/components/RichEditor';
+import { RichEditor } from '~/renderer/components/RichEditor';
 import { readFileAsImage } from '../../utils/image';
 import { IAddArticleRes, INewsCategory, IAddArticleErrors } from '~/interfaces';
 import { Progressbar } from '~/renderer/components/Progressbar';
@@ -58,7 +55,7 @@ const ImagePick = ({ file, onClick }: ImagePickProps) => {
 const UploadScreen = ({ progress }: { progress: number }) => {
   return (
     <StyledUploadScreen>
-      <SectionTitle>Dodawanie...</SectionTitle>
+      <SectionTitle>Zapisywanie...</SectionTitle>
       <Progressbar value={progress} />
     </StyledUploadScreen>
   );
@@ -74,9 +71,7 @@ export default withRouter(
 
     const [category, setCategory] = React.useState<string>();
     const [image, setImage] = React.useState<File>();
-    const [content, setContent] = React.useState<Node[]>(
-      defaultRichEditorValue,
-    );
+    const [content, setContent] = React.useState<Node[]>(null);
 
     const [uploading, setUploading] = React.useState(false);
     const [uploadProgress, setUploadProgress] = React.useState(0);

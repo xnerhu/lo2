@@ -8,7 +8,11 @@ export const truncateString = (str: string, maxLength: number, pad = '...') => {
 };
 
 export const formatLabel = (str: string) => {
-  return str.replace(/\s+/g, '-').toLowerCase();
+  return str
+    .replace(/[\s]+/g, '-')
+    .replace(/[\:|\/|?|\#|\[|\]|\@|\!|\$|\&|\'|\(|\)|\*|\+|\,|\;|\=]+/g, '')
+    .toLowerCase()
+    .slice(0, 255);
 };
 
 export const makeId = (

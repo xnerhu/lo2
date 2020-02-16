@@ -51,3 +51,23 @@ export interface IAddArticleErrors {
   category?: string;
   image?: string;
 }
+
+export interface IEditArticleItem {
+  title?: string;
+  content?: string;
+  image?: string;
+  categoryLabel?: string;
+}
+
+export interface IEditArticleReq extends IAddArticleReq {
+  deleteImage?: boolean;
+}
+
+export interface IEditArticleErrors extends IAddArticleErrors {
+  label?: string;
+}
+
+export interface IDeleteArticleRes {
+  success?: boolean;
+  error?: string;
+}

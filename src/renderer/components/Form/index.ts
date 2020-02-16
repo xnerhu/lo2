@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-import { Button } from '~/renderer/components/Button';
-export const Container = styled.div`
-  width: 512px;
+import { Button } from '../Button';
+
+export const FormContainer = styled.form`
+  width: 100%;
+  max-width: 512px;
   margin: 0 auto;
   padding: 0px 24px 32px;
   background-color: rgba(0, 0, 0, 0.02);
@@ -10,7 +12,7 @@ export const Container = styled.div`
   margin-top: 16px;
 `;
 
-export const Form = styled.form`
+export const FormContent = styled.div`
   & > input:not(:first-child) {
     margin-top: 16px;
   }

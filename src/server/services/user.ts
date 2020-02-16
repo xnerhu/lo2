@@ -27,3 +27,22 @@ export const findUser = async (username: string): Promise<IUser> => {
 
   return item;
 };
+
+export const changeUserPassword = async (
+  username: string,
+  newPassword: string,
+): Promise<Error> => {
+  const user = await findUser(username);
+
+  if (!user) return new Error('Użytkownik nie istnieje!');
+
+  const hashed = await hashString(newPassword);
+
+  await db
+    .client<IUser>('users')
+    .where({ username })
+    .limit(1)
+    .update({ password: hashed });
+
+  return null;
+};

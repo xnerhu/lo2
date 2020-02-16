@@ -22,6 +22,12 @@ export default withRouter(
       store.article.fetch(match.params.label);
     }, [match.params]);
 
+    React.useEffect(() => {
+      return () => {
+        store.article.clear();
+      };
+    }, []);
+
     return (
       <>
         <View />

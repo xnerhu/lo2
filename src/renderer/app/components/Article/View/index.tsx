@@ -1,10 +1,10 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
+import loadable, { Options } from '@loadable/component';
 
 import { formatArticleDate } from '~/renderer/app/utils';
 import { Error } from '~/renderer/components/Error';
 import { useStore } from '~/renderer/app/store';
-import { RaisedButton, DeleteButton } from '~/renderer/components/Button';
 import {
   StyledView,
   Info,
@@ -14,8 +14,11 @@ import {
   ArticleImage,
   Body,
   Category,
-  ButtonsContainer,
 } from './style';
+
+const LazyManager = loadable(() => import('../Manager'), {
+  srr: true,
+} as Options<any>);
 
 const Details = observer(() => {
   const store = useStore();
@@ -44,17 +47,6 @@ const Details = observer(() => {
   );
 });
 
-const Buttons = () => {
-  return (
-    <>
-      <ButtonsContainer>
-        <RaisedButton>Edytuj</RaisedButton>
-        <DeleteButton>Usuń</DeleteButton>
-      </ButtonsContainer>
-    </>
-  );
-};
-
 export const View = observer(() => {
   const store = useStore();
   const data = store.article.data;
@@ -65,7 +57,7 @@ export const View = observer(() => {
 
   return (
     <StyledView>
-      {store.article.editable && <Buttons />}
+      {store.article.editable && !store.article.error && <LazyManager />}
       <Details />
       {image ? (
         <ArticleImage src={image} ratio={16 / 9} skeletonBorder={16} shadow />

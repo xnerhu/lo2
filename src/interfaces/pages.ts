@@ -1,4 +1,4 @@
-import { INews, INewsChunk, INewsCategory } from './news';
+import { INews, INewsChunk, INewsCategory, IEditArticleItem } from './news';
 import { IPersonnelSection } from './personnel';
 
 export interface IHomePagePacket {
@@ -25,4 +25,12 @@ export interface IPersonnelPacket {
 
 export interface IAddArticlePacket {
   categories?: INewsCategory[];
+}
+
+export interface IEditArticlePacket {
+  label?: string;
+  categories?: INewsCategory[];
+  item: IEditArticleItem;
+  success?: boolean;
+  error?: string;
 }

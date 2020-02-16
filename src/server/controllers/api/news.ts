@@ -2,16 +2,22 @@ import { Router } from 'express';
 import multer from 'multer';
 
 import { formatNewsFilter } from '~/utils';
-import { IAddArticleReq, IAddArticleRes, INewsCategory } from '~/interfaces';
-import { withAuth, withAuthNoError } from '~/server/middleware';
-import { serializeRichText } from '~/server/utils';
+import { IAddArticleRes, IDeleteArticleRes } from '~/interfaces';
+import {
+  withAuth,
+  withAuthNoError,
+  withAddArticleProps,
+  withEditArticleProps,
+} from '~/server/middleware';
 import { IRequest } from '~/server/interfaces';
 import {
   getNewsChunk,
-  getNewsCategories,
   getArticlePagePacket,
-  findCategory,
   insertArticle,
+  getEditArticlePacket,
+  getNewsCategories,
+  editArticle,
+  deleteArticle,
 } from '~/server/services';
 
 const upload = multer();
@@ -37,63 +43,53 @@ router.get('/article', withAuthNoError, async (req: IRequest, res) => {
   res.json(data);
 });
 
+router.get('/edit-article', withAuthNoError, async (req: IRequest, res) => {
+  const data = await getEditArticlePacket(req.query.label, req.user);
+
+  res.json(data);
+});
+
 router.put(
   '/add-article',
   withAuth(),
   upload.single('image'),
+  withAddArticleProps,
   async (req: IRequest, res) => {
-    const { title, content, categoryLabel } = req.body as IAddArticleReq;
-    const data: IAddArticleRes = { success: false, errors: {} };
-    let category: INewsCategory;
+    const data = await insertArticle(req.addArticle);
 
-    if (req.file && !req.file.mimetype.startsWith('/image')) {
-      data.errors.image = 'Nie poprawny format zdjęcia!';
-    }
-
-    if (!title) {
-      data.errors.title = 'Tytuł nie może być pusty!';
-    } else if (title.length > 128) {
-      data.errors.title = 'Tytuł nie może przekraczać 128 znaków!';
-    }
-
-    try {
-      if (content.length > 65536) {
-        data.errors.content = 'Treść jest za długa!';
-      } else {
-        const text = serializeRichText(JSON.parse(content));
-
-        if (!text.length) {
-          data.errors.content = 'Treść nie może być pusta!';
-        }
-      }
-    } catch (error) {
-      data.errors.content = 'Nie poprawny format treści!';
-    }
-
-    if (!categoryLabel) {
-      data.errors.category = 'Nie podano kategorii!';
-    } else {
-      category = await findCategory(categoryLabel);
-
-      if (!category) {
-        data.errors.category = 'Nie poprawna kategoria!';
-      }
-    }
-
-    if (Object.keys(data.errors).length > 0) {
-      return res.json(data);
-    }
-
-    const articleLabel = await insertArticle({
-      title,
-      body: content,
-      categoryId: category.id,
-      authorId: req.user.id,
-      image: req.file,
-    });
-
-    return res.json({ success: true, articleLabel } as IAddArticleRes);
+    return res.json({ success: true, articleLabel: data } as IAddArticleRes);
   },
 );
+
+router.put(
+  '/edit-article',
+  withAuth(),
+  upload.single('image'),
+  withAddArticleProps,
+  withEditArticleProps,
+  async (req: IRequest, res) => {
+    const data = await editArticle(req.editArticle);
+
+    if (typeof data !== 'string') {
+      return res.json({ success: false, errors: data } as IAddArticleRes);
+    }
+
+    return res.json({
+      success: true,
+      articleLabel: data,
+    } as IAddArticleRes);
+  },
+);
+
+router.post('/delete-article', withAuth(), async (req: IRequest, res) => {
+  const { label } = req.body;
+  const data = await deleteArticle(label);
+
+  if (data instanceof Error) {
+    return res.json({ success: false, error: data.message });
+  }
+
+  return res.json({ success: true });
+});
 
 export default router;

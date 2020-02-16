@@ -38,11 +38,18 @@ const createRichEditor = (): Editor & ReactEditor => {
 interface Props {
   value?: Node[];
   onChange?: (value: Node[]) => void;
+  onFocus?: () => void;
   error?: boolean;
   style?: React.CSSProperties;
 }
 
-export const RichEditor = ({ value, onChange, error, style }: Props) => {
+export const RichEditor = ({
+  value,
+  onChange,
+  error,
+  style,
+  onFocus,
+}: Props) => {
   const editor = createRichEditor();
 
   const renderElement = React.useCallback(props => <Element {...props} />, []);
@@ -57,8 +64,20 @@ export const RichEditor = ({ value, onChange, error, style }: Props) => {
           renderElement={renderElement}
           renderLeaf={renderLeaf}
           placeholder="Treść"
+          onFocus={onFocus}
         />
       </Slate>
     </Container>
   );
 };
+
+export const defaultRichEditorValue: Node[] = [
+  {
+    type: 'paragraph',
+    children: [
+      {
+        text: '',
+      },
+    ],
+  },
+];

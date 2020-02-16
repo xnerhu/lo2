@@ -4,9 +4,16 @@ import { Node } from 'slate';
 import { observer } from 'mobx-react-lite';
 import { withRouter } from 'react-router-dom';
 
-import { RichEditor } from '~/renderer/components/RichEditor';
-import { readFileAsImage } from '../../utils/image';
-import { IAddArticleRes, INewsCategory, IAddArticleErrors } from '~/interfaces';
+import {
+  defaultRichEditorValue,
+  RichEditor,
+} from '~/renderer/components/RichEditor';
+import {
+  IAddArticleRes,
+  INewsCategory,
+  IAddArticleErrors,
+  IEditArticleItem,
+} from '~/interfaces';
 import { Progressbar } from '~/renderer/components/Progressbar';
 import { useStore } from '../../store';
 import { Dropdown } from '~/renderer/components/Dropdown';
@@ -16,41 +23,14 @@ import {
   SectionTitle,
   Background,
 } from '~/renderer/components/Section';
+import { ImagePick } from './PickIMage';
 import {
   Input,
   Divider,
-  StyledImagePick,
-  ImageIcon,
-  ImagePreview,
   Button,
   StyledUploadScreen,
   ErrorLabel,
 } from './style';
-
-interface ImagePickProps {
-  file: File;
-  onClick: (e: React.MouseEvent) => void;
-}
-
-const ImagePick = ({ file, onClick }: ImagePickProps) => {
-  const [image, setImage] = React.useState<string>();
-
-  React.useEffect(() => {
-    (async () => {
-      if (file) {
-        const data = await readFileAsImage(file);
-
-        setImage(data);
-      }
-    })();
-  }, [file]);
-
-  return (
-    <StyledImagePick onClick={onClick}>
-      {file ? <ImagePreview src={image} /> : <ImageIcon />}
-    </StyledImagePick>
-  );
-};
 
 const UploadScreen = ({ progress }: { progress: number }) => {
   return (
@@ -61,56 +41,105 @@ const UploadScreen = ({ progress }: { progress: number }) => {
   );
 };
 
-export default withRouter(
-  observer((props: IRouterProps) => {
+interface Props {
+  data?: IEditArticleItem;
+  edit?: boolean;
+}
+
+interface State {
+  category?: string;
+  image?: File | string;
+  content?: Node[];
+  uploading?: boolean;
+  progress?: number;
+  errors?: IAddArticleErrors;
+}
+
+export const ArticleEditor = withRouter(
+  observer((props: IRouterProps<Props>) => {
     const store = useStore();
-    const { history } = props;
+    const { history, data, edit, match } = props;
+
+    if (!store.account.isLogged) {
+      React.useEffect(() => {
+        history.push('/login');
+      }, []);
+
+      return null;
+    }
+
+    const dropdownItems = store.news.dropdownItems;
+
+    const [state, setState] = React.useState<State>({
+      content: defaultRichEditorValue,
+      errors: {},
+    });
 
     const titleInputRef = React.useRef<HTMLInputElement>();
     const fileInputRef = React.createRef<HTMLInputElement>();
 
-    const [category, setCategory] = React.useState<string>();
-    const [image, setImage] = React.useState<File>();
-    const [content, setContent] = React.useState<Node[]>(null);
-
-    const [uploading, setUploading] = React.useState(false);
-    const [uploadProgress, setUploadProgress] = React.useState(0);
-
-    const [errors, setErrors] = React.useState<IAddArticleErrors>({});
-
-    const categories = React.useMemo(() => store.news.dropdownItems.slice(1), [
-      store.news.dropdownItems,
+    const categories = React.useMemo(() => dropdownItems.slice(1), [
+      dropdownItems,
     ]);
 
-    const dropdownValue: string =
-      category || (categories.length && categories[0].id);
+    const selectedCategory =
+      state.category || (categories.length && categories[0].id);
 
     const onImageClick = React.useCallback(() => {
       fileInputRef.current.click();
     }, [fileInputRef]);
 
+    const onImageDelete = React.useCallback(() => {
+      setState({ ...state, image: null });
+    }, [state]);
+
     const onImageUpload = React.useCallback(() => {
-      const file = fileInputRef.current.files[0];
-      if (file) setImage(file);
-    }, [fileInputRef]);
+      const image = fileInputRef.current.files[0];
+      if (image) {
+        setState({ ...state, image, errors: {} });
+      }
+    }, [state, fileInputRef]);
 
-    const onContentChange = React.useCallback((value: Node[]) => {
-      setContent(value);
-    }, []);
+    const onContentChange = React.useCallback(
+      (content: Node[]) => {
+        if (state.content !== content) {
+          setState({ ...state, content });
+        }
+      },
+      [state],
+    );
 
-    const onDropdownChange = React.useCallback((item: INewsCategory) => {
-      setCategory(item.id.toString());
-    }, []);
+    const onDropdownChange = React.useCallback(
+      (item: INewsCategory) => {
+        setState({ ...state, category: item.id.toString() });
+      },
+      [state],
+    );
+
+    const onInputFocus = React.useCallback(() => {
+      if (Object.keys(state.errors).length > 0) {
+        setState({ ...state, errors: {} });
+      }
+    }, [state]);
 
     const onSave = async () => {
       const formData = new FormData();
+      const title = titleInputRef.current.value;
 
-      formData.set('title', titleInputRef.current.value);
-      formData.set('content', JSON.stringify(content));
-      formData.set('categoryLabel', dropdownValue);
+      formData.set('title', title.trim());
+      formData.set('content', JSON.stringify(state.content));
+      formData.set('categoryLabel', selectedCategory);
 
-      if (image) {
-        formData.append('image', image);
+      if (edit) {
+        formData.set('label', match.params.label);
+
+        if (state.image === null) {
+          formData.set('deleteImage', 'true');
+        }
+      }
+
+      if (state.image) {
+        formData.append('image', state.image);
       }
 
       const config: AxiosRequestConfig = {
@@ -119,25 +148,26 @@ export default withRouter(
         },
         onUploadProgress: (e: ProgressEvent) => {
           const rate = e.loaded / e.total;
+          const progress = Math.round(rate * 100);
 
-          setUploadProgress(Math.round(rate * 100));
+          setState({ ...state, progress });
         },
       };
 
-      setUploading(true);
+      setState({ ...state, uploading: true });
 
-      const { data } = await axios.put<IAddArticleRes>(
-        '/api/add-article',
+      const res = await axios.put<IAddArticleRes>(
+        `/api/${edit ? 'edit' : 'add'}-article`,
         formData,
         config,
       );
 
-      setUploading(false);
+      titleInputRef.current.value = title;
 
-      if (!data.success) {
-        setErrors(data.errors);
+      if (!res.data.success) {
+        setState({ ...state, errors: res.data.errors, uploading: false });
       } else {
-        history.push(`/article/${data.articleLabel}`);
+        history.push(`/article/${res.data.articleLabel}`);
       }
     };
 
@@ -145,35 +175,63 @@ export default withRouter(
       store.news.fetchCategories();
     }, []);
 
+    if (edit) {
+      React.useEffect(() => {
+        if (data) {
+          titleInputRef.current.value = data.title;
+
+          setState({
+            ...state,
+            content: JSON.parse(data.content),
+            category: data.categoryLabel,
+            image: data.image,
+          });
+        }
+      }, [data]);
+
+      React.useEffect(() => {
+        return () => {
+          store.editArticle.clear();
+        };
+      }, []);
+    }
+
     return (
       <>
-        {!uploading && (
+        {!state.uploading && (
           <Background>
             <Content>
               <Dropdown
-                value={dropdownValue}
+                value={selectedCategory}
                 items={categories}
                 onChange={onDropdownChange}
               />
               <Input
                 ref={titleInputRef}
                 placeholder="Tytuł"
-                error={!!errors.title}
+                error={!!state.errors.title}
+                onFocus={onInputFocus}
               />
-              <ErrorLabel error={errors.title} />
+              <ErrorLabel error={state.errors.title} />
               <Divider />
               <RichEditor
-                value={content}
+                value={state.content}
                 onChange={onContentChange}
-                error={!!errors.content}
+                error={!!state.errors.content}
+                onFocus={onInputFocus}
               />
-              <ErrorLabel error={errors.content} />
-              <ImagePick file={image} onClick={onImageClick} />
+              <ErrorLabel error={state.errors.content} />
+              <ImagePick
+                file={state.image}
+                onClick={onImageClick}
+                onDelete={onImageDelete}
+              />
+              <ErrorLabel error={state.errors.image} />
               <Button onClick={onSave}>Zapisz</Button>
             </Content>
           </Background>
         )}
-        {uploading && <UploadScreen progress={uploadProgress} />}
+        {state.uploading && <UploadScreen progress={state.progress} />}
         <input
           ref={fileInputRef}
           onChange={onImageUpload}
@@ -185,3 +243,5 @@ export default withRouter(
     );
   }),
 );
+
+export default ArticleEditor;

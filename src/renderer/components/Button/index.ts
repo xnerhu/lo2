@@ -86,11 +86,20 @@ export const RaisedButton = styled.div`
   }
 `;
 
-export const DeleteButton = styled.div`
+export const FlatButton = styled.div`
   background-color: #fff;
   border-radius: 8px;
-  color: ${ERROR_COLOR};
+  color: ${PRIMARY_COLOR};
   ${buttonBase};
+
+  &:hover,
+  &:focus {
+    background-color: rgba(0, 174, 239, 0.12);
+  }
+`;
+
+export const DeleteButton = styled(FlatButton)`
+  color: ${ERROR_COLOR};
 
   &:hover,
   &:focus {

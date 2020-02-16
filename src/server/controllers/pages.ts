@@ -8,9 +8,10 @@ import {
   getArticlePagePacket,
   getPersonnelPacket,
   getAddArticlePacket,
+  getEditArticlePacket,
 } from '~/server/services';
 import { withAuth, withAuthNoError } from '../middleware';
-import { verifyAccessToken } from '../utils';
+import { verifyAccessToken, logout } from '../utils';
 
 const router = Router();
 
@@ -64,9 +65,27 @@ router.get(
   },
 );
 
+router.get(
+  '/edit-article/:label',
+  withAuth('/login'),
+  async (req: IRequest, res, next) => {
+    const editArticlePage = await getEditArticlePacket(
+      req.params.label,
+      req.user,
+    );
+
+    req.appState = { ...req.appState, editArticlePage };
+
+    next();
+  },
+);
+
 router.get('/logout', (req, res, next) => {
+  logout(res);
   res.redirect('/api/logout');
 });
+
+router.get('/change-password', withAuth('/login'));
 
 router.get('/*', async (req: IRequest, res, next) => {
   if (!req.user) {

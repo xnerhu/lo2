@@ -1,8 +1,12 @@
 import { platform } from 'os';
 import knex, { MySqlConnectionConfig } from 'knex';
 
+import { HomeStore } from './home';
+
 export class Database {
   public client: knex;
+
+  public home = new HomeStore();
 
   protected _getConfig() {
     const {

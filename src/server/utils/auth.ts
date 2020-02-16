@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { sign, verify } from 'jsonwebtoken';
 
 import { IUser } from '~/interfaces';
@@ -46,4 +46,8 @@ export const verifyAccessToken = (
       resolve(decoded);
     });
   });
+};
+
+export const logout = (res: Response) => {
+  res.clearCookie('token');
 };

@@ -8,6 +8,11 @@ export class AccountStore {
   public data: IUser = {};
 
   @action
+  public inject(state: IAppState) {
+    this.data = state.user;
+  }
+
+  @action
   public async login(
     username: string,
     password: string,
@@ -28,12 +33,7 @@ export class AccountStore {
     return res;
   }
 
-  @action
-  public inject(state: IAppState) {
-    this.data = state.user;
-  }
-
   public get isLogged() {
-    return !!this.data;
+    return this.data && this.data.id != null;
   }
 }

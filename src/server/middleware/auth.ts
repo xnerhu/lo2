@@ -16,6 +16,8 @@ export const withAuth = (redirect?: string, throwError = true) => async (
     if (!redirect) {
       if (throwError) {
         res.status(401).send({ success: false, error });
+      } else {
+        next();
       }
     } else {
       res.redirect(redirect);

@@ -24,7 +24,9 @@ const LazyPatron = loadable(() => import('../Patron'), options);
 const LazyHistory = loadable(() => import('../History'), options);
 const LazyContact = loadable(() => import('../Contact'), options);
 const LazyAddArticle = loadable(() => import('../AddArticle'), options);
+const LazyEditArticle = loadable(() => import('../EditArticle'), options);
 const LazyLogin = loadable(() => import('../Login'), options);
+const LazyChangePassword = loadable(() => import('../ChangePassword'), options);
 
 const App = () => {
   return (
@@ -33,7 +35,9 @@ const App = () => {
       <StyledApp>
         <Appbar />
         <Switch>
+          <Route path="/change-password" component={LazyChangePassword} />
           <Route path="/login" component={LazyLogin} />
+          <Route path="/edit-article/:label" component={LazyEditArticle} />
           <Route path="/add-article" component={LazyAddArticle} />
           <Route path="/contact" component={LazyContact} />
           <Route path="/history" component={LazyHistory} />

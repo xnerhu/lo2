@@ -39,4 +39,9 @@ export class ArticleStore {
     this.error = error;
     this.editable = editable;
   }
+
+  @action
+  public clear() {
+    this.data = {};
+  }
 }

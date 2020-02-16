@@ -5,6 +5,7 @@ import {
   IArticlePagePacket,
   IPersonnelPacket,
   IAddArticlePacket,
+  IEditArticlePacket,
 } from './pages';
 
 export interface IAppState {
@@ -13,5 +14,6 @@ export interface IAppState {
   articlePage?: IArticlePagePacket;
   personnelPage?: IPersonnelPacket;
   addArticlePage?: IAddArticlePacket;
+  editArticlePage?: IEditArticlePacket;
   user?: IUser;
 }

@@ -9,3 +9,12 @@ export interface IUser {
   image?: string;
   admin?: boolean;
 }
+
+export interface IChangePasswordReq {
+  password?: string;
+}
+
+export interface IChangePasswordRes {
+  success?: boolean;
+  error?: string;
+}

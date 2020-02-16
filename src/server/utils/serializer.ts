@@ -75,10 +75,10 @@ export const serializeRichText = (nodes: Node[], limit?: number): string => {
   let text = '';
 
   nodes.some(r => {
-    text += Node.string(r);
+    text += Node.string(r) + ' ';
 
     if (text.length >= limit) {
-      text = truncateString(text, limit);
+      text = truncateString(text.trim(), limit);
 
       return true;
     }

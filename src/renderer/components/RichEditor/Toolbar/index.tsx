@@ -48,8 +48,13 @@ const LinkButton = () => {
 
   const onClick = React.useCallback(() => {
     if (!active) {
-      const url = window.prompt('Wklej link');
+      let url = window.prompt('Wklej link');
       if (!url) return;
+
+      if (!url.startsWith('http')) {
+        url = `http://${url}`;
+      }
+
       insertLink(editor, url);
     } else {
       unwrapLink(editor);

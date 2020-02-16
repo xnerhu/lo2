@@ -1,6 +1,7 @@
 import sharp, { Sharp } from 'sharp';
 
 import { ICompressImageOptions } from '../interfaces';
+import { deleteFile } from './files';
 
 const defaultCompressImageOptions: ICompressImageOptions = {
   full: 1280,
@@ -26,6 +27,17 @@ export const saveImage = async (
     ...compressImage(instance.resize(full), path),
     ...(thumbnail &&
       compressImage(instance.resize(thumbnail), `${path}.thumbnail`)),
+  ];
+
+  await Promise.all(promises);
+};
+
+export const deleteImages = async (path: string) => {
+  const promises = [
+    deleteFile(path + '.jpg'),
+    deleteFile(path + '.webp'),
+    deleteFile(path + '.thumbnail.jpg'),
+    deleteFile(path + '.thumbnail.webp'),
   ];
 
   await Promise.all(promises);

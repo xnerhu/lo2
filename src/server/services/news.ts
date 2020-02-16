@@ -1,13 +1,25 @@
-// import imagemin from 'imagemin';
-// import imageminJpegtran from 'imagemin-jpegtran';
-import sharp from 'sharp';
-import { createWriteStream } from 'fs';
 import { resolve } from 'path';
 
 import db from '~/server/models/db';
-import { INewsFilter, INewsChunk, INewsCategory, INews } from '~/interfaces';
-import { IDbNewsPacket, IInsertArticleData } from '../interfaces';
-import { formatArticle, formatLabel, saveImage, makeId } from '~/server/utils';
+import {
+  INewsFilter,
+  INewsChunk,
+  INewsCategory,
+  INews,
+  IEditArticleErrors,
+} from '~/interfaces';
+import {
+  IDbNewsPacket,
+  IInsertArticleData,
+  IEditArticleData,
+} from '../interfaces';
+import {
+  formatArticle,
+  formatLabel,
+  saveImage,
+  makeId,
+  deleteImages,
+} from '~/server/utils';
 import { formatUser } from '../utils/user';
 import { NEWS_IMAGES_PATH } from '../constants';
 
@@ -69,12 +81,16 @@ export const getNewsChunk = async (
 
   return {
     items,
-    nextPage: items.length >= postsPerPage,
+    nextPage: items.length > postsPerPage,
   };
 };
 
 export const getProposedNews = (excluded: string) => {
   return getNews({ limit: 3, excluded });
+};
+
+export const getHomeNews = () => {
+  return getNews({ limit: 9 });
 };
 
 export const getArticle = async (label: string): Promise<INews> => {
@@ -103,6 +119,32 @@ export const getArticle = async (label: string): Promise<INews> => {
   };
 };
 
+export const getPlainArtice = async (label: string): Promise<INews> => {
+  if (!label) return null;
+
+  const query = db
+    .client<INews>('news')
+    .where('news.label', label)
+    .limit(1)
+    .leftJoin('news-categories', {
+      'news.categoryId': 'news-categories.id',
+    })
+    .leftJoin('users', {
+      'news.authorId': 'users.id',
+    })
+    .options({ nestTables: true });
+
+  const [data]: IDbNewsPacket[] = await query.select();
+
+  if (!data) return null;
+
+  return {
+    ...data.news,
+    _category: data['news-categories'],
+    _author: formatUser(data.users),
+  };
+};
+
 export const findCategory = async (label: string): Promise<INewsCategory> => {
   const [item] = await db
     .client<INewsCategory>('news-categories')
@@ -112,14 +154,20 @@ export const findCategory = async (label: string): Promise<INewsCategory> => {
   return item;
 };
 
+const getRawArticle = async (label: string) => {
+  const res = await db
+    .client<INews>('news')
+    .where({ label })
+    .limit(1);
+
+  return res;
+};
+
 export const insertArticle = async (data: IInsertArticleData) => {
   const { title, body, categoryId, authorId, image } = data;
   let label = formatLabel(title);
 
-  const [hasLabel] = await db
-    .client<INews>('news')
-    .where({ label })
-    .limit(1);
+  const [hasLabel] = await getRawArticle(label);
 
   if (hasLabel != null) {
     label = `${label}-${makeId(96)}`;
@@ -131,6 +179,7 @@ export const insertArticle = async (data: IInsertArticleData) => {
     body,
     categoryId,
     authorId,
+    hasImage: !!image,
   });
 
   if (image) {
@@ -140,4 +189,63 @@ export const insertArticle = async (data: IInsertArticleData) => {
   }
 
   return label;
+};
+
+export const editArticle = async (
+  data: IEditArticleData,
+): Promise<IEditArticleErrors | string> => {
+  const { label, title, body, categoryId, image, deleteImage } = data;
+
+  if (!label) {
+    return { label: 'Nie podano identyfikatora artykułu!' };
+  }
+
+  const [item] = await getRawArticle(label);
+
+  if (!item) {
+    return { label: 'Artykuł nie istnieje!' };
+  }
+
+  await db
+    .client<INews>('news')
+    .where({ label })
+    .limit(1)
+    .update({
+      title,
+      body,
+      categoryId,
+      hasImage: !deleteImage,
+    });
+
+  const imgPath = resolve(NEWS_IMAGES_PATH, item.id.toString());
+
+  if (deleteImage) {
+    await deleteImages(imgPath);
+  } else if (image) {
+    await saveImage(image.buffer, imgPath);
+  }
+
+  return label;
+};
+
+export const deleteArticle = async (label: string) => {
+  if (!label) return new Error('Nie podano identyfikatora artykułu!');
+
+  const [item] = await getRawArticle(label);
+
+  if (!item) {
+    return new Error('Artykuł nie istnieje!');
+  }
+
+  await db
+    .client<INews>('news')
+    .where({ label })
+    .limit(1)
+    .delete();
+
+  const imgPath = resolve(NEWS_IMAGES_PATH, item.id.toString());
+
+  await deleteImages(imgPath);
+
+  return null;
 };

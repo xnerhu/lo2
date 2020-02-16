@@ -8,7 +8,11 @@ import { Input } from '~/renderer/components/Input';
 import { IAuthLoginErrors } from '~/interfaces';
 import { ErrorLabel } from '~/renderer/components/Error';
 import { useStore } from '../../store';
-import { Container, Form, SubmitButton } from './style';
+import {
+  FormContainer,
+  FormContent,
+  SubmitButton,
+} from '~/renderer/components/Form';
 
 export default withRouter(
   observer(({ history }: IRouterProps) => {
@@ -39,9 +43,9 @@ export default withRouter(
     }, []);
 
     return (
-      <Container>
+      <FormContainer>
         <SectionTitle>Zaloguj się</SectionTitle>
-        <Form>
+        <FormContent>
           <Input
             ref={userInput}
             placeholder="Nazwa użytkownika"
@@ -58,9 +62,9 @@ export default withRouter(
             onKeyDown={onInputKeyDown}
           />
           <ErrorLabel error={errors.password} />
-        </Form>
+        </FormContent>
         <SubmitButton onClick={onSubmitClick}>Ok</SubmitButton>
-      </Container>
+      </FormContainer>
     );
   }),
 );

@@ -9,7 +9,7 @@ import { NewsStore } from './news';
 import { ArticleStore } from './article';
 import { PersonnelStore } from './personnel';
 import { AccountStore } from './account';
-import { AddArticleStore } from './add-article';
+import { EditArticleStore } from './edit-article';
 
 class Store {
   public appbar = new AppbarStore();
@@ -18,10 +18,10 @@ class Store {
   public article = new ArticleStore();
   public personnel = new PersonnelStore();
   public account = new AccountStore();
-  public addArticle = new AddArticleStore();
+  public editArticle = new EditArticleStore();
 
   @observable
-  public loggedIn = false;
+  public test = false;
 
   constructor(state?: IAppState) {
     if (typeof state === 'object') {
@@ -30,6 +30,7 @@ class Store {
       this.article.inject(state);
       this.personnel.inject(state);
       this.account.inject(state);
+      this.editArticle.inject(state);
     }
   }
 }

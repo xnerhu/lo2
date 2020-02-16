@@ -14,6 +14,7 @@ export const StyledNewsCard = styled(Link)`
 
   &:hover > .news-card-wrapper {
     transform: scale(0.95);
+    background-color: rgba(0, 0, 0, 0.04);
   }
 `;
 
@@ -29,8 +30,8 @@ export const Wrapper = styled.div`
   font-size: 14px;
   position: relative;
   box-shadow: ${CARD_SHADOW};
-  will-change: transform;
-  transition: 0.1s ${EASING_FUNCTION} transform;
+  will-change: transform, background-color;
+  transition: 0.1s ${EASING_FUNCTION} transform, 0.1s background-color;
   backface-visibility: hidden;
 `;
 

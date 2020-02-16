@@ -4,7 +4,6 @@ export const hashString = (value: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     hash(value, 12, (err, encrypted) => {
       if (err) return reject(err);
-      console.log(encrypted);
       resolve(encrypted);
     });
   });

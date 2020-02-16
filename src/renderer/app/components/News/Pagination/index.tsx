@@ -1,35 +1,69 @@
-import * as React from 'react';
+import React from 'react';
 import { observer } from 'mobx-react-lite';
+import { withRouter } from 'react-router-dom';
+import { History } from 'history';
 
-import { useStore } from '~/renderer/app/store';
-import { Pages, Page, Chevron, Container } from './style';
+import { IRouterProps } from '~/renderer/app/interfaces';
 import { INewsFilter } from '~/interfaces';
+import { useStore } from '~/renderer/app/store';
+import { stringifyNewsFilter } from '~/renderer/app/utils';
+import { Button } from '~/renderer/components/Button';
+import { icons } from '~/renderer/constants';
+import { StyledPagination } from './style';
 
-export const Pagination = observer(({ filter }: { filter: INewsFilter }) => {
-  const store = useStore();
-  const length = store.news.paginationLength;
+interface Props {
+  filter: INewsFilter;
+}
 
-  return (
-    <Pages>
-      <Chevron onClick={store.news.goStart} disabled={!store.news.canGoStart} double />
-      <Chevron onClick={store.news.goBackward} disabled={!store.news.canSwitch} />
-      <Container>{Array.from({ length }, (r, i) => {
-        const page = store.news.paginationOffset * length + i + 1;
-        const disabled = page > store.news.pagesCount;
+const getCallback = (
+  history: History,
+  filter: INewsFilter,
+  page: number,
+  newer = true,
+) => () => {
+  history.push({
+    pathname: stringifyNewsFilter({
+      categoryLabel: filter.categoryLabel || 'all',
+      page: newer ? page - 1 : page + 1,
+    }),
+  });
+};
 
-        return (
-          <Page
-            key={i}
-            to={store.news.stringifyFilter({ ...filter, page })}
-            selected={filter.page === page}
-            disabled={disabled}
-          >
-            {page}
-          </Page>
-        )
-      })}</Container>
-      <Chevron onClick={store.news.goForward} disabled={!store.news.canSwitch} right />
-      <Chevron onClick={store.news.goEnd} disabled={!store.news.canGoEnd} right double />
-    </Pages>
-  );
-});
+export const Pagination = withRouter(
+  observer((props: IRouterProps<Props>) => {
+    const { history, filter } = props;
+    const store = useStore();
+    const page = filter.page || 1;
+
+    const onNewer = React.useCallback(getCallback(history, filter, page), [
+      filter,
+    ]);
+
+    const onOlder = React.useCallback(
+      getCallback(history, filter, page, false),
+      [filter],
+    );
+
+    if (!store.news.items.length) return null;
+
+    return (
+      <StyledPagination>
+        <Button
+          onClick={onNewer}
+          disabled={page === 1}
+          icon={icons.chevron}
+          reversedIcon
+        >
+          Nowsze
+        </Button>
+        <Button
+          onClick={onOlder}
+          disabled={!store.news.nextPage}
+          icon={icons.chevron}
+        >
+          Starsze
+        </Button>
+      </StyledPagination>
+    );
+  }),
+);

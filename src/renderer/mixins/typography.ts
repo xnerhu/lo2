@@ -3,11 +3,6 @@ import { css } from 'styled-components';
 export const getLetterSpacing = (fontSize: number, tracking: number) =>
   tracking / fontSize;
 
-export const robotoLight = () => css`
-  font-family: Roboto;
-  font-weight: 300;
-`;
-
 export const robotoRegular = () => css`
   font-family: Roboto;
   font-weight: 400;
@@ -19,13 +14,13 @@ export const robotoMedium = () => css`
 `;
 
 export const h1 = () => css`
-  ${robotoLight()};
+  ${robotoRegular()};
   letter-spacing: ${getLetterSpacing(96, -1.5)}rem;
   font-size: 96px;
 `;
 
 export const h2 = () => css`
-  ${robotoLight()};
+  ${robotoRegular()};
   letter-spacing: ${getLetterSpacing(60, -0.5)}rem;
   font-size: 60px;
 `;

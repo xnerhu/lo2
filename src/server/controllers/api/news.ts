@@ -1,58 +1,32 @@
 import { Router } from 'express';
+import multer from 'multer';
 
-import db from '~/server/models/db';
-import { INewsFilter, INewsChunk } from '~/interfaces';
-import { formatArticle, getNewsQueryFilter } from '~/server/utils';
 import { formatNewsFilter } from '~/utils';
+import { IAddArticleRes, IDeleteArticleRes } from '~/interfaces';
+import {
+  withAuth,
+  withAuthNoError,
+  withAddArticleProps,
+  withEditArticleProps,
+} from '~/server/middleware';
+import { IRequest } from '~/server/interfaces';
+import {
+  getNewsChunk,
+  getArticlePagePacket,
+  insertArticle,
+  getEditArticlePacket,
+  getNewsCategories,
+  editArticle,
+  deleteArticle,
+} from '~/server/services';
+
+const upload = multer();
 
 const router = Router();
 
-export const getNewsCategories = () => {
-  return db.newsCategories.find();
-}
-
-export const getNews = async (filter?: INewsFilter) => {
-  const postsPerPage = parseInt(process.env.POSTS_PER_PAGE);
-  const { limit, page } = filter;
-  const offset = page ? ((page - 1) * postsPerPage) : 0;
-
-  const query = getNewsQueryFilter(filter);
-  const news = await db.news.find(query, {
-    limit: limit || postsPerPage,
-    offset,
-    sort: {
-      _id: false,
-    },
-  });
-
-  const categories = await getNewsCategories();
-
-  return news.map(r => formatArticle(r, categories));
-}
-
-export const countNewsPages = async (filter?: INewsFilter) => {
-  const postsPerPage = parseInt(process.env.POSTS_PER_PAGE);
-  const query = getNewsQueryFilter(filter);
-  const count = await db.news.count(query);
-
-  return Math.ceil(count / postsPerPage);
-}
-
-export const getNewsChunk = async (filter?: INewsFilter): Promise<INewsChunk> => {
-  const [items, pagesCount] = await Promise.all([getNews(filter), countNewsPages(filter)]);
-
-  return { items, pagesCount };
-}
-
-export const handleNewsRequest = async (query: any) => {
-  const filter = formatNewsFilter(query);
-  const data = await getNewsChunk(filter);
-
-  return data;
-}
-
 router.get('/news', async (req, res) => {
-  const data = await handleNewsRequest(req.query);
+  const filter = formatNewsFilter(req.query);
+  const data = await getNewsChunk(filter);
 
   res.json(data);
 });
@@ -61,6 +35,61 @@ router.get('/news-categories', async (req, res) => {
   const data = await getNewsCategories();
 
   res.json(data);
+});
+
+router.get('/article', withAuthNoError, async (req: IRequest, res) => {
+  const data = await getArticlePagePacket(req.query.label, req.user);
+
+  res.json(data);
+});
+
+router.get('/edit-article', withAuthNoError, async (req: IRequest, res) => {
+  const data = await getEditArticlePacket(req.query.label, req.user);
+
+  res.json(data);
+});
+
+router.put(
+  '/add-article',
+  withAuth(),
+  upload.single('image'),
+  withAddArticleProps,
+  async (req: IRequest, res) => {
+    const data = await insertArticle(req.addArticle);
+
+    return res.json({ success: true, articleLabel: data } as IAddArticleRes);
+  },
+);
+
+router.put(
+  '/edit-article',
+  withAuth(),
+  upload.single('image'),
+  withAddArticleProps,
+  withEditArticleProps,
+  async (req: IRequest, res) => {
+    const data = await editArticle(req.editArticle);
+
+    if (typeof data !== 'string') {
+      return res.json({ success: false, errors: data } as IAddArticleRes);
+    }
+
+    return res.json({
+      success: true,
+      articleLabel: data,
+    } as IAddArticleRes);
+  },
+);
+
+router.post('/delete-article', withAuth(), async (req: IRequest, res) => {
+  const { label } = req.body;
+  const data = await deleteArticle(label);
+
+  if (data instanceof Error) {
+    return res.json({ success: false, error: data.message });
+  }
+
+  return res.json({ success: true });
 });
 
 export default router;

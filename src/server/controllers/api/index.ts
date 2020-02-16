@@ -1,21 +1,17 @@
 import { Router } from 'express';
 
-import slider from './slider';
-import shortNews from './short-news';
+import auth from './auth';
+import home from './home';
 import news from './news';
-import article from './article';
-import gallery from './gallery';
-import album from './album';
-import teachers from './teachers';
+import personnel from './personnel';
+import user from './user';
 
 const router = Router();
 
-router.use(slider);
-router.use(shortNews);
+router.use(auth);
+router.use(home);
 router.use(news);
-router.use(article);
-router.use(gallery);
-router.use(album);
-router.use(teachers);
+router.use(personnel);
+router.use(user);
 
 export default router;

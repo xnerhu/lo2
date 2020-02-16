@@ -1,37 +1,30 @@
-import * as React from 'react';
+import React from 'react';
 import { observer } from 'mobx-react-lite';
+import { Link } from 'react-router-dom';
 
 import { useStore } from '~/renderer/app/store';
-import { Section, SectionTitle } from '~/renderer/components/Section';
-import { NewsCard } from '~/renderer/components/NewsCard';
+import {
+  SectionTitle,
+  Content,
+  Background,
+} from '~/renderer/components/Section';
 import { Button } from '~/renderer/components/Button';
-import { IS_BROWSER } from '~/renderer/constants';
-import { NewsContainer } from '~/renderer/components/NewsCard/style';
+import { NewsGrid } from '~/renderer/components/NewsGrid';
 
 export const ShortNews = observer(() => {
   const store = useStore();
 
-  if (IS_BROWSER) {
-    React.useEffect(() => {
-      store.home.onWindowResize();
-
-      window.addEventListener('resize', store.home.onWindowResize);
-
-      return () => {
-        window.removeEventListener('resize', store.home.onWindowResize);
-      }
-    }, []);
-  }
-
   return (
-    <Section>
-      <SectionTitle>Nowości</SectionTitle>
-      <NewsContainer>
-        {store.home.news.map(r => (
-          <NewsCard key={r._id} data={r} />
-        ))}
-      </NewsContainer>
-      <Button to='/news' style={{ marginTop: 32, marginBottom: 16 }}>Zobacz więcej</Button>
-    </Section>
+    <Background style={{ marginTop: 56 }}>
+      <Content>
+        <Link to="/news">
+          <SectionTitle>Aktualności</SectionTitle>
+        </Link>
+        <NewsGrid items={store.home.newsItems} renderLast={false} />
+        <Button to="/news" style={{ margin: '32px auto 16px auto' }}>
+          Zobacz więcej
+        </Button>
+      </Content>
+    </Background>
   );
 });

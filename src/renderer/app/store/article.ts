@@ -1,34 +1,47 @@
 import { action, observable } from 'mobx';
 
-import { StoreBase } from '../models';
-import { IAppState, INews } from '~/interfaces';
+import { IAppState, INews, IArticlePagePacket } from '~/interfaces';
 import { callApi } from '../utils';
 
-export class ArticleStore extends StoreBase {
+export class ArticleStore {
   @observable
   public data: INews = {};
 
-  public inject({ article }: IAppState) {
-    if (article) {
-      this.data = article;
-      this.loaded = true;
+  @observable
+  public proposedNews: INews[] = [];
+
+  @observable
+  public error = false;
+
+  @observable
+  public editable = false;
+
+  public inject({ articlePage }: IAppState) {
+    if (articlePage) {
+      this.update(articlePage);
     }
   }
 
-  @action
-  public load(id: string) {
-    const _id = parseInt(id);
+  public async fetch(label: string) {
+    if (this.data && this.data.label === label) return;
 
-    if (!Number.isInteger(_id)) return;
+    const data = await callApi<IArticlePagePacket>('article', { label });
 
-    if (this.data._id !== _id) {
-      this.loadArticle(_id);
-      this.loaded = true;
-    }
+    this.update(data);
   }
 
   @action
-  public async loadArticle(_id: number) {
-    this.data = await callApi<INews>('article', { _id });
+  protected update(article: IArticlePagePacket) {
+    const { data, proposed, error, editable } = article;
+
+    this.data = data;
+    this.proposedNews = proposed;
+    this.error = error;
+    this.editable = editable;
+  }
+
+  @action
+  public clear() {
+    this.data = {};
   }
 }

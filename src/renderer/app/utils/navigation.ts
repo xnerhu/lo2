@@ -1,6 +1,11 @@
-import { IAppBarItemProps } from '~/renderer/app/components/Appbar';
+import { IRouterProps, INavItem } from '../interfaces';
 
-export const isAppbarItemSelected = ({ to, location, subpages }: IAppBarItemProps) => {
+export const isAppbarItemSelected = ({
+  to,
+  location,
+  subpages,
+  selectFilter,
+}: IRouterProps<INavItem>) => {
   const { pathname } = location;
   const path = pathname.toLowerCase();
 
@@ -8,8 +13,11 @@ export const isAppbarItemSelected = ({ to, location, subpages }: IAppBarItemProp
   if (path.startsWith(to)) return true;
 
   if (subpages) {
-    return subpages.findIndex(r => path.startsWith(r)) !== -1;
+    return !!subpages.find(r => {
+      if (selectFilter != null && !selectFilter(path)) return false;
+      return path.startsWith(r.to);
+    });
   }
 
   return false;
-}
+};

@@ -1,120 +1,78 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 
-import { INewsCategory, INews, IAppState, INewsChunk, INewsFilter } from '~/interfaces';
+import {
+  INewsCategory,
+  INews,
+  IAppState,
+  INewsChunk,
+  INewsFilter,
+} from '~/interfaces';
 import { callApi } from '../utils';
-import { PAGINATION_COUNT } from '~/renderer/constants';
-import { StoreBase } from '../models';
+import { IDropDownItem } from '~/renderer/components/Dropdown';
 
-export class NewsStore extends StoreBase {
+export class NewsStore {
   @observable
   public items: INews[] = [];
 
   @observable
-  public categories: INewsCategory[] = [
+  public dropdownItems: IDropDownItem[] = [
     {
-      _id: -1,
-      title: 'Wszystko'
-    }
-  ]
+      id: 'all',
+      name: 'Wszystko',
+    },
+  ];
 
   @observable
-  public pagesCount = 0;
-
-  @observable
-  public paginationOffset = 0;
+  public nextPage = true;
 
   @observable
   public error = false;
 
-  public inject({ news, newsCategories }: IAppState) {
-    if (news && newsCategories) {
-      this.items = news.items;
-      this.pagesCount = news.pagesCount;
-      this.categories = [...this.categories, ...newsCategories];
-      this.error = this.items.length === 0;
-      this.loaded = true;
+  protected categoriesLoaded = false;
+
+  public inject({ newsPage, addArticlePage }: IAppState) {
+    if (newsPage) {
+      this.updateNews(newsPage.news);
+      this.updateCategories(newsPage.categories);
+    } else if (addArticlePage) {
+      this.updateCategories(addArticlePage.categories);
     }
   }
 
-  public load() {
-    if (!this.loaded) {
-      this.loadNews();
-      this.loadCategories();
-      this.loaded = true;
-    }
+  public async fetchNews(filter: INewsFilter = {}) {
+    const data = await callApi<INewsChunk>('news', filter);
+
+    this.updateNews(data);
   }
 
-  @action
-  public async loadNews(filter: INewsFilter = {}) {
-    const chunk = await callApi<INewsChunk>('news', filter);
+  public async fetchCategories() {
+    if (!this.categoriesLoaded) {
+      this.categoriesLoaded = true;
 
-    this.items = chunk.items;
-    this.pagesCount = chunk.pagesCount;
-    this.error = chunk.items.length === 0;
-  }
+      const items = await callApi<INewsCategory[]>('news-categories');
 
-  @action
-  public async loadCategories() {
-    const items = await callApi<INewsCategory[]>('news-categories');
-    this.categories = [...this.categories, ...items];
-  }
-
-  public stringifyFilter(filter: INewsFilter) {
-    filter = { page: 1, category: -1, text: '', ...filter };
-    return `/news/${filter.page}/${filter.category}/${filter.text}`;
-  }
-
-  @action
-  public setPaginationOffset(page: number) {
-    this.paginationOffset = Math.ceil(page / PAGINATION_COUNT) - 1;
-  }
-
-  @computed
-  public get paginationLength() {
-    return Math.min(this.pagesCount, PAGINATION_COUNT);
-  }
-
-  @computed
-  public get maxPaginationLength() {
-    return Math.ceil(this.pagesCount / this.paginationLength) - 1;
-  }
-
-  @computed
-  public get canSwitch() {
-    return this.pagesCount > PAGINATION_COUNT;
-  }
-
-  @computed
-  public get canGoStart() {
-    return this.paginationOffset > 0;
-  }
-
-  @computed
-  public get canGoEnd() {
-    return this.paginationOffset < this.maxPaginationLength;
-  }
-
-  @action
-  public goBackward = () => {
-    if (--this.paginationOffset < 0) {
-      this.goEnd();
+      this.updateCategories(items);
     }
   }
 
   @action
-  public goForward = () => {
-    if (++this.paginationOffset > this.maxPaginationLength) {
-      this.goStart();
-    }
+  protected updateNews(data: INewsChunk) {
+    const { items, nextPage } = data;
+
+    this.items = items;
+    this.nextPage = nextPage;
+    this.error = items.length === 0;
   }
 
   @action
-  public goStart = () => {
-    this.paginationOffset = 0;
-  }
+  protected updateCategories(items: INewsCategory[]) {
+    this.dropdownItems = [
+      ...this.dropdownItems,
+      ...items.map(r => {
+        return { id: r.label, name: r.name } as IDropDownItem;
+      }),
+    ];
 
-  @action
-  public goEnd = () => {
-    this.paginationOffset = this.maxPaginationLength;
+    this.categoriesLoaded = true;
   }
 }

@@ -1,12 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 
 import { icons } from '~/renderer/constants';
 import { StyledDropdown, Label, DropIcon, Menu, MenuItem } from './style';
 
-export interface IDropDownItem {
-  _id?: any;
-  title?: string;
-}
+export type IDropDownItem<T = {}> = {
+  id?: any;
+  name?: string;
+} & T;
 
 interface Props {
   items: IDropDownItem[];
@@ -16,26 +16,32 @@ interface Props {
 
 export const Dropdown = ({ items, onChange, value }: Props) => {
   const [expanded, setExpanded] = React.useState(false);
-  const selected = React.useMemo(() => items.find(r => r._id === value), [value]);
+  const selected = React.useMemo(() => items.find(r => r.id === value), [
+    value,
+    items,
+  ]);
 
-  const onClick = React.useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
+  const onClick = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
 
-    if (!expanded) {
-      window.addEventListener('click', onWindowClick);
-    } else {
-      window.removeEventListener('click', onWindowClick);
-    }
+      if (!expanded) {
+        window.addEventListener('click', onWindowClick);
+      } else {
+        window.removeEventListener('click', onWindowClick);
+      }
 
-    setExpanded(!expanded);
-  }, [expanded]);
+      setExpanded(!expanded);
+    },
+    [expanded],
+  );
 
   const onWindowClick = React.useCallback(() => {
     setExpanded(false);
   }, []);
 
   const onItemClick = (item: IDropDownItem) => (e: React.MouseEvent) => {
-    if (onChange && value !== item._id) {
+    if (onChange && value !== item.id) {
       onChange(item);
     }
   };
@@ -43,20 +49,28 @@ export const Dropdown = ({ items, onChange, value }: Props) => {
   React.useEffect(() => {
     return () => {
       window.removeEventListener('click', onWindowClick);
-    }
+    };
   }, []);
 
   return (
     <StyledDropdown onClick={onClick}>
-      {selected && <>
-        <Label>{selected.title}</Label>
-        <DropIcon src={icons.drop} size={20} expanded={expanded} />
-        <Menu expanded={expanded}>
-          {items.map(r => (
-            <MenuItem key={r._id} selected={r._id === selected._id} onClick={onItemClick(r)}>{r.title}</MenuItem>
-          ))}
-        </Menu>
-      </>}
+      {selected && (
+        <>
+          <Label>{selected.name}</Label>
+          <DropIcon className="drop-down-icon" expanded={expanded} />
+          <Menu expanded={expanded}>
+            {items.map(r => (
+              <MenuItem
+                key={r.id}
+                selected={r.id === selected.id}
+                onClick={onItemClick(r)}
+              >
+                {r.name}
+              </MenuItem>
+            ))}
+          </Menu>
+        </>
+      )}
     </StyledDropdown>
-  )
-}
+  );
+};

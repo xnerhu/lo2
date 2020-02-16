@@ -1,53 +1,86 @@
-import * as React from 'react';
+import React from 'react';
+import { observer } from 'mobx-react-lite';
 
-import { icons, PRIMARY_COLOR } from '~/renderer/constants';
-import { Icon } from '~/renderer/components/Icon';
-import { StyledFooter, Container, Column, Title, Subtitle, Copyright, Contact, StyledContactItem, Label, MediaIcon } from './style';
+import { FACEBOOK_URL, YOUTUBE_URL, STATUE_URL } from '~/renderer/constants';
+import { Content } from '~/renderer/components/Section';
+import { useStore } from '~/renderer/app/store';
+import {
+  StyledFooter,
+  Title,
+  Subtitle,
+  StyledDetails,
+  StyledLinks,
+  StyledSocial,
+  FacebookIcon,
+  YoutubeIcon,
+  Copyright,
+  Container,
+  Link,
+} from './style';
 
-interface Props {
-  icon: string;
-  label: string;
-  sublabel: string;
-  iconSize?: number;
-  style?: React.CSSProperties;
-}
-
-const ContactItem = ({ icon, iconSize, label, sublabel, style }: Props) => {
+const Header = () => {
   return (
-    <StyledContactItem>
-      <Icon src={icon} size={iconSize || 36} fill={PRIMARY_COLOR} style={{ marginRight: 8 }} />
-      <div style={style}>
-        <Label>{label}</Label>
-        <Label>{sublabel}</Label>
-      </div>
-    </StyledContactItem>
-  )
-}
+    <>
+      <Title>Liceum Ogólnokształcące Nr II</Title>
+      <Subtitle>im. Marii Konopnickiej w Opolu</Subtitle>
+    </>
+  );
+};
+
+const Details = () => {
+  return (
+    <StyledDetails>
+      <span>ul. Generała Kazimierza Pułaskiego 3</span>
+      <span>sekretariat@lo2.opole.pl</span>
+      <span>46-020 Opole</span>
+      <span>(0-77) 454-22-86</span>
+    </StyledDetails>
+  );
+};
+
+export const Links = observer(() => {
+  const store = useStore();
+  const isLogged = store.account.isLogged;
+
+  return (
+    <StyledLinks>
+      <Link to="/cookies">Cookies</Link>
+      <Link to="/rodo">RODO</Link>
+      <Link to={STATUE_URL} useDefaultLink>
+        Statut szkoły
+      </Link>
+      <Link to={isLogged ? '/logout' : '/login'} useDefaultLink={isLogged}>
+        {isLogged ? 'Wyloguj' : 'Zaloguj'} się
+      </Link>
+    </StyledLinks>
+  );
+});
+
+export const Social = () => {
+  return (
+    <StyledSocial>
+      <Content>
+        <FacebookIcon href={FACEBOOK_URL} aria-label="Facebook" />
+        <YoutubeIcon href={YOUTUBE_URL} aria-label="Youtube" />
+        <Copyright href="https://www.github.com/xnerhu">
+          © 2020 Mikołaj Palkiewicz
+        </Copyright>
+      </Content>
+    </StyledSocial>
+  );
+};
 
 export const Footer = () => {
   return (
     <StyledFooter>
-      <Container>
-        <Column>
-          <Title>Liceum Ogólnokształcące Nr II</Title>
-          <Subtitle>im. Marii Konopnickiej w Opolu</Subtitle>
-          <Contact>
-            <ContactItem icon={icons.location} label='46-020 Opole' sublabel='Generała Kazimierza Pułaskiego 3' />
-            <ContactItem icon={icons.email} iconSize={32} label='sekretariat@lo2.opole.pl' sublabel='(0-77) 454-22-86' style={{ marginLeft: 6 }} />
-          </Contact>
-        </Column>
-        <Column>
-          <Title>Znajdź nas</Title>
-          <Subtitle>informacje i aktualności</Subtitle>
-          <a href='https://www.facebook.com/WilkiZWarynskiego/' target='_blank' rel='noopener' aria-label='facebook'>
-            <MediaIcon src={icons.facebook} size={32} fill='#3b5998' />
-          </a>
-          <a href='https://www.youtube.com/channel/UCWhfUoBYJxxZL4yj0GI1njw' target='_blank' rel='noopener' aria-label='youtube'>
-            <MediaIcon src={icons.youtube} size={32} fill='#ff0000' style={{ marginLeft: 8 }} />
-          </a>
-        </Column>
-      </Container>
-      <Copyright href='https://www.github.com/xnerhu' target='_blank'>© 2019 Mikołaj Palkiewicz</Copyright>
+      <Content>
+        <Header />
+        <Container>
+          <Details />
+          <Links />
+        </Container>
+      </Content>
+      <Social />
     </StyledFooter>
   );
-}
+};

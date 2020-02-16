@@ -67,7 +67,7 @@ const init = async () => {
 
   serverCompiler.watch(watchOptions, (error, stats) => {
     if (!error && !stats.hasErrors()) {
-      console.log(stats.toString(serverConfig.stats));
+      print('stats', stats.toString(serverConfig.stats), 'info');
     } else {
       if (error) {
         print('server', error, 'error');

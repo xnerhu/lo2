@@ -1,7 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 
 import { preFetchImage } from '~/renderer/app/utils';
-import { Container, Picture, StyledImage, Label, StyledSkeleton } from './style';
+import {
+  Container,
+  Picture,
+  StyledImage,
+  Label,
+  StyledSkeleton,
+} from './style';
 
 export interface IImageProps extends React.HTMLAttributes<HTMLDivElement> {
   src: string;
@@ -17,38 +23,69 @@ export interface IImageProps extends React.HTMLAttributes<HTMLDivElement> {
   cache?: boolean;
 }
 
-export const Image = ({ src, alt, ratio, skeletonBorder, forceSkeleton, children, style, className, cache, shadow, jpgOnly }: IImageProps) => {
+export const Image = ({
+  src,
+  alt,
+  ratio,
+  skeletonBorder,
+  forceSkeleton,
+  children,
+  style,
+  className,
+  cache,
+  shadow,
+  jpgOnly,
+}: IImageProps) => {
   const [fetched, setFetched] = React.useState(forceSkeleton);
   const ext = jpgOnly ? 'jpg' : 'webp';
 
-  React.useEffect(() => {
-    if (forceSkeleton) return;
+  if (!forceSkeleton) {
+    React.useEffect(() => {
+      let canceled = false;
+      let error = false;
 
-    (async () => {
-      setFetched(false);
+      (async () => {
+        setFetched(false);
 
-      try {
-        await preFetchImage(src, ext, cache);
-      } catch (err) {
-        console.warn(err);
-      }
+        try {
+          await preFetchImage(src, ext, cache);
+        } catch (err) {
+          console.warn(src, err);
+          error = true;
+        }
 
-      setFetched(true);
-    })();
-  }, [src]);
+        if (!canceled && !error) {
+          setFetched(true);
+        }
+      })();
+
+      return () => {
+        canceled = true;
+      };
+    }, [src]);
+  }
 
   const isFetched = !forceSkeleton && fetched;
-  const _className = `dynamic-image ${className || ''} ${isFetched ? 'fetched' : ''}`;
+
+  const _className = `dynamic-image ${className || ''} ${
+    isFetched ? 'fetched' : ''
+  }`;
 
   return (
-    <Container className={_className} ratio={ratio} style={style} shadow={shadow}>
-      <Picture fetched={isFetched}>
-        <source srcSet={`${src}.${ext}`} type='image/webp' />
-        <StyledImage src={src + '.jpg'} alt={alt} />
-      </Picture>
+    <Container
+      className={_className}
+      ratio={ratio}
+      style={style}
+      shadow={shadow}
+    >
+      {src ? (
+        <Picture fetched={isFetched}>
+          {!jpgOnly && <source srcSet={`${src}.${ext}`} type="image/webp" />}
+          <StyledImage src={src + '.jpg'} alt={alt} />
+        </Picture>
+      ) : null}
       {!isFetched && <StyledSkeleton borderRadius={skeletonBorder} />}
       {children && <Label>{children}</Label>}
     </Container>
   );
-}
-
+};

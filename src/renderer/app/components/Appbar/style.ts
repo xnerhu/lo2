@@ -1,176 +1,145 @@
 import styled, { css } from 'styled-components';
-import { Link, LinkProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { h3, noUserSelect, centerIcon, robotoLight } from '~/renderer/mixins';
-import { transparency, GRADIENT, icons, BACKGROUND_COLOR, NAVBAR_HEIGHT, MOBILE_VIEW, GRADIENT_VERTICAL } from '~/renderer/constants';
+import {
+  icons,
+  APPBAR_MOBILE_VIEW,
+  CARD_SHADOW,
+  EASING_FUNCTION,
+  APPBAR_DESKTOP_HEIGHT,
+  APPBAR_MOBILE_HEIGHT,
+} from '~/renderer/constants';
+import { Content } from '~/renderer/components/Section';
+import { centerIcon, noUserSelect, centerVertical } from '~/renderer/mixins';
+
+const appbarTransition = '0.2s box-shadow';
 
 export const StyledAppbar = styled.div`
-  margin-bottom: 32px;
-  border-bottom: 1px solid rgba(0, 0, 0, ${transparency.dividers});
-`;
-
-export const Header = styled.header`
-  padding: 32px 0px 24px;
-  text-align: center;
-  ${h3()};
-  ${robotoLight()};
-
-  @media(max-width: ${MOBILE_VIEW}px) {
-    font-size: 32px;
-    padding-bottom: 0px;
-  }
-`;
-
-export const Navbar = styled.nav`
   width: 100%;
-  height: ${NAVBAR_HEIGHT}px;
-  display: flex;
-  justify-content: center;
-  background-color: ${BACKGROUND_COLOR};
-
-  @media(max-width: ${MOBILE_VIEW}px) {
-    height: fit-content;
-    flex-direction: column;
-    margin-top: 24px;
-
-    ${({ expanded }: { expanded: boolean }) => css`
-      display: ${expanded ? 'flex' : 'none'};
-    `}
-  }
-`;
-
-interface NavItemProps {
-  selected: boolean;
-  menuVisible: boolean;
-  expanded: boolean;
-}
-
-export const StyledNavItem = styled.div`
+  height: ${APPBAR_DESKTOP_HEIGHT}px;
+  z-index: 10;
+  background-color: #fff;
   position: relative;
+  will-change: box-shadow, margin-top;
+  transition: ${appbarTransition};
+  ${noUserSelect()};
 
-  ${({ menuVisible, expanded }: NavItemProps) => {
-    return menuVisible && css`
-      @media(max-width: ${MOBILE_VIEW}px) {
-        & .nav-menu {
-          opacity: 1;
-          pointer-events: auto;
-          top: 0;
-          display: ${expanded ? 'block' : 'none'};
-        }
-      }
-    `;
-  }};
+  ${({ visible, hideShadow }: { visible: boolean; hideShadow: boolean }) => css`
+    margin-top: ${visible ? 0 : -72}px;
+    transition: 0.3s ${EASING_FUNCTION} margin-top, ${appbarTransition};
 
-  &:hover {
-    @media(min-width: ${MOBILE_VIEW + 1}px) {
-      & .nav-menu {
-        opacity: 1;
-        pointer-events: auto;
-      }
-    }
-  }
-
-  & .appbar-item {
-    min-height: ${NAVBAR_HEIGHT}px;
-    display: flex;
-    align-items: center;
-    padding-left: 16px;
-    font-size: 16px;
-    position: relative;
-    cursor: pointer;
-    transition: 0.1s background-color;
-    ${noUserSelect()};
-
-    ${({ selected, menuVisible }: NavItemProps) => css`
-      padding-right: ${menuVisible ? 0 : 16}px;
-      font-weight: ${selected ? 500 : 400};
-
-      ${selected && css`
-        &::after {
-          content: "";
-          display: block;
-          width: 100%;
-          height: 2px;
-          left: 0;
-          bottom: -1px;
-          background: ${GRADIENT};
-          position: absolute;
+    ${!hideShadow &&
+      css`
+        @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
+          box-shadow: ${CARD_SHADOW};
         }
       `}
-
-      ${menuVisible && css`
-        @media(max-width: ${MOBILE_VIEW}px) {
-          display: block;
-          padding-top: 16px;
-
-          &:hover {
-            background-color: transparent !important;
-
-            & .appbar-expand-icon {
-              background-color: rgba(0, 0, 0, 0.08);
-            }
-          }
-        }
-      `}
-    `};
-
-    &:hover {
-      background-color: #f5f5f5;
-    }
-
-    @media(max-width: ${MOBILE_VIEW}px) {
-      &::after {
-        width: 2px;
-        height: 100%;
-        bottom: 0;
-        background: ${GRADIENT_VERTICAL};
-      }
-    }
-  }
-`;
-
-export const ExpandIcon = styled.div`
-  width: 20px;
-  height: 20px;
-  opacity: ${transparency.icons.disabled};
-  background-image: url(${icons.chevron});
-  margin-left: 4px;
-  margin-right: 8px;
-  transform: rotate(90deg);
-  border-radius: 100%;
-  ${centerIcon(20)};
-
-  ${({ expanded }: { expanded: boolean }) => css`
-    @media(max-width: ${MOBILE_VIEW}px) {
-      transform: rotate(${expanded ? -90 : 90}deg);
-    }
   `}
 
-  @media(max-width: ${MOBILE_VIEW}px) {
-    width: 48px;
-    height: 48px;
-    position: absolute;
-    top: 2px;
-    right: 12px;
+  @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
+    height: ${APPBAR_MOBILE_HEIGHT}px;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 72px; 
+      top: 0;
+      left: 0;
+      position: absolute;
+      background-color: #fff;
+      z-index: 10;
+    }
   }
 `;
 
-export const MenuButton = styled.div`
+export const Container = styled(Content)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+`;
+
+export const Banner = styled(Link)`
+  position: absolute;
+  left: 0;
+  z-index: 11;
+`;
+
+export const BannerImg = styled.img`
+  height: 56px;
+
+  @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
+    height: 40px;
+  }
+`;
+
+export const NavItems = styled.nav`
+  margin-left: auto;
+  display: flex;
+
+  ${({ expanded }: { expanded: boolean }) => css`
+    ${expanded &&
+      css`
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      `}
+  `}
+
+  @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    padding-top: ${APPBAR_MOBILE_HEIGHT}px;
+    flex-direction: column;
+    left: 0;
+    position: fixed;
+    overflow-y: auto;
+    z-index: 9;
+    opacity: 0;
+    background-color: #fff;
+    pointer-events: none;
+  }
+`;
+
+export const MenuIcon = styled.div`
   width: 48px;
   height: 48px;
-  background-image: url(${icons.menu});
-  margin: 16px auto;
+  position: absolute;
+  right: 24px;
   border-radius: 100%;
-  transition: 0.1s background-color;
   cursor: pointer;
   display: none;
-  ${centerIcon(24)};
+  z-index: 11;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  ${centerIcon(24)}
+  ${centerVertical()};
+
+  ${({ expanded }: { expanded: boolean }) => css`
+    background-image: url(${expanded ? icons.close : icons.menu});
+  `}
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.04);
   }
 
-  @media(max-width: ${MOBILE_VIEW}px) {
+  @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
+    display: block;
+  }
+`;
+
+export const Placeholder = styled.div`
+  width: 100%;
+  height: ${APPBAR_MOBILE_HEIGHT}px;
+  margin-bottom: 16px;
+  display: none;
+
+  @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
     display: block;
   }
 `;

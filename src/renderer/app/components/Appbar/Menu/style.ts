@@ -2,13 +2,12 @@ import styled from 'styled-components';
 
 import { Link } from '~/renderer/components/Link';
 import { shadows } from '~/renderer/mixins';
-import { MOBILE_VIEW, NAVBAR_HEIGHT } from '~/renderer/constants';
 
 export const StyledMenu = styled.div`
   width: 256px;
   height: auto;
   position: absolute;
-  top: 54px;
+  top: 100%;
   left: 0;
   padding: 8px 0px;
   z-index: 10;
@@ -18,13 +17,6 @@ export const StyledMenu = styled.div`
   pointer-events: none;
   transition: 0.1s opacity;
   box-shadow: ${shadows(4)};
-
-  @media(max-width: ${MOBILE_VIEW}px) {
-    width: 100%;
-    position: relative;
-    box-shadow: unset;
-    background-color: transparent;
-  }
 `;
 
 export const MenuItem = styled(Link)`
@@ -39,9 +31,5 @@ export const MenuItem = styled(Link)`
 
   &:hover {
     background-color: #f5f5f5;
-  }
-
-  @media(max-width: ${MOBILE_VIEW}px) {
-    height: ${NAVBAR_HEIGHT}px;
   }
 `;

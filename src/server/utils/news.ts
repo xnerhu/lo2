@@ -1,33 +1,28 @@
-import { IQueryFilter } from 'sql-next';
+import { INews } from '~/interfaces';
+import { serializeRichTextToHtml, serializeRichText } from './serializer';
 
-import { INews, INewsCategory, INewsFilter } from '~/interfaces';
-import { truncateString } from './string';
-
-export const formatArticle = (data: INews, categories: INewsCategory[], truncate = true): INews => {
+export const formatArticle = (data: INews, full?: boolean) => {
   const maxLength = parseInt(process.env.SHORT_NEWS_MAX_LENGTH);
-  const content = truncate ? truncateString(data.content, maxLength) : data.content;
+
+  const body = JSON.parse(data.body);
+
+  const content = full
+    ? serializeRichTextToHtml(body)
+    : serializeRichText(body, maxLength);
+
+  const image = formatArticleImage(data, full);
 
   return {
     ...data,
     content,
-    image: `/static/news/${data.image}`,
-    category: categories.find(r => data._categoryId === r._id).title,
-  };
-}
+    image,
+    body: undefined,
+    hasImage: undefined,
+  } as INews;
+};
 
-export const getNewsQueryFilter = (filter: INewsFilter) => {
-  const { category, text } = filter;
-  const item: IQueryFilter<INews> = {}
-
-  if (category) {
-    item._categoryId = category;
-  }
-
-  if (text && typeof text === 'string') {
-    item.content = {
-      $text: text
-    }
-  }
-
-  return item;
-}
+export const formatArticleImage = (data: INews, full?: boolean) => {
+  return data.hasImage
+    ? `/static/news/${data.id}${!full ? '.thumbnail' : ''}`
+    : undefined;
+};

@@ -1,24 +1,49 @@
-import * as React from 'react';
+import React from 'react';
+import { withRouter } from 'react-router';
 
 import { formatDate } from '~/renderer/app/utils';
 import { INews } from '~/interfaces';
 import { Image } from '../Image';
-import { StyledNews, Container, Content, Date, Category } from './style';
+import { IRouterProps } from '~/renderer/app/interfaces';
+import {
+  StyledNewsCard,
+  Wrapper,
+  Container,
+  Content,
+  Date,
+  Category,
+  Title,
+} from './style';
 
-export const NewsCard = ({ data }: { data: INews }) => {
-  const { _id, image, category, title, content, createdAt } = data;
+interface Props {
+  data: INews;
+}
+
+export const NewsCard = withRouter(({ data, history }: IRouterProps<Props>) => {
+  const { label, image, _category, title, content, createdAt } = data;
+
+  const onCategoryClick = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+
+      history.push(`/news/${_category.label}`);
+    },
+    [_category],
+  );
 
   return (
-    <StyledNews to={`/article/${_id}`}>
-      {image && <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />}
-      <Container>
-        <Category>{category}</Category>
-        <h6>{title}</h6>
-        <Content>{content}</Content>
-      </Container>
-      <Date>
-        {formatDate(createdAt)}
-      </Date>
-    </StyledNews>
+    <StyledNewsCard className="news-card" to={`/article/${label}`}>
+      <Wrapper className="news-card-wrapper">
+        {image ? (
+          <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />
+        ) : null}
+        <Container>
+          <Category onClick={onCategoryClick}>{_category.name}</Category>
+          <Title>{title}</Title>
+          <Content>{content}</Content>
+        </Container>
+        <Date>{formatDate(createdAt)}</Date>
+      </Wrapper>
+    </StyledNewsCard>
   );
-}
+});

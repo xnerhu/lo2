@@ -1,10 +1,20 @@
 export interface IUser {
-  _id?: number;
+  id?: number;
   username?: string;
-  firstName?: string;
-  secondName?: string;
-  description?: string;
-  image?: string;
-  createdAt?: Date;
   password?: string;
+  firstName?: string;
+  lastName?: string;
+  description?: string;
+  createdAt?: string;
+  image?: string;
+  admin?: boolean;
+}
+
+export interface IChangePasswordReq {
+  password?: string;
+}
+
+export interface IChangePasswordRes {
+  success?: boolean;
+  error?: string;
 }

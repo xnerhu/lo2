@@ -1,28 +1,38 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { noUserSelect } from '~/renderer/mixins';
-import { GRADIENT } from '~/renderer/constants';
+import { noUserSelect, robotoMedium } from '~/renderer/mixins';
+import { CONTENT_WIDTH } from '~/renderer/constants';
 
-export const Section = styled.section`
+export const Content = styled.div`
   width: 100%;
-  margin-top: 32px;
+  max-width: ${CONTENT_WIDTH}px;
+  margin: 0 auto;
+
+  @media (max-width: ${CONTENT_WIDTH + 48 * 2}px) {
+    max-width: calc(100% - 128px);
+  }
+
+  @media (max-width: 767px) {
+    max-width: calc(100% - 64px);
+  }
+`;
+
+export const Background = styled.div`
+  width: 100%;
+  background-color: #fafafc;
+  padding-bottom: 32px;
 `;
 
 export const SectionTitle = styled.h5`
-  width: fit-content;
+  height: 96px;
+  display: flex;
+  align-items: center;
   position: relative;
-  padding-bottom: 8px;
-  margin-bottom: 24px;
-  ${noUserSelect()};
+  ${robotoMedium()};
 
-  &::after {
-    content: '';
-    display: block;
-    width: 100%;
-    max-width: 128px;
-    height: 2px;
-    position: absolute;
-    bottom: 0;
-    background: ${GRADIENT};
-  }
+  ${({ center, selectable }: { center?: boolean; selectable?: boolean }) => css`
+    width: ${center ? '100%' : 'fit-content'};
+    justify-content: ${center ? 'center' : 'unset'};
+    ${!selectable && noUserSelect()}
+  `}
 `;

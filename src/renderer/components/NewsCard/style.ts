@@ -1,57 +1,71 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { transparency, CARD_SHADOW } from '~/renderer/constants';
-import { noUserSelect, overline } from '~/renderer/mixins';
+import {
+  transparency,
+  CARD_SHADOW,
+  PRIMARY_COLOR,
+  EASING_FUNCTION,
+} from '~/renderer/constants';
+import { noUserSelect, overline, robotoMedium } from '~/renderer/mixins';
 
-export const StyledNews = styled(Link)`
+export const StyledNewsCard = styled(Link)`
+  width: 100%;
+
+  &:hover > .news-card-wrapper {
+    transform: scale(0.95);
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+`;
+
+export const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   border-radius: 12px;
   overflow: hidden;
   background-color: #fff;
   font-size: 14px;
+  position: relative;
   box-shadow: ${CARD_SHADOW};
-  transition: 0.1s transform;
-  user-select: auto;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-`;
-
-export const Category = styled.div`
-  color: rgba(0, 0, 0, ${transparency.text.medium});
-  margin-bottom: 6px;
-  ${overline()};
-  ${noUserSelect()};
+  will-change: transform, background-color;
+  transition: 0.1s ${EASING_FUNCTION} transform, 0.1s background-color;
+  backface-visibility: hidden;
 `;
 
 export const Container = styled.div`
-  padding: 16px 24px 0px;
+  padding: 0px 24px;
+`;
+
+export const Category = styled.div`
+  margin-top: 16px;
+  margin-bottom: 8px;
+  display: block;
+  color: rgba(0, 0, 0, ${transparency.text.medium});
+  ${overline()};
+  ${noUserSelect()};
+
+  &:hover {
+    color: ${PRIMARY_COLOR};
+    text-decoration: underline;
+    ${robotoMedium()};
+  }
+`;
+
+export const Title = styled.h6`
+  color: rgba(0, 0, 0, ${transparency.text.high});
 `;
 
 export const Content = styled.div`
-  margin-top: 4px;
+  margin-top: 8px;
   line-height: 20px;
   color: rgba(0, 0, 0, ${transparency.text.medium});
 `;
 
 export const Date = styled.div`
   padding: 16px 24px;
-  margin-top: auto;
   color: rgba(0, 0, 0, ${transparency.text.medium});
-`;
-
-export const NewsContainer = styled.div`
-  width: 100%;
-  display: grid;
-  grid-row-gap: 48px;
-  grid-column-gap: 48px;
-  grid-template-columns: repeat(auto-fill, minmax(348px, 1fr));
-
-  @media(max-width: 872px) {
-    grid-template-columns: unset;
-  }
+  margin-top: auto;
 `;

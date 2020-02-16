@@ -1,20 +1,17 @@
 import styled from 'styled-components';
 
-export const Item = styled.div`
-  margin-top: 8px;
+export const StyledItem = styled.div`
+  font-size: 16px;
 
-  &:first-child {
-    margin-top: 20px;
+  &:not(:first-child) {
+    margin-top: 8px;
   }
 `;
 
 export const Map = styled.iframe`
-  width: calc(100% - ${512 + 24}px);
+  width: 100%;
   height: 384px;
   border: none;
-
-  @media(max-width: 1216px) {
-    width: 100%;
-    margin-top: 32px;
-  }
+  margin-top: 48px;
+  margin-bottom: 16px;
 `;

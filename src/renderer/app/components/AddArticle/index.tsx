@@ -14,7 +14,7 @@ import {
   IAddArticleErrors,
   IEditArticleItem,
 } from '~/interfaces';
-import { Progressbar } from '~/renderer/components/Progressbar';
+import { Preloader } from '~/renderer/components/Preloader';
 import { useStore } from '../../store';
 import { Dropdown } from '~/renderer/components/Dropdown';
 import { IRouterProps } from '../../interfaces';
@@ -32,11 +32,11 @@ import {
   ErrorLabel,
 } from './style';
 
-const UploadScreen = ({ progress }: { progress: number }) => {
+const UploadScreen = () => {
   return (
     <StyledUploadScreen>
+      <Preloader />
       <SectionTitle>Zapisywanie...</SectionTitle>
-      <Progressbar value={progress} />
     </StyledUploadScreen>
   );
 };
@@ -51,7 +51,6 @@ interface State {
   image?: File | string;
   content?: Node[];
   uploading?: boolean;
-  progress?: number;
   errors?: IAddArticleErrors;
 }
 
@@ -146,12 +145,6 @@ export const ArticleEditor = withRouter(
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        onUploadProgress: (e: ProgressEvent) => {
-          const rate = e.loaded / e.total;
-          const progress = Math.round(rate * 100);
-
-          setState({ ...state, progress });
-        },
       };
 
       setState({ ...state, uploading: true });
@@ -162,10 +155,10 @@ export const ArticleEditor = withRouter(
         config,
       );
 
-      titleInputRef.current.value = title;
-
       if (!res.data.success) {
         setState({ ...state, errors: res.data.errors, uploading: false });
+        titleInputRef.current.value = title;
+        console.error(res);
       } else {
         history.push(`/article/${res.data.articleLabel}`);
       }
@@ -231,7 +224,7 @@ export const ArticleEditor = withRouter(
             </Content>
           </Background>
         )}
-        {state.uploading && <UploadScreen progress={state.progress} />}
+        {state.uploading && <UploadScreen />}
         <input
           ref={fileInputRef}
           onChange={onImageUpload}

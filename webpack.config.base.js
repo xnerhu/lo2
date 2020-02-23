@@ -1,4 +1,3 @@
-/* eslint-disable */
 const { resolve } = require('path');
 const merge = require('webpack-merge');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');

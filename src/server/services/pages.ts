@@ -18,6 +18,7 @@ import {
   getArticle,
   getProposedNews,
   getPlainArtice,
+  getNews,
 } from './news';
 import { listFiles, formatArticleImage } from '~/server/utils';
 import db from '../models/db';
@@ -25,7 +26,7 @@ import db from '../models/db';
 export const getHomePagePacket = async (): Promise<IHomePagePacket> => {
   const [sliderItems, news] = await Promise.all([
     listFiles('home-slider'),
-    db.home.newsCache.data(),
+    getNews({ limit: 9 }),
   ]);
 
   return {

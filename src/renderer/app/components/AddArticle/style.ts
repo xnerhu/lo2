@@ -52,6 +52,13 @@ export const StyledUploadScreen = styled.div`
   width: 100%;
   max-width: 512px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > .preloader {
+    margin-right: 24px;
+  }
 `;
 
 export const ErrorLabel = styled(StyledErrorLabel)`

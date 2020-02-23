@@ -1,11 +1,13 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import loadable, { Options } from '@loadable/component';
 
 import { Appbar } from '../Appbar';
 import { Footer } from '../Footer';
+import { useStore } from '../../store';
+import { IRouterProps } from '../../interfaces';
 import { Style } from '~/renderer/app/style';
 import { StyledApp } from './style';
 
@@ -27,6 +29,17 @@ const LazyAddArticle = loadable(() => import('../AddArticle'), options);
 const LazyEditArticle = loadable(() => import('../EditArticle'), options);
 const LazyLogin = loadable(() => import('../Login'), options);
 const LazyChangePassword = loadable(() => import('../ChangePassword'), options);
+
+// const Watcher = withRouter((props: IRouterProps) => {
+//   const { pathname } = props.location;
+//   const store = useStore();
+
+//   React.useEffect(() => {
+//     store.appbar.
+//   }, [pathname]);
+
+//   return null;
+// });
 
 const App = () => {
   return (

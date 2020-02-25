@@ -11,7 +11,6 @@ export class HomeStore {
   }
 
   protected refetchNews(data: ICacheData<INews[]>) {
-    console.log('xd');
     return true;
   }
 }

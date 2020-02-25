@@ -4,38 +4,44 @@ import { SHORT_MONTHS } from '~/renderer/constants';
 export const formatDate = (date: Date | string) => {
   const _date = typeof date === 'string' ? new Date(date) : date;
 
-  const delta = new Date(new Date().getTime() - _date.getTime());
-  const months = delta.getMonth();
+  return `${pad(_date.getDate())}.${pad(
+    _date.getMonth() + 1,
+  )}.${_date.getFullYear()}`;
 
-  if (months >= 12) {
-    return `${pad(_date.getDate())}.${pad(
-      _date.getMonth(),
-    )}.${_date.getFullYear()}`;
-  }
+  // const current = new Date();
+  // const delta = new Date(current.getTime() - _date.getTime());
+  // const months = delta.getMonth();
+  // const yearsDelta = current.getFullYear() - _date.getFullYear();
 
-  if (months === 1) {
-    return `miesiąc temu`;
-  }
+  // if (yearsDelta > 1) {
+  //   return `${pad(_date.getDate())}.${pad(
+  //     _date.getMonth() + 1,
+  //   )}.${_date.getFullYear()}`;
+  // }
 
-  if (months > 1) {
-    if (months <= 4) {
-      return `${months} miesiące temu`;
-    }
+  // if (months === 1) {
+  //   return `miesiąc temu`;
+  // }
 
-    return `${months} miesięcy temu`;
-  }
+  // if (months > 1) {
+  //   if (months <= 4) {
+  //     return `${months} miesiące temu`;
+  //   }
 
-  const days = delta.getDate();
+  //   return `${months} miesięcy temu`;
+  // }
 
-  if (days === 1) {
-    return 'dzień temu';
-  }
+  // const days = delta.getDate();
 
-  if (days > 1) {
-    return `${days} dni temu`;
-  }
+  // if (days === 1) {
+  //   return 'dzień temu';
+  // }
 
-  return `${delta.getMinutes()} minut temu`;
+  // if (days > 1) {
+  //   return `${days} dni temu`;
+  // }
+
+  // return `${delta.getMinutes()} minut temu`;
 };
 
 const pad = (value: number) => {

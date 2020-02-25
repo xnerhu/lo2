@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { transparency, icons, APPBAR_MOBILE_VIEW } from '~/renderer/constants';
-import { centerIcon } from '~/renderer/mixins';
+import { centerIcon, robotoMedium } from '~/renderer/mixins';
 import { Link as DynamicLink } from '~/renderer/components/Link';
 
 export const StyledNavItem = styled.div`
@@ -24,7 +24,6 @@ export const StyledNavItem = styled.div`
       }
     }
   }
-
   @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
     height: 100%;
     min-height: 64px;
@@ -33,6 +32,10 @@ export const StyledNavItem = styled.div`
 
     & .nav-menu {
       display: none;
+    }
+
+    &:hover > a {
+      ${robotoMedium()};
     }
   }
 `;

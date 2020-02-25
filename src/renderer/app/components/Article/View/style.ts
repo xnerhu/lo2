@@ -13,7 +13,7 @@ export const StyledView = styled.div`
 `;
 
 export const Info = styled.div`
-  margin-top: 8px;
+  margin-top: 16px;
   display: flex;
   align-items: center;
 `;
@@ -59,7 +59,7 @@ export const ArticleImage = styled(Image)`
 `;
 
 export const Body = styled.div`
-  margin-top: 40px;
+  margin-top: 24px;
   ${longText()};
 `;
 

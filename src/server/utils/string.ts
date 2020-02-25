@@ -10,7 +10,10 @@ export const truncateString = (str: string, maxLength: number, pad = '...') => {
 export const formatLabel = (str: string) => {
   return str
     .replace(/[\s]+/g, '-')
-    .replace(/[\:|\/|?|\#|\[|\]|\@|\!|\$|\&|\'|\(|\)|\*|\+|\,|\;|\=]+/g, '')
+    .replace(
+      /[\:|\/|?|\#|\[|\]|\@|\!|\$|\&|\'|\(|\)|\*|\+|\,|\;|\=|\%|\„|\”|\.|\,]+/g,
+      '',
+    )
     .toLowerCase()
     .slice(0, 255);
 };

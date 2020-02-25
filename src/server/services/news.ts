@@ -81,7 +81,7 @@ export const getNewsChunk = async (
 
   return {
     items,
-    nextPage: items.length > postsPerPage,
+    nextPage: items.length >= postsPerPage,
   };
 };
 

@@ -22,22 +22,32 @@ export const Carousel = ({ items }: Props) => {
     setSelected(index);
   };
 
+  if (items && !items.length) return null;
+
+  const multipleItems = items && items.length > 1;
+
   return (
     <>
       <StyledCarousel>
         <Image alt={src} src={src} cache />
-        <Arrow className="arrow" onClick={onSwitchLeft} />
-        <Arrow className="arrow" onClick={onSwitchRight} right />
+        {multipleItems && (
+          <>
+            <Arrow className="arrow" onClick={onSwitchLeft} />
+            <Arrow className="arrow" onClick={onSwitchRight} right />
+          </>
+        )}
       </StyledCarousel>
-      <Controls>
-        {items.map((r, index) => (
-          <Control
-            key={r}
-            onClick={onControlClick(index)}
-            selected={r === src}
-          />
-        ))}
-      </Controls>
+      {multipleItems && (
+        <Controls>
+          {items.map((r, index) => (
+            <Control
+              key={r}
+              onClick={onControlClick(index)}
+              selected={r === src}
+            />
+          ))}
+        </Controls>
+      )}
     </>
   );
 };

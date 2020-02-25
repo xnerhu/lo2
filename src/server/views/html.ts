@@ -21,7 +21,7 @@ const fontsCss = `
   }
 `.replace(/\n|\s/g, '');
 
-export const htmlStartView = (state: IAppState) => {
+export const htmlStartView = () => {
   return `
    <!DOCTYPE html>
     <html lang="pl">
@@ -36,13 +36,6 @@ export const htmlStartView = (state: IAppState) => {
         <link rel="icon" type="image/png" href="/static/favicon.png" />
         <title>Publiczne Liceum Ogólnokształcące Nr 2 w Opolu z Oddziałami Dwujęzycznymi im. Marii Konopnickiej w Opolu.</title>
         <style type="text/css">${fontsCss}</style>
-        ${
-          state
-            ? `<script type="text/javascript">window.__APP_STATE__= ${JSON.stringify(
-                state,
-              ).replace(/</g, '\\u003c')}</script>`
-            : ''
-        }
       </head>
       <body>
         <noscript>
@@ -54,6 +47,14 @@ export const htmlStartView = (state: IAppState) => {
         <main id="app">`;
 };
 
-export const htmlEndView = (scripts: React.ReactNode) => {
-  return `</main>${scripts}</body></html>`;
+export const htmlEndView = (scripts: React.ReactNode, state: IAppState) => {
+  let stateHtml = '';
+
+  if (state) {
+    stateHtml = `<script type="text/javascript">window.__APP_STATE__= ${JSON.stringify(
+      state,
+    ).replace(/</g, '\\u003c')}</script>`;
+  }
+
+  return `</main>${stateHtml}${scripts}</body></html>`;
 };

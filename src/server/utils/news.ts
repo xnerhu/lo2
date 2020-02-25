@@ -18,6 +18,7 @@ export const formatArticle = (data: INews, full?: boolean) => {
     image,
     body: undefined,
     hasImage: undefined,
+    _authorSignature: undefined,
   } as INews;
 };
 

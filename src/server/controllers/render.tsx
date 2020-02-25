@@ -16,7 +16,7 @@ const statsFile = resolve('./build/client/static/loadable-stats.json');
 const router = Router();
 
 router.get('*', (req: IRequest, res, next) => {
-  res.type('html').write(htmlStartView(req.appState));
+  res.type('html').write(htmlStartView());
 
   const sheet = new ServerStyleSheet();
   const routerContext = {};
@@ -40,7 +40,9 @@ router.get('*', (req: IRequest, res, next) => {
 
   stream.pipe(res, { end: false });
 
-  stream.on('end', () => res.end(htmlEndView(extractor.getScriptTags())));
+  stream.on('end', () =>
+    res.end(htmlEndView(extractor.getScriptTags(), req.appState)),
+  );
 
   next();
 });

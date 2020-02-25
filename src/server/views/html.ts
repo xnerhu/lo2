@@ -30,6 +30,7 @@ export const htmlStartView = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content="plo2, opole, lo2, dwójka, dwojka, publiczne, liceum, drugie liceum, drugie, konopickiej, dwujęzyczna" />
         <meta name="og:image" property="og:image" content="/static/banner.jpg" />
+        <meta name="description" content="Oficjalna strona Dwójki." />
         <meta name="robots" content="index, follow" />
         <meta name="google-site-verification" content="kqoyKSVPjg08It3qpIJjnSj-iMvE4KF5ZJNwF8QnwUg" />
         <meta name="author" content="Mikołaj Palkiewicz" />

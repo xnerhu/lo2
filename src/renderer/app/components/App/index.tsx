@@ -1,13 +1,11 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import loadable, { Options } from '@loadable/component';
 
 import { Appbar } from '../Appbar';
 import { Footer } from '../Footer';
-import { useStore } from '../../store';
-import { IRouterProps } from '../../interfaces';
 import { Style } from '~/renderer/app/style';
 import { StyledApp } from './style';
 

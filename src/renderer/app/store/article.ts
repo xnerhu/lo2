@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 
 import { IAppState, INews, IArticlePagePacket } from '~/interfaces';
-import { callApi } from '../utils';
+import { callApi } from '../utils/network';
 
 export class ArticleStore {
   @observable

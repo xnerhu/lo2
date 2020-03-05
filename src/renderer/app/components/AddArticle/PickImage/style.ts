@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
-import {
-  aspectRatio,
-  centerIcon,
-  centerBoth,
-  noUserSelect,
-} from '~/renderer/mixins';
-import { STANDARD_RATIO, PRIMARY_COLOR, icons } from '~/renderer/constants';
+import { aspectRatio } from '~/renderer/mixins/box';
+import { STANDARD_RATIO, PRIMARY_COLOR } from '~/renderer/constants/design';
+import { centerIcon } from '~/renderer/mixins/images';
+import { centerBoth } from '~/renderer/mixins/positioning';
+import { noUserSelect } from '~/renderer/mixins/user-selection';
+import { IMAGE_OUTLINE_ICON, CLOSE_ICON } from '~/renderer/constants/icons';
 
 export const StyledImagePick = styled.div`
   width: 344px;
@@ -32,7 +31,7 @@ export const StyledImagePick = styled.div`
 export const ImageIcon = styled.div`
   width: 96px;
   height: 96px;
-  background-image: url(${icons.imageOutline});
+  background-image: url(${IMAGE_OUTLINE_ICON});
   pointer-events: none;
   opacity: 0.12;
   position: absolute;
@@ -56,7 +55,7 @@ export const ImagePreview = styled.img`
 export const DeleteIcon = styled.div`
   width: 32px;
   height: 32px;
-  background-image: url(${icons.close});
+  background-image: url(${CLOSE_ICON});
   position: absolute;
   top: 8px;
   right: 8px;

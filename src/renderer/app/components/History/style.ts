@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { robotoMedium } from '~/renderer/mixins';
+import { robotoMedium } from '~/renderer/mixins/typography';
 
 export const StyledHistory = styled.div`
   font-size: 16px;

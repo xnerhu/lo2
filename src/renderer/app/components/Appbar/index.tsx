@@ -2,8 +2,9 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '~/renderer/app/store';
-import { icons, navigationItems } from '~/renderer/constants';
 import { NavItem } from './NavItem';
+import { navigationItems } from '~/renderer/constants/navigation';
+import { BANNER_ICON } from '~/renderer/constants/icons';
 import {
   StyledAppbar,
   Banner,
@@ -38,7 +39,7 @@ export const Appbar = observer(() => {
             ))}
           </NavItems>
           <Banner to="/" aria-label="logo szkoły">
-            <BannerImg src={icons.banner} draggable={false} alt="logo szkoły" />
+            <BannerImg src={BANNER_ICON} draggable={false} alt="logo szkoły" />
           </Banner>
         </Container>
         <MenuIcon

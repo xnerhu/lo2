@@ -1,7 +1,7 @@
 import { Editor, Transforms, Range } from 'slate';
 
 import { IEditorSelectionFormat, IEditorListFormat } from '~/interfaces';
-import { EDITOR_LIST_TYPES } from '~/renderer/constants';
+import { EDITOR_LIST_TYPES } from '~/renderer/constants/rich-editor';
 
 export const isMarkActive = (
   editor: Editor,

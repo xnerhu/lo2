@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { NEWS_GRID_GAP } from '~/renderer/constants';
+import { NEWS_GRID_GAP } from '~/renderer/constants/design';
 
 export const NewsContainer = styled.div`
   width: 100%;

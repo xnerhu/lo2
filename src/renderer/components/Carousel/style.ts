@@ -1,13 +1,11 @@
 import styled, { css } from 'styled-components';
 
 import { Image as DynamicImage } from '~/renderer/components/Image';
-import { aspectRatio, centerVertical } from '~/renderer/mixins';
-import {
-  WIDE_RATIO,
-  STANDARD_RATIO,
-  icons,
-  transparency,
-} from '~/renderer/constants';
+import { aspectRatio } from '~/renderer/mixins/box';
+import { WIDE_RATIO, STANDARD_RATIO } from '~/renderer/constants/design';
+import { centerVertical } from '~/renderer/mixins/positioning';
+import { transparency } from '~/renderer/constants/transparency';
+import { CHEVRON_ICON } from '~/renderer/constants/icons';
 
 export const StyledCarousel = styled.div`
   border-radius: 16px;
@@ -88,7 +86,7 @@ export const Arrow = styled.div`
     display: block;
     width: 24px;
     height: 24px;
-    background-image: url(${icons.chevron});
+    background-image: url(${CHEVRON_ICON});
     opacity: ${transparency.icons.inactive};
     filter: invert(100%);
     transition: 0.1s opacity;

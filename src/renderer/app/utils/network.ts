@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { IS_BROWSER } from '~/renderer/constants';
+import { IS_BROWSER } from '~/renderer/constants/env';
 
 const fetched: string[] = [];
 

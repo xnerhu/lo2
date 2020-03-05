@@ -1,8 +1,8 @@
-import { hash, compare } from 'bcrypt';
+import { hash, compare } from 'bcryptjs';
 
 export const hashString = (value: string): Promise<string> => {
   return new Promise((resolve, reject) => {
-    hash(value, 12, (err, encrypted) => {
+    hash(value, 10, (err, encrypted) => {
       if (err) return reject(err);
       resolve(encrypted);
     });

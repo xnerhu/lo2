@@ -7,8 +7,8 @@ import {
   INewsChunk,
   INewsFilter,
 } from '~/interfaces';
-import { callApi } from '../utils';
 import { IDropDownItem } from '~/renderer/components/Dropdown';
+import { callApi } from '../utils/network';
 
 export class NewsStore {
   @observable

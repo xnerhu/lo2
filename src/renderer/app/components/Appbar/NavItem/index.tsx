@@ -2,10 +2,10 @@ import React from 'react';
 import { withRouter } from 'react-router';
 
 import { IRouterProps, INavItem } from '~/renderer/app/interfaces';
-import { isAppbarItemSelected } from '~/renderer/app/utils';
 import { Menu } from '../Menu';
 import { MenuItem } from '../Menu/style';
 import { StyledNavItem, ExpandIcon, Link } from './style';
+import { isAppbarItemSelected } from '~/renderer/app/utils/navigation';
 
 interface Props extends INavItem {
   onClick?: () => void;

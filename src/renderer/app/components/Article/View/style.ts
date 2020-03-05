@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { longText } from '~/renderer/mixins';
-import { transparency, PRIMARY_COLOR } from '~/renderer/constants';
 import { Image } from '~/renderer/components/Image';
+import { transparency } from '~/renderer/constants/transparency';
+import { PRIMARY_COLOR } from '~/renderer/constants/design';
+import { longText } from '~/renderer/mixins/typography';
 
 export const StyledView = styled.div`
   width: calc(100% - 64px);

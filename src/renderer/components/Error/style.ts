@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
-import { transparency, ERROR_COLOR } from '~/renderer/constants';
-import { robotoMedium, noUserSelect } from '~/renderer/mixins';
+import { transparency } from '~/renderer/constants/transparency';
+import { robotoMedium } from '~/renderer/mixins/typography';
+import { noUserSelect } from '~/renderer/mixins/user-selection';
+import { ERROR_COLOR } from '~/renderer/constants/design';
 
 export const StyledError = styled.div`
   width: 100%;

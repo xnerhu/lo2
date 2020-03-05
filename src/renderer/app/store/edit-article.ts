@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 
 import { IEditArticleItem, IAppState, IEditArticlePacket } from '~/interfaces';
-import { callApi } from '../utils';
+import { callApi } from '../utils/network';
 
 export class EditArticleStore {
   @observable

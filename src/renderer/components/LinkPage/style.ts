@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 
 import { Link } from '../Link';
-import {
-  CARD_SHADOW,
-  icons,
-  transparency,
-  PRIMARY_COLOR,
-} from '~/renderer/constants';
-import { centerIcon } from '~/renderer/mixins';
+import { CARD_SHADOW, PRIMARY_COLOR } from '~/renderer/constants/design';
+import { transparency } from '~/renderer/constants/transparency';
+import { centerIcon } from '~/renderer/mixins/images';
+import { LINK_ICON } from '~/renderer/constants/icons';
 
 export const Card = styled(Link)`
   width: 100%;
@@ -37,7 +34,7 @@ export const Card = styled(Link)`
     width: 24px;
     height: 24px;
     margin-right: 12px;
-    background-image: url(${icons.link});
+    background-image: url(${LINK_ICON});
     opacity: ${transparency.icons.disabled};
     ${centerIcon()};
   }

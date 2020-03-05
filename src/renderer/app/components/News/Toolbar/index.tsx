@@ -2,11 +2,11 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { withRouter, Link } from 'react-router-dom';
 
-import { stringifyNewsFilter } from '~/renderer/app/utils';
 import { useStore } from '~/renderer/app/store';
 import { Dropdown, IDropDownItem } from '~/renderer/components/Dropdown';
 import { IRouterProps } from '~/renderer/app/interfaces';
 import { INewsFilter } from '~/interfaces';
+import { stringifyNewsFilter } from '~/renderer/app/utils/news';
 import { StyledToolbar, Button } from './style';
 
 interface Props {

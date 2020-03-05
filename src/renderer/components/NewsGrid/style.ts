@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { NEWS_GRID_GAP } from '~/renderer/constants';
+import { NEWS_GRID_GAP } from '~/renderer/constants/design';
 
 const showLastCard = css`
   & > .news-card:last-child {

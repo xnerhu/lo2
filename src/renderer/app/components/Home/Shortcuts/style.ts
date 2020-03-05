@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
-import { PRIMARY_COLOR } from '~/renderer/constants';
-import { centerIcon } from '~/renderer/mixins';
 import { Link } from '~/renderer/components/Link';
+import { PRIMARY_COLOR } from '~/renderer/constants/design';
+import { centerIcon } from '~/renderer/mixins/images';
 
 export const Container = styled.div`
   width: fit-content;

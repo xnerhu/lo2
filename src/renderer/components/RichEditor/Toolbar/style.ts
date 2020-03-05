@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
 
-import { transparency, PRIMARY_COLOR, MOBILE_VIEW } from '~/renderer/constants';
-import { centerIcon, centerBoth } from '~/renderer/mixins';
+import { MOBILE_VIEW, PRIMARY_COLOR } from '~/renderer/constants/design';
+import { transparency } from '~/renderer/constants/transparency';
+import { centerIcon } from '~/renderer/mixins/images';
+import { centerBoth } from '~/renderer/mixins/positioning';
 
 export const StyledToolbar = styled.div`
   width: 100%;

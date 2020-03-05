@@ -1,15 +1,9 @@
 import { css } from 'styled-components';
 
-import {
-  BACKGROUND_COLOR,
-  PRIMARY_COLOR,
-  transparency,
-  icons,
-} from '../constants';
+import { BACKGROUND_COLOR, PRIMARY_COLOR } from '../constants/design';
 import {
   body2,
   robotoRegular,
-  noUserSelect,
   robotoMedium,
   h6,
   h5,
@@ -17,10 +11,12 @@ import {
   h3,
   h2,
   h1,
-  noTapHighlight,
-  noButtons,
-  centerIcon,
-} from '~/renderer/mixins';
+} from '../mixins/typography';
+import { noTapHighlight, noUserSelect } from '../mixins/user-selection';
+import { noButtons } from '../mixins/scroll';
+import { transparency } from '../constants/transparency';
+import { centerIcon } from '../mixins/images';
+import { FORMAT_QUOTE_ICON } from '../constants/icons';
 
 export const Style = css`
   html,
@@ -127,7 +123,7 @@ export const Style = css`
       width: 20px;
       height: 20px;
       margin-right: 4px;
-      background-image: url(${icons.formatQuote});
+      background-image: url(${FORMAT_QUOTE_ICON});
       opacity: ${transparency.icons.disabled};
       ${centerIcon()};
       ${noUserSelect()}

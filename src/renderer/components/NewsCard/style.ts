@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import {
-  transparency,
   CARD_SHADOW,
-  PRIMARY_COLOR,
   EASING_FUNCTION,
-} from '~/renderer/constants';
-import { noUserSelect, overline, robotoMedium } from '~/renderer/mixins';
+  PRIMARY_COLOR,
+} from '~/renderer/constants/design';
+import { transparency } from '~/renderer/constants/transparency';
+import { overline, robotoMedium } from '~/renderer/mixins/typography';
+import { noUserSelect } from '~/renderer/mixins/user-selection';
 
 export const StyledNewsCard = styled(Link)`
   width: 100%;

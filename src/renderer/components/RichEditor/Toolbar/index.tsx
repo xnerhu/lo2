@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSlate, useEditor } from 'slate-react';
 
-import { icons } from '~/renderer/constants';
 import { IEditorSelectionFormat } from '~/interfaces';
 import {
   isBlockActive,
@@ -12,8 +11,25 @@ import {
   unwrapLink,
   insertImage,
 } from '~/renderer/app/utils/rich-editor';
-import { StyledToolbar, StyledButton, StyledDivider } from './style';
 import { readFileAsImage } from '~/renderer/app/utils/image';
+import {
+  FORMAT_LINK_ICON,
+  FORMAT_LINK_OFF_ICON,
+  FORMAT_BOLD_ICON,
+  FORMAT_CODE_ICON,
+  FORMAT_QUOTE_ICON,
+  LIST_NUMBERED_ICON,
+  FORMAT_ITALIC_ICON,
+  FORMAT_UNDERLINE_ICON,
+  FORMAT_COLOR_HIGHLIGHT_ICON,
+  FORMAT_HEADER_4_ICON,
+  FORMAT_ALIGN_LEFT_ICON,
+  FORMAT_ALIGN_CENTER_ICON,
+  FORMAT_ALIGN_RIGHT_ICON,
+  LIST_BULLETED_ICON,
+  IMAGE_ICON,
+} from '~/renderer/constants/icons';
+import { StyledToolbar, StyledButton, StyledDivider } from './style';
 
 interface ButtonProps {
   format: IEditorSelectionFormat;
@@ -65,7 +81,7 @@ const LinkButton = () => {
     <StyledButton
       onClick={onClick}
       active={active}
-      icon={active ? icons.formatLinkOff : icons.formatLink}
+      icon={active ? FORMAT_LINK_OFF_ICON : FORMAT_LINK_ICON}
     />
   );
 };
@@ -92,7 +108,7 @@ const ImageButton = () => {
 
   return (
     <>
-      <StyledButton onClick={onClick} active={false} icon={icons.image} />
+      <StyledButton onClick={onClick} active={false} icon={IMAGE_ICON} />
       <input
         ref={fileInputRef}
         onChange={onImageUpload}
@@ -124,29 +140,29 @@ export const Toolbar = () => {
 
   return (
     <StyledToolbar onMouseDown={onMouseDown}>
-      <Button format="bold" icon={icons.formatBold} />
-      <Button format="italic" icon={icons.formatItalic} />
-      <Button format="underline" icon={icons.formatUnderline} />
-      <Button format="color-highlight" icon={icons.formatColorHighlight} />
+      <Button format="bold" icon={FORMAT_BOLD_ICON} />
+      <Button format="italic" icon={FORMAT_ITALIC_ICON} />
+      <Button format="underline" icon={FORMAT_UNDERLINE_ICON} />
+      <Button format="color-highlight" icon={FORMAT_COLOR_HIGHLIGHT_ICON} />
       <Divider />
       <LinkButton />
-      <Button format="h4" icon={icons.formatHeader4} block />
+      <Button format="h4" icon={FORMAT_HEADER_4_ICON} block />
       <ImageButton />
       <Divider />
       <Button
         format="align-left"
-        icon={icons.formatAlignLeft}
+        icon={FORMAT_ALIGN_LEFT_ICON}
         isActive={isAlignLeftActive}
         block
       />
-      <Button format="align-center" icon={icons.formatAlignCenter} block />
-      <Button format="align-right" icon={icons.formatAlignRight} block />
+      <Button format="align-center" icon={FORMAT_ALIGN_CENTER_ICON} block />
+      <Button format="align-right" icon={FORMAT_ALIGN_RIGHT_ICON} block />
       <Divider />
-      <Button format="code" icon={icons.formatCode} />
-      <Button format="block-quote" icon={icons.formatQuote} block />
+      <Button format="code" icon={FORMAT_CODE_ICON} />
+      <Button format="block-quote" icon={FORMAT_QUOTE_ICON} block />
       <Divider />
-      <Button format="list-numbered" icon={icons.listNumbered} block />
-      <Button format="list-bulleted" icon={icons.listBulleted} block />
+      <Button format="list-numbered" icon={LIST_NUMBERED_ICON} block />
+      <Button format="list-bulleted" icon={LIST_BULLETED_ICON} block />
     </StyledToolbar>
   );
 };

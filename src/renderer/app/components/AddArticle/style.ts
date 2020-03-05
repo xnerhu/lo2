@@ -1,20 +1,10 @@
 import styled from 'styled-components';
 
 import { Input as GreyInput } from '~/renderer/components/Input';
-import {
-  transparency,
-  STANDARD_RATIO,
-  icons,
-  PRIMARY_COLOR,
-} from '~/renderer/constants';
-import {
-  aspectRatio,
-  centerIcon,
-  centerBoth,
-  noUserSelect,
-} from '~/renderer/mixins';
-import { buttonBase, RaisedButton } from '~/renderer/components/Button';
+import { RaisedButton } from '~/renderer/components/Button';
 import { ErrorLabel as StyledErrorLabel } from '~/renderer/components/Error';
+import { PRIMARY_COLOR } from '~/renderer/constants/design';
+import { transparency } from '~/renderer/constants/transparency';
 
 export const Input = styled(GreyInput)`
   height: 64px;

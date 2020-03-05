@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { icons } from '~/renderer/constants';
 import { StyledDropdown, Label, DropIcon, Menu, MenuItem } from './style';
 
 export type IDropDownItem<T = {}> = {

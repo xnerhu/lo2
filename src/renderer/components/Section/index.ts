@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
 
-import { noUserSelect, robotoMedium } from '~/renderer/mixins';
-import { CONTENT_WIDTH } from '~/renderer/constants';
+import { CONTENT_WIDTH } from '~/renderer/constants/design';
+import { robotoMedium } from '~/renderer/mixins/typography';
+import { noUserSelect } from '~/renderer/mixins/user-selection';
 
 export const Content = styled.div`
   width: 100%;

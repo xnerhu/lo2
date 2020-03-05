@@ -62,17 +62,10 @@ const clientConfig = getConfig(getBaseConfig(), {
               },
               compress: {
                 ecma: 5,
-                warnings: false,
-                comparisons: false,
-                inline: 2,
-              },
-              mangle: {
-                safari10: true,
               },
               output: {
                 ecma: 5,
                 comments: false,
-                ascii_only: true, // eslint-disable-line
               },
             },
             parallel: true,

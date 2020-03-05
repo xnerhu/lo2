@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Link } from '~/renderer/components/Link';
-import { shadows } from '~/renderer/mixins';
+import { shadows } from '~/renderer/mixins/shadows';
 
 export const StyledMenu = styled.div`
   width: 256px;

@@ -1,36 +1,34 @@
-export const icons = {
-  facebook: require('~/renderer/resources/icons/facebook.svg'),
-  youtube: require('~/renderer/resources/icons/youtube.svg'),
-  menu: require('~/renderer/resources/icons/menu.svg'),
-  location: require('~/renderer/resources/icons/location.svg'),
-  locationOutline: require('~/renderer/resources/icons/location-outline.svg'),
-  replacement: require('~/renderer/resources/icons/replacement.svg'),
-  plan: require('~/renderer/resources/icons/plan.svg'),
-  register: require('~/renderer/resources/icons/register.svg'),
-  chevron: require('~/renderer/resources/icons/chevron.svg'),
-  drop: require('~/renderer/resources/icons/drop.svg'),
-  banner: require('~/renderer/resources/icons/banner.svg'),
-  close: require('~/renderer/resources/icons/close.svg'),
-  link: require('~/renderer/resources/icons/link.svg'),
-  formatBold: require('~/renderer/resources/icons/format-bold.svg'),
-  formatUnderline: require('~/renderer/resources/icons/format-underline.svg'),
-  formatItalic: require('~/renderer/resources/icons/format-italic.svg'),
-  formatCode: require('~/renderer/resources/icons/format-code.svg'),
-  formatQuote: require('~/renderer/resources/icons/format-quote.svg'),
-  listNumbered: require('~/renderer/resources/icons/list-numbered.svg'),
-  listBulleted: require('~/renderer/resources/icons/list-bulleted.svg'),
-  formatAlignLeft: require('~/renderer/resources/icons/format-align-left.svg'),
-  formatAlignCenter: require('~/renderer/resources/icons/format-align-center.svg'),
-  formatAlignRight: require('~/renderer/resources/icons/format-align-right.svg'),
-  formatHeader4: require('~/renderer/resources/icons/format-header-4.svg'),
-  formatColorHighlight: require('~/renderer/resources/icons/format-color-highlight.svg'),
-  formatLink: require('~/renderer/resources/icons/format-link.svg'),
-  formatLinkOff: require('~/renderer/resources/icons/format-link-off.svg'),
-  image: require('~/renderer/resources/icons/image.svg'),
-  addArticle: require('~/renderer/resources/icons/add-article.svg'),
-  logout: require('~/renderer/resources/icons/logout.svg'),
-  key: require('~/renderer/resources/icons/key.svg'),
-  account: require('~/renderer/resources/icons/account.svg'),
-  imageOutline: require('~/renderer/resources/icons/image-outline.svg'),
-  more: require('~/renderer/resources/icons/more.svg'),
-};
+export const FACEBOOK_ICON = require('~/renderer/resources/icons/facebook.svg');
+export const YOUTUBE_ICON = require('~/renderer/resources/icons/youtube.svg');
+export const MENU_ICON = require('~/renderer/resources/icons/menu.svg');
+export const LOCATION_ICON = require('~/renderer/resources/icons/location.svg');
+export const LOCATION_OUTLINE_ICON = require('~/renderer/resources/icons/location-outline.svg');
+export const REPLACEMENT_ICON = require('~/renderer/resources/icons/replacement.svg');
+export const PLAN_ICON = require('~/renderer/resources/icons/plan.svg');
+export const REGISTER_ICON = require('~/renderer/resources/icons/register.svg');
+export const CHEVRON_ICON = require('~/renderer/resources/icons/chevron.svg');
+export const DROP_ICON = require('~/renderer/resources/icons/drop.svg');
+export const BANNER_ICON = require('~/renderer/resources/icons/banner.svg');
+export const CLOSE_ICON = require('~/renderer/resources/icons/close.svg');
+export const LINK_ICON = require('~/renderer/resources/icons/link.svg');
+export const FORMAT_BOLD_ICON = require('~/renderer/resources/icons/format-bold.svg');
+export const FORMAT_UNDERLINE_ICON = require('~/renderer/resources/icons/format-underline.svg');
+export const FORMAT_ITALIC_ICON = require('~/renderer/resources/icons/format-italic.svg');
+export const FORMAT_CODE_ICON = require('~/renderer/resources/icons/format-code.svg');
+export const FORMAT_QUOTE_ICON = require('~/renderer/resources/icons/format-quote.svg');
+export const FORMAT_HEADER_4_ICON = require('~/renderer/resources/icons/format-header-4.svg');
+export const FORMAT_COLOR_HIGHLIGHT_ICON = require('~/renderer/resources/icons/format-color-highlight.svg');
+export const FORMAT_LINK_ICON = require('~/renderer/resources/icons/format-link.svg');
+export const FORMAT_LINK_OFF_ICON = require('~/renderer/resources/icons/format-link-off.svg');
+export const FORMAT_ALIGN_LEFT_ICON = require('~/renderer/resources/icons/format-align-left.svg');
+export const FORMAT_ALIGN_CENTER_ICON = require('~/renderer/resources/icons/format-align-center.svg');
+export const FORMAT_ALIGN_RIGHT_ICON = require('~/renderer/resources/icons/format-align-right.svg');
+export const LIST_NUMBERED_ICON = require('~/renderer/resources/icons/list-numbered.svg');
+export const LIST_BULLETED_ICON = require('~/renderer/resources/icons/list-bulleted.svg');
+export const IMAGE_ICON = require('~/renderer/resources/icons/image.svg');
+export const IMAGE_OUTLINE_ICON = require('~/renderer/resources/icons/image-outline.svg');
+export const ADD_ARTICLE_ICON = require('~/renderer/resources/icons/add-article.svg');
+export const LOGOUT_ICON = require('~/renderer/resources/icons/logout.svg');
+export const KEY_ICON = require('~/renderer/resources/icons/key.svg');
+export const ACCOUNT_ICON = require('~/renderer/resources/icons/account.svg');
+export const MORE_ICON = require('~/renderer/resources/icons/more.svg');

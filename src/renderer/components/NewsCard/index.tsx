@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import { formatDate } from '~/renderer/app/utils';
 import { INews } from '~/interfaces';
 import { Image } from '../Image';
 import { IRouterProps } from '~/renderer/app/interfaces';
+import { formatDate } from '~/renderer/app/utils/date';
 import {
   StyledNewsCard,
   Wrapper,

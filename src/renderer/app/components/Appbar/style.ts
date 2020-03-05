@@ -1,16 +1,18 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import { Content } from '~/renderer/components/Section';
 import {
-  icons,
+  APPBAR_DESKTOP_HEIGHT,
+  EASING_FUNCTION,
   APPBAR_MOBILE_VIEW,
   CARD_SHADOW,
-  EASING_FUNCTION,
-  APPBAR_DESKTOP_HEIGHT,
   APPBAR_MOBILE_HEIGHT,
-} from '~/renderer/constants';
-import { Content } from '~/renderer/components/Section';
-import { centerIcon, noUserSelect, centerVertical } from '~/renderer/mixins';
+} from '~/renderer/constants/design';
+import { noUserSelect } from '~/renderer/mixins/user-selection';
+import { centerIcon } from '~/renderer/mixins/images';
+import { centerVertical } from '~/renderer/mixins/positioning';
+import { MENU_ICON, CLOSE_ICON } from '~/renderer/constants/icons';
 
 const appbarTransition = '0.2s box-shadow';
 
@@ -121,7 +123,7 @@ export const MenuIcon = styled.div`
   ${centerVertical()};
 
   ${({ expanded }: { expanded: boolean }) => css`
-    background-image: url(${expanded ? icons.close : icons.menu});
+    background-image: url(${expanded ? CLOSE_ICON : MENU_ICON});
   `}
 
   &:hover {

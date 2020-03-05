@@ -6,9 +6,9 @@ import { History } from 'history';
 import { IRouterProps } from '~/renderer/app/interfaces';
 import { INewsFilter } from '~/interfaces';
 import { useStore } from '~/renderer/app/store';
-import { stringifyNewsFilter } from '~/renderer/app/utils';
 import { Button } from '~/renderer/components/Button';
-import { icons } from '~/renderer/constants';
+import { stringifyNewsFilter } from '~/renderer/app/utils/news';
+import { CHEVRON_ICON } from '~/renderer/constants/icons';
 import { StyledPagination } from './style';
 
 interface Props {
@@ -51,7 +51,7 @@ export const Pagination = withRouter(
         <Button
           onClick={onNewer}
           disabled={page === 1}
-          icon={icons.chevron}
+          icon={CHEVRON_ICON}
           reversedIcon
         >
           Nowsze
@@ -59,7 +59,7 @@ export const Pagination = withRouter(
         <Button
           onClick={onOlder}
           disabled={!store.news.nextPage}
-          icon={icons.chevron}
+          icon={CHEVRON_ICON}
         >
           Starsze
         </Button>

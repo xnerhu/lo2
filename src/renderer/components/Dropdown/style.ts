@@ -1,14 +1,13 @@
 import styled, { css } from 'styled-components';
 
-import {
-  noUserSelect,
-  singleLine,
-  shadows,
-  noButtons,
-  centerIcon,
-  robotoMedium,
-} from '~/renderer/mixins';
-import { transparency, icons, EASING_FUNCTION } from '~/renderer/constants';
+import { noUserSelect } from '~/renderer/mixins/user-selection';
+import { robotoMedium, singleLine } from '~/renderer/mixins/typography';
+import { transparency } from '~/renderer/constants/transparency';
+import { EASING_FUNCTION } from '~/renderer/constants/design';
+import { centerIcon } from '~/renderer/mixins/images';
+import { shadows } from '~/renderer/mixins/shadows';
+import { noButtons } from '~/renderer/mixins/scroll';
+import { DROP_ICON } from '~/renderer/constants/icons';
 
 export const StyledDropdown = styled.div`
   cursor: pointer;
@@ -34,7 +33,7 @@ export const DropIcon = styled.div`
   margin-left: 2px;
   opacity: ${transparency.icons.inactive};
   transition: 0.2s ${EASING_FUNCTION} transform;
-  background-image: url(${icons.drop});
+  background-image: url(${DROP_ICON});
   border-radius: 100%;
   ${centerIcon(20)};
 

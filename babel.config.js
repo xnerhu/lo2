@@ -27,7 +27,7 @@ const plugins = [
   getStyledComponentsPlugin(),
   '@babel/plugin-transform-runtime',
   ['@babel/plugin-proposal-decorators', { legacy: true }],
-  '@babel/plugin-proposal-class-properties',
+  ['@babel/plugin-proposal-class-properties', { loose: true }],
   '@babel/plugin-syntax-dynamic-import',
   'react-hot-loader/babel',
   '@loadable/babel-plugin',

@@ -9,8 +9,8 @@ import {
   FlatButton,
 } from '~/renderer/components/Button';
 import { useStore } from '~/renderer/app/store';
-import { callApi } from '~/renderer/app/utils';
 import { IDeleteArticleRes } from '~/interfaces';
+import { callApi } from '~/renderer/app/utils/network';
 import { Background, StyledDialog, Title, DialogButtons } from './style';
 
 const Buttons = observer(({ onDeleteClick }: { onDeleteClick: () => void }) => {

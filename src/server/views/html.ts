@@ -1,5 +1,5 @@
 import { IAppState } from '~/interfaces';
-import { fonts } from '~/renderer/constants';
+import { fonts } from '~/renderer/constants/fonts';
 
 const fallBack = 'font-display: swap;';
 

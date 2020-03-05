@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 
 import { IUser, IAuthLoginRes, IAppState } from '~/interfaces';
-import { callApi } from '../utils';
+import { callApi } from '../utils/network';
 
 export class AccountStore {
   @observable

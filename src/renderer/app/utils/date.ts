@@ -1,5 +1,5 @@
 import { INews } from '~/interfaces';
-import { SHORT_MONTHS } from '~/renderer/constants';
+import { SHORT_MONTHS } from '~/renderer/constants/date';
 
 export const formatDate = (date: Date | string) => {
   const _date = typeof date === 'string' ? new Date(date) : date;

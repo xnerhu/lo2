@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
 
-import { transparency, icons, APPBAR_MOBILE_VIEW } from '~/renderer/constants';
-import { centerIcon, robotoMedium } from '~/renderer/mixins';
 import { Link as DynamicLink } from '~/renderer/components/Link';
+import { transparency } from '~/renderer/constants/transparency';
+import { APPBAR_MOBILE_VIEW } from '~/renderer/constants/design';
+import { robotoMedium } from '~/renderer/mixins/typography';
+import { centerIcon } from '~/renderer/mixins/images';
+import { CHEVRON_ICON } from '~/renderer/constants/icons';
 
 export const StyledNavItem = styled.div`
   display: flex;
@@ -70,7 +73,7 @@ export const ExpandIcon = styled.div`
   width: 20px;
   height: 20px;
   opacity: ${transparency.icons.disabled};
-  background-image: url(${icons.chevron});
+  background-image: url(${CHEVRON_ICON});
   margin-left: 4px;
   margin-right: 8px;
   transform: rotate(90deg);

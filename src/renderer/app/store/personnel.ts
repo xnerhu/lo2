@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 
 import { IAppState, IPersonnelSection, IPersonnelPacket } from '~/interfaces';
-import { callApi } from '../utils';
+import { callApi } from '../utils/network';
 
 export class PersonnelStore {
   @observable

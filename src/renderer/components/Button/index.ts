@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
 
-import { PRIMARY_COLOR, transparency, ERROR_COLOR } from '~/renderer/constants';
-import { noUserSelect, robotoMedium, centerIcon } from '~/renderer/mixins';
 import { Link } from '../Link';
+import { robotoMedium } from '~/renderer/mixins/typography';
+import { noUserSelect } from '~/renderer/mixins/user-selection';
+import { PRIMARY_COLOR, ERROR_COLOR } from '~/renderer/constants/design';
+import { transparency } from '~/renderer/constants/transparency';
+import { centerIcon } from '~/renderer/mixins/images';
 
 export const buttonBase = css`
   width: fit-content;

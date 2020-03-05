@@ -1,6 +1,9 @@
 import { css } from 'styled-components';
 
-export const centerIcon = (size: number | 'contain' = 'contain', useMask = false) => {
+export const centerIcon = (
+  size: number | 'contain' = 'contain',
+  useMask = false,
+) => {
   let s: string = size.toString();
 
   if (typeof size === 'number') s += 'px';
@@ -11,7 +14,7 @@ export const centerIcon = (size: number | 'contain' = 'contain', useMask = false
     ${prefix}-size: ${s} ${size === 'contain' ? '' : 'auto'};
     ${prefix}-position: center;
     ${prefix}-repeat: no-repeat;
-`;
+  `;
 };
 
 export const customImage = (

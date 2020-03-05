@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Editable as EditableArea } from 'slate-react';
 
-import { PRIMARY_COLOR, ERROR_COLOR } from '~/renderer/constants';
+import { ERROR_COLOR, PRIMARY_COLOR } from '~/renderer/constants/design';
 
 export const Container = styled.div`
   ${({ error }: { error: boolean }) => css`

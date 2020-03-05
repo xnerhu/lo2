@@ -1,8 +1,8 @@
-const { hash } = require('bcrypt');
+const { hash } = require('bcryptjs');
 
 (() => {
   const password = process.argv[2];
-  let rounds = 12;
+  let rounds = 10;
 
   if (!password) {
     return console.log('Please, enter a password as an argument');

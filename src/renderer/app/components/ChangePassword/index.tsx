@@ -13,7 +13,7 @@ import {
   FormContent,
   SubmitButton,
 } from '~/renderer/components/Form';
-import { callApi } from '../../utils';
+import { callApi } from '../../utils/network';
 
 export default withRouter(
   observer(({ history }: IRouterProps) => {

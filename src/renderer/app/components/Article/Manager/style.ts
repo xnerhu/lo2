@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
 
-import { CARD_SHADOW } from '~/renderer/constants';
-import { robotoMedium, noUserSelect } from '~/renderer/mixins';
+import { CARD_SHADOW } from '~/renderer/constants/design';
+import { robotoMedium } from '~/renderer/mixins/typography';
+import { noUserSelect } from '~/renderer/mixins/user-selection';
 
 export const Background = styled.div`
   width: 100%;

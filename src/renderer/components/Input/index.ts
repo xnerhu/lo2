@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-import { noUserSelect } from '~/renderer/mixins';
-import { ERROR_COLOR } from '~/renderer/constants';
+import { ERROR_COLOR } from '~/renderer/constants/design';
+import { noUserSelect } from '~/renderer/mixins/user-selection';
 
 export const Input = styled.input`
   width: 100%;

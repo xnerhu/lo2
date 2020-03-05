@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
-import { robotoMedium, centerIcon, centerBoth } from '~/renderer/mixins';
-import { transparency, icons, FOOTER_MOBILE_VIEW } from '~/renderer/constants';
 import { Link as DynamicLink } from '~/renderer/components/Link';
+import { robotoMedium } from '~/renderer/mixins/typography';
+import { FOOTER_MOBILE_VIEW } from '~/renderer/constants/design';
+import { transparency } from '~/renderer/constants/transparency';
+import { centerIcon } from '~/renderer/mixins/images';
+import { centerBoth } from '~/renderer/mixins/positioning';
+import { FACEBOOK_ICON, YOUTUBE_ICON } from '~/renderer/constants/icons';
 
 export const StyledFooter = styled.footer`
   width: 100%;
@@ -115,12 +119,12 @@ export const Icon = styled.a`
 `;
 
 export const FacebookIcon = styled(Icon)`
-  background-image: url(${icons.facebook});
+  background-image: url(${FACEBOOK_ICON});
   ${centerIcon(14)};
 `;
 
 export const YoutubeIcon = styled(Icon)`
-  background-image: url(${icons.youtube});
+  background-image: url(${YOUTUBE_ICON});
 `;
 
 export const Copyright = styled.a`

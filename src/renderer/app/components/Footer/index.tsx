@@ -1,9 +1,13 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { FACEBOOK_URL, YOUTUBE_URL, STATUE_URL } from '~/renderer/constants';
 import { Content } from '~/renderer/components/Section';
 import { useStore } from '~/renderer/app/store';
+import {
+  STATUE_URL,
+  FACEBOOK_URL,
+  YOUTUBE_URL,
+} from '~/renderer/constants/env';
 import {
   StyledFooter,
   Title,

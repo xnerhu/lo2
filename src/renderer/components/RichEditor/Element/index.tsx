@@ -2,7 +2,7 @@ import React from 'react';
 import { RenderElementProps, useFocused, useSelected } from 'slate-react';
 
 import { IEditorSelectionFormat } from '~/interfaces';
-import { PRIMARY_COLOR } from '~/renderer/constants';
+import { PRIMARY_COLOR } from '~/renderer/constants/design';
 
 export const Element = (props: RenderElementProps) => {
   const { attributes, children, element } = props;

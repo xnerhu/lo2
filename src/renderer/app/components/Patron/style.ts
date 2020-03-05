@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { longText } from '~/renderer/mixins';
-import { MOBILE_VIEW } from '~/renderer/constants';
 import { Image as DynamicImage } from '~/renderer/components/Image';
+import { MOBILE_VIEW } from '~/renderer/constants/design';
+import { longText } from '~/renderer/mixins/typography';
 
 export const Container = styled.div`
   width: 100%;

@@ -2,9 +2,9 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import loadable, { Options } from '@loadable/component';
 
-import { formatArticleDate } from '~/renderer/app/utils';
 import { Error } from '~/renderer/components/Error';
 import { useStore } from '~/renderer/app/store';
+import { formatArticleDate } from '~/renderer/app/utils/date';
 import {
   StyledView,
   Info,

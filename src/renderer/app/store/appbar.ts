@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
 
-import { IS_BROWSER, APPBAR_MOBILE_VIEW } from '~/renderer/constants';
+import { IS_BROWSER } from '~/renderer/constants/env';
+import { APPBAR_MOBILE_VIEW } from '~/renderer/constants/design';
 
 export class AppbarStore {
   @observable

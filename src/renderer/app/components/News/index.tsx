@@ -10,9 +10,13 @@ import { NewsGrid } from '~/renderer/components/NewsGrid';
 import { Toolbar } from './Toolbar';
 import { Pagination } from './Pagination';
 import { Error } from '~/renderer/components/Error';
+import { usePage } from '../../utils/hooks';
 
 export default withRouter(
   observer((props: IRouterProps) => {
+    const data = usePage('news', 'newsPage');
+    console.log(data);
+
     const store = useStore();
     const { match } = props;
 

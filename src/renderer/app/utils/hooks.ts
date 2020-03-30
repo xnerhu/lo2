@@ -6,10 +6,15 @@ import { IAppState } from '~/interfaces';
 
 const cache = new Map<string, any>();
 
-export const usePage = <T>(name: string, property: keyof IAppState) => {
+export const usePage = <T>(
+  name: string,
+  appStateProperty?: keyof IAppState,
+) => {
   const appState = useAppState();
   const cached = cache.get(name);
-  const [state, setState] = useState(appState[property] || cached);
+  const [state, setState] = useState(
+    (appStateProperty && appState[appStateProperty]) || cached,
+  );
 
   if (state && !cached) {
     cache.set(name, state);

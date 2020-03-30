@@ -13,7 +13,6 @@ import { EditArticleStore } from './edit-article';
 
 class Store {
   public appbar = new AppbarStore();
-  public home = new HomeStore();
   public news = new NewsStore();
   public article = new ArticleStore();
   public personnel = new PersonnelStore();
@@ -25,7 +24,6 @@ class Store {
 
   constructor(state?: IAppState) {
     if (typeof state === 'object') {
-      this.home.inject(state);
       this.news.inject(state);
       this.article.inject(state);
       this.personnel.inject(state);

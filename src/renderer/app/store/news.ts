@@ -31,6 +31,7 @@ export class NewsStore {
   protected categoriesLoaded = false;
 
   public inject({ newsPage, addArticlePage }: IAppState) {
+    return;
     if (newsPage) {
       this.updateNews(newsPage.news);
       this.updateCategories(newsPage.categories);
@@ -40,12 +41,14 @@ export class NewsStore {
   }
 
   public async fetchNews(filter: INewsFilter = {}) {
+    return;
     const data = await callApi<INewsChunk>('news', filter);
 
     this.updateNews(data);
   }
 
   public async fetchCategories() {
+    return;
     if (!this.categoriesLoaded) {
       this.categoriesLoaded = true;
 
@@ -57,6 +60,7 @@ export class NewsStore {
 
   @action
   protected updateNews(data: INewsChunk) {
+    return;
     const { items, nextPage } = data;
 
     this.items = items;
@@ -66,6 +70,7 @@ export class NewsStore {
 
   @action
   protected updateCategories(items: INewsCategory[]) {
+    return;
     this.dropdownItems = [
       ...this.dropdownItems,
       ...items.map(r => {

@@ -100,6 +100,8 @@ router.get('/*', async (req: IRequest, res, next) => {
     req.appState = { ...req.appState, user: req.user };
   }
 
+  req.appState = { ...req.appState, signedIn: req.appState.user != null };
+
   next();
 });
 

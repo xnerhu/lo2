@@ -16,4 +16,5 @@ export interface IAppState {
   addArticlePage?: IAddArticlePacket;
   editArticlePage?: IEditArticlePacket;
   user?: IUser;
+  signedIn?: boolean;
 }

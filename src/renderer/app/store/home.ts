@@ -13,6 +13,7 @@ export class HomeStore {
   protected loaded = false;
 
   public inject({ homePage }: IAppState) {
+    return;
     if (homePage) {
       this.update(homePage);
       this.loaded = true;
@@ -20,6 +21,7 @@ export class HomeStore {
   }
 
   public async fetch() {
+    return;
     if (!this.loaded) {
       this.loaded = true;
 
@@ -31,6 +33,7 @@ export class HomeStore {
 
   @action
   protected update({ news, sliderItems }: IHomePagePacket) {
+    return;
     this.newsItems = news;
     this.sliderItems = sliderItems;
   }

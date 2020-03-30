@@ -1,12 +1,12 @@
 import React from 'react';
 
+import { Item } from '../Shortcuts';
 import {
   ADD_ARTICLE_ICON,
   KEY_ICON,
   ACCOUNT_ICON,
   LOGOUT_ICON,
 } from '~/renderer/constants/icons';
-import { Item } from '../Shortcuts';
 
 export default () => {
   return (

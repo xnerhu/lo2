@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { observable } from 'mobx';
 import { useLocalStore } from 'mobx-react-lite';
 
@@ -62,4 +62,22 @@ export const useStore = () => {
   }
 
   return store;
+};
+
+/*=========================================*/
+
+const AppStateContext = createContext<IAppState>(null);
+
+export const useAppState = () => React.useContext(AppStateContext);
+
+export const AppStateProvider = ({
+  data,
+  children,
+}: {
+  data?: IAppState;
+  children: any;
+}) => {
+  return (
+    <AppStateContext.Provider value={data}>{children}</AppStateContext.Provider>
+  );
 };

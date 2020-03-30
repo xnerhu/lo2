@@ -6,7 +6,7 @@ import { StaticRouter } from 'react-router';
 import { ServerStyleSheet } from 'styled-components';
 import { ChunkExtractor } from '@loadable/server';
 
-import { StoreProvider } from '~/renderer/app/store';
+import { StoreProvider, AppStateProvider } from '~/renderer/app/store';
 import App from '~/renderer/app/components/App';
 import { IRequest } from '~/server/interfaces';
 import { htmlStartView, htmlEndView } from '~/server/views/html';
@@ -30,7 +30,9 @@ router.get('*', (req: IRequest, res, next) => {
     sheet.collectStyles(
       <StaticRouter location={req.originalUrl} context={routerContext}>
         <StoreProvider data={req.appState}>
-          <App />
+          <AppStateProvider data={req.appState}>
+            <App />
+          </AppStateProvider>
         </StoreProvider>
       </StaticRouter>,
     ),

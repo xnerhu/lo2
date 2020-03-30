@@ -1,8 +1,7 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import loadable from '@loadable/component';
 
-import { useStore } from '~/renderer/app/store';
+import { useAppState } from '~/renderer/app/store';
 import {
   EDZIENNIK_URL,
   LESSONS_PLAN_URL,
@@ -39,9 +38,8 @@ const LazyCmsShortcuts = loadable(() => import('../CmsShortcuts'), {
   ssr: true,
 });
 
-export const Shortcuts = observer(() => {
-  const store = useStore();
-  const isLogged = store.account.isLogged;
+export const Shortcuts = () => {
+  const appState = useAppState();
 
   return (
     <Container>
@@ -57,7 +55,7 @@ export const Shortcuts = observer(() => {
       <Item to={GOOGLE_MAPS_URL} icon={LOCATION_OUTLINE_ICON}>
         Google maps
       </Item>
-      {isLogged && <LazyCmsShortcuts />}
+      {appState?.signedIn && <LazyCmsShortcuts />}
     </Container>
   );
-});
+};

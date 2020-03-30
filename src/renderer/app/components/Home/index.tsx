@@ -1,23 +1,19 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 
-import { useStore } from '../../store';
 import { Slider } from './Slider';
 import { Shortcuts } from './Shortcuts';
 import { ShortNews } from './News';
+import { usePage } from '../../utils/hooks';
+import { IHomePagePacket } from '~/interfaces';
 
-export default observer(() => {
-  const store = useStore();
-
-  React.useEffect(() => {
-    store.home.fetch();
-  }, []);
+export default () => {
+  const data = usePage<IHomePagePacket>('home', 'homePage');
 
   return (
     <>
-      <Slider />
+      <Slider items={data?.sliderItems} />
       <Shortcuts />
-      <ShortNews />
+      <ShortNews items={data?.news} />
     </>
   );
-});
+};

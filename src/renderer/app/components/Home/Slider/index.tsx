@@ -1,16 +1,12 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 
-import { useStore } from '~/renderer/app/store';
 import { Content } from '~/renderer/components/Section';
 import { Carousel } from '~/renderer/components/Carousel';
 
-export const Slider = observer(() => {
-  const store = useStore();
-
+export const Slider = ({ items }: { items: string[] }) => {
   return (
     <Content>
-      <Carousel items={store.home.sliderItems} />
+      <Carousel items={items} />
     </Content>
   );
-});
+};

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { CARD_SHADOW, EASING_FUNCTION } from '~/renderer/constants/design';
+import { CARD_SHADOW } from '~/renderer/constants/design';
 import { transparency } from '~/renderer/constants/transparency';
 
 export const StyledArticleCard = styled(Link)`
@@ -16,7 +16,7 @@ export const StyledArticleCard = styled(Link)`
   position: relative;
   box-shadow: ${CARD_SHADOW};
   will-change: transform, background-color;
-  transition: 0.1s ${EASING_FUNCTION} transform, 0.1s background-color;
+  transition: 0.1s transform, 0.1s background-color;
   backface-visibility: hidden;
 
   &:hover .article-card-title {

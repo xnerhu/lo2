@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Item } from '../Shortcuts';
+import { Item } from '../../Shortcuts';
 import {
   ADD_ARTICLE_ICON,
   KEY_ICON,

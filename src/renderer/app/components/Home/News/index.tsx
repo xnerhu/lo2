@@ -12,7 +12,7 @@ import { INews } from '~/interfaces';
 
 export const ShortNews = ({ items }: { items: INews[] }) => {
   return (
-    <Background style={{ marginTop: 56 }}>
+    <Background>
       <Content>
         <Link to="/news">
           <SectionTitle>Aktualności</SectionTitle>

@@ -37,7 +37,7 @@ export default withRouter(
               <SectionTitle center>Proponowane</SectionTitle>
             )}
             <NewsContainer>
-              {store.article.proposedNews.map(r => (
+              {store.article.proposedNews.map((r) => (
                 <NewsCard key={r.id} data={r} />
               ))}
             </NewsContainer>

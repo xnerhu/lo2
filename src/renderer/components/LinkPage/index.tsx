@@ -16,7 +16,7 @@ export const LinkPage = ({ item }: Props) => {
       <Content>
         <SectionTitle>{label}</SectionTitle>
         <div>
-          {subpages.map(r => (
+          {subpages.map((r) => (
             <Card key={r.to} to={r.to}>
               {r.label}
             </Card>

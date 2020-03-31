@@ -9,7 +9,7 @@ export const Content = styled.div`
   max-width: ${CONTENT_WIDTH}px;
   margin: 0 auto;
 
-  @media (max-width: ${CONTENT_WIDTH + 48 * 2}px) {
+  @media (max-width: ${CONTENT_WIDTH + 256}px) {
     max-width: calc(100% - 128px);
   }
 

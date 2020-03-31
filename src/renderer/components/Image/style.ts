@@ -15,9 +15,9 @@ export const Container = styled.div`
   ${({ ratio, shadow }: { ratio: number; shadow: boolean }) => css`
     ${ratio && aspectRatio(ratio)};
     ${shadow &&
-      css`
-        box-shadow: ${CARD_SHADOW};
-      `}
+    css`
+      box-shadow: ${CARD_SHADOW};
+    `}
   `}
 `;
 

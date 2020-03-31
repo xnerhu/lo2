@@ -14,7 +14,7 @@ import {
   PLAN_ICON,
   LOCATION_OUTLINE_ICON,
 } from '~/renderer/constants/icons';
-import { StyledItem, Container, Circle, Title, Icon } from './style';
+import { StyledItem, Container, Circle, Title } from './style';
 
 interface Props {
   icon: string;
@@ -26,15 +26,13 @@ interface Props {
 export const Item = ({ icon, to, useDefaultLink, children }: Props) => {
   return (
     <StyledItem to={to} useDefaultLink={useDefaultLink}>
-      <Circle>
-        <Icon src={icon} />
-      </Circle>
+      <Circle src={icon} />
       <Title>{children}</Title>
     </StyledItem>
   );
 };
 
-const LazyCmsShortcuts = loadable(() => import('../CmsShortcuts'), {
+const LazyCmsShortcuts = loadable(() => import('./Cms'), {
   ssr: true,
 });
 

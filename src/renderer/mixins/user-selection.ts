@@ -5,5 +5,5 @@ export const noUserSelect = () => css`
 `;
 
 export const noTapHighlight = () => css`
-  -webkit-tap-highlight-color:  rgba(255, 255, 255, 0) !important;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
 `;

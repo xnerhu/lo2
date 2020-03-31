@@ -73,7 +73,7 @@ export class NewsStore {
     return;
     this.dropdownItems = [
       ...this.dropdownItems,
-      ...items.map(r => {
+      ...items.map((r) => {
         return { id: r.label, name: r.name } as IDropDownItem;
       }),
     ];

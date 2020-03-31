@@ -6,11 +6,11 @@ import { ERROR_COLOR, PRIMARY_COLOR } from '~/renderer/constants/design';
 export const Container = styled.div`
   ${({ error }: { error: boolean }) => css`
     ${error &&
-      css`
-        & .rich-editor-editable {
-          box-shadow: 0 0 0 2px ${ERROR_COLOR};
-        }
-      `}
+    css`
+      & .rich-editor-editable {
+        box-shadow: 0 0 0 2px ${ERROR_COLOR};
+      }
+    `}
   `};
 `;
 

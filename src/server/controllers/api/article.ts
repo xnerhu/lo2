@@ -9,12 +9,12 @@ const router = Router();
 
 router.get(
   '/',
-  handleRoute(req => ArticleService.find(req.query.label)),
+  handleRoute((req) => ArticleService.find(req.query.label)),
 );
 
 router.get(
   '/list',
-  handleRoute(req => {
+  handleRoute((req) => {
     const filter = createArticleFilter(req.query);
     return ArticleService.findMany(filter);
   }),
@@ -22,7 +22,7 @@ router.get(
 
 router.get(
   '/list-bundle',
-  handleRoute(req => {
+  handleRoute((req) => {
     const filter = createArticleFilter(req.query);
     return ArticleService.bundleMany(filter);
   }),
@@ -30,7 +30,7 @@ router.get(
 
 router.get(
   '/category',
-  handleRoute(req => ArticleCategoryService.find(req.query.label)),
+  handleRoute((req) => ArticleCategoryService.find(req.query.label)),
 );
 
 router.get('/category/list', handleRoute(ArticleCategoryService.findMany));

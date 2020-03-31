@@ -8,7 +8,7 @@ export const Container = styled.div`
   width: fit-content;
   display: grid;
   grid-gap: 48px;
-  margin: 64px auto 0px;
+  margin: 64px auto;
   grid-template-columns: repeat(4, 1fr);
 
   @media (max-width: 967px) {
@@ -27,7 +27,11 @@ export const StyledItem = styled(Link)`
 
   &:hover > :first-child {
     background-color: rgba(0, 174, 239, 0.04);
-    transform: scale(1.1);
+    border: 3px solid ${PRIMARY_COLOR};
+  }
+
+  &:active > :first-child {
+    transform: scale(0.95);
   }
 `;
 
@@ -37,26 +41,31 @@ export const Circle = styled.div`
   border-radius: 100%;
   background-color: #fff;
   border: 1px solid ${PRIMARY_COLOR};
-  transition: 0.1s transform, 0.1s background-color;
+  will-change: transform, background-color;
+  transition: 0.1s transform, 0.1s background-color, 0.1s border;
+
+  ${({ src }: { src: string }) => css`
+    &::after {
+      mask-image: url(${src});
+    }
+  `}
+
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: ${PRIMARY_COLOR};
+    ${centerIcon(56, true)};
+  }
 
   @media (max-width: 967px) {
     width: 96px;
     height: 96px;
-  }
-`;
 
-export const Icon = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: ${PRIMARY_COLOR};
-  ${centerIcon(56, true)};
-
-  ${({ src }: { src: string }) => css`
-    mask-image: url(${src});
-  `}
-
-  @media (max-width: 967px) {
-    ${centerIcon(48, true)};
+    &::after {
+      ${centerIcon(48, true)};
+    }
   }
 `;
 

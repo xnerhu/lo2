@@ -11,7 +11,7 @@ import { Container, Editable } from './style';
 const withLinks = (editor: Editor) => {
   const { isInline } = editor;
 
-  editor.isInline = element => {
+  editor.isInline = (element) => {
     return element.type === 'link' ? true : isInline(element);
   };
 
@@ -21,7 +21,7 @@ const withLinks = (editor: Editor) => {
 const withImages = (editor: Editor) => {
   const { isVoid } = editor;
 
-  editor.isVoid = element => {
+  editor.isVoid = (element) => {
     return element.type === 'image' ? true : isVoid(element);
   };
 
@@ -52,8 +52,11 @@ export const RichEditor = ({
 }: Props) => {
   const editor = createRichEditor();
 
-  const renderElement = React.useCallback(props => <Element {...props} />, []);
-  const renderLeaf = React.useCallback(props => <Leaf {...props} />, []);
+  const renderElement = React.useCallback(
+    (props) => <Element {...props} />,
+    [],
+  );
+  const renderLeaf = React.useCallback((props) => <Leaf {...props} />, []);
 
   return (
     <Container error={error} style={style}>

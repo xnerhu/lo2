@@ -31,7 +31,7 @@ export const NavItem = withRouter((props: IRouterProps<Props>) => {
         <>
           <ExpandIcon />
           <Menu>
-            {subpages.map(r => (
+            {subpages.map((r) => (
               <MenuItem
                 key={r.label}
                 to={r.to}

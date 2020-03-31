@@ -42,39 +42,39 @@ export const Button = styled(Link)`
     opacity: ${disabled ? transparency.text.disabled : 1};
 
     ${icon &&
+    css`
+      &::after {
+        content: '';
+        display: block;
+        width: 24px;
+        height: 24px;
+        background-color: ${PRIMARY_COLOR};
+        mask-image: url(${icon});
+        transition: 0.2s background-color;
+        ${centerIcon(24, true)};
+      }
+
+      &:hover::after {
+        background-color: #fff;
+      }
+
+      ${reversedIcon &&
       css`
+        flex-direction: row-reverse;
+
         &::after {
-          content: '';
-          display: block;
-          width: 24px;
-          height: 24px;
-          background-color: ${PRIMARY_COLOR};
-          mask-image: url(${icon});
-          transition: 0.2s background-color;
-          ${centerIcon(24, true)};
+          transform: rotate(-180deg);
         }
-
-        &:hover::after {
-          background-color: #fff;
-        }
-
-        ${reversedIcon &&
-          css`
-            flex-direction: row-reverse;
-
-            &::after {
-              transform: rotate(-180deg);
-            }
-          `}
       `}
+    `}
 
     ${!disabled &&
-      css`
-        &:hover {
-          background-color: ${PRIMARY_COLOR};
-          color: #fff;
-        }
-      `}
+    css`
+      &:hover {
+        background-color: ${PRIMARY_COLOR};
+        color: #fff;
+      }
+    `}
   `}
 `;
 

@@ -16,9 +16,9 @@ export const Input = styled.input`
 
   ${({ error }: { error?: boolean }) => css`
     ${error &&
-      css`
-        box-shadow: 0 0 0 2px ${ERROR_COLOR};
-      `}
+    css`
+      box-shadow: 0 0 0 2px ${ERROR_COLOR};
+    `}
   `}
 
   &:hover,

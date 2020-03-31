@@ -55,7 +55,7 @@ class ArticleService {
     }
 
     const res = await query.select();
-    const list = res.map(r => formatArticleShort(r.news));
+    const list = res.map((r) => formatArticleShort(r.news));
 
     return list;
   }
@@ -71,7 +71,7 @@ class ArticleService {
 
       categories.push(category);
     } else {
-      const set = new Set<number>(list.map(r => r.categoryId));
+      const set = new Set<number>(list.map((r) => r.categoryId));
 
       categories = await ArticleCategoryService.findManyById(...set);
     }

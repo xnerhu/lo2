@@ -15,7 +15,7 @@ interface Props {
 
 export const Dropdown = ({ items, onChange, value }: Props) => {
   const [expanded, setExpanded] = React.useState(false);
-  const selected = React.useMemo(() => items.find(r => r.id === value), [
+  const selected = React.useMemo(() => items.find((r) => r.id === value), [
     value,
     items,
   ]);
@@ -58,7 +58,7 @@ export const Dropdown = ({ items, onChange, value }: Props) => {
           <Label>{selected.name}</Label>
           <DropIcon className="drop-down-icon" expanded={expanded} />
           <Menu expanded={expanded}>
-            {items.map(r => (
+            {items.map((r) => (
               <MenuItem
                 key={r.id}
                 selected={r.id === selected.id}

@@ -31,11 +31,11 @@ export const StyledAppbar = styled.div`
     transition: 0.3s ${EASING_FUNCTION} margin-top, ${appbarTransition};
 
     ${!hideShadow &&
-      css`
-        @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
-          box-shadow: ${CARD_SHADOW};
-        }
-      `}
+    css`
+      @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
+        box-shadow: ${CARD_SHADOW};
+      }
+    `}
   `}
 
   @media (max-width: ${APPBAR_MOBILE_VIEW}px) {
@@ -86,10 +86,10 @@ export const NavItems = styled.nav`
 
   ${({ expanded }: { expanded: boolean }) => css`
     ${expanded &&
-      css`
-        opacity: 1 !important;
-        pointer-events: auto !important;
-      `}
+    css`
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    `}
   `}
 
   @media (max-width: ${APPBAR_MOBILE_VIEW}px) {

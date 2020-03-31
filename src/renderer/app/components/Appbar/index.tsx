@@ -34,7 +34,7 @@ export const Appbar = observer(() => {
       >
         <Container>
           <NavItems expanded={store.appbar.expanded}>
-            {navigationItems.map(r => (
+            {navigationItems.map((r) => (
               <NavItem key={r.label} onClick={onNavItemClick} {...r} />
             ))}
           </NavItems>

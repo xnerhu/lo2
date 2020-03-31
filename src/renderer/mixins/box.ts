@@ -10,16 +10,16 @@ export const aspectRatio = (ratio: number, modifyChildren = true) => css`
   }
 
   ${modifyChildren &&
-    css`
-      & > img {
-        height: auto;
-      }
+  css`
+    & > img {
+      height: auto;
+    }
 
-      & > :first-child {
-        height: 100%;
-        top: 0;
-        left: 0;
-        position: absolute;
-      }
-    `}
+    & > :first-child {
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+    }
+  `}
 `;

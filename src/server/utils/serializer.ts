@@ -68,13 +68,13 @@ const serializeNode = (node: Node) => {
 };
 
 export const serializeRichTextToHtml = (nodes: Node[]): string => {
-  return nodes.map(r => serializeNode(r)).join('');
+  return nodes.map((r) => serializeNode(r)).join('');
 };
 
 export const serializeRichText = (nodes: Node[], limit?: number): string => {
   let text = '';
 
-  nodes.some(r => {
+  nodes.some((r) => {
     text += Node.string(r) + ' ';
 
     if (text.length >= limit) {

@@ -17,19 +17,19 @@ export const StyledNewsGrid = styled.div`
 
   ${({ renderLast }: { renderLast: boolean }) => css`
     ${!renderLast &&
-      css`
-        & > .news-card:last-child {
-          display: none;
-        }
+    css`
+      & > .news-card:last-child {
+        display: none;
+      }
 
-        @media (min-width: 1230px) and (max-width: 1601px) {
-          ${showLastCard}
-        }
+      @media (min-width: 1230px) and (max-width: 1601px) {
+        ${showLastCard}
+      }
 
-        @media (max-width: 872px) {
-          ${showLastCard}
-        }
-      `}
+      @media (max-width: 872px) {
+        ${showLastCard}
+      }
+    `}
   `}
 
   @media (max-width: 872px) {

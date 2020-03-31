@@ -27,7 +27,7 @@ export const isBlockActive = (
   format: IEditorSelectionFormat,
 ) => {
   const [match] = Editor.nodes(editor, {
-    match: n => n.type === format,
+    match: (n) => n.type === format,
   });
 
   return !!match;
@@ -38,7 +38,7 @@ export const toggleBlock = (editor: Editor, format: IEditorSelectionFormat) => {
   const isList = EDITOR_LIST_TYPES.includes(format as IEditorListFormat);
 
   Transforms.unwrapNodes(editor, {
-    match: n => EDITOR_LIST_TYPES.includes(n.type),
+    match: (n) => EDITOR_LIST_TYPES.includes(n.type),
     split: true,
   });
 
@@ -73,7 +73,7 @@ export const wrapLink = (editor: Editor, url: string) => {
 };
 
 export const unwrapLink = (editor: Editor) => {
-  Transforms.unwrapNodes(editor, { match: n => n.type === 'link' });
+  Transforms.unwrapNodes(editor, { match: (n) => n.type === 'link' });
 };
 
 export const insertLink = (editor: Editor, url: string) => {

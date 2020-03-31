@@ -17,7 +17,7 @@ const Section = ({ data }: { data: IPersonnelSection }) => {
   return (
     <div>
       <h6>{title}</h6>
-      {items.map(r => (
+      {items.map((r) => (
         <Label key={r}>{r}</Label>
       ))}
     </div>
@@ -40,7 +40,7 @@ export default observer(() => {
         <Content>
           <SectionTitle>Kadra</SectionTitle>
           <Container>
-            {store.personnel.sections.map(r => (
+            {store.personnel.sections.map((r) => (
               <Section key={r.title} data={r} />
             ))}
           </Container>

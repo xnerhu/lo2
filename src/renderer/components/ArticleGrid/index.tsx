@@ -14,7 +14,7 @@ export const ArticleGrid = ({ items, renderLast }: Props) => {
 
   return (
     <StyledNewsGrid renderLast={renderLast !== false}>
-      {items.map(r => (
+      {items.map((r) => (
         <ArticleCard key={r.id} data={r} />
       ))}
     </StyledNewsGrid>

@@ -13,7 +13,7 @@ export const isAppbarItemSelected = ({
   if (path.startsWith(to)) return true;
 
   if (subpages) {
-    return !!subpages.find(r => {
+    return !!subpages.find((r) => {
       if (selectFilter != null && !selectFilter(path)) return false;
       return path.startsWith(r.to);
     });

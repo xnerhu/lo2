@@ -4,9 +4,7 @@ import { hashString } from '../utils';
 
 class UserService {
   public async find(username: string): Promise<IUser> {
-    const [item] = await db<IUser>('users')
-      .where({ username })
-      .limit(1);
+    const [item] = await db<IUser>('users').where({ username }).limit(1);
 
     return item;
   }

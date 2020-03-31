@@ -40,9 +40,9 @@ export const StyledButton = styled.div`
     }
 
     ${active &&
-      css`
-        background-color: rgba(0, 174, 239, 0.12);
-      `}
+    css`
+      background-color: rgba(0, 174, 239, 0.12);
+    `}
   `}
 
   &:not(:first-child) {

@@ -36,16 +36,15 @@ export const Container = styled.div`
 export const Title = styled.h6`
   padding: 16px 0px;
   margin-top: 8px;
-  color: rgba(0, 0, 0, ${transparency.text.high});
 `;
 
 export const Content = styled.div`
   line-height: 20px;
-  color: rgba(0, 0, 0, ${transparency.text.medium});
+  color: rgba(0, 0, 0, ${transparency.text.high});
 `;
 
 export const Date = styled.div`
-  padding: 16px 24px;
-  color: rgba(0, 0, 0, ${transparency.text.medium});
   margin-top: auto;
+  padding: 24px;
+  color: rgba(0, 0, 0, ${transparency.text.medium});
 `;

@@ -27,6 +27,6 @@ export const Background = styled.div`
 export const SectionTitle = styled.h5`
   display: flex;
   position: relative;
-  padding: 32px 0px;
+  padding: 36px 0px;
   ${robotoMedium()};
 `;

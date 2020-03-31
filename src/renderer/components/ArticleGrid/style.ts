@@ -4,11 +4,11 @@ import { NEWS_GRID_GAP } from '~/renderer/constants/design';
 
 const showLastCard = css`
   & > .article-card:last-child {
-    display: block !important;
+    display: flex;
   }
 `;
 
-export const StyledNewsGrid = styled.div`
+export const StyledArticleGrid = styled.div`
   width: 100%;
   display: grid;
   grid-row-gap: ${NEWS_GRID_GAP}px;

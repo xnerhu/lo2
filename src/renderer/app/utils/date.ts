@@ -1,62 +1,62 @@
 import { INews } from '~/interfaces';
-import { SHORT_MONTHS } from '~/renderer/constants/date';
+import { SHORT_MONTHS, MONTHS } from '~/renderer/constants/date';
 
-export const formatDate = (date: Date | string) => {
-  const _date = typeof date === 'string' ? new Date(date) : date;
-
-  const seconds = Math.floor((new Date().getTime() - _date.getTime()) / 1000);
-  let time = Math.floor(seconds / 31536000);
-
-  if (time > 1) {
-    return `${pad(_date.getDate())}.${pad(
-      _date.getMonth() + 1,
-    )}.${_date.getFullYear()}`;
-  }
-
+const getPrefix = (time: number, seconds: number) => {
   time = Math.floor(seconds / 2592000);
 
   if (time >= 1) {
-    if (time === 1) {
-      return 'miesiąc temu';
-    }
-
-    if (time <= 4) {
-      return `${time} miesiące temu`;
-    }
-
-    return `${time} miesięcy temu`;
+    if (time === 1) return 'miesiąc';
+    if (time <= 4) return `${time} miesiące`;
+    return `${time} miesięcy`;
   }
 
   time = Math.floor(seconds / 86400);
 
-  if (time > 1) {
-    return `${time} dni temu`;
+  if (time >= 1) {
+    if (time === 1) return 'dzień';
+    return `${time} dni`;
   }
 
   time = Math.floor(time / 3600);
 
-  if (time > 1) {
-    return `${time} godzin temu`;
+  if (time >= 1) {
+    if (time === 1) return 'godzina';
+    return `${time} godzin`;
   }
 
   time = Math.floor(seconds / 60);
 
   if (time > 1) {
-    return time + ' minut temu';
+    return `${time} minut`;
   }
 
-  return Math.floor(seconds) + ' sekund temu';
+  time = Math.floor(seconds);
+
+  if (time >= 30) {
+    return `${time} sekund`;
+  }
+
+  return 'teraz';
 };
 
-const pad = (value: number) => {
-  return value.toString().padStart(2, '0');
+export const formatDate = (date: Date | string) => {
+  const _date = typeof date === 'string' ? new Date(date) : date;
+
+  const seconds = Math.floor((new Date().getTime() - _date.getTime()) / 1000);
+  const time = Math.floor(seconds / 31536000);
+
+  if (time > 1) {
+    return `${_date.getDate()} ${
+      MONTHS[_date.getMonth()]
+    } ${_date.getFullYear()}`;
+  }
+
+  return `${getPrefix(time, seconds)} temu`;
 };
 
 export const formatArticleDate = (data: INews) => {
   const { createdAt } = data;
   const date = new Date(createdAt);
 
-  const month = SHORT_MONTHS[date.getMonth()];
-
-  return `${date.getDate()} ${month}, ${date.getFullYear()}`;
+  return `${date.getDate()} ${MONTHS[date.getMonth()]}, ${date.getFullYear()}`;
 };

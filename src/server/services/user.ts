@@ -1,48 +1,41 @@
 import { IUser } from '~/interfaces';
-import db from '../models/db';
+import { db } from '../models/db';
 import { hashString } from '../utils';
 
-export const createUser = async (data: IUser): Promise<IUser> => {
-  const { password } = data;
+class UserService {
+  public async find(username: string): Promise<IUser> {
+    const [item] = await db<IUser>('users')
+      .where({ username })
+      .limit(1);
 
-  const hashedPassword = await hashString(password);
+    return item;
+  }
 
-  const [id] = await db.client<IUser>('users').insert({
-    ...data,
-    password: hashedPassword,
-  });
+  public async create(data: IUser): Promise<IUser> {
+    const hashedPassword = await hashString(data.password);
 
-  return {
-    ...data,
-    id,
-    password: undefined,
-  };
-};
+    const [id] = await db<IUser>('users').insert({
+      ...data,
+      password: hashedPassword,
+    });
 
-export const findUser = async (username: string): Promise<IUser> => {
-  const [item] = await db
-    .client<IUser>('users')
-    .where({ username })
-    .limit(1);
+    return { ...data, id, password: undefined };
+  }
 
-  return item;
-};
+  public async changePassword(username: string, newPassword: string) {
+    const user = await this.find(username);
 
-export const changeUserPassword = async (
-  username: string,
-  newPassword: string,
-): Promise<Error> => {
-  const user = await findUser(username);
+    if (!user) {
+      throw new Error(`User ${username} doesn\'t exists!`);
+    }
 
-  if (!user) return new Error('Użytkownik nie istnieje!');
+    const hashed = await hashString(newPassword);
 
-  const hashed = await hashString(newPassword);
+    await db<IUser>('users')
+      .where({ username })
+      .limit(1)
+      .update({ password: hashed });
+  }
+}
 
-  await db
-    .client<IUser>('users')
-    .where({ username })
-    .limit(1)
-    .update({ password: hashed });
-
-  return null;
-};
+export default new UserService();

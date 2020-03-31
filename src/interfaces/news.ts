@@ -1,5 +1,3 @@
-import { IUser } from './user';
-
 export interface INewsChunk {
   items?: INews[];
   nextPage?: boolean;
@@ -10,14 +8,11 @@ export interface INews {
   label?: string;
   title?: string;
   content?: string;
-  body?: string;
   image?: string;
   hasImage?: boolean;
   createdAt?: string;
   categoryId?: number;
   authorId?: number;
-  _category?: INewsCategory;
-  _author?: IUser;
 }
 
 export interface INewsCategory {
@@ -29,7 +24,7 @@ export interface INewsCategory {
 export interface INewsFilter {
   page?: number;
   limit?: number;
-  categoryLabel?: string;
+  category?: string;
   excluded?: string;
 }
 
@@ -71,3 +66,7 @@ export interface IDeleteArticleRes {
   success?: boolean;
   error?: string;
 }
+
+/* ================== */
+
+export interface INewsChunk {}

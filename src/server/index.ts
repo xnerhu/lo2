@@ -8,7 +8,7 @@ import { config } from 'dotenv';
 
 config();
 
-import db from './models/db';
+import { connect } from './models/db';
 import controllers from './controllers';
 
 const app = express();
@@ -24,7 +24,7 @@ app.use(controllers);
 const { PORT } = process.env;
 
 app.listen(PORT, async () => {
-  await db.connect();
+  connect();
 
   console.log(
     `${chalk.cyanBright.bold('Server is running at')} ${chalk.greenBright(

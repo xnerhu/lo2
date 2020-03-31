@@ -1,9 +1,8 @@
 import { Router, static as staticDir } from 'express';
 
 import { BUILD_PATH, STATIC_PATH } from '../constants';
-import render from './render';
-import pages from './pages';
 import api from './api';
+import render from './render';
 
 const router = Router();
 
@@ -15,7 +14,6 @@ router.use('/robots.txt', (req, res) => {
 });
 
 router.use('/api', api);
-router.use(pages);
 router.use(render);
 
 export default router;

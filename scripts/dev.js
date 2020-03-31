@@ -45,7 +45,7 @@ const init = async () => {
   const clientCompiler = multiCompiler.compilers.find(r => r.name === 'client');
   const serverCompiler = multiCompiler.compilers.find(r => r.name === 'server');
 
-  const clientPromise = compilerPromise('client', clientCompiler);
+  // const clientPromise = compilerPromise('client', clientCompiler);
   const serverPromise = compilerPromise('server', serverCompiler);
 
   app.use((req, res, next) => {

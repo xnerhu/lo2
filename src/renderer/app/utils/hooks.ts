@@ -10,6 +10,7 @@ export const usePage = <T>(
   name: string,
   appStateProperty?: keyof IAppState,
 ) => {
+  return {};
   const appState = useAppState();
   const cached = cache.get(name);
   const [state, setState] = useState(

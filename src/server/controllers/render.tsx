@@ -16,6 +16,8 @@ const statsFile = resolve('./build/client/static/loadable-stats.json');
 const router = Router();
 
 router.get('*', (req: IRequest, res, next) => {
+  next();
+  return;
   res.type('html').write(htmlStartView());
 
   const sheet = new ServerStyleSheet();

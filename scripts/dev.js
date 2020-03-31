@@ -83,7 +83,7 @@ const init = async () => {
   });
 
   try {
-    await Promise.all([serverPromise, clientPromise]);
+    // await Promise.all([serverPromise, clientPromise]);
   } catch (error) {
     return print('compiler', error, 'error');
   }

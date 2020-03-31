@@ -15,18 +15,18 @@ const options: Options<any> = { ssr: true };
 
 const LazyNotFound = loadable(() => import('../NotFound'), options);
 const LazyHome = loadable(() => import('../Home'), options);
-const LazyNews = loadable(() => import('../News'), options);
-const LazyArticle = loadable(() => import('../Article'), options);
-const LazyAbout = loadable(() => import('../About'), options);
-const LazyStudents = loadable(() => import('../Students'), options);
-const LazyPersonnel = loadable(() => import('../Personnel'), options);
-const LazyPatron = loadable(() => import('../Patron'), options);
-const LazyHistory = loadable(() => import('../History'), options);
-const LazyContact = loadable(() => import('../Contact'), options);
-const LazyAddArticle = loadable(() => import('../AddArticle'), options);
-const LazyEditArticle = loadable(() => import('../EditArticle'), options);
-const LazyLogin = loadable(() => import('../Login'), options);
-const LazyChangePassword = loadable(() => import('../ChangePassword'), options);
+// const LazyNews = loadable(() => import('../News'), options);
+// const LazyArticle = loadable(() => import('../Article'), options);
+// const LazyAbout = loadable(() => import('../About'), options);
+// const LazyStudents = loadable(() => import('../Students'), options);
+// const LazyPersonnel = loadable(() => import('../Personnel'), options);
+// const LazyPatron = loadable(() => import('../Patron'), options);
+// const LazyHistory = loadable(() => import('../History'), options);
+// const LazyContact = loadable(() => import('../Contact'), options);
+// const LazyAddArticle = loadable(() => import('../AddArticle'), options);
+// const LazyEditArticle = loadable(() => import('../EditArticle'), options);
+// const LazyLogin = loadable(() => import('../Login'), options);
+// const LazyChangePassword = loadable(() => import('../ChangePassword'), options);
 
 // const Watcher = withRouter((props: IRouterProps) => {
 //   const { pathname } = props.location;
@@ -46,7 +46,7 @@ const App = () => {
       <StyledApp>
         <Appbar />
         <Switch>
-          <Route path="/change-password" component={LazyChangePassword} />
+          {/* <Route path="/change-password" component={LazyChangePassword} />
           <Route path="/login" component={LazyLogin} />
           <Route path="/edit-article/:label" component={LazyEditArticle} />
           <Route path="/add-article" component={LazyAddArticle} />
@@ -57,7 +57,7 @@ const App = () => {
           <Route path="/students" component={LazyStudents} />
           <Route path="/about" component={LazyAbout} />
           <Route path="/article/:label" component={LazyArticle} />
-          <Route path="/news/:categoryLabel?/:page?" component={LazyNews} />
+          <Route path="/news/:categoryLabel?/:page?" component={LazyNews} /> */}
           <Route path="/" component={LazyHome} exact />
           <Route component={LazyNotFound} />
         </Switch>

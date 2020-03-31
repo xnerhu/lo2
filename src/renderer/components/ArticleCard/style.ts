@@ -40,21 +40,6 @@ export const Container = styled.div`
   padding: 0px 24px;
 `;
 
-export const Category = styled.div`
-  margin-top: 16px;
-  margin-bottom: 8px;
-  display: block;
-  color: rgba(0, 0, 0, ${transparency.text.medium});
-  ${overline()};
-  ${noUserSelect()};
-
-  &:hover {
-    color: ${PRIMARY_COLOR};
-    text-decoration: underline;
-    ${robotoMedium()};
-  }
-`;
-
 export const Title = styled.h6`
   color: rgba(0, 0, 0, ${transparency.text.high});
 `;

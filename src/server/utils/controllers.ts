@@ -1,6 +1,7 @@
 import { Response, NextFunction } from 'express';
 
 import { IRequest } from '../interfaces';
+import { IAppStatePage } from '~/interfaces';
 
 type ICb = (
   req: IRequest,
@@ -23,12 +24,19 @@ export const handleRoute = (cb: ICb) => async (
   }
 };
 
-export const handlePageRoute = (cb: ICb) => async (
+export const handlePageRoute = (page: keyof IAppStatePage, cb: ICb) => async (
   req: IRequest,
   res: Response,
   next: NextFunction,
 ) => {
   const data = await cb(req, res, next);
 
-  req.appState = { ...req.appState, ...data };
+  req.appState = {
+    page: {
+      ...req.appState?.page,
+      [page]: data,
+    },
+  };
+
+  next();
 };

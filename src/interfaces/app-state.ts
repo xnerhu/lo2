@@ -7,9 +7,14 @@ import {
   IAddArticlePacket,
   IEditArticlePacket,
 } from './pages';
+import { IHomePageData } from './page';
+
+export interface IAppStatePage {
+  home: IHomePageData;
+}
 
 export interface IAppState {
-  homePage?: IHomePagePacket;
+  page?: IAppStatePage;
   newsPage?: INewsPagePacket;
   articlePage?: IArticlePagePacket;
   personnelPage?: IPersonnelPacket;

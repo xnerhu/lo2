@@ -1,5 +1,5 @@
 import { IAppState } from '~/interfaces';
-import { fonts } from '~/renderer/constants/fonts';
+import { fonts } from '../constants';
 
 const fallBack = 'font-display: swap;';
 
@@ -21,8 +21,7 @@ const fontsCss = `
   }
 `.replace(/\n|\s/g, '');
 
-export const htmlStartView = () => {
-  return `
+export const htmlStartView = `
    <!DOCTYPE html>
     <html lang="pl">
       <head>
@@ -45,8 +44,9 @@ export const htmlStartView = () => {
             Tutaj znajdziesz, co dokładnie zrobić.
           </a>
         </noscript>
-        <main id="app">`;
-};
+        <main id="app">`
+  .replace(/\n/g, '')
+  .replace(/[\s]{2,}/g, '');
 
 export const htmlEndView = (scripts: React.ReactNode, state: IAppState) => {
   let stateHtml = '';

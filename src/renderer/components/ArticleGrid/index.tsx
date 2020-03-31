@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { INews } from '~/interfaces';
-import { NewsCard } from '../NewsCard';
+import { ArticleCard } from '../ArticleCard';
 import { StyledNewsGrid } from './style';
 
 interface Props {
@@ -9,13 +9,13 @@ interface Props {
   renderLast?: boolean;
 }
 
-export const NewsGrid = ({ items, renderLast }: Props) => {
+export const ArticleGrid = ({ items, renderLast }: Props) => {
   if (!items) return null;
 
   return (
     <StyledNewsGrid renderLast={renderLast !== false}>
       {items.map(r => (
-        <NewsCard key={r.id} data={r} />
+        <ArticleCard key={r.id} data={r} />
       ))}
     </StyledNewsGrid>
   );

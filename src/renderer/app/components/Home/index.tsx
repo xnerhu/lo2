@@ -4,16 +4,16 @@ import { Slider } from './Slider';
 import { Shortcuts } from './Shortcuts';
 import { ShortNews } from './News';
 import { usePage } from '../../utils/hooks';
-import { IHomePagePacket } from '~/interfaces';
+import { IHomePageData } from '~/interfaces';
 
 export default () => {
-  const data = usePage<IHomePagePacket>('home', 'homePage');
+  const data = usePage<IHomePageData>('home', 'home');
 
   return (
     <>
       <Slider items={data?.sliderItems} />
       <Shortcuts />
-      <ShortNews items={data?.news} />
+      <ShortNews items={data?.articles} />
     </>
   );
 };

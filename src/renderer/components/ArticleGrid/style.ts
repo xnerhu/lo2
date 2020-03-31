@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { NEWS_GRID_GAP } from '~/renderer/constants/design';
 
 const showLastCard = css`
-  & > .news-card:last-child {
+  & > .article-card:last-child {
     display: block !important;
   }
 `;
@@ -18,7 +18,7 @@ export const StyledNewsGrid = styled.div`
   ${({ renderLast }: { renderLast: boolean }) => css`
     ${!renderLast &&
     css`
-      & > .news-card:last-child {
+      & > .article-card:last-child {
         display: none;
       }
 

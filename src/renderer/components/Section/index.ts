@@ -25,15 +25,8 @@ export const Background = styled.div`
 `;
 
 export const SectionTitle = styled.h5`
-  height: 96px;
   display: flex;
-  align-items: center;
   position: relative;
+  padding: 32px 0px;
   ${robotoMedium()};
-
-  ${({ center, selectable }: { center?: boolean; selectable?: boolean }) => css`
-    width: ${center ? '100%' : 'fit-content'};
-    justify-content: ${center ? 'center' : 'unset'};
-    ${!selectable && noUserSelect()}
-  `}
 `;

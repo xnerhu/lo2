@@ -8,7 +8,7 @@ export const NewsContainer = styled.div`
   justify-content: center;
   margin-bottom: 24px;
 
-  & > .news-card:not(:first-child) {
+  & > .article-card:not(:first-child) {
     margin-left: ${NEWS_GRID_GAP}px;
   }
 
@@ -17,7 +17,7 @@ export const NewsContainer = styled.div`
     justify-content: unset;
     align-items: center;
 
-    & > .news-card {
+    & > .article-card {
       width: 100%;
       margin-left: 0px !important;
 

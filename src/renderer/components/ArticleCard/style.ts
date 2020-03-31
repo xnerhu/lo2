@@ -1,26 +1,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import {
-  CARD_SHADOW,
-  EASING_FUNCTION,
-  PRIMARY_COLOR,
-} from '~/renderer/constants/design';
+import { CARD_SHADOW, EASING_FUNCTION } from '~/renderer/constants/design';
 import { transparency } from '~/renderer/constants/transparency';
-import { overline, robotoMedium } from '~/renderer/mixins/typography';
-import { noUserSelect } from '~/renderer/mixins/user-selection';
 
-export const StyledNewsCard = styled(Link)`
-  width: 100%;
-
-  &:hover > .news-card-wrapper {
-    transform: scale(0.95);
-    background-color: rgba(0, 0, 0, 0.04);
-  }
-`;
-
-export const Wrapper = styled.div`
-  width: 100%;
+export const StyledArticleCard = styled(Link)`
   height: 100%;
   cursor: pointer;
   display: inline-flex;
@@ -34,6 +18,15 @@ export const Wrapper = styled.div`
   will-change: transform, background-color;
   transition: 0.1s ${EASING_FUNCTION} transform, 0.1s background-color;
   backface-visibility: hidden;
+
+  &:hover .article-card-title {
+    text-decoration: underline;
+  }
+
+  &:active {
+    transform: scale(0.95);
+    background-color: rgba(0, 0, 0, 0.04);
+  }
 `;
 
 export const Container = styled.div`
@@ -41,11 +34,12 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h6`
+  padding: 16px 0px;
+  margin-top: 8px;
   color: rgba(0, 0, 0, ${transparency.text.high});
 `;
 
 export const Content = styled.div`
-  margin-top: 8px;
   line-height: 20px;
   color: rgba(0, 0, 0, ${transparency.text.medium});
 `;

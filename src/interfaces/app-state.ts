@@ -11,6 +11,7 @@ import { IHomePageData } from './page';
 
 export interface IAppStatePage {
   home: IHomePageData;
+  news: INewsPageData;
 }
 
 export interface IAppState {

@@ -1,6 +1,6 @@
 import { listFiles } from '../utils';
 import ArticleService from '../services/article';
-import { IHomePageData } from '~/interfaces';
+import { IHomePageData, INewsPageData } from '~/interfaces';
 
 class PageService {
   public async getHomeData(): Promise<IHomePageData> {
@@ -11,6 +11,14 @@ class PageService {
 
     return {
       sliderItems,
+      articles,
+    };
+  }
+
+  public async getNewsData(): Promise<INewsPageData> {
+    const articles = await ArticleService.findMany({ limit: 50 });
+
+    return {
       articles,
     };
   }

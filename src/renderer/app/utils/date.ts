@@ -48,7 +48,7 @@ export const formatDate = (date: Date | string) => {
   if (time > 1) {
     return `${_date.getDate()} ${
       MONTHS[_date.getMonth()]
-    } ${_date.getFullYear()}`;
+    }, ${_date.getFullYear()}`;
   }
 
   return `${getPrefix(time, seconds)} temu`;

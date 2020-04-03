@@ -7,7 +7,7 @@ import {
   IAddArticlePacket,
   IEditArticlePacket,
 } from './pages';
-import { IHomePageData } from './page';
+import { IHomePageData, INewsPageData } from './page';
 
 export interface IAppStatePage {
   home: IHomePageData;

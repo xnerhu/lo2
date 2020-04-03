@@ -1,50 +1,65 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import { withRouter } from 'react-router-dom';
 
-import { formatNewsFilter } from '~/utils';
-import { useStore } from '~/renderer/app/store';
-import { IRouterProps } from '~/renderer/app/interfaces';
-import { Background, Content } from '~/renderer/components/Section';
-import { NewsGrid } from '~/renderer/components/NewsGrid';
-import { Toolbar } from './Toolbar';
-import { Pagination } from './Pagination';
-import { Error } from '~/renderer/components/Error';
 import { usePage } from '../../utils/hooks';
+import {
+  Background,
+  Content,
+  SectionTitle,
+} from '~/renderer/components/Section';
 
-export default withRouter(
-  observer((props: IRouterProps) => {
-    const data = usePage('news', 'newsPage');
-    console.log(data);
+import { Pagination } from './Pagination';
+import { IRouterProps } from '../../interfaces';
+import { createArticleFilter } from '~/utils/article';
+import { Toolbar } from './Toolbar';
+import { INewsPageData } from '~/interfaces';
+import { Article } from '~/renderer/components/Article';
+import { IArticle } from '~/interfaces/article';
+import { Dropdown } from '~/renderer/components/Dropdown';
+import { Categories } from './Categories';
+import { Container, StyledArticles } from './style';
 
-    const store = useStore();
-    const { match } = props;
+const Articles = ({ data }: { data: IArticle[] }) => {
+  return (
+    <StyledArticles>
+      {data.map((r) => (
+        <Article key={r.id} data={r} />
+      ))}
+    </StyledArticles>
+  );
+};
 
-    const filter = React.useMemo(() => {
-      return formatNewsFilter(match.params);
-    }, [match.params]);
+const Pinned = () => {
+  return (
+    <StyledPinned>
+      <SectionTitle>Filtry</SectionTitle>
+    </StyledPinned>
+  );
+};
 
-    React.useEffect(() => {
-      store.news.fetchNews(filter);
-    }, [filter]);
+//      <Dropdown items={[{ id: 'all', name: 'Wszystko' }]} value={'all'} />
 
-    React.useEffect(() => {
-      store.news.fetchCategories();
-    }, []);
+export default withRouter((props) => {
+  const data = usePage<INewsPageData>('news', 'news');
+  const { match } = props;
 
-    return (
-      <Background>
-        <Content>
-          <Toolbar filter={filter} />
-          <NewsGrid items={store.news.items} />
-          <Pagination filter={filter} />
-          {store.news.error && (
-            <Error code="404" label="Oops! Nic nie znaleziono!">
-              Posty, które szukasz mogły zostać usunięte.
-            </Error>
-          )}
-        </Content>
-      </Background>
-    );
-  }),
-);
+  const filter = React.useMemo(() => {
+    return createArticleFilter(match.params);
+  }, [match.params]);
+
+  return (
+    <>
+      <Categories data={data?.categories} />
+      <Articles data={data?.articles} />
+    </>
+  );
+});
+
+/*        {data?.articles.map((r) => (
+          <Article key={r.id} data={r} />
+        ))}
+        {/* <Toolbar filter={filter} /> */
+{
+  /* <NewsGrid items={store.news.items} /> */
+}
+// <Pagination filter={filter} />

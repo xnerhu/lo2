@@ -15,7 +15,7 @@ const options: Options<any> = { ssr: true };
 
 const LazyNotFound = loadable(() => import('../NotFound'), options);
 const LazyHome = loadable(() => import('../Home'), options);
-const LazyNews = loadable(() => import('../NewsV'), options);
+const LazyNews = loadable(() => import('../News'), options);
 // const LazyArticle = loadable(() => import('../Article'), options);
 // const LazyAbout = loadable(() => import('../About'), options);
 // const LazyStudents = loadable(() => import('../Students'), options);

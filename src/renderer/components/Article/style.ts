@@ -18,8 +18,8 @@ export const StyledArticleCard = styled(Link)`
   will-change: transform, background-color;
   transition: 0.1s transform, 0.1s background-color;
   backface-visibility: hidden;
-  margin-top: 32px;
   border: 1px solid rgba(0,0,0,0.06);
+  margin-top: 32px;
 
   &:hover .article-card-title {
     text-decoration: underline;

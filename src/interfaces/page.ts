@@ -7,5 +7,6 @@ export interface IHomePageData {
 }
 
 export interface INewsPageData {
-  articles?: IArticle[];
+  articles: IArticle[];
+  categories: IArticleCategory[];
 }

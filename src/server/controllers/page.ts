@@ -7,6 +7,9 @@ const router = Router();
 
 router.get('/', handlePageRoute('home', PageService.getHomeData));
 
-router.get('/news', handlePageRoute('news', PageService.getNewsData));
+router.get(
+  '/news/:categoryLabel?/:page?',
+  handlePageRoute('news', PageService.getNewsData),
+);
 
 export default router;

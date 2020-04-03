@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { CONTENT_WIDTH, PRIMARY_COLOR } from '~/renderer/constants/design';
@@ -23,13 +23,22 @@ export const Button = styled.div`
   width: 24px;
   min-height: 100%;
   background-image: url(${CHEVRON_ICON});
-  opacity: ${transparency.icons.inactive};
   cursor: pointer;
   ${centerIcon(24)};
 
-  &:hover {
-    opacity: 1;
-  }
+  ${({ disabled }: { disabled: boolean }) => css`
+    pointer-events: ${disabled ? 'none' : 'auto'};
+    opacity: ${disabled
+      ? transparency.icons.disabled
+      : transparency.icons.inactive};
+
+    ${!disabled &&
+    css`
+      &:hover {
+        opacity: 1;
+      }
+    `}
+  `}
 
   &:first-child {
     transform: rotate(180deg);
@@ -53,10 +62,15 @@ export const Item = styled(Link)`
   white-space: nowrap;
   padding: 20px 16px;
   font-size: 14px;
-  color: rgba(0, 0, 0, ${transparency.text.medium});
-  ${robotoMedium()};
   will-change: color;
   transition: 0.1s color;
+  ${robotoMedium()};
+
+  ${({ selected }: { selected: boolean }) => css`
+    color: ${selected
+      ? PRIMARY_COLOR
+      : ` rgba(0, 0, 0, ${transparency.text.medium})`};
+  `}
 
   &:hover {
     color: ${PRIMARY_COLOR};

@@ -22,6 +22,8 @@ export const Background = styled.div`
   width: 100%;
   background-color: #fafafc;
   padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const SectionTitle = styled.h5`

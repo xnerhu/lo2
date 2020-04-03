@@ -6,7 +6,7 @@ import {
   Content,
   Background,
 } from '~/renderer/components/Section';
-import { Button } from '~/renderer/components/Button';
+import { PrimaryButton } from '~/renderer/components/Button';
 import { ArticleGrid } from '~/renderer/components/ArticleGrid';
 import { INews } from '~/interfaces';
 
@@ -18,9 +18,9 @@ export const ShortNews = ({ items }: { items: INews[] }) => {
           <SectionTitle>Aktualności</SectionTitle>
         </Link>
         <ArticleGrid items={items} renderLast={false} />
-        <Button to="/news" style={{ margin: '32px auto 0px auto' }}>
+        <PrimaryButton to="/news" style={{ margin: '32px auto 0px auto' }}>
           Zobacz więcej
-        </Button>
+        </PrimaryButton>
       </Content>
     </Background>
   );

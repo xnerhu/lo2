@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { IArticleCategory } from '~/interfaces/article';
 import { getCategoryOffset } from '~/renderer/app/utils/article';
 import { IRouterProps } from '~/renderer/app/interfaces';
-import { Background, StyledCategories, Item, Button, Container } from './style';
+import { StyledCategories, Item, Button, Container } from './style';
 
 interface IVisibility {
   left?: boolean;
@@ -44,23 +44,21 @@ export const Categories = withRouter(({ data, match }: IRouterProps<Props>) => {
   links.current = [];
 
   return (
-    <Background>
-      <StyledCategories>
-        <Button onClick={() => move(true)} disabled={!state.left} />
-        <Container ref={ref} onScroll={onScroll}>
-          {data.map((r) => (
-            <Item
-              key={r.label}
-              ref={(r) => r && links.current.push(r as any)}
-              to={`/news/${r.label}`}
-              selected={r.label === categoryLabel}
-            >
-              {r.name}
-            </Item>
-          ))}
-        </Container>
-        <Button onClick={() => move(false)} disabled={!state.right} />
-      </StyledCategories>
-    </Background>
+    <StyledCategories>
+      <Button onClick={() => move(true)} disabled={!state.left} />
+      <Container ref={ref} onScroll={onScroll}>
+        {data?.map((r) => (
+          <Item
+            key={r.label}
+            ref={(r) => r && links.current.push(r as any)}
+            to={`/news/${r.label}`}
+            selected={r.label === categoryLabel}
+          >
+            {r.name}
+          </Item>
+        ))}
+      </Container>
+      <Button onClick={() => move(false)} disabled={!state.right} />
+    </StyledCategories>
   );
 });

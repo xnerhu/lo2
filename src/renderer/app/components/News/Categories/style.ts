@@ -7,11 +7,6 @@ import { centerIcon } from '~/renderer/mixins/images';
 import { CHEVRON_ICON } from '~/renderer/constants/icons';
 import { transparency } from '~/renderer/constants/transparency';
 
-export const Background = styled.div`
-  width: 100%;
-  background-color: #fafafc;
-`;
-
 export const StyledCategories = styled.div`
   width: 100%;
   max-width: ${CONTENT_WIDTH}px;

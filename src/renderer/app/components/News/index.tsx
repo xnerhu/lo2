@@ -2,42 +2,35 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { usePage } from '../../utils/hooks';
-import {
-  Background,
-  Content,
-  SectionTitle,
-} from '~/renderer/components/Section';
-
-import { Pagination } from './Pagination';
-import { IRouterProps } from '../../interfaces';
+import { Background } from '~/renderer/components/Section';
 import { createArticleFilter } from '~/utils/article';
-import { Toolbar } from './Toolbar';
 import { INewsPageData } from '~/interfaces';
 import { Article } from '~/renderer/components/Article';
 import { IArticle } from '~/interfaces/article';
-import { Dropdown } from '~/renderer/components/Dropdown';
 import { Categories } from './Categories';
-import { Container, StyledArticles } from './style';
+import { PrimaryButton } from '~/renderer/components/Button';
+import { CHEVRON_ICON } from '~/renderer/constants/icons';
+import { StyledArticles, Buttons } from './style';
 
 const Articles = ({ data }: { data: IArticle[] }) => {
   return (
-    <StyledArticles>
-      {data.map((r) => (
-        <Article key={r.id} data={r} />
-      ))}
-    </StyledArticles>
+    <Background>
+      <StyledArticles>
+        {data?.map((r) => (
+          <Article key={r.id} data={r} />
+        ))}
+        <Buttons>
+          <PrimaryButton icon={CHEVRON_ICON} reversed>
+            Starsze
+          </PrimaryButton>
+          <PrimaryButton icon={CHEVRON_ICON} iconOnRight>
+            Nowsze
+          </PrimaryButton>
+        </Buttons>
+      </StyledArticles>
+    </Background>
   );
 };
-
-const Pinned = () => {
-  return (
-    <StyledPinned>
-      <SectionTitle>Filtry</SectionTitle>
-    </StyledPinned>
-  );
-};
-
-//      <Dropdown items={[{ id: 'all', name: 'Wszystko' }]} value={'all'} />
 
 export default withRouter((props) => {
   const data = usePage<INewsPageData>('news', 'news');
@@ -54,12 +47,3 @@ export default withRouter((props) => {
     </>
   );
 });
-
-/*        {data?.articles.map((r) => (
-          <Article key={r.id} data={r} />
-        ))}
-        {/* <Toolbar filter={filter} /> */
-{
-  /* <NewsGrid items={store.news.items} /> */
-}
-// <Pagination filter={filter} />

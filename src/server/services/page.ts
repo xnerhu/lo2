@@ -18,7 +18,7 @@ class PageService {
 
   public async getNewsData(): Promise<INewsPageData> {
     const [articles, categories] = await Promise.all([
-      ArticleService.findMany({ limit: 50 }),
+      ArticleService.findMany(),
       ArticleCategoryService.findMany(),
     ]);
 

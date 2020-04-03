@@ -1,8 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Link } from '../Link';
 import { robotoMedium } from '~/renderer/mixins/typography';
 import { noUserSelect } from '~/renderer/mixins/user-selection';
+import { PRIMARY_COLOR } from '~/renderer/constants/design';
+import { centerIcon } from '~/renderer/mixins/images';
 
 export const Button = styled(Link)`
   width: fit-content;
@@ -23,6 +25,38 @@ export const Button = styled(Link)`
   ${robotoMedium()};
   ${noUserSelect()};
 
+  ${({
+    icon,
+    iconOnRight,
+    reversed,
+  }: {
+    icon?: string;
+    iconOnRight?: boolean;
+    reversed?: boolean;
+  }) => css`
+    ${icon &&
+    css`
+      flex-direction: ${iconOnRight ? 'row-reverse' : 'row'};
+
+      &::before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        background-color: ${PRIMARY_COLOR};
+        mask-image: url(${icon});
+        margin-left: 4px;
+        transition: 0.1s background-color;
+        ${centerIcon(20, true)};
+
+        ${reversed &&
+        css`
+          margin-right: 4px;
+          transform: rotate(180deg);
+        `}
+      }
+    `}
+  `};
+
   &:active {
     transform: scale(0.95);
   }
@@ -41,6 +75,11 @@ export const Button = styled(Link)`
     will-change: opacity;
     transition: 0.1s opacity;
   }
+`;
+
+export const PrimaryButton = styled(Button)`
+  color: ${PRIMARY_COLOR};
+  background-color: rgba(0, 174, 239, 0.08);
 `;
 
 // export const buttonBase = css`

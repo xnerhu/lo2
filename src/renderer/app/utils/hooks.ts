@@ -38,7 +38,10 @@ export const usePage = <T, K = any>(
   const [state, setState] = useState(getDefaultState(name, filter));
 
   const _setState = (data: Partial<T>, filter: K) => {
-    setState({ data: { ...state.data, ...data }, filter });
+    const value: ICacheItem = { data: { ...state.data, ...data }, filter };
+
+    cache.set(name, value);
+    setState(value);
   };
 
   useEffect(() => {
@@ -52,10 +55,8 @@ export const usePage = <T, K = any>(
 
         const res = await axios.get<T>(url);
 
-        cache.set(name, res.data);
-
         if (!canceled) {
-          _setState(res.data, {} as K);
+          _setState(res.data, filter as K);
         }
       })();
     }

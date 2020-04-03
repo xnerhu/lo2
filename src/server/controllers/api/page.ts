@@ -5,6 +5,8 @@ import { handleRoute } from '~/server/utils';
 
 const router = Router();
 
-// router.get('/home', handleRoute(PageService.getHomeData));
+router.get('/home', handleRoute(PageService.getHomeData));
+
+router.get('/news', handleRoute(PageService.getNewsData));
 
 export default router;

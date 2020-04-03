@@ -16,7 +16,7 @@ const Articles = ({ data }: { data: IArticle[] }) => {
   return (
     <Background>
       <StyledArticles>
-        {data?.map((r) => (
+        {data.map((r) => (
           <Article key={r.id} data={r} />
         ))}
         <Buttons>
@@ -33,7 +33,7 @@ const Articles = ({ data }: { data: IArticle[] }) => {
 };
 
 export default withRouter((props) => {
-  const data = usePage<INewsPageData>('news', 'news');
+  const data = usePage<INewsPageData>('news');
   const { match } = props;
 
   const filter = React.useMemo(() => {
@@ -42,8 +42,8 @@ export default withRouter((props) => {
 
   return (
     <>
-      <Categories data={data?.categories} />
-      <Articles data={data?.articles} />
+      <Categories data={data.categories ?? []} />
+      <Articles data={data.articles ?? []} />
     </>
   );
 });

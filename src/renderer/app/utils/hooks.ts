@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import { callApi } from './network';
 import { useAppState } from '../store';
@@ -6,9 +7,9 @@ import { IAppStatePage } from '~/interfaces';
 
 const cache = new Map<string, any>();
 
-export const usePage = <T>(name: string, page?: keyof IAppStatePage) => {
+export const usePage = <T>(name?: keyof IAppStatePage): Partial<T> => {
   const appState = useAppState();
-  const injected = appState?.page[page];
+  const injected = appState?.page[name];
   const cached = cache.get(name);
 
   const [state, setState] = useState<T>(injected || cached);
@@ -22,12 +23,12 @@ export const usePage = <T>(name: string, page?: keyof IAppStatePage) => {
 
     if (!state) {
       (async () => {
-        const data = await callApi(name);
+        const res = await axios.get<T>(`api/page/${name}`);
 
-        cache.set(name, data);
+        cache.set(name, res.data);
 
         if (!canceled) {
-          setState(data as T);
+          setState(res.data);
         }
       })();
     }
@@ -37,5 +38,5 @@ export const usePage = <T>(name: string, page?: keyof IAppStatePage) => {
     };
   }, [name, state]);
 
-  return state;
+  return state || {};
 };

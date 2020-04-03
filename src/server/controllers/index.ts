@@ -2,7 +2,7 @@ import { Router, static as staticDir } from 'express';
 
 import { BUILD_PATH, STATIC_PATH } from '../constants';
 import api from './api';
-import page from './page';
+import state from './state';
 import render from './render';
 import { useAuth } from '../middleware/auth';
 
@@ -18,7 +18,7 @@ router.use('/robots.txt', (req, res) => {
 router.get('*', useAuth);
 
 router.use('/api', api);
-router.use(page);
+router.use(state);
 router.use(render);
 
 export default router;

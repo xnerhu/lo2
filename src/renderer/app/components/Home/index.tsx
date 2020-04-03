@@ -7,13 +7,13 @@ import { usePage } from '../../utils/hooks';
 import { IHomePageData } from '~/interfaces';
 
 export default () => {
-  const data = usePage<IHomePageData>('home', 'home');
+  const data = usePage<IHomePageData>('home');
 
   return (
     <>
-      <Slider items={data?.sliderItems} />
+      <Slider items={data.sliderItems ?? []} />
       <Shortcuts />
-      <ShortNews items={data?.articles} />
+      <ShortNews items={data.articles ?? []} />
     </>
   );
 };

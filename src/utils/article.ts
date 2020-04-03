@@ -9,7 +9,11 @@ export const createArticleFilter = ({
   page,
   category,
 }: IStringified<IArticleFilter>) => {
-  const filter: IArticleFilter = { category };
+  const filter: IArticleFilter = {};
+
+  if (category && category !== 'all') {
+    filter.category = category;
+  }
 
   if (limit) {
     filter.limit = parseInt(limit as any);

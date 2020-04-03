@@ -5,30 +5,57 @@ import { callApi } from './network';
 import { useAppState } from '../store';
 import { IAppStatePage } from '~/interfaces';
 
-const cache = new Map<string, any>();
+interface ICacheItem {
+  filter?: any;
+  data?: any;
+}
 
-export const usePage = <T>(name?: keyof IAppStatePage): Partial<T> => {
+const cache = new Map<string, ICacheItem>();
+
+const getDefaultState = (name: keyof IAppStatePage, filter: any = {}) => {
   const appState = useAppState();
   const injected = appState?.page[name];
   const cached = cache.get(name);
 
-  const [state, setState] = useState<T>(injected || cached);
-
-  if (injected && !cached) {
-    cache.set(name, state);
+  if (cached) {
+    return cached;
   }
+
+  const data: ICacheItem = {
+    data: injected,
+    filter,
+  };
+
+  cache.set(name, data);
+
+  return data;
+};
+
+export const usePage = <T, K = any>(
+  name?: keyof IAppStatePage,
+  filter?: any,
+): [T, (data: Partial<T>, filter: K) => void, K] => {
+  const [state, setState] = useState(getDefaultState(name, filter));
+
+  const _setState = (data: Partial<T>, filter: K) => {
+    setState({ data: { ...state.data, ...data }, filter });
+  };
 
   useEffect(() => {
     let canceled = false;
 
-    if (!state) {
+    if (!state.data) {
       (async () => {
-        const res = await axios.get<T>(`api/page/${name}`);
+        const url = `/api/page/${name}`;
+
+        console.log(`fetch ${url}`);
+
+        const res = await axios.get<T>(url);
 
         cache.set(name, res.data);
 
         if (!canceled) {
-          setState(res.data);
+          _setState(res.data, {} as K);
         }
       })();
     }
@@ -38,5 +65,5 @@ export const usePage = <T>(name?: keyof IAppStatePage): Partial<T> => {
     };
   }, [name, state]);
 
-  return state || {};
+  return [state.data || {}, _setState, state.filter || {}];
 };

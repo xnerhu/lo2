@@ -6,6 +6,13 @@ import { noUserSelect } from '~/renderer/mixins/user-selection';
 import { PRIMARY_COLOR } from '~/renderer/constants/design';
 import { centerIcon } from '~/renderer/mixins/images';
 
+interface Props {
+  icon?: string;
+  iconOnRight?: boolean;
+  reversed?: boolean;
+  disabled?: boolean;
+}
+
 export const Button = styled(Link)`
   width: fit-content;
   min-width: 144px;
@@ -25,15 +32,7 @@ export const Button = styled(Link)`
   ${robotoMedium()};
   ${noUserSelect()};
 
-  ${({
-    icon,
-    iconOnRight,
-    reversed,
-  }: {
-    icon?: string;
-    iconOnRight?: boolean;
-    reversed?: boolean;
-  }) => css`
+  ${({ icon, iconOnRight, reversed, disabled }: Props) => css`
     ${icon &&
     css`
       flex-direction: ${iconOnRight ? 'row-reverse' : 'row'};
@@ -54,6 +53,12 @@ export const Button = styled(Link)`
           transform: rotate(180deg);
         `}
       }
+    `}
+
+    ${disabled &&
+    css`
+      opacity: 0.4;
+      pointer-events: none;
     `}
   `};
 

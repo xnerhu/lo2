@@ -42,7 +42,7 @@ export const Circle = styled.div`
   background-color: #fff;
   border: 1px solid ${PRIMARY_COLOR};
   will-change: transform, background-color;
-  transition: 0.1s transform, 0.1s background-color, 0.1s border;
+  transition: 0.1s transform, 0.1s background-color;
 
   ${({ src }: { src: string }) => css`
     &::after {

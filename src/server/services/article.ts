@@ -2,8 +2,7 @@ import { db } from '../models/db';
 import {
   IArticleFilter,
   IArticle,
-  IArticleCategory,
-  IArticleListBundle,
+  IArticleListChunk,
 } from '~/interfaces/article';
 import ArticleCategoryService from './article-category';
 import { formatArticleFull, formatArticleShort } from '../utils';
@@ -38,6 +37,10 @@ class ArticleService {
     const perPage = parseInt(process.env.POSTS_PER_PAGE);
     const { page, excluded, limit, category } = filter;
 
+    if (page <= 0) {
+      throw new Error('Incorrect page!');
+    }
+
     const offset = page != null ? (page - 1) * perPage : 0;
 
     let query = db<IArticle>('news')
@@ -51,7 +54,9 @@ class ArticleService {
     }
 
     if (category) {
-      query = query.where('news.categoryId', category);
+      const { id } = await ArticleCategoryService.find(category);
+
+      query = query.where('news.categoryId', id);
     }
 
     const res = await query.select();
@@ -60,23 +65,11 @@ class ArticleService {
     return list;
   }
 
-  public async bundleMany(filter: IArticleFilter): Promise<IArticleListBundle> {
+  public async chunk(filter: IArticleFilter): Promise<IArticleListChunk> {
     const perPage = parseInt(process.env.POSTS_PER_PAGE);
     const list = await this.findMany(filter);
 
-    let categories: IArticleCategory[] = [];
-
-    if (filter?.category) {
-      const category = await ArticleCategoryService.find(filter.category);
-
-      categories.push(category);
-    } else {
-      const set = new Set<number>(list.map((r) => r.categoryId));
-
-      categories = await ArticleCategoryService.findManyById(...set);
-    }
-
-    return { articles: list, categories, nextPage: list.length >= perPage };
+    return { articles: list, nextPage: list.length >= perPage };
   }
 }
 

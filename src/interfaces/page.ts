@@ -1,4 +1,4 @@
-import { IArticle, IArticleCategory } from './article';
+import { IArticle, IArticleCategory, IArticleListChunk } from './article';
 
 export interface IHomePageData {
   sliderItems?: string[];
@@ -6,7 +6,6 @@ export interface IHomePageData {
   categories?: IArticleCategory[];
 }
 
-export interface INewsPageData {
-  articles: IArticle[];
+export interface INewsPageData extends IArticleListChunk {
   categories: IArticleCategory[];
 }

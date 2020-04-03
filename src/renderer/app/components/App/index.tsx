@@ -57,7 +57,7 @@ const App = () => {
           <Route path="/students" component={LazyStudents} />
           <Route path="/about" component={LazyAbout} />
   <Route path="/article/:label" component={LazyArticle} />*/}
-          <Route path="/news/:categoryLabel?/:page?" component={LazyNews} />
+          <Route path="/news/:category?/:page?" component={LazyNews} />
           <Route path="/" component={LazyHome} exact />
           <Route component={LazyNotFound} />
         </Switch>

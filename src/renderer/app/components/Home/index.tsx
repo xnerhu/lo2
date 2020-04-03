@@ -7,7 +7,7 @@ import { usePage } from '../../utils/hooks';
 import { IHomePageData } from '~/interfaces';
 
 export default () => {
-  const data = usePage<IHomePageData>('home');
+  const [data] = usePage<IHomePageData>('home');
 
   return (
     <>

@@ -23,8 +23,7 @@ export interface IArticleFilter {
   excluded?: string;
 }
 
-export interface IArticleListBundle {
+export interface IArticleListChunk {
   articles?: IArticle[];
-  categories?: IArticleCategory[];
   nextPage?: boolean;
 }

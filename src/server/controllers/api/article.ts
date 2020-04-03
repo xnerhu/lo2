@@ -16,15 +16,8 @@ router.get(
   '/list',
   handleRoute((req) => {
     const filter = createArticleFilter(req.query);
-    return ArticleService.findMany(filter);
-  }),
-);
 
-router.get(
-  '/list-bundle',
-  handleRoute((req) => {
-    const filter = createArticleFilter(req.query);
-    return ArticleService.bundleMany(filter);
+    return ArticleService.chunk(filter);
   }),
 );
 

@@ -2,6 +2,7 @@ import { listFiles } from '../utils';
 import ArticleService from '../services/article';
 import ArticleCategoryService from '../services/article-category';
 import { IHomePageData, INewsPageData } from '~/interfaces';
+import { IArticleFilter } from '~/interfaces/article';
 
 class PageService {
   public async getHomeData(): Promise<IHomePageData> {
@@ -16,14 +17,14 @@ class PageService {
     };
   }
 
-  public async getNewsData(): Promise<INewsPageData> {
-    const [articles, categories] = await Promise.all([
-      ArticleService.findMany(),
+  public async getNewsData(filter?: IArticleFilter): Promise<INewsPageData> {
+    const [chunk, categories] = await Promise.all([
+      ArticleService.chunk(filter),
       ArticleCategoryService.findMany(),
     ]);
 
     return {
-      articles,
+      ...chunk,
       categories,
     };
   }

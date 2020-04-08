@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Slider } from './Slider';
 import { Shortcuts } from './Shortcuts';
-import { ShortNews } from './News';
+import { Articles } from './Articles';
 import { usePage } from '../../utils/hooks';
 import { IHomePageData } from '~/interfaces';
 
@@ -13,7 +13,7 @@ export default () => {
     <>
       <Slider items={data.sliderItems ?? []} />
       <Shortcuts />
-      <ShortNews items={data.articles ?? []} />
+      <Articles items={data.articles ?? []} />
     </>
   );
 };

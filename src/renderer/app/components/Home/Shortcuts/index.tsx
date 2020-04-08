@@ -26,7 +26,7 @@ interface Props {
 export const Item = ({ icon, to, useDefaultLink, children }: Props) => {
   return (
     <StyledItem to={to} useDefaultLink={useDefaultLink}>
-      <Circle src={icon} />
+      <Circle className="home-shortcut-circle" src={icon} />
       <Title>{children}</Title>
     </StyledItem>
   );

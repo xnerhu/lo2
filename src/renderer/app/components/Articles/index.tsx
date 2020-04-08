@@ -3,29 +3,11 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import { usePage } from '../../utils/hooks';
-import { Background } from '~/renderer/components/Section';
 import { createArticleFilter } from '~/utils/article';
 import { INewsPageData } from '~/interfaces';
 import { IArticleFilter, IArticleListChunk } from '~/interfaces/article';
 import { Categories } from './Categories';
-import { Pagination } from './Pagination';
-import { ArticleCard } from '~/renderer/components/ArticleCard';
-import { StyledArticles } from './style';
-
-const Articles = ({ data }: { data: INewsPageData }) => {
-  const articles = data?.articles ?? [];
-
-  return (
-    <Background>
-      <StyledArticles>
-        {articles.map((r) => (
-          <ArticleCard key={r.id} data={r} />
-        ))}
-        <Pagination nextPage={data.nextPage} />
-      </StyledArticles>
-    </Background>
-  );
-};
+import { List } from './List';
 
 export default withRouter(({ match }) => {
   const filter = createArticleFilter(match.params);
@@ -58,7 +40,7 @@ export default withRouter(({ match }) => {
   return (
     <>
       {categories}
-      <Articles data={data} />
+      <List data={data} />
     </>
   );
 });

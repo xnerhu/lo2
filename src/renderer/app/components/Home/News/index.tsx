@@ -9,6 +9,7 @@ import {
 import { PrimaryButton } from '~/renderer/components/Button';
 import { ArticleGrid } from '~/renderer/components/ArticleGrid';
 import { INews } from '~/interfaces';
+import { CHEVRON_ICON } from '~/renderer/constants/icons';
 
 export const ShortNews = ({ items }: { items: INews[] }) => {
   return (
@@ -18,7 +19,13 @@ export const ShortNews = ({ items }: { items: INews[] }) => {
           <SectionTitle>Aktualności</SectionTitle>
         </Link>
         <ArticleGrid items={items} renderLast={false} />
-        <PrimaryButton to="/news" style={{ margin: '32px auto 0px auto' }}>
+        <PrimaryButton
+          to="/news"
+          icon={CHEVRON_ICON}
+          style={{ margin: '32px auto 0px auto' }}
+          iconOnRight
+          iconRotation={90}
+        >
           Zobacz więcej
         </PrimaryButton>
       </Content>

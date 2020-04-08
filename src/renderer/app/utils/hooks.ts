@@ -49,11 +49,9 @@ export const usePage = <T, K = any>(
 
     if (!state.data) {
       (async () => {
-        const url = `/api/page/${name}`;
+        console.log(`fetch ${name}`);
 
-        console.log(`fetch ${url}`);
-
-        const res = await axios.get<T>(url);
+        const res = await axios.get<T>(`/api/page/${name}`);
 
         if (!canceled) {
           _setState(res.data, filter as K);

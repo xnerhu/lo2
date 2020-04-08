@@ -1,17 +1,16 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { CONTENT_WIDTH, PRIMARY_COLOR } from '~/renderer/constants/design';
+import { PRIMARY_COLOR } from '~/renderer/constants/design';
 import { robotoMedium } from '~/renderer/mixins/typography';
 import { centerIcon } from '~/renderer/mixins/images';
 import { CHEVRON_ICON } from '~/renderer/constants/icons';
 import { transparency } from '~/renderer/constants/transparency';
+import { Content } from '~/renderer/components/Section';
 
-export const StyledCategories = styled.div`
-  width: 100%;
-  max-width: ${CONTENT_WIDTH}px;
+export const StyledCategories = styled(Content)`
   display: flex;
-  margin: 0 auto;
+  padding: 0px 16px;
 `;
 
 export const Button = styled.div`

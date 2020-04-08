@@ -20,16 +20,16 @@ export const Pagination = withRouter(
         <PrimaryButton
           to={`/news/${category}/${page - 1}`}
           icon={CHEVRON_ICON}
+          iconRotation={180}
           disabled={page <= 1}
-          reversed
         >
           Starsze
         </PrimaryButton>
         <PrimaryButton
           to={`/news/${category}/${page + 1}`}
           icon={CHEVRON_ICON}
-          iconOnRight
           disabled={!nextPage}
+          iconOnRight
         >
           Nowsze
         </PrimaryButton>

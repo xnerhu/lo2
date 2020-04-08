@@ -5,11 +5,19 @@ import { Image } from '../Image';
 import { formatDate } from '~/renderer/app/utils/date';
 import { StyledArticleCard, Container, Content, Date, Title } from './style';
 
-export const ArticleCard = ({ data }: { data: INews }) => {
+interface Props extends React.HTMLAttributes<HTMLAnchorElement> {
+  data: INews;
+}
+
+export const ArticleCard = ({ data, ...props }: Props) => {
   const { label, image, title, content, createdAt } = data;
 
   return (
-    <StyledArticleCard className="article-card" to={`/article/${label}`}>
+    <StyledArticleCard
+      className="article-card"
+      to={`/article/${label}`}
+      {...props}
+    >
       {image ? (
         <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />
       ) : null}

@@ -6,10 +6,10 @@ import { usePage } from '../../utils/hooks';
 import { Background } from '~/renderer/components/Section';
 import { createArticleFilter } from '~/utils/article';
 import { INewsPageData } from '~/interfaces';
-import { Article } from '~/renderer/components/Article';
 import { IArticleFilter, IArticleListChunk } from '~/interfaces/article';
 import { Categories } from './Categories';
 import { Pagination } from './Pagination';
+import { ArticleCard } from '~/renderer/components/ArticleCard';
 import { StyledArticles } from './style';
 
 const Articles = ({ data }: { data: INewsPageData }) => {
@@ -19,7 +19,7 @@ const Articles = ({ data }: { data: INewsPageData }) => {
     <Background>
       <StyledArticles>
         {articles.map((r) => (
-          <Article key={r.id} data={r} />
+          <ArticleCard key={r.id} data={r} />
         ))}
         <Pagination nextPage={data.nextPage} />
       </StyledArticles>
@@ -50,9 +50,14 @@ export default withRouter(({ match }) => {
     }
   }, [filter]);
 
+  const categories = React.useMemo(
+    () => <Categories data={data.categories ?? []} />,
+    [data?.categories],
+  );
+
   return (
     <>
-      <Categories data={data.categories ?? []} />
+      {categories}
       <Articles data={data} />
     </>
   );

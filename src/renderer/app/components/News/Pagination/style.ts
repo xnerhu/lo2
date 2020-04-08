@@ -5,5 +5,5 @@ export const StyledPagination = styled.div`
   max-width: 384px;
   display: flex;
   justify-content: space-between;
-  margin: 32px auto;
+  margin: 32px auto 0px;
 `;

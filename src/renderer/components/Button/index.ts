@@ -9,6 +9,7 @@ import { centerIcon } from '~/renderer/mixins/images';
 interface Props {
   icon?: string;
   iconOnRight?: boolean;
+  iconRotation?: number;
   reversed?: boolean;
   disabled?: boolean;
 }
@@ -32,7 +33,7 @@ export const Button = styled(Link)`
   ${robotoMedium()};
   ${noUserSelect()};
 
-  ${({ icon, iconOnRight, reversed, disabled }: Props) => css`
+  ${({ icon, iconOnRight, reversed, iconRotation, disabled }: Props) => css`
     ${icon &&
     css`
       flex-direction: ${iconOnRight ? 'row-reverse' : 'row'};
@@ -44,13 +45,13 @@ export const Button = styled(Link)`
         background-color: ${PRIMARY_COLOR};
         mask-image: url(${icon});
         margin-left: 4px;
+        margin-right: 4px;
         transition: 0.1s background-color;
         ${centerIcon(20, true)};
 
-        ${reversed &&
+        ${iconRotation != null &&
         css`
-          margin-right: 4px;
-          transform: rotate(180deg);
+          transform: rotate(${iconRotation}deg);
         `}
       }
     `}

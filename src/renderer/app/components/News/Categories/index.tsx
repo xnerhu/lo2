@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import { IArticleCategory, IArticle } from '~/interfaces/article';
+import { IArticleCategory } from '~/interfaces/article';
 import { getCategoryOffset } from '~/renderer/app/utils/article';
 import { IRouterProps } from '~/renderer/app/interfaces';
 import { StyledCategories, Item, Button, Container } from './style';

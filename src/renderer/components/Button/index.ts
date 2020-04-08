@@ -12,6 +12,7 @@ interface Props {
   iconRotation?: number;
   reversed?: boolean;
   disabled?: boolean;
+  pushAnimation?: boolean;
 }
 
 export const Button = styled(Link)`
@@ -33,39 +34,54 @@ export const Button = styled(Link)`
   ${robotoMedium()};
   ${noUserSelect()};
 
-  ${({ icon, iconOnRight, reversed, iconRotation, disabled }: Props) => css`
-    ${icon &&
-    css`
-      flex-direction: ${iconOnRight ? 'row-reverse' : 'row'};
+  ${({
+    icon,
+    iconOnRight,
+    iconRotation,
+    disabled,
+    pushAnimation,
+  }: Props) => css`
+    ${
+      icon &&
+      css`
+        flex-direction: ${iconOnRight ? 'row-reverse' : 'row'};
 
-      &::before {
-        content: '';
-        width: 20px;
-        height: 20px;
-        background-color: ${PRIMARY_COLOR};
-        mask-image: url(${icon});
-        margin-left: 4px;
-        margin-right: 4px;
-        transition: 0.1s background-color;
-        ${centerIcon(20, true)};
+        &::before {
+          content: '';
+          width: 20px;
+          height: 20px;
+          background-color: #000;
+          mask-image: url(${icon});
+          margin-left: 4px;
+          margin-right: 4px;
+          transition: 0.1s background-color;
+          ${centerIcon(20, true)};
 
-        ${iconRotation != null &&
-        css`
-          transform: rotate(${iconRotation}deg);
-        `}
-      }
-    `}
+          ${iconRotation != null &&
+          css`
+            transform: rotate(${iconRotation}deg);
+          `}
+        }
+      `
+    }
 
-    ${disabled &&
-    css`
-      opacity: 0.4;
-      pointer-events: none;
-    `}
+    ${
+      disabled &&
+      css`
+        opacity: 0.4;
+        pointer-events: none;
+      `
+    }
+
+    ${
+      pushAnimation !== false &&
+      css`
+        &:active {
+          transform: scale(0.95);
+        }
+      `
+    }
   `};
-
-  &:active {
-    transform: scale(0.95);
-  }
 
   &:hover::after {
     opacity: 1;
@@ -86,6 +102,10 @@ export const Button = styled(Link)`
 export const PrimaryButton = styled(Button)`
   color: ${PRIMARY_COLOR};
   background-color: rgba(0, 174, 239, 0.08);
+
+  &::before {
+    background-color: ${PRIMARY_COLOR};
+  }
 `;
 
 // export const buttonBase = css`

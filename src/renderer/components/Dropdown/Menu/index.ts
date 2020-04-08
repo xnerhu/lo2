@@ -23,7 +23,7 @@ export const Menu = styled.div`
   ${({ expanded }: { expanded: boolean }) => css`
     opacity: ${expanded ? 1 : 0};
     pointer-events: ${expanded ? 'auto' : 'none'};
-    margin-top: ${expanded ? 12 : -8}px;
+    margin-top: ${expanded ? 4 : -8}px;
     transition: ${expanded ? '0.1s opacity, 0.1s margin-top' : 'unset'};
   `}
 `;

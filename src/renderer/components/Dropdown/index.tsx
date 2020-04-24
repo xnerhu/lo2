@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Menu, MenuItem } from './Menu';
 import { StyledDropdown, Icon } from './style';
+import { setMenuPos, toggleMenu } from '~/renderer/app/utils/context-menu';
 
 export type IDropDownItem = {
   id?: any;
@@ -15,12 +16,16 @@ interface Props {
   onChange?: (item: IDropDownItem) => void;
   className?: string;
   style?: React.CSSProperties;
-  ref?: any;
 }
 
 export const Dropdown = React.forwardRef(
-  ({ placeholder, items, value, onChange, ...props }: Props, ref: any) => {
+  (
+    { placeholder, items, value, onChange, ...props }: Props,
+    setRef: React.MutableRefObject<HTMLDivElement>,
+  ) => {
     const [expanded, setExpanded] = React.useState(false);
+    const ref = React.useRef<HTMLDivElement>();
+    const menuRef = React.useRef<HTMLDivElement>();
 
     const selected = React.useMemo(() => items.find((r) => r.id === value), [
       value,
@@ -28,21 +33,18 @@ export const Dropdown = React.forwardRef(
     ]);
 
     const onClick = React.useCallback(() => {
-      setExpanded(!expanded);
-    }, [expanded]);
+      setExpanded(true);
+    }, []);
 
     const onWindowClick = React.useCallback(() => {
       setExpanded(false);
     }, []);
 
-    const onItemClick = (item: IDropDownItem) => (e: React.MouseEvent) => {
-      if (onChange && value !== item.id) {
-        onChange(item);
-      }
-    };
-
     React.useEffect(() => {
+      toggleMenu(menuRef.current, expanded);
+
       if (expanded) {
+        setMenuPos(ref.current, menuRef.current);
         window.addEventListener('click', onWindowClick);
       } else {
         window.removeEventListener('click', onWindowClick);
@@ -53,11 +55,24 @@ export const Dropdown = React.forwardRef(
       return () => window.removeEventListener('click', onWindowClick);
     }, []);
 
+    const onItemClick = (item: IDropDownItem) => (e: React.MouseEvent) => {
+      if (onChange && value !== item.id) {
+        onChange(item);
+      }
+    };
+
     return (
-      <StyledDropdown ref={ref} onClick={onClick} {...props}>
+      <StyledDropdown
+        ref={(r) => {
+          ref.current = r;
+          setRef.current = r;
+        }}
+        onClick={onClick}
+        {...props}
+      >
         {selected?.name ?? placeholder}
         <Icon className="drop-down-icon" />
-        <Menu expanded={expanded}>
+        <Menu ref={menuRef}>
           {items.map(
             (r) =>
               r.id !== value && (

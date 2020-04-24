@@ -4,7 +4,12 @@ import { withRouter } from 'react-router';
 import { IArticleCategory } from '~/interfaces/article';
 import { IRouterProps } from '~/renderer/app/interfaces';
 import { IS_BROWSER } from '~/renderer/constants/env';
+import { IDropDownItem } from '~/renderer/components/Dropdown';
 import { StyledCategories, Item, Dropdown } from './style';
+
+interface IDropDownCategoryItem extends IDropDownItem {
+  label: string;
+}
 
 const getIndex = (
   list: number[],
@@ -30,76 +35,91 @@ interface Props {
   data: IArticleCategory[];
 }
 
-export const Categories = withRouter(({ data, match }: IRouterProps<Props>) => {
-  const [limit, setLimit] = React.useState<number>();
+export const Categories = withRouter(
+  ({ data, match, history }: IRouterProps<Props>) => {
+    const [limit, setLimit] = React.useState<number>();
 
-  const ref = React.useRef<HTMLDivElement>();
-  const dropDownRef = React.useRef<HTMLDivElement>();
+    const ref = React.useRef<HTMLDivElement>();
+    const dropDownRef = React.useRef<HTMLDivElement>();
 
-  const list = React.useRef<HTMLAnchorElement[]>([]);
-  const widths = React.useRef<number[]>([]);
-  const measure = React.useRef(true);
+    const list = React.useRef<HTMLAnchorElement[]>([]);
+    const widths = React.useRef<number[]>([]);
+    const measure = React.useRef(true);
 
-  const visibleItems = data.slice(0, limit ?? data.length);
-  const menuItems = data.slice(limit, data.length);
+    const visibleItems = data.slice(0, limit ?? data.length);
+    const menuItems = data.slice(limit, data.length);
 
-  if (IS_BROWSER) {
-    React.useLayoutEffect(() => {
-      measure.current = false;
+    if (IS_BROWSER) {
+      React.useLayoutEffect(() => {
+        measure.current = false;
 
-      setTimeout(() => {
-        widths.current = list.current.map((r) => r.clientWidth);
+        setTimeout(() => {
+          widths.current = list.current.map((r) => r.clientWidth);
 
-        const index = getIndex(
-          widths.current,
-          ref.current,
-          dropDownRef.current,
-        );
+          const index = getIndex(
+            widths.current,
+            ref.current,
+            dropDownRef.current,
+          );
 
+          setLimit(index);
+
+          ref.current.style.visibility = 'visible';
+        }, 1);
+      }, []);
+    }
+
+    const onResize = React.useCallback(() => {
+      const index = getIndex(widths.current, ref.current, dropDownRef.current);
+
+      if (index !== limit) {
+        console.log(index);
         setLimit(index);
+      }
+    }, [limit]);
 
-        ref.current.style.visibility = 'visible';
-      }, 1);
+    const setRef = React.useCallback((ref: HTMLAnchorElement) => {
+      if (ref) {
+        list.current.push(ref);
+      }
     }, []);
-  }
 
-  const onResize = React.useCallback(() => {
-    const index = getIndex(widths.current, ref.current, dropDownRef.current);
+    const onDropDownChange = React.useCallback(
+      (data: IDropDownCategoryItem) => {
+        history.push(`/news/${data.label}`);
+      },
+      [],
+    );
 
-    if (index !== limit) {
-      console.log(index);
-      setLimit(index);
-    }
-  }, [limit]);
+    React.useEffect(() => {
+      window.addEventListener('resize', onResize);
 
-  const setRef = React.useCallback((ref: HTMLAnchorElement) => {
-    if (ref) {
-      list.current.push(ref);
-    }
-  }, []);
+      return () => {
+        window.removeEventListener('resize', onResize);
+      };
+    }, [limit]);
 
-  React.useEffect(() => {
-    window.addEventListener('resize', onResize);
+    list.current = [];
 
-    return () => {
-      window.removeEventListener('resize', onResize);
-    };
-  }, [limit]);
-
-  list.current = [];
-
-  return (
-    <StyledCategories ref={ref}>
-      {visibleItems.map((r) => (
-        <Item
-          key={r.label}
-          innerRef={measure.current ? setRef : undefined}
-          to={`/news/${r.label}`}
-        >
-          {r.name}
-        </Item>
-      ))}
-      {menuItems.length && <Dropdown ref={dropDownRef} items={menuItems} />}
-    </StyledCategories>
-  );
-});
+    return (
+      <StyledCategories ref={ref}>
+        {visibleItems.map((r) => (
+          <Item
+            key={r.label}
+            innerRef={measure.current ? setRef : undefined}
+            to={`/news/${r.label}`}
+          >
+            {r.name}
+          </Item>
+        ))}
+        {menuItems.length && (
+          <Dropdown
+            ref={dropDownRef}
+            items={menuItems}
+            onChange={onDropDownChange}
+          />
+        )}
+      </StyledCategories>
+    );
+  },
+);

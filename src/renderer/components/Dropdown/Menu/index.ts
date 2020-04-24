@@ -18,14 +18,17 @@ export const Menu = styled.div`
   transition-timing-function: ${EASING_FUNCTION};
   box-shadow: ${CARD_SHADOW};
   border: 1px solid rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  pointer-events: none;
+  margin-top: -8px;
   ${noButtons()};
 
-  ${({ expanded }: { expanded: boolean }) => css`
-    opacity: ${expanded ? 1 : 0};
-    pointer-events: ${expanded ? 'auto' : 'none'};
-    margin-top: ${expanded ? 4 : -8}px;
-    transition: ${expanded ? '0.1s opacity, 0.1s margin-top' : 'unset'};
-  `}
+  &.expanded {
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: 4px;
+    transition: 0.2s opacity, 0.1s margin-top;
+  }
 `;
 
 export const MenuItem = styled.div`

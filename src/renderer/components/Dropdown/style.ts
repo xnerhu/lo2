@@ -14,7 +14,6 @@ export const StyledDropdown = styled.div`
   justify-content: center;
   border-radius: 4px;
   cursor: pointer;
-  position: relative;
   background-color: rgba(0, 0, 0, 0.06);
   will-change: background-color;
   transition: 0.1s background-color;

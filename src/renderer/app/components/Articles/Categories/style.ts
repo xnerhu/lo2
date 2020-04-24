@@ -22,7 +22,7 @@ const ItemStyle = css`
   color: rgba(0, 0, 0, ${transparency.text.medium});
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.06);
+    background-color: rgba(0, 0, 0, 0.04);
   }
 `;
 
@@ -44,5 +44,9 @@ export const Dropdown = styled(StyledDropdown)`
 
   & > .drop-down-icon {
     opacity: ${transparency.icons.inactive};
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
   }
 `;

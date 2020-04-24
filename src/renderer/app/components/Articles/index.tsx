@@ -32,10 +32,13 @@ export default withRouter(({ match }) => {
     }
   }, [filter]);
 
-  const categories = React.useMemo(
-    () => <Categories data={data.categories ?? []} />,
-    [data?.categories],
-  );
+  const categories = React.useMemo(() => {
+    if (data?.categories != null) {
+      return <Categories data={data.categories} />;
+    }
+
+    return null;
+  }, [data?.categories]);
 
   return (
     <>

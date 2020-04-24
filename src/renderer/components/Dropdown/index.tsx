@@ -67,8 +67,8 @@ export const Dropdown = React.forwardRef(
           ref.current = r;
           setRef.current = r;
         }}
-        onClick={onClick}
         {...props}
+        onClick={onClick}
       >
         {selected?.name ?? placeholder}
         <Icon className="drop-down-icon" />

@@ -22,6 +22,14 @@ class ArticleCategoryService {
     return items;
   }
 
+  public async findById(id: number): Promise<IArticleCategory> {
+    const [data] = await db<IArticleCategory>('news-categories')
+      .where({ id })
+      .limit(1);
+
+    return data;
+  }
+
   public async findManyById(...ids: number[]): Promise<IArticleCategory[]> {
     const items = await db<IArticleCategory>('news-categories').whereIn(
       'id',

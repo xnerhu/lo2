@@ -9,16 +9,23 @@ interface Props extends React.HTMLAttributes<HTMLAnchorElement> {
   data: IArticle;
   category?: IArticleCategory;
   user?: IUser;
+  full?: boolean;
 }
 
-export const ArticleList = ({ data, category, user }: Props) => {
+export const ArticleList = ({ data, category, user, full }: Props) => {
   return (
     <StyledArticle>
-      <Title to={`/article/${data.label}`}>{data.title}</Title>
-      <ArticleDetails article={data} user={user} category={category} />
-      {data.image ? <Image src={data.image} ratio={2.75} /> : null}
-      <Content>{data.content}</Content>
-      <ReadMore to={`/article/${data.label}`}>Więcej</ReadMore>
+      <Title to={`/article/${data?.label}`}>{data?.title}</Title>
+      {user && (
+        <ArticleDetails article={data} user={user} category={category} />
+      )}
+      {data?.image ? <Image src={data.image} ratio={2.75} /> : null}
+      {!full ? (
+        <Content>{data?.content}</Content>
+      ) : (
+        <Content dangerouslySetInnerHTML={{ __html: data?.content }} />
+      )}
+      {!full && <ReadMore to={`/article/${data?.label}`}>Więcej</ReadMore>}
     </StyledArticle>
   );
 };

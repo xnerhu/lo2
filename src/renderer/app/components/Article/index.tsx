@@ -1,49 +1,44 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
-import { useStore } from '../../store';
-import { View } from './View';
-import { NewsCard } from '~/renderer/components/NewsCard';
-import {
-  Content,
-  SectionTitle,
-  Background,
-} from '~/renderer/components/Section';
-import { IRouterProps } from '../../interfaces';
-import { NewsContainer } from './style';
+import { usePage } from '../../utils/hooks';
+import { IArticlePagePacket } from '~/interfaces';
+import { ArticleList } from '~/renderer/components/ArticleList';
+import { StyledArticles } from '../Articles/List/style';
 
-export default withRouter(
-  observer((props: IRouterProps) => {
-    const store = useStore();
-    const { match } = props;
+interface Filter {
+  label: string;
+}
 
-    React.useEffect(() => {
-      store.article.fetch(match.params.label);
-    }, [match.params]);
+export default withRouter(({ match }) => {
+  const { label } = match.params;
 
-    React.useEffect(() => {
-      return () => {
-        store.article.clear();
-      };
-    }, []);
+  const [data, setData, cachedFilter] = usePage<IArticlePagePacket, Filter>(
+    'article',
+    { label },
+  );
 
-    return (
-      <>
-        <View />
-        <Background>
-          <Content>
-            {store.article.data != null && (
-              <SectionTitle center>Proponowane</SectionTitle>
-            )}
-            <NewsContainer>
-              {store.article.proposedNews.map((r) => (
-                <NewsCard key={r.id} data={r} />
-              ))}
-            </NewsContainer>
-          </Content>
-        </Background>
-      </>
-    );
-  }),
-);
+  React.useEffect(() => {
+    if (label !== cachedFilter.label) {
+      (async () => {
+        const res = await axios.get<IArticlePagePacket>(`/api/page/article`, {
+          params: { label },
+        });
+
+        setData(res.data, label);
+      })();
+    }
+  }, [label]);
+
+  return (
+    <StyledArticles>
+      <ArticleList
+        data={data?.article}
+        category={data?.category}
+        user={data?.author}
+        full
+      />
+    </StyledArticles>
+  );
+});

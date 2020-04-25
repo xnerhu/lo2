@@ -73,7 +73,6 @@ export const Categories = withRouter(
       const index = getIndex(widths.current, ref.current, dropDownRef.current);
 
       if (index !== limit) {
-        console.log(index);
         setLimit(index);
       }
     }, [limit]);

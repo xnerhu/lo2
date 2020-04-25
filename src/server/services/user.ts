@@ -15,6 +15,12 @@ class UserService {
     return query.map((r) => formatUser(r));
   }
 
+  public async findById(id: number): Promise<IUser> {
+    const [item] = await db<IUser>('users').where({ id }).limit(1);
+
+    return item;
+  }
+
   public async create(data: IUser): Promise<IUser> {
     const hashedPassword = await hashString(data.password);
 

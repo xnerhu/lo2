@@ -34,7 +34,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h6`
-  padding: 16px 0px;
+  padding: 12px 0px;
   margin-top: 8px;
 `;
 

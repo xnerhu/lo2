@@ -1,5 +1,7 @@
 import { INews, INewsChunk, INewsCategory, IEditArticleItem } from './news';
 import { IPersonnelSection } from './personnel';
+import { IArticle, IArticleCategory } from './article';
+import { IUser } from './user';
 
 export interface IHomePagePacket {
   sliderItems?: string[];
@@ -12,9 +14,10 @@ export interface INewsPagePacket {
 }
 
 export interface IArticlePagePacket {
-  data?: INews;
+  article?: IArticle;
+  category?: IArticleCategory;
+  author?: IUser;
   error?: boolean;
-  proposed?: INews[];
   editable?: boolean;
 }
 

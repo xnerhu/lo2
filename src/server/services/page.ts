@@ -1,8 +1,10 @@
-import { listFiles } from '../utils';
+import { listFiles, formatUser, IParams } from '../utils';
 import ArticleService from '../services/article';
 import ArticleCategoryService from '../services/article-category';
-import { IHomePageData, INewsPageData } from '~/interfaces';
+import UserService from '../services/user';
+import { IHomePageData, INewsPageData, IArticlePagePacket } from '~/interfaces';
 import { IArticleFilter } from '~/interfaces/article';
+import { createArticleFilter } from '~/utils/article';
 
 class PageService {
   public async getHomeData(): Promise<IHomePageData> {
@@ -22,7 +24,9 @@ class PageService {
     };
   }
 
-  public async getNewsData(filter?: IArticleFilter): Promise<INewsPageData> {
+  public async getNewsData(params: IParams): Promise<INewsPageData> {
+    const filter = createArticleFilter(params);
+
     const [chunk, categories] = await Promise.all([
       ArticleService.chunk(filter),
       ArticleCategoryService.findMany(),
@@ -32,6 +36,17 @@ class PageService {
       ...chunk,
       categories,
     };
+  }
+
+  public async getArticleData({ label }: IParams): Promise<IArticlePagePacket> {
+    const article = await ArticleService.find(label);
+
+    const [category, author] = await Promise.all([
+      ArticleCategoryService.findById(article.categoryId),
+      UserService.findById(article.authorId),
+    ]);
+
+    return { article, category, author: formatUser(author) };
   }
 }
 

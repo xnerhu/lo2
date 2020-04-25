@@ -9,4 +9,6 @@ router.get('/home', handleRoute(PageService.getHomeData));
 
 router.get('/news', handleRoute(PageService.getNewsData));
 
+router.get('/article', handleRoute(PageService.getArticleData));
+
 export default router;

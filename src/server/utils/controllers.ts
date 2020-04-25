@@ -3,11 +3,11 @@ import { Response, NextFunction } from 'express';
 import { IRequest } from '../interfaces';
 import { IAppStatePage } from '~/interfaces';
 
-type ICb = (
-  req: IRequest,
-  res: Response,
-  next: NextFunction,
-) => Promise<any> | any;
+export interface IParams {
+  [key: string]: any;
+}
+
+type ICb = (params: IParams, req: IRequest) => Promise<any> | any;
 
 export const handleRoute = (cb: ICb) => async (
   req: IRequest,
@@ -15,7 +15,7 @@ export const handleRoute = (cb: ICb) => async (
   next: NextFunction,
 ) => {
   try {
-    const data = await cb(req, res, next);
+    const data = await cb(req.query, req);
 
     res.json(data);
   } catch (err) {
@@ -29,7 +29,7 @@ export const handlePageRoute = (page: keyof IAppStatePage, cb: ICb) => async (
   res: Response,
   next: NextFunction,
 ) => {
-  const data = await cb(req, res, next);
+  const data = await cb(req.params, req);
 
   req.appState = {
     page: {

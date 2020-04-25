@@ -51,7 +51,7 @@ export const usePage = <T, K = any>(
       (async () => {
         console.log(`fetch ${name}`);
 
-        const res = await axios.get<T>(`/api/page/${name}`);
+        const res = await axios.get<T>(`/api/page/${name}`, { params: filter });
 
         if (!canceled) {
           _setState(res.data, filter as K);

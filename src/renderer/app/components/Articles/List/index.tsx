@@ -13,10 +13,12 @@ interface Props {
 export const List = ({ data }: Props) => {
   const { articles, categories, users } = data;
 
+  if (!articles?.length) return null;
+
   return (
     <Background>
       <StyledArticles>
-        {articles?.map((r) => (
+        {articles.map((r) => (
           <ArticleList
             key={r.id}
             data={r}

@@ -22,7 +22,6 @@ export const Title = styled(Link)`
 
 export const Image = styled(LazyImage)`
   width: 100%;
-  height: 256px;
   border-radius: 8px;
   box-shadow: ${CARD_SHADOW};
   margin-bottom: 24px;

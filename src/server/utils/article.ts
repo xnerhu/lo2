@@ -5,8 +5,29 @@ const getImage = (data: INews) => {
   return data.hasImage ? `/static/news/${data.id}` : '';
 };
 
-export const formatArticle = (data: INews): INews => {
-  const { id, label, title, content, createdAt, categoryId, authorId } = data;
+export interface IArticleFormat {
+  image?: 'thumbnail' | 'full';
+  content?: 'text' | 'html';
+  maxLength?: number;
+}
+
+export const formatArticle = (data: INews, format?: IArticleFormat): INews => {
+  const { id, label, title, createdAt, categoryId, authorId } = data;
+
+  let content = data.content;
+  const json = JSON.parse(content);
+
+  if (format?.content === 'html') {
+    content = serializeRichTextToHtml(json);
+  } else {
+    content = serializeRichText(json, format?.maxLength);
+  }
+
+  let image = getImage(data);
+
+  if (image && format?.image === 'thumbnail') {
+    image = image + '.thumbnail';
+  }
 
   return {
     id,
@@ -17,27 +38,5 @@ export const formatArticle = (data: INews): INews => {
     categoryId,
     authorId,
     image: getImage(data),
-  };
-};
-
-export const formatArticleShort = (data: INews): INews => {
-  const maxLength = parseInt(process.env.SHORT_NEWS_MAX_LENGTH);
-
-  const _data = formatArticle(data);
-  const json = JSON.parse(data.content);
-
-  return {
-    ..._data,
-    image: data.hasImage && _data.image + '.thumbnail',
-    content: serializeRichText(json, maxLength),
-  };
-};
-
-export const formatArticleFull = (data: INews): INews => {
-  const json = JSON.parse(data.content);
-
-  return {
-    ...formatArticle(data),
-    content: serializeRichTextToHtml(json),
   };
 };

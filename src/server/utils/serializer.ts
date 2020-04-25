@@ -77,7 +77,7 @@ export const serializeRichText = (nodes: Node[], limit?: number): string => {
   nodes.some((r) => {
     text += Node.string(r) + ' ';
 
-    if (text.length >= limit) {
+    if (limit != null && text.length >= limit) {
       text = truncateString(text.trim(), limit);
 
       return true;

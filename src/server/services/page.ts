@@ -6,9 +6,14 @@ import { IArticleFilter } from '~/interfaces/article';
 
 class PageService {
   public async getHomeData(): Promise<IHomePageData> {
+    const maxArticleLength = parseInt(process.env.HOME_PAGE_ARTICLE_LENGTH);
+
     const [sliderItems, articles] = await Promise.all([
       listFiles('home-slider'),
-      ArticleService.findMany({ limit: 9, thumbnail: true }),
+      ArticleService.findMany(
+        { limit: 9, thumbnail: true },
+        { maxLength: maxArticleLength },
+      ),
     ]);
 
     return {

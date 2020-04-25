@@ -16,7 +16,7 @@ export const ArticleList = ({ data, category, user }: Props) => {
     <StyledArticle>
       <Title to={`/article/${data.label}`}>{data.title}</Title>
       <ArticleDetails article={data} user={user} category={category} />
-      {data.image ? <Image src={data.image} /> : null}
+      {data.image ? <Image src={data.image} ratio={2.75} /> : null}
       <Content>{data.content}</Content>
       <ReadMore to={`/article/${data.label}`}>Więcej</ReadMore>
     </StyledArticle>

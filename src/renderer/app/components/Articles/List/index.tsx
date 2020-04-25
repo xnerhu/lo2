@@ -16,7 +16,7 @@ export const List = ({ data }: Props) => {
   return (
     <Background>
       <StyledArticles>
-        {articles.map((r) => (
+        {articles?.map((r) => (
           <ArticleList
             key={r.id}
             data={r}
@@ -29,11 +29,3 @@ export const List = ({ data }: Props) => {
     </Background>
   );
 };
-
-List.defaultProps = {
-  data: {
-    categories: [],
-    articles: [],
-    users: [],
-  },
-} as Props;

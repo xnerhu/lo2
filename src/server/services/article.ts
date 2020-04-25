@@ -5,7 +5,12 @@ import {
   IArticleListChunk,
 } from '~/interfaces/article';
 import ArticleCategoryService from './article-category';
-import { formatArticleFull, formatArticleShort } from '../utils';
+import {
+  formatArticleFull,
+  formatArticleShort,
+  getUniqueValues,
+} from '../utils';
+import UserService from './user';
 
 class ArticleService {
   public async find(label: string): Promise<IArticle> {
@@ -35,7 +40,7 @@ class ArticleService {
 
   public async findMany(filter: IArticleFilter = {}): Promise<IArticle[]> {
     const perPage = parseInt(process.env.POSTS_PER_PAGE);
-    const { page, excluded, limit, category } = filter;
+    const { page, excluded, limit, category, thumbnail } = filter;
 
     if (page <= 0) {
       throw new Error('Incorrect page!');
@@ -59,6 +64,10 @@ class ArticleService {
       query = query.where('news.categoryId', id);
     }
 
+    if (thumbnail) {
+      query = query.where('news.hasImage', true);
+    }
+
     const res = await query.select();
     const list = res.map((r) => formatArticleShort(r.news));
 
@@ -68,8 +77,10 @@ class ArticleService {
   public async chunk(filter: IArticleFilter): Promise<IArticleListChunk> {
     const perPage = parseInt(process.env.POSTS_PER_PAGE);
     const list = await this.findMany(filter);
+    const usersId = getUniqueValues(list.map((r) => r.authorId));
+    const users = await UserService.findMany(usersId);
 
-    return { articles: list, nextPage: list.length >= perPage };
+    return { articles: list, users, nextPage: list.length >= perPage };
   }
 }
 

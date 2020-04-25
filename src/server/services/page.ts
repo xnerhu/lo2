@@ -8,7 +8,7 @@ class PageService {
   public async getHomeData(): Promise<IHomePageData> {
     const [sliderItems, articles] = await Promise.all([
       listFiles('home-slider'),
-      ArticleService.findMany({ limit: 9 }),
+      ArticleService.findMany({ limit: 9, thumbnail: true }),
     ]);
 
     return {

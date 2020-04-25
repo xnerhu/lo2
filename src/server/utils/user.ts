@@ -1,7 +1,8 @@
 import { IUser } from '~/interfaces';
 
-export const formatUser = (data: IUser): IUser => ({
-  ...data,
-  image: `/static/users/${data.id}`,
-  password: undefined,
+export const formatUser = ({ firstName, lastName, id }: IUser): IUser => ({
+  id,
+  firstName,
+  lastName,
+  image: `/static/users/${id}`,
 });

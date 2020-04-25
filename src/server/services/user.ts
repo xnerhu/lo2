@@ -1,12 +1,18 @@
 import { IUser } from '~/interfaces';
 import { db } from '../models/db';
-import { hashString } from '../utils';
+import { hashString, formatUser } from '../utils';
 
 class UserService {
   public async find(username: string): Promise<IUser> {
     const [item] = await db<IUser>('users').where({ username }).limit(1);
 
     return item;
+  }
+
+  public async findMany(ids: number[]) {
+    const query = await db<IUser>('users').whereIn('id', ids);
+
+    return query.map((r) => formatUser(r));
   }
 
   public async create(data: IUser): Promise<IUser> {

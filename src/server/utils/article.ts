@@ -6,7 +6,7 @@ const getImage = (data: INews) => {
 };
 
 export const formatArticle = (data: INews): INews => {
-  const { id, label, title, content, createdAt, categoryId } = data;
+  const { id, label, title, content, createdAt, categoryId, authorId } = data;
 
   return {
     id,
@@ -15,6 +15,7 @@ export const formatArticle = (data: INews): INews => {
     content,
     createdAt,
     categoryId,
+    authorId,
     image: getImage(data),
   };
 };

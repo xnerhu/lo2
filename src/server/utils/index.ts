@@ -5,3 +5,4 @@ export * from './serializer';
 export * from './string';
 export * from './files';
 export * from './user';
+export * from './array';

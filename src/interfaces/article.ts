@@ -1,3 +1,5 @@
+import { IUser } from './user';
+
 export interface IArticle {
   id?: number;
   label?: string;
@@ -21,9 +23,11 @@ export interface IArticleFilter {
   limit?: number;
   category?: string;
   excluded?: string;
+  thumbnail?: boolean;
 }
 
 export interface IArticleListChunk {
   articles?: IArticle[];
   nextPage?: boolean;
+  users?: IUser[];
 }

@@ -26,7 +26,7 @@ const LazyContact = loadable(() => import('../Contact'), options);
 const LazyAddArticle = loadable(() => import('../AddArticle'), options);
 const LazyEditArticle = loadable(() => import('../EditArticle'), options);
 const LazyLogin = loadable(() => import('../Login'), options);
-// const LazyChangePassword = loadable(() => import('../ChangePassword'), options);
+const LazyChangePassword = loadable(() => import('../ChangePassword'), options);
 
 // const Watcher = withRouter((props: IRouterProps) => {
 //   const { pathname } = props.location;
@@ -47,7 +47,7 @@ const App = () => {
         <Appbar />
         <Switch>
           <Route path="/login" component={LazyLogin} />
-          {/* <Route path="/change-password" component={LazyChangePassword} />*/}
+          <Route path="/change-password" component={LazyChangePassword} />
           <Route path="/edit-article/:label" component={LazyEditArticle} />
           <Route path="/add-article" component={LazyAddArticle} />
           <Route path="/contact" component={LazyContact} />

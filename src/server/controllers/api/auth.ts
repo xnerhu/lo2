@@ -1,11 +1,16 @@
-import { Router } from 'express';
+import { Router, Response } from 'express';
 
 import AuthService from '~/server/services/auth';
 import UserService from '~/server/services/user';
-import { IAuthLoginRes } from '~/interfaces';
+import {
+  IAuthLoginRes,
+  IChangePasswordReq,
+  IChangePasswordRes,
+} from '~/interfaces';
 import { compareHashed, formatUser } from '~/server/utils';
 import { ACCESS_TOKEN_EXPIRATION } from '~/server/constants';
 import { withAuth } from '~/server/middleware/auth';
+import { IRequest } from '~/server/interfaces';
 
 const router = Router();
 
@@ -59,6 +64,45 @@ router.get('/logout', (req, res) => {
 
 router.get('/logged', withAuth(), (req, res) => {
   res.send('success');
+});
+
+const logout = (res: Response) => {
+  res.clearCookie('token');
+};
+
+router.post('/change-password', async (req: IRequest, res) => {
+  const { password } = req.body as IChangePasswordReq;
+  const { user } = await AuthService.verifyToken(req);
+
+  if (!password.length) {
+    return res.json({
+      success: false,
+      error: 'Hasło nie może być puste!',
+    } as IChangePasswordRes);
+  }
+
+  let error;
+
+  try {
+    await UserService.changePassword(user.username, password);
+  } catch (err) {
+    error = err;
+  }
+
+  if (error) {
+    if (error.message.startsWith('User')) {
+      return res.json({
+        success: false,
+        error: error.message,
+      } as IChangePasswordRes);
+    } else {
+      throw error;
+    }
+  }
+
+  logout(res);
+
+  return res.json({ success: true } as IChangePasswordRes);
 });
 
 export default router;

@@ -65,7 +65,7 @@ export const Dropdown = React.forwardRef(
       <StyledDropdown
         ref={(r) => {
           ref.current = r;
-          setRef.current = r;
+          if (setRef) setRef.current = r;
         }}
         {...props}
         onClick={onClick}

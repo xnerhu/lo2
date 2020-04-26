@@ -22,4 +22,9 @@ router.get(
   handlePageRoute('personnel', PageService.getPersonnelData),
 );
 
+router.get(
+  '/add-article',
+  handlePageRoute('addArticle', PageService.getAddArticlePacket),
+);
+
 export default router;

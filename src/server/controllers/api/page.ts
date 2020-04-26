@@ -11,6 +11,6 @@ router.get('/news', handleRoute(PageService.getNewsData));
 
 router.get('/article', handleRoute(PageService.getArticleData));
 
-router.get('/personnel', handleRoute(PageService.getPersonnelData));
+router.get('/addArticle', handleRoute(PageService.getAddArticlePacket));
 
 export default router;

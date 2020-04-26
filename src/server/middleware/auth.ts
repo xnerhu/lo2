@@ -25,8 +25,10 @@ export const withAuth = () => async (
   res: Response,
   next: NextFunction,
 ) => {
-  if (!req.user || req.authError) {
-    res.status(401).send({ success: false, error: req.authError.message });
+  const { user } = await AuthService.verifyToken(req);
+
+  if (!user || req.authError) {
+    res.status(401).send({ success: false, error: req.authError?.message });
   } else {
     next();
   }

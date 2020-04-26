@@ -11,6 +11,7 @@ import {
   IArticlePagePacket,
   IUser,
   IPersonnelPacket,
+  IAddArticlePacket,
 } from '~/interfaces';
 import { IArticle } from '~/interfaces/article';
 import { createArticleFilter } from '~/utils/article';
@@ -78,6 +79,12 @@ class PageService {
     ]);
 
     return { sliderItems, sections: JSON.parse(sections as any) };
+  }
+
+  public async getAddArticlePacket(): Promise<IAddArticlePacket> {
+    const categories = await ArticleCategoryService.findMany();
+
+    return { categories };
   }
 }
 

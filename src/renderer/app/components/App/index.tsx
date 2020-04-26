@@ -20,10 +20,10 @@ const LazyArticle = loadable(() => import('../Article'), options);
 const LazyAbout = loadable(() => import('../About'), options);
 const LazyStudents = loadable(() => import('../Students'), options);
 const LazyPersonnel = loadable(() => import('../Personnel'), options);
-// const LazyPatron = loadable(() => import('../Patron'), options);
-// const LazyHistory = loadable(() => import('../History'), options);
-// const LazyContact = loadable(() => import('../Contact'), options);
-// const LazyAddArticle = loadable(() => import('../AddArticle'), options);
+const LazyPatron = loadable(() => import('../Patron'), options);
+const LazyHistory = loadable(() => import('../History'), options);
+const LazyContact = loadable(() => import('../Contact'), options);
+const LazyAddArticle = loadable(() => import('../AddArticle'), options);
 // const LazyEditArticle = loadable(() => import('../EditArticle'), options);
 const LazyLogin = loadable(() => import('../Login'), options);
 // const LazyChangePassword = loadable(() => import('../ChangePassword'), options);
@@ -48,11 +48,11 @@ const App = () => {
         <Switch>
           <Route path="/login" component={LazyLogin} />
           {/* <Route path="/change-password" component={LazyChangePassword} />
-          <Route path="/edit-article/:label" component={LazyEditArticle} />
+          <Route path="/edit-article/:label" component={LazyEditArticle} />*/}
           <Route path="/add-article" component={LazyAddArticle} />
           <Route path="/contact" component={LazyContact} />
           <Route path="/history" component={LazyHistory} />
-          <Route path="/patron" component={LazyPatron} />*/}
+          <Route path="/patron" component={LazyPatron} />
           <Route path="/personnel" component={LazyPersonnel} />
           <Route path="/students" component={LazyStudents} />
           <Route path="/about" component={LazyAbout} />

@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 import { Input as GreyInput } from '~/renderer/components/Input';
-import { RaisedButton } from '~/renderer/components/Button';
+import { Button as Btn } from '~/renderer/components/Button';
 import { ErrorLabel as StyledErrorLabel } from '~/renderer/components/Error';
 import { PRIMARY_COLOR } from '~/renderer/constants/design';
 import { transparency } from '~/renderer/constants/transparency';
+import { Dropdown as StyledDropdown } from '~/renderer/components/Dropdown';
 
 export const Input = styled(GreyInput)`
   height: 64px;
@@ -33,7 +34,7 @@ export const Divider = styled.div`
   margin: 24px auto;
 `;
 
-export const Button = styled(RaisedButton)`
+export const Button = styled(Btn)`
   margin-top: 48px;
   margin-bottom: 16px;
 `;
@@ -53,4 +54,9 @@ export const StyledUploadScreen = styled.div`
 
 export const ErrorLabel = styled(StyledErrorLabel)`
   margin-left: 24px !important;
+`;
+
+export const Dropdown = styled(StyledDropdown)`
+  margin: 24px 0px;
+  width: fit-content;
 `;

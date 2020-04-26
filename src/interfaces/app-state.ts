@@ -14,6 +14,7 @@ export interface IAppStatePage {
   news: INewsPageData;
   article?: IArticlePagePacket;
   personnel?: IPersonnelPacket;
+  addArticle?: IAddArticlePacket;
 }
 
 export interface IAppState {

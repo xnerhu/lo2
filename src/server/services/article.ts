@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 import { db } from '../models/db';
 import {
   IArticleFilter,
@@ -5,8 +7,17 @@ import {
   IArticleListChunk,
 } from '~/interfaces/article';
 import ArticleCategoryService from './article-category';
-import { getUniqueValues, IArticleFormat, formatArticle } from '../utils';
+import {
+  getUniqueValues,
+  IArticleFormat,
+  formatArticle,
+  formatLabel,
+  makeId,
+} from '../utils';
 import UserService from './user';
+import { IInsertArticleData } from '../interfaces';
+import { NEWS_IMAGES_PATH } from '../constants';
+import { saveImage } from '../utils/images';
 
 class ArticleService {
   public async find(label: string): Promise<IArticle> {
@@ -81,6 +92,41 @@ class ArticleService {
     const users = await UserService.findMany(usersId);
 
     return { articles, users, nextPage: articles.length >= count };
+  }
+
+  public async getRawArticle(label: string) {
+    const res = await db<IArticle>('news').where({ label }).limit(1);
+
+    return res;
+  }
+
+  public async insert(data: IInsertArticleData) {
+    const { title, body, categoryId, authorId, image } = data;
+    console.log('XDDDDDDDDDDDDDDDDD', data);
+    let label = formatLabel(title);
+
+    const [hasLabel] = await this.getRawArticle(label);
+
+    if (hasLabel != null) {
+      label = `${label}-${makeId(96)}`;
+    }
+
+    const [id] = await db<IArticle>('news').insert({
+      label,
+      title,
+      content: body,
+      categoryId,
+      authorId,
+      hasImage: !!image,
+    });
+
+    if (image) {
+      const path = resolve(NEWS_IMAGES_PATH, id.toString());
+
+      await saveImage(image.buffer, path);
+    }
+
+    return label;
   }
 }
 

@@ -55,3 +55,13 @@ export const DialogButtons = styled.div`
     margin-right: 4px;
   }
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+
+  & > div:first-child {
+    margin-right: 16px;
+  }
+`;

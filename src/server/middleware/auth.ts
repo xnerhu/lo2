@@ -11,7 +11,7 @@ export const useAuth = async (
   try {
     const { user } = await AuthService.verifyToken(req);
 
-    req.appState = { ...req.appState, user };
+    req.appState = { ...req.appState, signedIn: user != null };
     req.user = user;
   } catch (err) {
     req.authError = err;

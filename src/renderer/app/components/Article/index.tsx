@@ -1,11 +1,17 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import loadable, { Options } from '@loadable/component';
 
 import { usePage } from '../../utils/hooks';
 import { IArticlePagePacket } from '~/interfaces';
 import { ArticleList } from '~/renderer/components/ArticleList';
 import { StyledArticles } from '../Articles/List/style';
+import { Error } from '~/renderer/components/Error';
+
+const LazyManager = loadable(() => import('./Manager'), {
+  srr: true,
+} as Options<any>);
 
 interface Filter {
   label: string;
@@ -33,12 +39,20 @@ export default withRouter(({ match }) => {
 
   return (
     <StyledArticles>
-      <ArticleList
-        data={data?.article}
-        category={data?.category}
-        user={data?.author}
-        full
-      />
+      {data?.editable && <LazyManager />}
+      {data?.error !== false && (
+        <ArticleList
+          data={data?.article}
+          category={data?.category}
+          user={data?.author}
+          full
+        />
+      )}
+      {data?.error === true && (
+        <Error code="404" label="Oops! Nie znaleziono artykułu!">
+          Mógł zostać usunięty.
+        </Error>
+      )}
     </StyledArticles>
   );
 });

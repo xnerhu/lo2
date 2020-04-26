@@ -2,16 +2,17 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
-import { ButtonsContainer } from '../View/style';
-import {
-  RaisedButton,
-  DeleteButton,
-  FlatButton,
-} from '~/renderer/components/Button';
+import { Button, DeleteButton } from '~/renderer/components/Button';
 import { useStore } from '~/renderer/app/store';
 import { IDeleteArticleRes } from '~/interfaces';
 import { callApi } from '~/renderer/app/utils/network';
-import { Background, StyledDialog, Title, DialogButtons } from './style';
+import {
+  Background,
+  StyledDialog,
+  Title,
+  DialogButtons,
+  ButtonsContainer,
+} from './style';
 
 const Buttons = observer(({ onDeleteClick }: { onDeleteClick: () => void }) => {
   const store = useStore();
@@ -20,7 +21,7 @@ const Buttons = observer(({ onDeleteClick }: { onDeleteClick: () => void }) => {
     <>
       <ButtonsContainer>
         <Link to={`/edit-article/${store.article.data.label}`}>
-          <RaisedButton>Edytuj</RaisedButton>
+          <Button>Edytuj</Button>
         </Link>
         <DeleteButton onClick={onDeleteClick} style={{ marginLeft: 8 }}>
           Usuń
@@ -53,7 +54,7 @@ const Dialog = ({
         <Title>Czy na pewno usunąć artykuł?</Title>
         <DialogButtons>
           <DeleteButton onClick={onDelete}>Usuń</DeleteButton>
-          <FlatButton onClick={onCancel}>Anuluj</FlatButton>
+          <Button onClick={onCancel}>Anuluj</Button>
         </DialogButtons>
       </StyledDialog>
     </Background>

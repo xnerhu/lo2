@@ -25,7 +25,6 @@ export const ArticleList = ({ data, category, user, full }: Props) => {
       ) : (
         <Content dangerouslySetInnerHTML={{ __html: data?.content }} />
       )}
-      {!full && <ReadMore to={`/article/${data?.label}`}>Więcej</ReadMore>}
     </StyledArticle>
   );
 };

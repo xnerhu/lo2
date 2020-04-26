@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { Link } from '../Link';
 import { robotoMedium } from '~/renderer/mixins/typography';
 import { noUserSelect } from '~/renderer/mixins/user-selection';
-import { PRIMARY_COLOR } from '~/renderer/constants/design';
+import { PRIMARY_COLOR, ERROR_COLOR } from '~/renderer/constants/design';
 import { centerIcon } from '~/renderer/mixins/images';
 
 interface Props {
@@ -108,6 +108,15 @@ export const PrimaryButton = styled(Button)`
   }
 `;
 
+export const DeleteButton = styled(Button)`
+  color: ${ERROR_COLOR};
+
+  &:hover,
+  &:focus {
+    background-color: rgba(176, 0, 32, 0.12);
+  }
+`;
+
 // export const buttonBase = css`
 //   width: fit-content;
 //   min-width: 144px;
@@ -187,26 +196,5 @@ export const PrimaryButton = styled(Button)`
 //   &:hover,
 //   &:focus {
 //     background-color: rgba(0, 0, 0, 0.12);
-//   }
-// `;
-
-// export const FlatButton = styled.div`
-//   background-color: #fff;
-//   border-radius: 8px;
-//   color: ${PRIMARY_COLOR};
-//   ${buttonBase};
-
-//   &:hover,
-//   &:focus {
-//     background-color: rgba(0, 174, 239, 0.12);
-//   }
-// `;
-
-// export const DeleteButton = styled(FlatButton)`
-//   color: ${ERROR_COLOR};
-
-//   &:hover,
-//   &:focus {
-//     background-color: rgba(176, 0, 32, 0.12);
 //   }
 // `;

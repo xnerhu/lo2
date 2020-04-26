@@ -32,6 +32,7 @@ export const handlePageRoute = (page: keyof IAppStatePage, cb: ICb) => async (
   const data = await cb(req.params, req);
 
   req.appState = {
+    ...req.appState,
     page: {
       ...req.appState?.page,
       [page]: data,

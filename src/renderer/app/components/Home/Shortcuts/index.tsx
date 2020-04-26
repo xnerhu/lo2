@@ -13,6 +13,7 @@ import {
   REGISTER_ICON,
   PLAN_ICON,
   LOCATION_OUTLINE_ICON,
+  MICROSOFT_OFFICE_ICON,
 } from '~/renderer/constants/icons';
 import { StyledItem, Container, Circle, Title } from './style';
 
@@ -50,8 +51,11 @@ export const Shortcuts = () => {
       <Item to={REPLACEMENTS_URL} icon={REPLACEMENT_ICON}>
         Zastępstwa
       </Item>
-      <Item to={GOOGLE_MAPS_URL} icon={LOCATION_OUTLINE_ICON}>
-        Google maps
+      <Item
+        to="http://www.lo2.opole.pl/aktualnosci/pliki/korzystanie_office365_online.pdf"
+        icon={MICROSOFT_OFFICE_ICON}
+      >
+        Office 365
       </Item>
       {appState?.signedIn && <LazyCmsShortcuts />}
     </Container>

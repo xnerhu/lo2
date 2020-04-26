@@ -11,4 +11,6 @@ router.get('/news', handleRoute(PageService.getNewsData));
 
 router.get('/article', handleRoute(PageService.getArticleData));
 
+router.get('/personnel', handleRoute(PageService.getPersonnelData));
+
 export default router;

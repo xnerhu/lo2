@@ -13,6 +13,7 @@ export interface IAppStatePage {
   home: IHomePageData;
   news: INewsPageData;
   article?: IArticlePagePacket;
+  personnel?: IPersonnelPacket;
 }
 
 export interface IAppState {

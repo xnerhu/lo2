@@ -14,7 +14,7 @@ declare const window: {
 loadableReady().then(() => {
   hydrate(
     <StoreProvider data={window.__APP_STATE__}>
-      <AppStateProvider data={window.__APP_STATE__}>
+      <AppStateProvider data={window.__APP_STATE__ ?? {}}>
         <BrowserRouter>
           <App />
         </BrowserRouter>

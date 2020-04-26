@@ -14,7 +14,8 @@ const cache = new Map<string, ICacheItem>();
 
 const getDefaultState = (name: keyof IAppStatePage, filter: any = {}) => {
   const appState = useAppState();
-  const injected = appState?.page[name];
+
+  const injected = (appState?.page ?? {})[name];
   const cached = cache.get(name);
 
   if (cached) {

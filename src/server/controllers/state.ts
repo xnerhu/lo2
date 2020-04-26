@@ -17,4 +17,9 @@ router.get(
   handlePageRoute('article', PageService.getArticleData),
 );
 
+router.get(
+  '/personnel',
+  handlePageRoute('personnel', PageService.getPersonnelData),
+);
+
 export default router;

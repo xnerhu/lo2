@@ -19,7 +19,7 @@ const LazyArticles = loadable(() => import('../Articles'), options);
 const LazyArticle = loadable(() => import('../Article'), options);
 const LazyAbout = loadable(() => import('../About'), options);
 const LazyStudents = loadable(() => import('../Students'), options);
-// const LazyPersonnel = loadable(() => import('../Personnel'), options);
+const LazyPersonnel = loadable(() => import('../Personnel'), options);
 // const LazyPatron = loadable(() => import('../Patron'), options);
 // const LazyHistory = loadable(() => import('../History'), options);
 // const LazyContact = loadable(() => import('../Contact'), options);
@@ -52,8 +52,8 @@ const App = () => {
           <Route path="/add-article" component={LazyAddArticle} />
           <Route path="/contact" component={LazyContact} />
           <Route path="/history" component={LazyHistory} />
-          <Route path="/patron" component={LazyPatron} />
-          <Route path="/personnel" component={LazyPersonnel} />*/}
+          <Route path="/patron" component={LazyPatron} />*/}
+          <Route path="/personnel" component={LazyPersonnel} />
           <Route path="/students" component={LazyStudents} />
           <Route path="/about" component={LazyAbout} />
           <Route path="/article/:label" component={LazyArticle} />

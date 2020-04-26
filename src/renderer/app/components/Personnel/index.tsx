@@ -1,15 +1,14 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 
-import { useStore } from '~/renderer/app/store';
 import {
   SectionTitle,
   Content,
   Background,
 } from '~/renderer/components/Section';
 import { Carousel } from '~/renderer/components/Carousel';
-import { IPersonnelSection } from '~/interfaces';
+import { IPersonnelSection, IPersonnelPacket } from '~/interfaces';
 import { Container, Label } from './style';
+import { usePage } from '../../utils/hooks';
 
 const Section = ({ data }: { data: IPersonnelSection }) => {
   const { title, items } = data;
@@ -24,23 +23,19 @@ const Section = ({ data }: { data: IPersonnelSection }) => {
   );
 };
 
-export default observer(() => {
-  const store = useStore();
-
-  React.useEffect(() => {
-    store.personnel.fetch();
-  }, []);
+export default () => {
+  const [data] = usePage<IPersonnelPacket>('personnel');
 
   return (
     <>
       <Content>
-        <Carousel items={store.personnel.sliderItems} />
+        <Carousel items={data?.sliderItems} />
       </Content>
       <Background style={{ marginTop: 56 }}>
         <Content>
           <SectionTitle>Kadra</SectionTitle>
           <Container>
-            {store.personnel.sections.map((r) => (
+            {data?.sections?.map((r) => (
               <Section key={r.title} data={r} />
             ))}
           </Container>
@@ -48,4 +43,4 @@ export default observer(() => {
       </Background>
     </>
   );
-});
+};

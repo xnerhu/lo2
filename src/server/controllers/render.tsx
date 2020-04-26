@@ -30,7 +30,7 @@ router.get('*', (req: IRequest, res, next) => {
     sheet.collectStyles(
       <StaticRouter location={req.originalUrl} context={routerContext}>
         <StoreProvider data={req.appState}>
-          <AppStateProvider data={req.appState}>
+          <AppStateProvider data={req.appState ?? {}}>
             <App />
           </AppStateProvider>
         </StoreProvider>

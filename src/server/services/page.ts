@@ -1,3 +1,6 @@
+import { promises as fs } from 'fs';
+import { resolve } from 'path';
+
 import { listFiles, formatUser, IParams } from '../utils';
 import ArticleService from '../services/article';
 import ArticleCategoryService from '../services/article-category';
@@ -7,6 +10,7 @@ import {
   INewsPageData,
   IArticlePagePacket,
   IUser,
+  IPersonnelPacket,
 } from '~/interfaces';
 import { IArticle } from '~/interfaces/article';
 import { createArticleFilter } from '~/utils/article';
@@ -65,6 +69,15 @@ class PageService {
     } catch (error) {
       return { error: true };
     }
+  }
+
+  public async getPersonnelData(): Promise<IPersonnelPacket> {
+    const [sliderItems, sections] = await Promise.all([
+      listFiles('personnel-slider'),
+      fs.readFile(resolve('static', 'personnel.json')),
+    ]);
+
+    return { sliderItems, sections: JSON.parse(sections as any) };
   }
 }
 

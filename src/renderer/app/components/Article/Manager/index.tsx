@@ -75,7 +75,7 @@ export default withRouter(({ match, history }) => {
   const onDialogDelete = React.useCallback(() => {
     (async () => {
       const res = await callApi<IDeleteArticleRes>(
-        'delete-article',
+        '/article/delete',
         {
           label: match.params.label,
         },

@@ -34,4 +34,15 @@ router.put(
   },
 );
 
+router.post('/delete', withAuth(), async (req: IRequest, res) => {
+  const { label } = req.body;
+  const data = await ArticleService.delete(label);
+
+  if (data instanceof Error) {
+    return res.json({ success: false, error: data.message });
+  }
+
+  return res.json({ success: true });
+});
+
 export default router;

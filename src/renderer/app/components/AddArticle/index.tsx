@@ -33,6 +33,7 @@ import {
   Dropdown,
 } from './style';
 import { usePage } from '../../utils/hooks';
+import { IArticleCategory } from '~/interfaces/article';
 
 const UploadScreen = () => {
   return (
@@ -50,6 +51,7 @@ interface Props {
 
 interface State {
   category?: number;
+  categories?: IArticleCategory;
   image?: File | string;
   content?: Node[];
   uploading?: boolean;
@@ -141,7 +143,7 @@ export const ArticleEditor = withRouter((props: IRouterProps<Props>) => {
       formData.set('label', match.params.label);
 
       if (state.image === null) {
-        formData.set('deleteImage', 'true');
+        formData.set('deleteImage', true);
       }
     }
 
@@ -168,30 +170,30 @@ export const ArticleEditor = withRouter((props: IRouterProps<Props>) => {
       titleInputRef.current.value = title;
       console.error(res);
     } else {
-      history.push(`/article/${res.data.articleLabel}`);
+      window.location.href = `/article/${res.data.articleLabel}`;
     }
   };
 
-  // if (edit) {
-  //   React.useEffect(() => {
-  //     if (data) {
-  //       titleInputRef.current.value = data.title;
+  if (edit) {
+    React.useEffect(() => {
+      if (data && categories) {
+        titleInputRef.current.value = data.title;
 
-  //       setState({
-  //         ...state,
-  //         content: JSON.parse(data.content),
-  //         category: data.categoryLabel,
-  //         image: data.image,
-  //       });
-  //     }
-  //   }, [data]);
+        setState({
+          ...state,
+          content: JSON.parse(data.content),
+          category: categories.find((r) => r.label === data.categoryLabel)?.id,
+          image: data.image,
+        });
+      }
+    }, [data, categories]);
 
-  //   React.useEffect(() => {
-  //     return () => {
-  //       store.editArticle.clear();
-  //     };
-  //   }, []);
-  // }
+    // React.useEffect(() => {
+    //   return () => {
+    //     store.editArticle.clear();
+    //   };
+    // }, []);
+  }
 
   return (
     <>

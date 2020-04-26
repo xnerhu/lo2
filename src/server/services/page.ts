@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
 import { resolve } from 'path';
+import { Response } from 'express';
 
 import { listFiles, formatUser, IParams } from '../utils';
 import ArticleService from '../services/article';
@@ -12,10 +13,12 @@ import {
   IUser,
   IPersonnelPacket,
   IAddArticlePacket,
+  IEditArticlePacket,
 } from '~/interfaces';
 import { IArticle } from '~/interfaces/article';
 import { createArticleFilter } from '~/utils/article';
 import { IRequest } from '../interfaces';
+import AuthService from '~/server/services/auth';
 
 class PageService {
   public async getHomeData(): Promise<IHomePageData> {
@@ -86,6 +89,45 @@ class PageService {
 
     return { categories };
   }
+
+  public async getEditArticlePacket(
+    params: IParams,
+    req: IRequest,
+    res: Response,
+  ): Promise<IEditArticlePacket> {
+    const { label } = params;
+    const { user } = await AuthService.verifyToken(req);
+
+    if (!user) {
+      return res.redirect('/login');
+    }
+
+    const [article] = await Promise.all([
+      // getNewsCategories(),
+      ArticleService.getPlainArtice(label),
+    ]);
+
+    const editable = isArticleEditable(article, user);
+    let error = '';
+
+    if (!article) {
+      error = 'Nie znaleziono artykułu!';
+    } else if (!editable) {
+      error = 'Nie masz uprawnień, aby móc edytować ten artykuł!';
+    }
+
+    return {
+      label,
+      item: editable && {
+        title: article.title,
+        categoryLabel: article._category.label,
+        content: article.content,
+        image: formatArticleImage(article),
+      },
+      success: editable,
+      error,
+    };
+  }
 }
 
 const isArticleEditable = (article: IArticle, user: IUser) => {
@@ -94,6 +136,12 @@ const isArticleEditable = (article: IArticle, user: IUser) => {
   if (user.admin) return true;
 
   return user.id === article.authorId;
+};
+
+const formatArticleImage = (data: IArticle, full?: boolean) => {
+  return data.hasImage
+    ? `/static/news/${data.id}${!full ? '.thumbnail' : ''}`
+    : undefined;
 };
 
 export default new PageService();

@@ -13,23 +13,28 @@ import {
   DialogButtons,
   ButtonsContainer,
 } from './style';
+import { IRouterProps } from '~/renderer/app/interfaces';
 
-const Buttons = observer(({ onDeleteClick }: { onDeleteClick: () => void }) => {
-  const store = useStore();
+interface ButtonsProps {
+  onDeleteClick: () => void;
+}
 
-  return (
-    <>
-      <ButtonsContainer>
-        <Link to={`/edit-article/${store.article.data.label}`}>
-          <Button>Edytuj</Button>
-        </Link>
-        <DeleteButton onClick={onDeleteClick} style={{ marginLeft: 8 }}>
-          Usuń
-        </DeleteButton>
-      </ButtonsContainer>
-    </>
-  );
-});
+const Buttons = withRouter(
+  ({ onDeleteClick, match }: IRouterProps<ButtonsProps>) => {
+    return (
+      <>
+        <ButtonsContainer>
+          <Link to={`/edit-article/${match.params.label}`}>
+            <Button>Edytuj</Button>
+          </Link>
+          <DeleteButton onClick={onDeleteClick} style={{ marginLeft: 8 }}>
+            Usuń
+          </DeleteButton>
+        </ButtonsContainer>
+      </>
+    );
+  },
+);
 
 const Dialog = ({
   toggled,

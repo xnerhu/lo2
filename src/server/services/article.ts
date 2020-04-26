@@ -13,11 +13,13 @@ import {
   formatArticle,
   formatLabel,
   makeId,
+  formatUser,
 } from '../utils';
 import UserService from './user';
-import { IInsertArticleData } from '../interfaces';
+import { IInsertArticleData, IEditArticleData } from '../interfaces';
 import { NEWS_IMAGES_PATH } from '../constants';
 import { saveImage, deleteImages } from '../utils/images';
+import { IEditArticleErrors } from '~/interfaces';
 
 class ArticleService {
   public async find(label: string): Promise<IArticle> {
@@ -145,6 +147,71 @@ class ArticleService {
     await deleteImages(imgPath);
 
     return null;
+  }
+
+  public async getPlainArtice(label: string): Promise<IArticle> {
+    if (!label) return null;
+
+    const query = db<IArticle>('news')
+      .where('news.label', label)
+      .limit(1)
+      .leftJoin('news-categories', {
+        'news.categoryId': 'news-categories.id',
+      })
+      .leftJoin('users', {
+        'news.authorId': 'users.id',
+      })
+      .options({ nestTables: true });
+
+    const [data]: any[] = await query.select();
+
+    if (!data) return null;
+
+    return {
+      ...data.news,
+      _category: data['news-categories'],
+      _author: formatUser(data.users),
+    };
+  }
+
+  public async editArticle(
+    data: IEditArticleData,
+  ): Promise<IEditArticleErrors | string> {
+    const { label, title, content, categoryId, image, deleteImage } = data;
+
+    if (!label) {
+      return { label: 'Nie podano identyfikatora artykułu!' };
+    }
+
+    const [item] = await this.getRawArticle(label);
+
+    if (!item) {
+      return { label: 'Artykuł nie istnieje!' };
+    }
+
+    await db<IArticle>('news').where({ label }).limit(1).update({
+      title,
+      content,
+      categoryId,
+    });
+
+    const imgPath = resolve(NEWS_IMAGES_PATH, item.id.toString());
+
+    if (deleteImage && item.hasImage) {
+      await deleteImages(imgPath);
+
+      await db<IArticle>('news').where({ label }).limit(1).update({
+        hasImage: false,
+      });
+    } else if (image) {
+      await saveImage(image.buffer, imgPath);
+
+      await db<IArticle>('news').where({ label }).limit(1).update({
+        hasImage: true,
+      });
+    }
+
+    return label;
   }
 }
 

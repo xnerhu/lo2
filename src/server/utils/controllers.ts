@@ -15,7 +15,7 @@ export const handleRoute = (cb: ICb) => async (
   next: NextFunction,
 ) => {
   try {
-    const data = await cb(req.query, req);
+    const data = await cb(req.query, req, res);
 
     res.json(data);
   } catch (err) {
@@ -29,7 +29,7 @@ export const handlePageRoute = (page: keyof IAppStatePage, cb: ICb) => async (
   res: Response,
   next: NextFunction,
 ) => {
-  const data = await cb(req.params, req);
+  const data = await cb(req.params, req, res);
 
   req.appState = {
     ...req.appState,

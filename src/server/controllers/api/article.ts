@@ -5,7 +5,10 @@ import ArticleService from '../../services/article';
 import { handleRoute } from '~/server/utils';
 import { createArticleFilter } from '~/utils/article';
 import { withAuth } from '~/server/middleware/auth';
-import { withAddArticleProps } from '~/server/middleware/article';
+import {
+  withAddArticleProps,
+  withEditArticleProps,
+} from '~/server/middleware/article';
 import { IRequest } from '~/server/interfaces';
 import { IAddArticleRes } from '~/interfaces';
 
@@ -31,6 +34,26 @@ router.put(
     const data = await ArticleService.insert(req.addArticle);
 
     return res.json({ success: true, articleLabel: data } as IAddArticleRes);
+  },
+);
+
+router.put(
+  '/edit',
+  withAuth(),
+  upload.single('image'),
+  withAddArticleProps,
+  withEditArticleProps,
+  async (req: IRequest, res) => {
+    const data = await ArticleService.editArticle(req.editArticle);
+
+    if (typeof data !== 'string') {
+      return res.json({ success: false, errors: data } as IAddArticleRes);
+    }
+
+    return res.json({
+      success: true,
+      articleLabel: data,
+    } as IAddArticleRes);
   },
 );
 

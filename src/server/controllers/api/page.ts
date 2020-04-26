@@ -13,4 +13,6 @@ router.get('/article', handleRoute(PageService.getArticleData));
 
 router.get('/addArticle', handleRoute(PageService.getAddArticlePacket));
 
+router.get('/editArticle', handleRoute(PageService.getEditArticlePacket));
+
 export default router;

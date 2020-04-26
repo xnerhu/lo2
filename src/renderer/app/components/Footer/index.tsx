@@ -1,8 +1,6 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 
 import { Content } from '~/renderer/components/Section';
-import { useStore } from '~/renderer/app/store';
 import {
   STATUE_URL,
   FACEBOOK_URL,
@@ -20,6 +18,8 @@ import {
   Copyright,
   Container,
   Link,
+  Badge,
+  Bip,
 } from './style';
 
 const Header = () => {
@@ -42,23 +42,14 @@ const Details = () => {
   );
 };
 
-export const Links = observer(() => {
-  const store = useStore();
-  const isLogged = store.account.isLogged;
-
+export const Links = () => {
   return (
     <StyledLinks>
       <Link to="/cookies">Cookies</Link>
       <Link to="/rodo">RODO</Link>
-      <Link to={STATUE_URL} useDefaultLink>
-        Statut szkoły
-      </Link>
-      <Link to={isLogged ? '/logout' : '/login'} useDefaultLink={isLogged}>
-        {isLogged ? 'Wyloguj' : 'Zaloguj'} się
-      </Link>
     </StyledLinks>
   );
-});
+};
 
 export const Social = () => {
   return (
@@ -66,6 +57,8 @@ export const Social = () => {
       <Content>
         <FacebookIcon href={FACEBOOK_URL} aria-label="Facebook" />
         <YoutubeIcon href={YOUTUBE_URL} aria-label="Youtube" />
+        <Bip aria-label="Biuletyn Informacji Publicznej" />
+        <Badge aria-label="Najlepsze licea w Polsce - Perspektywy Złota Szkoła 2020" />
         <Copyright href="https://www.github.com/xnerhu">
           © 2020 Mikołaj Palkiewicz
         </Copyright>

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Link as DynamicLink } from '~/renderer/components/Link';
 import { robotoMedium } from '~/renderer/mixins/typography';
@@ -6,7 +6,12 @@ import { FOOTER_MOBILE_VIEW } from '~/renderer/constants/design';
 import { transparency } from '~/renderer/constants/transparency';
 import { centerIcon } from '~/renderer/mixins/images';
 import { centerBoth } from '~/renderer/mixins/positioning';
-import { FACEBOOK_ICON, YOUTUBE_ICON } from '~/renderer/constants/icons';
+import {
+  FACEBOOK_ICON,
+  YOUTUBE_ICON,
+  BADGE,
+  BIP,
+} from '~/renderer/constants/icons';
 
 export const StyledFooter = styled.footer`
   width: 100%;
@@ -67,6 +72,7 @@ export const StyledLinks = styled.div`
 export const Link = styled(DynamicLink)`
   font-size: 14px;
   cursor: pointer;
+  text-align: right;
   ${robotoMedium()};
 
   &:hover {
@@ -125,6 +131,19 @@ export const FacebookIcon = styled(Icon)`
 
 export const YoutubeIcon = styled(Icon)`
   background-image: url(${YOUTUBE_ICON});
+`;
+
+export const Badge = styled(Icon)`
+  width: 72px;
+  height: 72px;
+  ${centerIcon(72)};
+  background-image: url(${BADGE});
+  pointer-events: none;
+`;
+
+export const Bip = styled(Icon)`
+  background-image: url(${BIP});
+  pointer-events: none;
 `;
 
 export const Copyright = styled.a`

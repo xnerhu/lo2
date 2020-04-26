@@ -33,3 +33,5 @@ export const KEY_ICON = require('~/renderer/resources/icons/key.svg');
 export const ACCOUNT_ICON = require('~/renderer/resources/icons/account.svg');
 export const MORE_ICON = require('~/renderer/resources/icons/more.svg');
 export const MICROSOFT_OFFICE_ICON = require('~/renderer/resources/icons/microsoft-office.svg');
+export const BADGE = require('~/renderer/resources/icons/badge.jpg');
+export const BIP = require('~/renderer/resources/icons/bip.svg');

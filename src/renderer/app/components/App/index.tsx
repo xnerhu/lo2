@@ -20,7 +20,7 @@ const App = () => {
       <GlobalStyle />
       <StyledApp>
         <Switch>
-          <Route path="/news/:category?/:page?" component={LazyArticles} />
+          <Route path="/articles" component={LazyArticles} />
           <Route path="/" component={LazyHome} exact />
         </Switch>
       </StyledApp>

@@ -1,17 +1,15 @@
 import fastify from 'fastify';
+import chalk from 'chalk';
 
 import config from './config';
 import useFastify from './loaders/fastify';
-import chalk from 'chalk';
+import useControllers from './controllers';
 
 async function init() {
   const app = fastify();
 
   useFastify(app);
-
-  app.get('/', (req, res) => {
-    res.send({ message: 'hello world' });
-  });
+  useControllers(app);
 
   app.listen(config.port, (err) => {
     if (err) throw err;

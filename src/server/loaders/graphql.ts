@@ -1,5 +1,5 @@
-import { Application } from 'express';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { FastifyInstance } from 'fastify';
+import { ApolloServer, gql } from 'apollo-server-fastify';
 
 const typeDefs = gql`
   type Query {
@@ -13,8 +13,8 @@ const resolvers = {
   },
 };
 
-export default (app: Application) => {
+export default (app: FastifyInstance) => {
   const server = new ApolloServer({ typeDefs, resolvers });
 
-  server.applyMiddleware({ app });
+  app.register(server.createHandler());
 };

@@ -1,10 +1,7 @@
-import express from 'express';
 import fastify from 'fastify';
 
 import config from './config';
 import useFastify from './loaders/fastify';
-import useExpress from './loaders/express';
-import useGraphql from './loaders/graphql';
 import chalk from 'chalk';
 
 async function init() {

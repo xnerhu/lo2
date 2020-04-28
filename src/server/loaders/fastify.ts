@@ -7,13 +7,15 @@ import body from 'fastify-formbody';
 import staticDir from 'fastify-static';
 
 import config from '../config';
+import useGraphql from './graphql';
 
 export default (app: FastifyInstance) => {
-  app.register(compress);
   app.register(cors);
   app.register(helmet);
   app.register(cookies);
   app.register(body);
+  useGraphql(app);
+  app.register(compress);
 
   app.register(staticDir, {
     prefix: '/static/bundle',

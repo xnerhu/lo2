@@ -1,36 +1,30 @@
-import * as express from 'express';
-import * as cors from 'cors';
-import * as cookieParser from 'cookie-parser';
-import * as compression from 'compression';
-import * as helmet from 'helmet';
+import express from 'express';
+import fastify from 'fastify';
+
+import config from './config';
+import useFastify from './loaders/fastify';
+import useExpress from './loaders/express';
+import useGraphql from './loaders/graphql';
 import chalk from 'chalk';
-import { config } from 'dotenv';
 
-config();
+async function init() {
+  const app = fastify();
 
-import { connect } from './models/db';
-import controllers from './controllers';
+  useFastify(app);
 
-const app = express();
+  app.get('/', (req, res) => {
+    res.send({ message: 'hello world' });
+  });
 
-app.use(compression());
-app.use(cors());
-app.use(helmet());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(controllers);
+  app.listen(config.port, (err) => {
+    if (err) throw err;
 
-const { PORT } = process.env;
+    console.log(
+      `${chalk.cyanBright.bold('Server is running at')} ${chalk.greenBright(
+        `http://localhost:${config.port}`,
+      )}`,
+    );
+  });
+}
 
-app.listen(PORT, async () => {
-  connect();
-
-  console.log(
-    `${chalk.cyanBright.bold('Server is running at')} ${chalk.greenBright(
-      `http://localhost:${PORT}`,
-    )}`,
-  );
-});
-
-export default app;
+init();

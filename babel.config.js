@@ -18,7 +18,12 @@ const getStyledComponentsPlugin = () => {
 };
 
 const presets = [
-  '@babel/preset-env',
+  [
+    '@babel/preset-env',
+    {
+      // modules: false,
+    },
+  ],
   '@babel/preset-typescript',
   '@babel/preset-react',
 ];

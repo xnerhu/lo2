@@ -42,8 +42,12 @@ const app = express();
 const init = async () => {
   const multiCompiler = webpack([clientConfig, serverConfig]);
 
-  const clientCompiler = multiCompiler.compilers.find(r => r.name === 'client');
-  const serverCompiler = multiCompiler.compilers.find(r => r.name === 'server');
+  const clientCompiler = multiCompiler.compilers.find(
+    (r) => r.name === 'client',
+  );
+  const serverCompiler = multiCompiler.compilers.find(
+    (r) => r.name === 'server',
+  );
 
   const clientPromise = compilerPromise('client', clientCompiler);
   const serverPromise = compilerPromise('server', serverCompiler);
@@ -77,7 +81,7 @@ const init = async () => {
         const info = stats.toJson();
         const errors = info.errors[0].split('\n');
 
-        errors.forEach(r => print('server', r, 'error'));
+        errors.forEach((r) => print('server', r, 'error'));
       }
     }
   });

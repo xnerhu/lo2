@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { ApolloProvider } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
-// import { client } from '../../store';
+const TEST = gql`
+  query {
+    hello
+  }
+`;
 
 export default () => {
+  const { loading, error, data } = useQuery(TEST);
+
   return (
     <div>
       Home
+      <h2>{data?.hello ?? 'XDDDDDDDDDDDDDDDD'}</h2>
       <Link to="/articles">Articles</Link>
     </div>
   );
-
-  // return (
-  //   <ApolloProvider client={client}>
-  //     <div>
-  //       <h2>My first Apollo app 🚀</h2>
-  //     </div>
-  //   </ApolloProvider>
-  // );
 };

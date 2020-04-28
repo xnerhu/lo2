@@ -7,8 +7,8 @@ import body from 'fastify-formbody';
 import staticDir from 'fastify-static';
 
 import config from '../config';
-
 import useGraphql from './graphql';
+
 export default (app: FastifyInstance) => {
   app.register(cors);
   app.register(helmet, {

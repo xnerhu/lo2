@@ -1,8 +1,8 @@
 {
-  "name": "react-ssr",
-  "version": "1.0.0",
-  "description": "A template for building minified and compressed isomorphic React",
-  "homepage": "https://github.com/xnerhu/react-ssr#readme",
+  "name": "lo2-site",
+  "version": "2.0.0",
+  "description": "Strona Liceum Ogólnokształcące Nr II  im. Marii Konopnickiej w Opolu",
+  "homepage": "https://github.com/xnerhu/lo2#readme",
   "author": "Mikołaj Palkiewicz <xnerhu@gmail.com>",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node scripts/dev.js",

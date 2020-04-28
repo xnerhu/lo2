@@ -38,7 +38,8 @@ export default (
   styleTags: string,
   scriptTags: string,
   appState: any,
-) => `<!DOCTYPE html>
+) =>
+  `<!DOCTYPE html>
   <html lang="pl">
     <head>
       <meta charset="utf-8" />
@@ -68,4 +69,4 @@ export default (
       ${scriptTags}
     </body>
   </html>
-`;
+`.replace(/[\r\n]+|[\s]{2,}/g, '');

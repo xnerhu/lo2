@@ -16,7 +16,7 @@ const config = {
 
   output: {
     filename: '[name].js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'umd',
     publicPath: dev ? `http://localhost:${PORT}/static/` : '/static/',
   },
 

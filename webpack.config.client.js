@@ -14,6 +14,7 @@ const {
 const stats = process.env.BUNDLE_STATS === 'enabled';
 
 const entries = ['./src/client'];
+const plugins = [new LoadablePlugin()];
 
 if (dev) {
   entries.push(
@@ -21,8 +22,6 @@ if (dev) {
     `react-hot-loader/patch?path=http://localhost:${PORT}`,
   );
 }
-
-const plugins = [new LoadablePlugin()];
 
 if (stats) plugins.push(new BundleAnalyzerPlugin());
 
@@ -61,10 +60,10 @@ const clientConfig = getConfig(getBaseConfig(), {
                 ecma: 8,
               },
               compress: {
-                ecma: 5,
+                ecma: 6,
               },
               output: {
-                ecma: 5,
+                ecma: 6,
                 comments: false,
               },
             },
@@ -82,12 +81,12 @@ const clientConfig = getConfig(getBaseConfig(), {
         commons: {
           test: /[\\/]node_modules[\\/]/,
           chunks: 'all',
-          name: module => {
+          name: (module) => {
             const package = getPackageName(module);
 
             const keys = Object.keys(splitModules);
             const chunkName =
-              keys.find(r => splitModules[r].indexOf(package) !== -1) ||
+              keys.find((r) => splitModules[r].indexOf(package) !== -1) ||
               'vendor';
 
             return chunkName;
@@ -98,7 +97,7 @@ const clientConfig = getConfig(getBaseConfig(), {
   },
 });
 
-const getPackageName = module => {
+const getPackageName = (module) => {
   return module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
 };
 

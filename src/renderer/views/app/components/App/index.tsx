@@ -4,15 +4,18 @@ import { Route, Switch } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import loadable, { Options } from '@loadable/component';
 
-import { Style } from '~/renderer/app/style';
+import { Style } from '../../style';
 import { StyledApp } from './style';
 
 const GlobalStyle = createGlobalStyle`${Style}`;
 
 const options: Options<any> = { ssr: true };
 
-const LazyHome = loadable(() => import('../Home'), options);
-const LazyArticles = loadable(() => import('../Articles'), options);
+const LazyHome = loadable(() => import('~/renderer/views/home'), options);
+const LazyArticles = loadable(
+  () => import('~/renderer/views/articles'),
+  options,
+);
 
 const App = () => {
   return (

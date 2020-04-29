@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch as RouteSwitch, Route } from 'react-router';
 
-import { routerMap } from '../../routes';
+import { routerMap } from '../../constants/routes';
 
 export const Switch = () => {
   return (

@@ -19,12 +19,15 @@ export interface IAppStatePage {
 }
 
 export interface IAppState {
-  page?: IAppStatePage;
+  articles?: string;
+  home?: number;
+}
+
+/*  page?: IAppStatePage;
   newsPage?: INewsPagePacket;
   articlePage?: IArticlePagePacket;
   personnelPage?: IPersonnelPacket;
   addArticlePage?: IAddArticlePacket;
   editArticlePage?: IEditArticlePacket;
   user?: IUser;
-  signedIn?: boolean;
-}
+  signedIn?: boolean;*/

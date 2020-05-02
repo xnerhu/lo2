@@ -69,4 +69,5 @@ export default (
       ${scriptTags}
     </body>
   </html>
-`.replace(/[\r\n]+|[\s]{2,}/g, '');
+`;
+/*.replace(/[\r\n]+|[\s]{2,}/g, '');*/

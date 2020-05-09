@@ -1,10 +1,11 @@
 import { FastifyInstance } from 'fastify';
 
-import article from './article';
+import user from './user';
 import bundle from './bundle';
 
 export default (app: FastifyInstance, opts: any, done: Function) => {
-  article(app);
+  app.register(user, { prefix: '/user' });
+
   bundle(app);
 
   done();

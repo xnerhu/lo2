@@ -10,6 +10,7 @@ export default async () => {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   });
 
   db = connection.connection.db;

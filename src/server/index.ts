@@ -3,6 +3,7 @@ import chalk from 'chalk';
 
 import config from './config';
 import useFastify from './loaders/fastify';
+import useMongoose from './loaders/mongoose';
 import useControllers from './controllers';
 
 async function init() {
@@ -10,6 +11,7 @@ async function init() {
 
   useFastify(app);
   useControllers(app);
+  useMongoose();
 
   app.listen(config.port, (err) => {
     if (err) throw err;

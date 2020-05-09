@@ -17,8 +17,14 @@ export default (redirectUrl?: string) => async (
 
     res.code(code);
 
-    if (code === 401) res.send('Unauthorized: No token provided');
-    if (code === 403) res.send('Unauthorized: Invalid token');
+    res.send({
+      errorCode: code,
+      success: false,
+      message:
+        code === 401
+          ? 'Unauthorized: No token provided'
+          : 'Unauthorized: Invalid token',
+    });
   } else {
     return next();
   }

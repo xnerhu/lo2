@@ -1,11 +1,13 @@
 import { FastifyInstance } from 'fastify';
 
+import useAuth from '../middleware/auth';
 import UserService from '~/server/services/user';
 
 export default (app: FastifyInstance, opts: any, next: Function) => {
   app.post(
     '/change-password',
     {
+      preHandler: useAuth(),
       schema: {
         body: {
           type: 'object',

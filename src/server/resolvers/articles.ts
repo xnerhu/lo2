@@ -19,5 +19,5 @@ const getArticles = async (): Promise<IArticle[]> => {
 };
 
 export default async (filter: IArticleFilter): Promise<IArticlesPageData> => {
-  return {};
+  return { xd: true };
 };

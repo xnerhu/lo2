@@ -10,8 +10,9 @@ export default (item?: IAppStateItem) => async (
   req: IRequest,
   res: FastifyReply<ServerResponse>,
 ) => {
-  const appState = item && (await resolver(item));
+  const appState = item && (await resolver(item, req.params));
 
+  console.log(appState);
   res.type('text/html');
 
   const { raw } = req;

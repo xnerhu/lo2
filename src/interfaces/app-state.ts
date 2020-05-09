@@ -22,12 +22,3 @@ export interface IAppState {
   articles?: string;
   home?: number;
 }
-
-/*  page?: IAppStatePage;
-  newsPage?: INewsPagePacket;
-  articlePage?: IArticlePagePacket;
-  personnelPage?: IPersonnelPacket;
-  addArticlePage?: IAddArticlePacket;
-  editArticlePage?: IEditArticlePacket;
-  user?: IUser;
-  signedIn?: boolean;*/

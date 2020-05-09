@@ -1,33 +1,19 @@
-import { IUser } from './user';
+import { ObjectID } from 'mongodb';
 
 export interface IArticle {
-  id?: number;
+  _id?: ObjectID;
   label?: string;
   title?: string;
   content?: string;
   image?: string;
   hasImage?: boolean;
-  createdAt?: string;
-  categoryId?: number;
-  authorId?: number;
+  categoryId?: ObjectID;
+  authorId?: ObjectID;
+  createdAt?: Date;
 }
 
 export interface IArticleCategory {
-  id?: number;
+  _id?: ObjectID;
   name?: string;
   label?: string;
-}
-
-export interface IArticleFilter {
-  page?: number;
-  limit?: number;
-  category?: string;
-  excluded?: string;
-  thumbnail?: boolean;
-}
-
-export interface IArticleListChunk {
-  articles?: IArticle[];
-  nextPage?: boolean;
-  users?: IUser[];
 }

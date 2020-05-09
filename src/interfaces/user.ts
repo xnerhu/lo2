@@ -1,20 +1,13 @@
+import { ObjectID } from 'mongodb';
+
 export interface IUser {
-  id?: number;
+  _id?: ObjectID;
   username?: string;
   password?: string;
   firstName?: string;
   lastName?: string;
   description?: string;
-  createdAt?: string;
   image?: string;
   admin?: boolean;
-}
-
-export interface IChangePasswordReq {
-  password?: string;
-}
-
-export interface IChangePasswordRes {
-  success?: boolean;
-  error?: string;
+  createdAt?: string;
 }

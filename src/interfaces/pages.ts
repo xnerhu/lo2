@@ -8,4 +8,5 @@ export interface IHomePageData {
 
 export interface IArticlesPageData extends IArticlesChunk {
   nextPage?: boolean;
+  categories?: IArticleCategory[];
 }

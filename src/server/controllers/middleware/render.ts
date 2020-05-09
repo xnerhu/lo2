@@ -12,7 +12,6 @@ export default (item?: IAppStateItem) => async (
 ) => {
   const appState = item && (await resolver(item, req.params));
 
-  console.log(appState);
   res.type('text/html');
 
   const { raw } = req;

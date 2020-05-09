@@ -74,7 +74,7 @@ class ArticleService {
     return items.map((r) => this.format(r, full));
   }
 
-  public async chunk(filter: IArticleFilter): Promise<IArticlesChunk> {
+  public async getChunk(filter: IArticleFilter): Promise<IArticlesChunk> {
     let articles: IArticle[] = [];
     let users: IUser[] = [];
 

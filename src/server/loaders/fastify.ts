@@ -8,7 +8,7 @@ import staticDir from 'fastify-static';
 
 import { config } from '../constants/config';
 
-export default (app: FastifyInstance) => {
+export default async (app: FastifyInstance) => {
   app.register(cors);
   app.register(helmet, {
     noSniff: false,

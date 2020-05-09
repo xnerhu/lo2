@@ -23,7 +23,9 @@ class UserService {
       { password: hashed },
     );
 
-    return !!updated;
+    if (!updated) {
+      throw new Error(`User ${username} doesn\'t exists!`);
+    }
   }
 }
 

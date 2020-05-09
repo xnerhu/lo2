@@ -2,29 +2,27 @@ import { FastifyInstance } from 'fastify';
 
 import useAuth from '../middleware/auth';
 import UserService from '~/server/services/user';
+import { verifyUser } from '~/server/utils';
+import { IRequest } from '~/server/interfaces';
 
 export default (app: FastifyInstance, opts: any, next: Function) => {
+  app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+  });
+
   app.post(
     '/change-password',
     {
       preHandler: useAuth(),
-      schema: {
-        body: {
-          type: 'object',
-          properties: {
-            username: { type: 'string' },
-            password: { type: 'string' },
-          },
-          required: ['username', 'password'],
-        },
-      },
     },
-    async (req, res) => {
-      const { username, password } = req.body;
+    async (req: IRequest, res) => {
+      const { username, password } = req.body ?? {};
 
-      const success = await UserService.changePassword(username, password);
+      verifyUser(req, username);
 
-      res.send({ success });
+      await UserService.changePassword(username, password);
+
+      res.send({ success: true });
     },
   );
 

@@ -3,7 +3,11 @@ import { ServerResponse } from 'http';
 
 import { IRequest } from '~/server/interfaces';
 
-export default (redirectUrl?: string) => async (
+interface IOptions {
+  redirectUrl?: string;
+}
+
+export default (options?: IOptions) => async (
   req: IRequest,
   res: FastifyReply<ServerResponse>,
   next: Function,
@@ -11,20 +15,28 @@ export default (redirectUrl?: string) => async (
   const code = req.raw.tokenErrorCode;
 
   if (code != null) {
-    if (redirectUrl) {
-      return res.redirect(redirectUrl);
+    if (options?.redirectUrl) {
+      return res.redirect(options.redirectUrl);
     }
 
     res.code(code);
 
-    res.send({
-      errorCode: code,
-      success: false,
-      message:
-        code === 401
-          ? 'Unauthorized: No token provided'
-          : 'Unauthorized: Invalid token',
-    });
+    throw new Error(
+      code === 401
+        ? 'Unauthorized: No token provided'
+        : 'Unauthorized: Invalid token',
+    );
+
+    // res.code(code);
+
+    // res.send({
+    //   errorCode: code,
+    //   success: false,
+    //   message:
+    // code === 401
+    //   ? 'Unauthorized: No token provided'
+    //   : 'Unauthorized: Invalid token',
+    // });
   } else {
     return next();
   }

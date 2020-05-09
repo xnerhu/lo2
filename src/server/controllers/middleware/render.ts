@@ -4,7 +4,7 @@ import { ServerResponse } from 'http';
 import { IAppStateItem } from '~/interfaces';
 import { IRequest } from '~/server/interfaces';
 import resolver from '~/server/resolvers';
-import RendererService from '~/server/services/renderer';
+import RenderService from '~/server/services/render';
 
 export default (item?: IAppStateItem) => async (
   req: IRequest,
@@ -15,7 +15,7 @@ export default (item?: IAppStateItem) => async (
   res.type('text/html');
 
   const { raw } = req;
-  const html = RendererService.render(raw.url, appState);
+  const html = RenderService.render(raw.url, appState);
 
   res.send(html);
 };

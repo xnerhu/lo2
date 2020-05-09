@@ -9,7 +9,7 @@ import App from '~/renderer/views/app';
 import htmlView from '../views/html';
 import { IAppState } from '~/interfaces';
 
-class RendrererService {
+class RendrerService {
   public render(url: string, state: IAppState) {
     const sheet = new ServerStyleSheet();
     const routerContext = {};
@@ -36,4 +36,4 @@ class RendrererService {
   }
 }
 
-export default new RendrererService();
+export default new RendrerService();

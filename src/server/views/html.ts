@@ -64,7 +64,7 @@ export default (
       </noscript>
       <main id="app">${rendered}</main>
       <script type="text/javascript">window.__APP_STATE__= ${JSON.stringify(
-        appState,
+        appState ?? {},
       ).replace(/</g, '\\u003c')}</script>
       ${scriptTags}
     </body>

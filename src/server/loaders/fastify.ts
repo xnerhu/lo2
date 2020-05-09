@@ -6,7 +6,7 @@ import helmet from 'fastify-helmet';
 import body from 'fastify-formbody';
 import staticDir from 'fastify-static';
 
-import config from '../config';
+import { config } from '../constants/config';
 
 export default (app: FastifyInstance) => {
   app.register(cors);

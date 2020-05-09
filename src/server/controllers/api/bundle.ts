@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 
-import { appStateResolver } from '~/server/resolvers/app-state';
+import resolver from '~/server/resolvers';
 
 export default (app: FastifyInstance) => {
   app.get(
@@ -13,7 +13,7 @@ export default (app: FastifyInstance) => {
       },
     },
     async (req, res) => {
-      const data = await appStateResolver(req.params.name);
+      const data = await resolver(req.params.name);
 
       res.send(data);
     },

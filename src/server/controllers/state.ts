@@ -1,13 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { ServerResponse } from 'http';
 
-import { IAppState } from '~/interfaces';
-import { appStateResolver } from '~/server/resolvers/app-state';
+import { IAppStateItem } from '~/interfaces';
+import resolver from '~/server/resolvers';
 import { IIncomingMessage } from '~/server/interfaces';
 
 interface Item {
   path: string;
-  name: keyof IAppState;
+  name: IAppStateItem;
 }
 
 const map: Item[] = [
@@ -25,9 +25,11 @@ const registry = (app: FastifyInstance) => (item: Item) => {
   app.use(
     item.path,
     async (req: IIncomingMessage, res: ServerResponse, next: Function) => {
-      const data = await appStateResolver(item.name);
+      const data = await resolver(item.name);
 
-      req.appState = data;
+      if (data) {
+        req.appState = { [item.name]: data };
+      }
 
       next();
     },

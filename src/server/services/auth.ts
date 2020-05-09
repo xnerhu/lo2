@@ -1,7 +1,7 @@
 import { sign, verify } from 'jsonwebtoken';
 
 import { IUser } from '~/interfaces';
-import config from '../config';
+import { config } from '../constants/config';
 import { IToken } from '../interfaces';
 import UserService from '../services/user';
 

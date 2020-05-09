@@ -1,7 +1,7 @@
 import { Db } from 'mongodb';
 import { connect } from 'mongoose';
 
-import config from '~/server/config';
+import { config } from '../constants/config';
 
 export let db: Db;
 

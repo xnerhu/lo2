@@ -1,24 +1,8 @@
-import { IUser } from './user';
-import {
-  IHomePagePacket,
-  INewsPagePacket,
-  IArticlePagePacket,
-  IPersonnelPacket,
-  IAddArticlePacket,
-  IEditArticlePacket,
-} from './pages';
-import { IHomePageData, INewsPageData } from './page';
-
-export interface IAppStatePage {
-  home: IHomePageData;
-  news: INewsPageData;
-  article?: IArticlePagePacket;
-  personnel?: IPersonnelPacket;
-  addArticle?: IAddArticlePacket;
-  editArticle?: IEditArticlePacket;
-}
+import { IHomePageData } from './pages';
 
 export interface IAppState {
+  home?: IHomePageData;
   articles?: string;
-  home?: number;
 }
+
+export type IAppStateItem = keyof IAppState;

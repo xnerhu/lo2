@@ -1,7 +1,7 @@
 import fastify from 'fastify';
 import chalk from 'chalk';
 
-import config from './config';
+import { config } from './constants/config';
 import useFastify from './loaders/fastify';
 import useMongoose from './loaders/mongoose';
 import useControllers from './controllers';

@@ -4,7 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 
-import config from '../config';
+import { config } from '../constants/config';
 import App from '~/renderer/views/app';
 import htmlView from '../views/html';
 import { IAppState } from '~/interfaces';

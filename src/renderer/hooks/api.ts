@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { IAppState } from '~/interfaces';
+import { IAppStateItem } from '~/interfaces';
 
-export const useApi = (name: keyof IAppState) => {
+export const useApi = (item: IAppStateItem) => {
   const [state, setState] = useState<any>('test');
 
   return [state];

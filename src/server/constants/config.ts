@@ -5,7 +5,7 @@ dotenv.config();
 
 const { PORT, MONGODB_URI, TOKEN_SECRET, TOKEN_EXPIRATION_TIME } = process.env;
 
-export default {
+export const config = {
   port: parseInt(PORT),
   clientDirectory: resolve('build/client/static'),
   staticDirectory: resolve('static'),

@@ -5,16 +5,14 @@ import { getToken } from '~/server/utils';
 import { IRequest } from '~/server/interfaces';
 
 export default (app: FastifyInstance) => {
-  app.addHook('onRequest', async (req: IRequest, rep, next: Function) => {
+  app.addHook('preHandler', async (req: IRequest) => {
     const token = getToken(req);
     const decoded = await AuthService.decodeToken(token);
 
     if (decoded instanceof Error) {
-      req.tokenErrorCode = parseInt(decoded.message);
+      req.raw.tokenErrorCode = parseInt(decoded.message);
     } else {
-      req.tokenPayload = decoded?.data ?? {};
+      req.raw.tokenPayload = decoded?.data ?? {};
     }
-
-    next();
   });
 };

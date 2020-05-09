@@ -10,7 +10,7 @@ async function init() {
   const app = fastify();
 
   useFastify(app);
-  useControllers(app);
+  await useControllers(app);
   useMongoose();
 
   app.listen(config.port, (err) => {

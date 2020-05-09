@@ -8,7 +8,7 @@ export default (redirectUrl?: string) => async (
   res: FastifyReply<ServerResponse>,
   next: Function,
 ) => {
-  const code = req.tokenErrorCode;
+  const code = req.raw.tokenErrorCode;
 
   if (code != null) {
     if (redirectUrl) {

@@ -1,14 +1,12 @@
 import { FastifyInstance } from 'fastify';
 
-import auth from './auth';
-import state from './state';
-import clientRouter from './client';
+import handleAuth from './auth';
+import routes from './routes';
 import apiRouter from './api';
 
-export default (app: FastifyInstance) => {
-  auth(app);
-  state(app);
-  clientRouter(app);
+export default async (app: FastifyInstance) => {
+  handleAuth(app);
+  routes(app);
 
   app.register(apiRouter, { prefix: '/api' });
 };

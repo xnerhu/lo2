@@ -5,10 +5,14 @@ import { IAppState, ITokenPayload } from '~/interfaces';
 
 export type IIncomingMessage = IncomingMessage & {
   appState?: IAppState;
+  tokenPayload: ITokenPayload;
+  tokenErrorCode?: number;
 };
 
 export interface IRequest extends FastifyRequest {
   raw: IIncomingMessage;
-  tokenPayload: ITokenPayload;
-  tokenErrorCode?: number;
+}
+
+export interface IQueryFilter {
+  [key: string]: string;
 }

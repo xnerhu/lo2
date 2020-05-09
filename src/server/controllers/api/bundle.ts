@@ -13,7 +13,7 @@ export default (app: FastifyInstance) => {
       },
     },
     async (req, res) => {
-      const data = await resolver(req.params.name);
+      const data = await resolver(req.params.name, req.query);
 
       res.send(data);
     },

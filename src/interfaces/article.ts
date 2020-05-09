@@ -1,5 +1,7 @@
 import { ObjectID } from 'mongodb';
 
+import { IUser } from './user';
+
 export interface IArticle {
   _id?: ObjectID;
   label?: string;
@@ -16,4 +18,17 @@ export interface IArticleCategory {
   _id?: ObjectID;
   name?: string;
   label?: string;
+}
+
+export interface IArticleFilter {
+  page?: number;
+  limit?: number;
+  category?: string;
+  thumbnail?: boolean;
+}
+
+export interface IArticlesChunk {
+  articles?: IArticle[];
+  nextPage?: boolean;
+  users?: IUser[];
 }

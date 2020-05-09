@@ -10,6 +10,7 @@ const {
   TOKEN_SECRET,
   TOKEN_EXPIRATION_TIME,
   SHORT_ARTICLE_LENGTH,
+  ARTICLES_PER_PAGE,
 } = process.env;
 
 export const config = {
@@ -22,4 +23,5 @@ export const config = {
   tokenSecret: TOKEN_SECRET,
   tokenExpirationTime: TOKEN_EXPIRATION_TIME,
   shortArticleLength: parseInt(SHORT_ARTICLE_LENGTH),
+  articlesPerPage: parseInt(ARTICLES_PER_PAGE),
 };

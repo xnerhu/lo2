@@ -1,8 +1,8 @@
-import { IHomePageData } from './pages';
+import { IHomePageData, IArticlesPageData } from './pages';
 
 export interface IAppState {
   home?: IHomePageData;
-  articles?: string;
+  articles?: IArticlesPageData;
 }
 
 export type IAppStateItem = keyof IAppState;

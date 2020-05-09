@@ -9,6 +9,7 @@ const {
   MONGODB_URI,
   TOKEN_SECRET,
   TOKEN_EXPIRATION_TIME,
+  SHORT_ARTICLE_LENGTH,
 } = process.env;
 
 export const config = {
@@ -20,4 +21,5 @@ export const config = {
   mongodbURI: MONGODB_URI,
   tokenSecret: TOKEN_SECRET,
   tokenExpirationTime: TOKEN_EXPIRATION_TIME,
+  shortArticleLength: parseInt(SHORT_ARTICLE_LENGTH),
 };

@@ -27,7 +27,7 @@ const registry = (app: FastifyInstance) => (item: Item) => {
     async (req: IIncomingMessage, res: ServerResponse, next: Function) => {
       const data = await appStateResolver(item.name);
 
-      req.appState = data as any;
+      req.appState = data;
 
       next();
     },

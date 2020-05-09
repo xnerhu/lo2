@@ -67,7 +67,7 @@ class ArticleService {
     })
       .skip(offset)
       .limit(config.articlesPerPage)
-      .sort({ _id: 1 })
+      .sort({ _id: -1 })
       .lean()
       .exec();
 

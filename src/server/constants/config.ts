@@ -3,9 +3,16 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const { PORT, MONGODB_URI, TOKEN_SECRET, TOKEN_EXPIRATION_TIME } = process.env;
+const {
+  NODE_ENV,
+  PORT,
+  MONGODB_URI,
+  TOKEN_SECRET,
+  TOKEN_EXPIRATION_TIME,
+} = process.env;
 
 export const config = {
+  dev: NODE_ENV === 'development',
   port: parseInt(PORT),
   clientDirectory: resolve('build/client/static'),
   staticDirectory: resolve('static'),

@@ -1,9 +1,9 @@
-import { IAppState } from '~/interfaces';
+import { fonts } from '../constants';
+import { config } from '../constants';
 
 const fallBack = 'font-display: swap;';
 
-const fontsCss =
-  ''; /* `
+const fontsCss = `
   @font-face {
     font-family: 'Roboto';
     font-style: normal;
@@ -19,27 +19,16 @@ const fontsCss =
     src: url(${fonts.robotoMedium}) format('woff2');
     ${fallBack}
   }
-`.replace(/\n|\s/g, '');*/
-
-const htmlEndView = (scripts: React.ReactNode, state: IAppState) => {
-  let stateHtml = '';
-
-  if (state) {
-    stateHtml = `<script type="text/javascript">window.__APP_STATE__= ${JSON.stringify(
-      state,
-    ).replace(/</g, '\\u003c')}</script>`;
-  }
-
-  return ``;
-};
+`.replace(/\n|\s/g, '');
 
 export default (
   rendered: string,
   styleTags: string,
   scriptTags: string,
   appState: any,
-) =>
-  `<!DOCTYPE html>
+) => {
+  let str = `
+  <!DOCTYPE html>
   <html lang="pl">
     <head>
       <meta charset="utf-8" />
@@ -68,6 +57,11 @@ export default (
       ).replace(/</g, '\\u003c')}</script>
       ${scriptTags}
     </body>
-  </html>
-`;
-/*.replace(/[\r\n]+|[\s]{2,}/g, '');*/
+  </html>`;
+
+  if (!config.dev) {
+    str = str.replace(/[\r\n]+|[\s]{2,}/g, '');
+  }
+
+  return str;
+};

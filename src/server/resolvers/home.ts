@@ -1,6 +1,7 @@
 import { IHomePageData, IArticle } from '~/interfaces';
 import ArticleModel from '../models/article';
 import ArticleService from '../services/article';
+import { listFiles } from '../utils';
 
 const getArticles = async (): Promise<IArticle[]> => {
   const items: IArticle[] = await ArticleModel.find()
@@ -13,11 +14,13 @@ const getArticles = async (): Promise<IArticle[]> => {
 };
 
 export default async (): Promise<IHomePageData> => {
-  const articles = await getArticles();
+  const [sliderItems, articles] = await Promise.all([
+    listFiles('home-slider'),
+    getArticles(),
+  ]);
 
   return {
-    sliderItems: [],
+    sliderItems,
     articles,
-    categories: [],
   };
 };

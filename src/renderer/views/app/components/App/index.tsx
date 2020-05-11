@@ -31,8 +31,8 @@ const App = () => {
         <Appbar />
         <Mobile />
         <Switch />
-        <Footer />
       </StyledApp>
+      <Footer />
     </>
   );
 };

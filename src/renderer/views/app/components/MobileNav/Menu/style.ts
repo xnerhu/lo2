@@ -26,6 +26,7 @@ export const StyledMenu = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 64px 0px;
+  z-index: 20;
   animation-name: ${animation};
   animation-duration: 0.1s;
 `;

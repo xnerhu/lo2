@@ -1,4 +1,5 @@
-import { FastifyRequest } from 'fastify';
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { ServerResponse } from 'http';
 
 import { IRequest } from '../interfaces';
 
@@ -17,4 +18,8 @@ export const verifyUser = (req: IRequest, username: string) => {
   if (username !== signedInUser) {
     throw new Error('Unauthorized: Access forbidden');
   }
+};
+
+export const signedOutUser = (res: FastifyReply<ServerResponse>) => {
+  res.clearCookie('token');
 };

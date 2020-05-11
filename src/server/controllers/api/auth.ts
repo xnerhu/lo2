@@ -5,6 +5,7 @@ import AuthService from '~/server/services/auth';
 import UserService from '~/server/services/user';
 import { IApiResponse, IUser } from '~/interfaces';
 import { IRequest } from '~/server/interfaces';
+import { signedOutUser } from '~/server/utils';
 
 export default (app: FastifyInstance, opts: any, next: Function) => {
   app.post('/sign-in', async (req, res) => {
@@ -29,7 +30,7 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
   });
 
   app.get('/sign-out', (req, res) => {
-    res.clearCookie('token');
+    signedOutUser(res);
     res.redirect('/');
   });
 

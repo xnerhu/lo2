@@ -1,13 +1,17 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import loadable from '@loadable/component';
 
 import { ICON_MENU } from '~/renderer/constants/icons';
 import { mobileNavMap } from '../../constants/navigation';
 import { IRouterProps } from '~/renderer/interfaces';
 import { IMobileNavItem } from '../../interfaces';
 import { isNavItemSelected } from '../../utils/navigation';
-import { Menu } from '../Menu';
 import { StyledBottombar, StyledItem } from './style';
+
+const LazyMenu = loadable(() => import('./Menu'), {
+  ssr: true,
+});
 
 const NavItem = withRouter((props: IRouterProps<IMobileNavItem>) => {
   const { path, icon } = props;
@@ -35,7 +39,7 @@ export const Bottombar = () => {
         ))}
         <StyledItem icon={ICON_MENU} onClick={onMenuClick} />
       </StyledBottombar>
-      <Menu visible={menuVisible} onClose={onMenuClose} />
+      {menuVisible && <LazyMenu onClose={onMenuClose} />}
     </>
   );
 };

@@ -1,17 +1,15 @@
 import React from 'react';
 
-import { desktopNavMap } from '../../constants/navigation';
-import { IDesktopNavItem } from '../../interfaces';
+import { desktopNavMap } from '../../../constants/navigation';
 import { StyledMenu, Item, Close } from './style';
 
 interface Props {
-  visible?: boolean;
   onClose?: () => void;
 }
 
-export const Menu = ({ visible, onClose }: Props) => {
+export const Menu = ({ onClose }: Props) => {
   return (
-    <StyledMenu visible={visible}>
+    <StyledMenu>
       {desktopNavMap.map((r) => (
         <Item key={r.path} to={r.path}>
           {r.label}
@@ -21,3 +19,5 @@ export const Menu = ({ visible, onClose }: Props) => {
     </StyledMenu>
   );
 };
+
+export default Menu;

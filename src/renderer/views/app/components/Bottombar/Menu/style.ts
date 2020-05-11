@@ -1,8 +1,18 @@
-import styled, { css } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import { Link } from '~/renderer/components/Link';
 import { centerIcon } from '~/renderer/mixins/images';
 import { ICON_CLOSE } from '~/renderer/constants/icons';
+
+const animation = keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+`;
 
 export const StyledMenu = styled.div`
   width: 100%;
@@ -16,16 +26,8 @@ export const StyledMenu = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 64px 0px;
-  opacity: 0;
-  pointer-events: none;
-  transition: 1s opacity;
-
-  ${({ visible }: { visible: boolean }) =>
-    visible &&
-    css`
-      opacity: 1;
-      pointer-events: auto;
-    `}
+  animation-name: ${animation};
+  animation-duration: 0.1s;
 `;
 
 export const Item = styled(Link)`

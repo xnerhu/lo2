@@ -26,18 +26,6 @@ export default (options?: IOptions) => async (
         ? 'Unauthorized: No token provided'
         : 'Unauthorized: Invalid token',
     );
-
-    // res.code(code);
-
-    // res.send({
-    //   errorCode: code,
-    //   success: false,
-    //   message:
-    // code === 401
-    //   ? 'Unauthorized: No token provided'
-    //   : 'Unauthorized: Invalid token',
-    // });
-  } else {
     return next();
   }
 };

@@ -1,17 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { usePage } from '~/renderer/hooks/network';
+import { Categories } from './components/Categories';
+import { IArticlesPageData } from '~/interfaces';
 
-export default () => {
-  const [data] = usePage('articles');
+export default withRouter(() => {
+  const [data] = usePage<IArticlesPageData>('articles');
 
-  return (
-    <div>
-      <h4>Articles</h4>
-      <h1></h1>
-      <br />
-      <Link to="/">Home</Link>
-    </div>
-  );
-};
+  const categories = React.useMemo(() => {
+    if (data?.categories != null) {
+      return <Categories data={data.categories} />;
+    }
+
+    return null;
+  }, [data?.categories]);
+
+  return <>{categories}</>;
+});

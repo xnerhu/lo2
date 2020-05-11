@@ -26,7 +26,7 @@ class ArticleService {
 
     const image =
       data.hasImage &&
-      ImageService.format(`/static/articles/${data._id.toHexString()}`, full);
+      ImageService.format(`/static/articles/${data._id}`, full);
 
     return {
       ...data,

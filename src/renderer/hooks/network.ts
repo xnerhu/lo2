@@ -23,7 +23,7 @@ const getInitialState = (item: IAppStateItem, filter: any) => {
   const cachedItem = IS_BROWSER && cache.get(item);
 
   if (cachedItem && cachedItem?.filter === filter) {
-    return cachedItem;
+    return cachedItem.data;
   }
 
   const data = appState?.[item];

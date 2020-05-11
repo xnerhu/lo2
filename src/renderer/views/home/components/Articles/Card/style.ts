@@ -5,6 +5,7 @@ import { CARD_SHADOW } from '~/renderer/constants/design';
 import { transparency } from '~/renderer/constants/transparency';
 
 export const StyledArticleCard = styled(Link)`
+  width: 100%;
   height: 100%;
   cursor: pointer;
   display: inline-flex;

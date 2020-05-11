@@ -14,4 +14,8 @@ export const StyledArticlesGrid = styled.div`
       display: none;
     }
   }
+
+  @media (max-width: 857px) {
+    grid-template-columns: unset;
+  }
 `;

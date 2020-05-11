@@ -1,6 +1,12 @@
-import { INavItem } from '../interfaces';
+import { IDesktopNavItem, IMobileNavItem } from '../interfaces';
+import {
+  ICON_HOME,
+  ICON_NEWS,
+  ICON_STUDENT,
+  ICON_MENU,
+} from '~/renderer/constants/icons';
 
-export const navMap: INavItem[] = [
+export const desktopNavMap: IDesktopNavItem[] = [
   {
     label: 'Strona główna',
     path: '/',
@@ -28,5 +34,20 @@ export const navMap: INavItem[] = [
   {
     label: 'Kontakt',
     path: '/contakt',
+  },
+];
+
+export const mobileNavMap: IMobileNavItem[] = [
+  {
+    path: '/',
+    icon: ICON_HOME,
+  },
+  {
+    path: '/articles',
+    icon: ICON_NEWS,
+  },
+  {
+    path: '/student',
+    icon: ICON_STUDENT,
   },
 ];

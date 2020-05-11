@@ -20,6 +20,10 @@ export const MobileNav = () => {
     toggleMenu(false);
   }, []);
 
+  React.useEffect(() => {
+    document.body.style.overflowY = menuVisible ? 'hidden' : 'auto';
+  }, [menuVisible]);
+
   return (
     <>
       <Bottombar visible={barVisible} onMenuClick={onMenuClick} />

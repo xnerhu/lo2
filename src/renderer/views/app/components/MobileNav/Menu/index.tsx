@@ -7,7 +7,7 @@ interface Props {
   onClose?: () => void;
 }
 
-export const Menu = ({ onClose }: Props) => {
+export default ({ onClose }: Props) => {
   return (
     <StyledMenu>
       {desktopNavMap.map((r) => (
@@ -19,5 +19,3 @@ export const Menu = ({ onClose }: Props) => {
     </StyledMenu>
   );
 };
-
-export default Menu;

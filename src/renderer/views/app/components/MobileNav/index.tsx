@@ -8,7 +8,7 @@ const LazyMenu = loadable(() => import('./Menu'), {
   ssr: true,
 });
 
-export const MobileNav = () => {
+export default () => {
   const [barVisible] = useScroll();
   const [menuVisible, toggleMenu] = React.useState(false);
 

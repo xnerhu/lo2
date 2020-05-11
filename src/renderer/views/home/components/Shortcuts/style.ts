@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Link } from '~/renderer/components/Link';
 import { PRIMARY_COLOR } from '~/renderer/constants/design';
 import { centerIcon } from '~/renderer/mixins/images';
+import { noUserSelect } from '~/renderer/mixins/user-selection';
 
 export const Container = styled.div`
   width: fit-content;
@@ -24,6 +25,7 @@ export const StyledItem = styled(Link)`
   flex-direction: column;
   position: relative;
   cursor: pointer;
+  ${noUserSelect()};
 
   &:hover > :first-child {
     background-color: rgba(0, 174, 239, 0.04);

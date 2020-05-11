@@ -1,7 +1,7 @@
 import React from 'react';
 import loadable from '@loadable/component';
 
-import { useScroll } from '~/renderer/hooks/scroll';
+import { useScroll } from '~/renderer/hooks/ui';
 import { Bottombar } from './Bottombar';
 
 const LazyMenu = loadable(() => import('./Menu'), {

@@ -32,3 +32,27 @@ export const useScroll = (threshold = 25) => {
 
   return [visible];
 };
+
+export const useResize = (width: number) => {
+  const [active, setActive] = useState<boolean>(false);
+
+  const onWindowResize = useCallback(() => {
+    const activated = window.innerWidth <= width;
+
+    if (activated !== active) {
+      setActive(activated);
+    }
+  }, [active]);
+
+  useEffect(() => {
+    onWindowResize();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', onWindowResize);
+
+    return () => window.removeEventListener('resize', onWindowResize);
+  }, [active]);
+
+  return [active];
+};

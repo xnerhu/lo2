@@ -34,8 +34,10 @@ const getInitialState = (item: IAppStateItem, filter: any) => {
   return data;
 };
 
-export const usePage = (item: IAppStateItem, options?: IOptions) => {
-  const [state, setState] = useState(getInitialState(item, options?.filter));
+export const usePage = <T>(item: IAppStateItem, options?: IOptions): [T] => {
+  const [state, setState] = useState<T>(
+    getInitialState(item, options?.filter) as any,
+  );
 
   const _setState = (data: any, filter: any) => {
     cache.set(item, { data, filter });

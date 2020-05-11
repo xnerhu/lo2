@@ -8,6 +8,7 @@ import { config } from '../constants/config';
 import App from '~/renderer/views/app';
 import htmlView from '../views/html';
 import { IAppState } from '~/interfaces';
+import AppStateContext from '~/contextes/app-state';
 
 class RendrerService {
   public render(url: string, state: IAppState) {
@@ -22,9 +23,11 @@ class RendrerService {
     const html = renderToStaticMarkup(
       <ChunkExtractorManager extractor={extractor}>
         <StyleSheetManager sheet={sheet.instance}>
-          <StaticRouter location={url} context={routerContext}>
-            <App />
-          </StaticRouter>
+          <AppStateContext.Provider value={state}>
+            <StaticRouter location={url} context={routerContext}>
+              <App />
+            </StaticRouter>
+          </AppStateContext.Provider>
         </StyleSheetManager>
       </ChunkExtractorManager>,
     );

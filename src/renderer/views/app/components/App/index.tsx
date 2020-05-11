@@ -3,6 +3,8 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 import { Switch } from '../Switch';
+import { Appbar } from '../Appbar';
+
 import { Style } from '../../style';
 import { StyledApp } from './style';
 
@@ -13,6 +15,7 @@ const App = () => {
     <>
       <GlobalStyle />
       <StyledApp>
+        <Appbar />
         <Switch />
       </StyledApp>
     </>

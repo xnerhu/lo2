@@ -14,10 +14,6 @@ export const CONTENT_WIDTH = 1536;
 export const STANDARD_RATIO = 16 / 9;
 export const WIDE_RATIO = 16 / 5;
 
-export const APPBAR_DESKTOP_HEIGHT = 128;
-export const APPBAR_MOBILE_HEIGHT = 72;
-export const APPBAR_MOBILE_VIEW = 1365;
-
 export const ARTICLES_GRID_GAP = 24;
 
 export const FOOTER_MOBILE_VIEW = 768;

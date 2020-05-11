@@ -10,12 +10,12 @@ export default (item?: IAppStateItem) => async (
   req: IRequest,
   res: FastifyReply<ServerResponse>,
 ) => {
-  const appState = item && (await resolver(item, req.params));
+  const data = item && (await resolver(item, req.params));
 
   res.type('text/html');
 
   const { raw } = req;
-  const html = RenderService.render(raw.url, appState);
+  const html = RenderService.render(raw.url, { [item]: data });
 
   res.send(html);
 };

@@ -8,12 +8,13 @@ import { Articles } from './components/Articles';
 
 export default () => {
   const [data] = usePage<IHomePageData>('home');
+  console.log(data?.articles?.length);
 
   return (
     <>
-      <Slider items={data?.sliderItems ?? []} />
+      <Slider items={data?.sliderItems} />
       <Shortcuts />
-      <Articles items={data.articles ?? []} />
+      <Articles items={data?.articles} />
     </>
   );
 };

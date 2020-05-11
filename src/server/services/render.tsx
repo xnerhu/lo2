@@ -1,6 +1,6 @@
 import React from 'react';
 import { StaticRouter } from 'react-router';
-import { renderToStaticMarkup } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 
@@ -20,20 +20,22 @@ class RendrerService {
       entrypoints: ['app'],
     });
 
-    const html = renderToStaticMarkup(
+    const html = renderToString(
       <ChunkExtractorManager extractor={extractor}>
         <StyleSheetManager sheet={sheet.instance}>
-          <AppStateContext.Provider value={state}>
-            <StaticRouter location={url} context={routerContext}>
+          <StaticRouter location={url} context={routerContext}>
+            <AppStateContext.Provider value={state}>
               <App />
-            </StaticRouter>
-          </AppStateContext.Provider>
+            </AppStateContext.Provider>
+          </StaticRouter>
         </StyleSheetManager>
       </ChunkExtractorManager>,
     );
 
     const styleTags = sheet.getStyleTags();
     const scriptTags = extractor.getScriptTags();
+
+    sheet.seal();
 
     return htmlView(html, styleTags, scriptTags, state);
   }

@@ -47,7 +47,3 @@ export const Carousel = ({ items }: Props) => {
     </>
   );
 };
-
-Carousel.defaultProps = {
-  items: [],
-} as Props;

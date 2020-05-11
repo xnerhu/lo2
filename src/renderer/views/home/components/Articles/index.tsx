@@ -11,7 +11,11 @@ import { ICON_CHEVRON } from '~/renderer/constants/icons';
 import { IArticle } from '~/interfaces';
 import { ArticlesGrid } from './Grid';
 
-export const Articles = ({ items }: { items: IArticle[] }) => {
+interface Props {
+  items: IArticle[];
+}
+
+export const Articles = ({ items }: Props) => {
   return (
     <Background>
       <Content>
@@ -32,3 +36,7 @@ export const Articles = ({ items }: { items: IArticle[] }) => {
     </Background>
   );
 };
+
+Articles.defaultProps = {
+  items: [],
+} as Props;

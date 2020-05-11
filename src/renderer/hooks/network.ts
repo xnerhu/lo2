@@ -1,8 +1,9 @@
-import { useState, useEffect, DependencyList } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import { IAppStateItem } from '~/interfaces';
 import { useAppState } from './app-state';
+import { IS_BROWSER } from '../constants/config';
 
 interface ICacheItem {
   filter?: any;
@@ -21,7 +22,7 @@ const getInitialState = (item: IAppStateItem, filter: any) => {
 
   const cachedItem = cache.get(item);
 
-  if (cachedItem && cachedItem?.filter === filter) {
+  if (IS_BROWSER && cachedItem && cachedItem?.filter === filter) {
     return cachedItem;
   }
 

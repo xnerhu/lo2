@@ -61,13 +61,13 @@ export const Style = css`
   a {
     color: ${PRIMARY_COLOR};
     text-decoration: none;
+    color: #000;
+    ${robotoRegular()};
 
-    &.bg {
-      color: #000;
-    }
-
-    &:hover {
-      text-decoration: underline;
+    &.underline {
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 

@@ -1,21 +1,19 @@
-import { ObjectID } from 'mongodb';
-
 import { IUser } from './user';
 
 export interface IArticle {
-  _id?: ObjectID;
+  _id?: string;
   label?: string;
   title?: string;
   content?: string;
   image?: string;
   hasImage?: boolean;
-  categoryId?: ObjectID;
-  authorId?: ObjectID;
+  categoryId?: string;
+  authorId?: string;
   createdAt?: Date;
 }
 
 export interface IArticleCategory {
-  _id?: ObjectID;
+  _id?: string;
   name?: string;
   label?: string;
 }

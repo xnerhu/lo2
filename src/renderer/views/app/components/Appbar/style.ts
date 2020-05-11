@@ -16,6 +16,7 @@ export const StyledAppbar = styled(Content)`
 `;
 
 export const Banner = styled.img`
+  max-width: 100%;
   height: 64px;
 `;
 

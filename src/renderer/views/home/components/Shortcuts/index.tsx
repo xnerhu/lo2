@@ -15,10 +15,9 @@ import {
   ICON_REPLACEMENT,
 } from '~/renderer/constants/icons';
 import { StyledItem, Container, Circle, Title } from './style';
+import { LOADABLE_OPTIONS } from '~/renderer/constants/loadable';
 
-const LazyCmsShortcuts = loadable(() => import('./Cms'), {
-  ssr: true,
-});
+const LazyCmsShortcuts = loadable(() => import('./Cms'), LOADABLE_OPTIONS);
 
 interface Props {
   icon: string;

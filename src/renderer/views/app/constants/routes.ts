@@ -1,13 +1,15 @@
-import loadable, { Options } from '@loadable/component';
+import loadable from '@loadable/component';
 
 import { IRoute } from '~/renderer/views/app/interfaces';
+import { LOADABLE_OPTIONS } from '~/renderer/constants/loadable';
 
-const options: Options<any> = { ssr: true };
-
-const LazyHome = loadable(() => import('~/renderer/views/home'), options);
+const LazyHome = loadable(
+  () => import('~/renderer/views/home'),
+  LOADABLE_OPTIONS,
+);
 const LazyArticles = loadable(
   () => import('~/renderer/views/articles'),
-  options,
+  LOADABLE_OPTIONS,
 );
 
 export const routerMap = [

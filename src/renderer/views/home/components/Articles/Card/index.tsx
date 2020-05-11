@@ -9,7 +9,7 @@ export const ArticleCard = ({ data }: { data: IArticle }) => {
   const { label, image, title, content, createdAt } = data;
 
   return (
-    <StyledArticleCard to={`/article/${label}`}>
+    <StyledArticleCard className="article-card" to={`/article/${label}`}>
       {image ? (
         <Image src={image} alt={title} ratio={16 / 9} skeletonBorder={0} />
       ) : null}

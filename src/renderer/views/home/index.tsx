@@ -9,7 +9,6 @@ import { Slider } from './components/Slider';
 
 export default () => {
   const [data] = usePage<IHomePageData>('home');
-  console.log(data?.sliderItems);
 
   return (
     <>

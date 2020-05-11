@@ -9,7 +9,7 @@ export const listFiles = async (dirName: string, exclude = ['webp']) => {
   for (const file of files) {
     const { name, ext } = parse(file);
 
-    if (!exclude.includes('.' + ext)) {
+    if (!exclude.includes(ext.slice(1))) {
       items.push(`/static/${dirName}/${name}`);
     }
   }

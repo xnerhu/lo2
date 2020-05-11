@@ -4,12 +4,9 @@ import useAuth from '../middleware/auth';
 import UserService from '~/server/services/user';
 import { verifyUser } from '~/server/utils';
 import { IRequest } from '~/server/interfaces';
+import { IApiResponse } from '~/interfaces';
 
 export default (app: FastifyInstance, opts: any, next: Function) => {
-  app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-  });
-
   app.post(
     '/change-password',
     {
@@ -22,7 +19,7 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
 
       await UserService.changePassword(username, password);
 
-      res.send({ success: true });
+      res.send({ success: true } as IApiResponse);
     },
   );
 

@@ -4,6 +4,8 @@ import { IUser } from '~/interfaces';
 import { config } from '../constants/config';
 import { IToken } from '../interfaces';
 import UserService from '../services/user';
+import UserModel from '../models/user';
+import { compareHashed } from '../utils';
 
 class AuthService {
   public createToken(user: IUser) {
@@ -31,6 +33,23 @@ class AuthService {
         resolve(token);
       });
     });
+  }
+
+  public async authenticateUser(username: string, password: string) {
+    if (!username) throw new Error('Username must be provided!');
+    if (!password) throw new Error('Password must be provided!');
+
+    const user: IUser = await UserModel.findOne({ username }).lean().exec();
+
+    if (!user) throw new Error('Invalid username!');
+
+    const correct = await compareHashed(password, user.password);
+
+    if (!correct) throw new Error('Invalid password!');
+
+    const token = await this.createToken(user);
+
+    return { token, user };
   }
 }
 

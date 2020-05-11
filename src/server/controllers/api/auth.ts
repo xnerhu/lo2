@@ -4,9 +4,10 @@ import { config } from '~/server/constants';
 import AuthService from '~/server/services/auth';
 import UserService from '~/server/services/user';
 import { IApiResponse, IUser } from '~/interfaces';
+import { IRequest } from '~/server/interfaces';
 
 export default (app: FastifyInstance, opts: any, next: Function) => {
-  app.post('/login', async (req, res) => {
+  app.post('/sign-in', async (req, res) => {
     const { username, password } = req.body;
 
     const { token, user } = await AuthService.authenticateUser(
@@ -25,6 +26,15 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
       success: true,
       user: UserService.format(user),
     } as IApiResponse<IUser>);
+  });
+
+  app.get('/sign-out', (req, res) => {
+    res.clearCookie('token');
+    res.redirect('/');
+  });
+
+  app.get('/signed-in', (req: IRequest, res) => {
+    res.send({ success: !!req.raw.tokenPayload } as IApiResponse);
   });
 
   next();

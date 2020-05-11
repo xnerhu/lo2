@@ -60,6 +60,15 @@ export const Style = css`
 
   a {
     color: ${PRIMARY_COLOR};
+    text-decoration: none;
+
+    &.bg {
+      color: #000;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   b {

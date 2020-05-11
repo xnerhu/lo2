@@ -16,6 +16,18 @@ export const StyledBottombar = styled.div`
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  bottom: -24px;
+  pointer-events: none;
+  transition: 0.2s ease-out bottom, 0.1s opacity;
+
+  ${({ visible }: { visible: boolean }) =>
+    visible &&
+    css`
+      opacity: 1;
+      bottom: 0;
+      pointer-events: auto;
+    `};
 `;
 
 export const StyledItem = styled(Link)`
@@ -27,7 +39,7 @@ export const StyledItem = styled(Link)`
   align-items: center;
   cursor: pointer;
   position: relative;
-  transition: 0.1s margin-top;
+  transition: 0.1s ease-out margin-top;
   ${noUserSelect()};
 
   ${({ icon, selected }: { icon: string; selected?: boolean }) => css`

@@ -4,7 +4,7 @@ import { createGlobalStyle } from 'styled-components';
 
 import { Switch } from '../Switch';
 import { Appbar } from '../Appbar';
-import { Bottombar } from '../Bottombar';
+import { MobileNav } from '../MobileNav';
 
 import { Style } from '../../style';
 import { StyledApp } from './style';
@@ -18,7 +18,7 @@ const App = () => {
       <StyledApp>
         <Appbar />
         <Switch />
-        <Bottombar />
+        <MobileNav />
       </StyledApp>
     </>
   );

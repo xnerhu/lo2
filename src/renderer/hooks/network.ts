@@ -20,9 +20,9 @@ interface IOptions {
 const getInitialState = (item: IAppStateItem, filter: any) => {
   const appState = useAppState();
 
-  const cachedItem = cache.get(item);
+  const cachedItem = IS_BROWSER && cache.get(item);
 
-  if (IS_BROWSER && cachedItem && cachedItem?.filter === filter) {
+  if (cachedItem && cachedItem?.filter === filter) {
     return cachedItem;
   }
 

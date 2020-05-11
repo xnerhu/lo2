@@ -8,7 +8,6 @@ import { Articles } from './components/Articles';
 
 export default () => {
   const [data] = usePage<IHomePageData>('home');
-  console.log(data?.articles?.length);
 
   return (
     <>

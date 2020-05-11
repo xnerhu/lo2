@@ -42,9 +42,10 @@ class ArticleService {
       throw new Error('Incorrect page!');
     }
 
-    const offset = page != null ? (page - 1) * config.articlesPerPage : 0;
+    const limit = filter?.limit ?? config.articlesPerPage;
+    const offset = page != null ? (page - 1) * limit : 0;
 
-    let categoryId: ObjectId;
+    let categoryId;
 
     if (categoryLabel) {
       const category = await ArticleCategoryModel.findOne({
@@ -57,16 +58,11 @@ class ArticleService {
     }
 
     const items: IArticle[] = await ArticleModel.find({
-      ...(categoryId && {
-        categoryId: new mongoose.Types.ObjectId(categoryId),
-      }),
-
-      ...(thumbnail && {
-        hasImage: thumbnail,
-      }),
+      ...(categoryId && { categoryId }),
+      ...(thumbnail && { hasImage: thumbnail }),
     })
       .skip(offset)
-      .limit(config.articlesPerPage)
+      .limit(limit)
       .sort({ _id: -1 })
       .lean()
       .exec();

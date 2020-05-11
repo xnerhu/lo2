@@ -19,3 +19,5 @@ export const URL_STATUE = '/static/statut.pdf';
 
 export const URL_MICROSOFT_OFFICE =
   'http://www.lo2.opole.pl/aktualnosci/pliki/korzystanie_office365_online.pdf';
+
+export const URL_BIP = 'https://zsoiiopole.bip.gov.pl';

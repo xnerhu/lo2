@@ -3,11 +3,12 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import loadable from '@loadable/component';
 
-import { Switch } from '../Switch';
-import { Appbar } from '../Appbar';
 import { useResize } from '~/renderer/hooks/ui';
 import { APPBAR_MOBILE_VIEW } from '~/renderer/constants/design';
 import { LOADABLE_OPTIONS } from '~/renderer/constants/loadable';
+import { Switch } from '../Switch';
+import { Appbar } from '../Appbar';
+import { Footer } from '../Footer';
 
 import { Style } from '../../style';
 import { StyledApp } from './style';
@@ -28,8 +29,9 @@ const App = () => {
       <GlobalStyle />
       <StyledApp>
         <Appbar />
-        <Switch />
         <Mobile />
+        <Switch />
+        <Footer />
       </StyledApp>
     </>
   );

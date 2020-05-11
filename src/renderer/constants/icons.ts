@@ -38,3 +38,5 @@ export const ICON_BIP = require('~/renderer/resources/icons/bip.svg');
 export const ICON_HOME = require('~/renderer/resources/icons/home.svg');
 export const ICON_NEWS = require('~/renderer/resources/icons/news.svg');
 export const ICON_STUDENT = require('~/renderer/resources/icons/student.svg');
+export const BADGE = require('~/renderer/resources/icons/badge.jpg');
+export const BIP = require('~/renderer/resources/icons/bip.svg');

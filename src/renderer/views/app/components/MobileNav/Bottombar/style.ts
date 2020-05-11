@@ -17,6 +17,7 @@ export const StyledBottombar = styled.div`
   justify-content: center;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.12);
   opacity: 0;
+  z-index: 10;
   bottom: -24px;
   pointer-events: none;
   transition: 0.2s ease-out bottom, 0.1s opacity;

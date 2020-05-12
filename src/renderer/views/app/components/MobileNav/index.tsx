@@ -2,10 +2,10 @@ import React from 'react';
 import loadable from '@loadable/component';
 
 import { useScroll } from '~/renderer/hooks/ui';
-import { Bottombar } from './Bottombar';
+import { Bottombar } from '../Bottombar';
 import { LOADABLE_OPTIONS } from '~/renderer/constants/loadable';
 
-const LazyMenu = loadable(() => import('./Menu'), LOADABLE_OPTIONS);
+const LazyMenu = loadable(() => import('../Menu'), LOADABLE_OPTIONS);
 
 export default () => {
   const [barVisible] = useScroll();

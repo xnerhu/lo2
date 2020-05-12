@@ -3,9 +3,9 @@ import { withRouter } from 'react-router-dom';
 
 import { ICON_MENU } from '~/renderer/constants/icons';
 import { IRouterProps } from '~/renderer/interfaces';
-import { IMobileNavItem } from '../../../interfaces';
-import { isNavItemSelected } from '../../../utils/navigation';
-import { mobileNavMap } from '../../../constants/navigation';
+import { IMobileNavItem } from '../../interfaces';
+import { isNavItemSelected } from '../../utils/navigation';
+import { mobileNavMap } from '../../constants/navigation';
 import { StyledBottombar, StyledItem } from './style';
 
 const NavItem = withRouter((props: IRouterProps<IMobileNavItem>) => {

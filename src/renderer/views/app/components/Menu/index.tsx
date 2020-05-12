@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { desktopNavMap } from '../../../constants/navigation';
+import { desktopNavMap } from '../../constants/navigation';
 import { StyledMenu, Item, Close } from './style';
 
 interface Props {

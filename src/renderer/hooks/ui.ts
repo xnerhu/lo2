@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useRef, useState } from 'react';
 
-export const useScroll = (threshold = 25) => {
+export const useScroll = (threshold = 128) => {
   const [visible, setVisible] = useState(true);
   const previousY = useRef<number>();
 

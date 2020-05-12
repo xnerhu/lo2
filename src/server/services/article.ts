@@ -1,6 +1,3 @@
-import mongoose from 'mongoose';
-import { ObjectId } from 'mongodb';
-
 import { IArticle, IArticleFilter, IUser, IArticlesChunk } from '~/interfaces';
 import { config } from '../constants';
 import SerializerService from '../services/seralizer';
@@ -8,7 +5,8 @@ import ImageService from '../services/image';
 import ArticleModel from '../models/article';
 import UserModel from '../models/user';
 import ArticleCategoryModel from '../models/article-category';
-import { getUniqueValues } from '../utils';
+import { getUniqueValues, objectIdToString } from '../utils';
+import UserService from './user';
 
 class ArticleService {
   public format(data: IArticle, full?: boolean): IArticle {
@@ -32,6 +30,7 @@ class ArticleService {
       ...data,
       content,
       image,
+      authorId: objectIdToString(data.authorId),
     };
   }
 
@@ -90,7 +89,7 @@ class ArticleService {
 
     return {
       articles,
-      users,
+      users: users.map((r) => UserService.format(r)),
       nextPage: articles.length >= config.articlesPerPage,
     };
   }

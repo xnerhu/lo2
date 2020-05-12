@@ -1,4 +1,5 @@
 import { MONTHS } from '~/renderer/constants/date';
+import { IArticle } from '~/interfaces';
 
 const getPrefix = (time: number, seconds: number) => {
   time = Math.floor(seconds / 2592000);
@@ -51,4 +52,11 @@ export const formatDate = (date: Date | string) => {
   }
 
   return `${getPrefix(time, seconds)} temu`;
+};
+
+export const formatArticleDate = (data: IArticle) => {
+  const { createdAt } = data;
+  const date = new Date(createdAt);
+
+  return `${date.getDate()} ${MONTHS[date.getMonth()]}, ${date.getFullYear()}`;
 };

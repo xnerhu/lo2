@@ -14,7 +14,7 @@ const LazyArticles = loadable(
 
 export const routerMap = [
   {
-    path: '/articles',
+    path: '/articles/:category?/:page?',
     component: LazyArticles,
   },
   {

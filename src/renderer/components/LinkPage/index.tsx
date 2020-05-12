@@ -12,7 +12,7 @@ export const LinkPage = ({ item }: Props) => {
   const { label, subpages } = item;
 
   return (
-    <Background style={{ paddingBottom: 32 }}>
+    <Background style={{ paddingBottom: 64 }}>
       <Content>
         <SectionTitle>{label}</SectionTitle>
         <div>

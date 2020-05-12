@@ -27,6 +27,16 @@ const LazyAddArticle = loadable(() => import('../AddArticle'), options);
 const LazyEditArticle = loadable(() => import('../EditArticle'), options);
 const LazyLogin = loadable(() => import('../Login'), options);
 const LazyChangePassword = loadable(() => import('../ChangePassword'), options);
+const LazyBranches = loadable(() => import('../Branches'), options);
+const LazySuccesses = loadable(() => import('../Successes'), options);
+const LazyGratuates = loadable(() => import('../Graduates'), options);
+const LazyProjects = loadable(() => import('../Projects'), options);
+const LazyInternationalCooperation = loadable(
+  () => import('../InternationalCooperation'),
+  options,
+);
+const LazyCandidates = loadable(() => import('../Candidates'), options);
+const LazyParents = loadable(() => import('../Candidates'), options);
 
 // const Watcher = withRouter((props: IRouterProps) => {
 //   const { pathname } = props.location;
@@ -46,6 +56,16 @@ const App = () => {
       <StyledApp>
         <Appbar />
         <Switch>
+          <Route path="/rodzice" component={LazyParents} />
+          <Route path="/kandydaci" component={LazyCandidates} />
+          <Route
+            path="/wspolpraca-miedzynarodowa"
+            component={LazyInternationalCooperation}
+          />
+          <Route path="/projekty" component={LazyProjects} />
+          <Route path="/maturzysci" component={LazyGratuates} />
+          <Route path="/sukcesy" component={LazySuccesses} />
+          <Route path="/oddzialy" component={LazyBranches} />
           <Route path="/login" component={LazyLogin} />
           <Route path="/change-password" component={LazyChangePassword} />
           <Route path="/edit-article/:label" component={LazyEditArticle} />

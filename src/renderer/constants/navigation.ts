@@ -11,29 +11,33 @@ const selectFilter = (path: string) => {
 };
 
 export const aboutUsPage: INavItem = {
-  label: 'O nas',
+  label: 'Szkoła',
   to: '/about',
   selectFilter,
   subpages: [
     {
-      to: '/news/osiągnięcia',
-      label: 'Osiągnięcia',
-    },
-    {
-      to: '/patron',
-      label: 'Nasza patronka',
-    },
-    {
-      to: '/history',
-      label: 'Historia szkoły',
-    },
-    {
-      to: '/collaboration',
-      label: 'Współpraca zagraniczna',
-    },
-    {
       to: '/personnel',
-      label: 'Personel',
+      label: 'Nauczyciele',
+    },
+    {
+      to: '/news/administracja-i-obsluga',
+      label: 'Administracja i obsługa',
+    },
+    {
+      to: '/news/stolowka',
+      label: 'Stołówka',
+    },
+    {
+      to: '/news/pielegniarka-stomatolog',
+      label: 'Pielęgniarka, stomatolog',
+    },
+    // {
+    //   to: '/news/oddzialy',
+    //   label: 'Oddziały',
+    // },
+    {
+      to: '/news/Kalendarz pracy szkoły',
+      label: 'Kalendarz pracy szkoły',
     },
     {
       to: STATUE_URL,
@@ -41,14 +45,42 @@ export const aboutUsPage: INavItem = {
       useDefaultLink: true,
     },
     {
-      to: '/news/piszą-o-nas',
-      label: 'Piszą o nas',
+      to: '/history',
+      label: 'Historia szkoły',
+    },
+    {
+      to: '/patron',
+      label: 'Patronka szkoły',
+    },
+    {
+      to: '/news/sapere-auso',
+      label: 'Sapere Auso',
+    },
+    {
+      to: '/news/najwybitniejszy-absolwent',
+      label: 'Najwybitniejszy absolwent',
+    },
+    // {
+    //   to: '/news/sukcesy',
+    //   label: 'Sukcesy',
+    // },
+    {
+      to: '/news/wydarzenia',
+      label: 'Wydarzenia',
+    },
+    {
+      to: '/oddzialy',
+      label: 'Oddziały',
+    },
+    {
+      to: '/sukcesy',
+      label: 'Sukcesy',
     },
   ],
 };
 
 export const studentsPage: INavItem = {
-  label: 'Dla uczniów',
+  label: 'Uczniowie',
   to: '/students',
   selectFilter,
   subpages: [
@@ -59,7 +91,7 @@ export const studentsPage: INavItem = {
     },
     {
       to: LESSONS_PLAN_URL,
-      label: 'Plany zajęć',
+      label: 'Plan lekcji',
     },
     {
       to: REPLACEMENTS_URL,
@@ -67,24 +99,44 @@ export const studentsPage: INavItem = {
       useDefaultLink: true,
     },
     {
-      to: '/news/projekty',
-      label: 'Projekty',
+      to: '/news/samorzad-szkolny',
+      label: 'Samorząd szkolny',
     },
     {
-      to: '/news/kółka',
-      label: 'Kółka',
+      to: '/news/zajecia-dodatkowe',
+      label: 'Zajęcia dodatkowe',
     },
     {
       to: '/news/olimpiady',
       label: 'Olimpiady',
     },
     {
+      to: '/news/itn',
+      label: 'ITN',
+    },
+    {
+      to: '/news/stypendia',
+      label: 'Stypendia',
+    },
+    {
+      to: '/news/podreczniki',
+      label: 'Podręczniki',
+    },
+    // {
+    //   to: '/news/projekty',
+    //   label: 'Projekty',
+    // },
+    // {
+    //   to: '/news/wspolpraca-miedzynarodowa',
+    //   label: 'Współpraca międzynarodowa',
+    // },
+    {
       to: '/news/wolontariat',
       label: 'Wolontariat',
     },
     {
-      to: '/news/matura',
-      label: 'Matura',
+      to: '/news/biblioteka',
+      label: 'Biblioteka',
     },
     {
       to: '/news/psycholog',
@@ -99,8 +151,84 @@ export const studentsPage: INavItem = {
       label: 'Doradca zawodowy',
     },
     {
-      to: '/news/staże-zawodowe',
-      label: 'Staże zawodowe',
+      to: '/news/druki-szkolne',
+      label: 'Druki szkolne',
+    },
+    {
+      to: '/maturzysci',
+      label: 'Maturzyści',
+    },
+    {
+      to: '/projekty',
+      label: 'Projekty',
+    },
+    {
+      to: '/wspolpraca-miedzynarodowa',
+      label: 'Współpraca międzynarodowa',
+    },
+  ],
+};
+
+export const candidatesPage: INavItem = {
+  label: 'Kandydaci',
+  to: '/kandydaci',
+  selectFilter: (path) => path.startsWith('/kandydaci'),
+  subpages: [
+    {
+      to: '/',
+      label: 'Dlaczego Dwójka?',
+    },
+    {
+      to: '/',
+      label: 'Profile klas',
+    },
+    {
+      to: '/',
+      label: 'Zasady rekrutacji',
+    },
+    {
+      to: '/',
+      label: 'Harmonogram',
+    },
+    {
+      to: '/',
+      label: 'Podręcznik dla kandydata',
+    },
+    {
+      to: '/',
+      label: 'Progi z poprzednich lat',
+    },
+    {
+      to: '/',
+      label: 'Dzień Drzwi Otwartych',
+    },
+    {
+      to: '/',
+      label: 'Konkursy',
+    },
+    {
+      to: '/',
+      label: 'Lekcje w Dwójce',
+    },
+  ],
+};
+
+export const parentsPage: INavItem = {
+  label: 'Rodzice',
+  to: '/rodzice',
+  selectFilter: (path) => path.startsWith('/rodzice'),
+  subpages: [
+    {
+      to: '/news/rada-rodzicow',
+      label: 'Rada Rodziców',
+    },
+    {
+      to: '/news/terminarz-spotkan',
+      label: 'Terminarz spotkań',
+    },
+    {
+      to: '/news/ubezpieczenia',
+      label: 'Ubezpieczenia',
     },
   ],
 };
@@ -116,20 +244,108 @@ export const navigationItems: INavItem[] = [
   },
   aboutUsPage,
   studentsPage,
-  {
-    to: '/news/dla-rodziców',
-    label: 'Dla rodziców',
-  },
+  candidatesPage,
+  parentsPage,
   {
     to: 'https://rozdzialiilo2.wordpress.com/',
     label: 'Gazetka',
-  },
-  {
-    to: '/news/rekrutacja',
-    label: 'Rekrutacja',
   },
   {
     to: '/contact',
     label: 'Kontakt',
   },
 ];
+
+export const branchesPage: INavItem = {
+  label: 'Oddziały',
+  subpages: [
+    {
+      to: '/news/zdjecia-klasowe',
+      label: 'Zdjęcia klasowe',
+    },
+  ],
+};
+
+export const successesPage: INavItem = {
+  label: 'Sukcesy',
+  subpages: [
+    {
+      to: '/news/sukcesy-2019-2020',
+      label: '2019/2020',
+    },
+    {
+      to: '/news/sukcesy-2018-2019',
+      label: '2018/2019',
+    },
+    {
+      to: '/news/sukcesy-archiwum',
+      label: 'Archiwum',
+    },
+  ],
+};
+
+export const graduatesPage: INavItem = {
+  label: 'Maturzyści',
+  subpages: [
+    {
+      to: '/news/maturzysci-terminarz',
+      label: 'Terminarz',
+    },
+    {
+      to: '/news/maturzysci-procedury',
+      label: 'Procedury',
+    },
+    {
+      to: '/news/matura-dla-absolwentow',
+      label: 'Matura dla absolwentów',
+    },
+    {
+      to: '/news/matura-wyniki-z-poprzednich-lat',
+      label: 'Wyniki z poprzednich lat',
+    },
+    {
+      to: '/news/studniowka',
+      label: 'Studniówka',
+    },
+    {
+      to: '/news/oferty-szkol-wyzszych',
+      label: 'Oferty szkół wyższych',
+    },
+  ],
+};
+
+export const projectsPage: INavItem = {
+  label: 'Projekty',
+  subpages: [
+    {
+      to: '/news/licealista-na-rynku-pracy',
+      label: 'Licealista na rynku pracy',
+    },
+    {
+      to: '/news/budowanie-kariery',
+      label: 'Budowanie kariery',
+    },
+  ],
+};
+
+export const internationalCooperationPage: INavItem = {
+  label: 'Współpraca międzynarodowa',
+  subpages: [
+    {
+      to: '/news/erasmus',
+      label: 'Erasmus+',
+    },
+    {
+      to: '/news/wymiany-mlodziezy',
+      label: 'Wymiany młodzieży',
+    },
+    {
+      to: '/news/blois',
+      label: 'Blois',
+    },
+    {
+      to: '/news/pierre-de-coubertain',
+      label: 'Pierre de Coubertain',
+    },
+  ],
+};

@@ -10,7 +10,7 @@ export type IRouterProps<T = RouteComponentProps> = T &
 
 export interface INavItem {
   to?: string;
-  label: string;
+  label?: string;
   subpages?: INavSubItem[];
   selectFilter?: (path: string) => boolean;
   useDefaultLink?: boolean;

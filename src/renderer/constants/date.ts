@@ -32,6 +32,7 @@ export const MONTHS = [
   'Lutego',
   'Marca',
   'Kwietnia',
+  'Maja',
   'Czerwca',
   'Lipca',
   'Sierpnia',

@@ -19,7 +19,7 @@ import UserService from './user';
 import { IInsertArticleData, IEditArticleData } from '../interfaces';
 import { NEWS_IMAGES_PATH } from '../constants';
 import { saveImage, deleteImages } from '../utils/images';
-import { IEditArticleErrors } from '~/interfaces';
+import { IEditArticleErrors, IUser } from '~/interfaces';
 
 class ArticleService {
   public async find(label: string): Promise<IArticle> {
@@ -89,9 +89,15 @@ class ArticleService {
     const count = parseInt(process.env.ARTICLES_PAGE_ARTICLE_COUNT);
     const maxLength = parseInt(process.env.ARTICLES_PAGE_ARTICLE_LENGTH);
 
-    const articles = await this.findMany(filter, { maxLength });
-    const usersId = getUniqueValues(articles.map((r) => r.authorId));
-    const users = await UserService.findMany(usersId);
+    let articles: IArticle[] = [];
+    let users: IUser[] = [];
+
+    try {
+      articles = await this.findMany(filter, { maxLength });
+
+      const usersId = getUniqueValues(articles.map((r) => r.authorId));
+      users = await UserService.findMany(usersId);
+    } catch (error) {}
 
     return { articles, users, nextPage: articles.length >= count };
   }
@@ -177,7 +183,14 @@ class ArticleService {
   public async editArticle(
     data: IEditArticleData,
   ): Promise<IEditArticleErrors | string> {
-    const { label, title, content, categoryId, image, deleteImage } = data;
+    const {
+      label,
+      title,
+      body: content,
+      categoryId,
+      image,
+      deleteImage,
+    } = data;
 
     if (!label) {
       return { label: 'Nie podano identyfikatora artykułu!' };

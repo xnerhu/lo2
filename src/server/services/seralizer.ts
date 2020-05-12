@@ -9,6 +9,8 @@ class SerializerService {
     if (Text.isText(node)) {
       return this.serializeTextNode(node);
     }
+
+    return this.serializeBlockNode(node);
   }
 
   private serializeTextNode(node: Node) {

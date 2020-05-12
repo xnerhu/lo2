@@ -74,7 +74,7 @@ class ArticleService {
     let users: IUser[] = [];
 
     try {
-      articles = await this.find(filter);
+      articles = await this.find(filter, true);
 
       const ids = getUniqueValues(articles.map((r) => r.authorId));
 

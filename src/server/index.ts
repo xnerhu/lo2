@@ -7,7 +7,7 @@ import useMongoose from './loaders/mongoose';
 import useControllers from './controllers';
 
 async function init() {
-  const app = fastify();
+  const app = fastify({ ignoreTrailingSlash: true });
 
   useFastify(app);
   await useControllers(app);

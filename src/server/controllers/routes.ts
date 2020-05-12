@@ -21,7 +21,7 @@ export default (app: FastifyInstance) => {
 
   // https://github.com/fastify/fastify/issues/1206
   handler(
-    ['/articles/', '/articles/:category/', '/articles/:category/:page/'],
+    ['/articles', '/articles/:category', '/articles/:category/:page'],
     'articles',
   );
 

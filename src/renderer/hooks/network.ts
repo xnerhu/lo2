@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
+import axios from 'axios';
 
 import { IAppStateItem } from '~/interfaces';
 import { useAppState } from './app-state';
@@ -19,16 +19,15 @@ interface IOptions {
 
 const getInitialState = (item: IAppStateItem, params: any) => {
   const appState = useAppState();
+  const injected = appState?.[item];
 
   let cached = IS_BROWSER && cache.get(item);
 
-  if (!cached || cached?.params !== params) {
-    const data = appState?.[item];
+  if (!cached && injected) {
+    cached = { data: injected, params };
+    cache.set(item, cached);
 
-    if (data != null) {
-      cached = { data, params };
-      cache.set(item, cached);
-    }
+    IS_BROWSER && console.log(`Injected ${item}`);
   }
 
   return cached;
@@ -44,6 +43,7 @@ export const usePage = <T>(item: IAppStateItem, options?: IOptions): [T] => {
     const cached: ICacheItem = { data, params };
 
     cache.set(item, cached);
+
     setState(cached);
   };
 

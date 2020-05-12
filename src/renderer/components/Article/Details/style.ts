@@ -8,15 +8,21 @@ import { Image } from '~/renderer/components/Image';
 export const StyledDetails = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 12px;
-  margin-bottom: 16px;
 `;
 
-export const AuthorInfo = styled.div`
+export const Avatar = styled(Image)`
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+`;
+
+export const Container = styled.div`
   margin-left: 12px;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  flex-wrap: wrap;
+  flex: 1;
 
   & {
     color: rgba(0, 0, 0, ${transparency.text.medium});
@@ -28,12 +34,6 @@ export const Category = styled(Link)`
   margin-left: 8px;
   text-decoration: underline;
   color: ${PRIMARY_COLOR};
-`;
-
-export const Avatar = styled(Image)`
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
 `;
 
 export const Author = styled.div`

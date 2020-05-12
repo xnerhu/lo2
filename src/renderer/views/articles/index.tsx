@@ -13,7 +13,18 @@ export default () => {
 
   const categories = React.useMemo(() => {
     if (data?.categories != null) {
-      return <Categories data={data.categories} />;
+      return (
+        <Categories
+          data={[
+            {
+              _id: 'all',
+              label: 'all',
+              name: 'Wszystko',
+            },
+            ...data.categories,
+          ]}
+        />
+      );
     }
 
     return null;

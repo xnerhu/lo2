@@ -3,7 +3,7 @@ import React from 'react';
 import { IArticleCategory, IArticle } from '~/interfaces/article';
 import { IUser } from '~/interfaces';
 import { Details } from './Details';
-import { StyledArticle, Title, Image, Content, ReadMore } from './style';
+import { StyledArticle, Title, Image, Content } from './style';
 
 interface Props extends React.HTMLAttributes<HTMLAnchorElement> {
   data: IArticle;

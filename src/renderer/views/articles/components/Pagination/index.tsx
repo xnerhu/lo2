@@ -23,15 +23,16 @@ export const Pagination = withRouter(
           iconRotation={180}
           disabled={page <= 1}
         >
-          Starsze
+          Nowsze
         </PrimaryButton>
         <PrimaryButton
           to={`/articles/${category}/${page + 1}`}
           icon={ICON_CHEVRON}
-          disabled={!nextPage}
           iconOnRight
+          disabled={!nextPage}
+          style={{ marginLeft: 12 }}
         >
-          Nowsze
+          Starsze
         </PrimaryButton>
       </StyledPagination>
     );

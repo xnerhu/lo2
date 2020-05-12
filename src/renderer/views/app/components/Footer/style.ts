@@ -37,7 +37,7 @@ export const StyledGrid = styled.div`
   grid-template-columns: 1fr 2fr;
   grid-template-rows: repeat(3, auto);
   grid-row-gap: 16px;
-  grid-column-gap: 16px;
+  grid-column-gap: 32px;
 
   @media (max-width: ${FOOTER_MOBILE_VIEW}px) {
     grid-template-columns: 1fr 1fr;

@@ -17,7 +17,6 @@ interface Props {
 
 export const Button = styled(Link)`
   width: fit-content;
-  min-width: 144px;
   padding: 0px 16px;
   height: 48px;
   display: flex;
@@ -42,27 +41,30 @@ export const Button = styled(Link)`
     pushAnimation,
   }: Props) => css`
     ${
-      icon &&
-      css`
-        flex-direction: ${iconOnRight ? 'row-reverse' : 'row'};
+      icon
+        ? css`
+            flex-direction: ${iconOnRight ? 'row-reverse' : 'row'};
 
-        &::before {
-          content: '';
-          width: 20px;
-          height: 20px;
-          background-color: #000;
-          mask-image: url(${icon});
-          margin-left: 4px;
-          margin-right: 4px;
-          transition: 0.1s background-color;
-          ${centerIcon(20, true)};
+            &::before {
+              content: '';
+              width: 20px;
+              height: 20px;
+              background-color: #000;
+              mask-image: url(${icon});
+              margin-left: 4px;
+              margin-right: 4px;
+              transition: 0.1s background-color;
+              ${centerIcon(20, true)};
 
-          ${iconRotation != null &&
-          css`
-            transform: rotate(${iconRotation}deg);
-          `}
-        }
-      `
+              ${iconRotation != null &&
+              css`
+                transform: rotate(${iconRotation}deg);
+              `}
+            }
+          `
+        : css`
+            min-width: 96px;
+          `
     }
 
     ${

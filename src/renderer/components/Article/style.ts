@@ -7,10 +7,18 @@ import { CARD_SHADOW, PRIMARY_COLOR } from '~/renderer/constants/design';
 
 export const StyledArticle = styled.div`
   width: 100%;
-  margin-top: 64px;
+  height: auto;
+  margin-top: 32px;
+  padding: 0px 24px;
+  border-radius: 12px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 `;
 
 export const Title = styled(Link)`
+  padding: 24px 0px 16px;
   font-size: 32px;
   transition: 0.1s color;
   ${robotoMedium()};
@@ -31,12 +39,5 @@ export const Content = styled.div`
   font-size: 16px;
   color: #000;
   line-height: 24px;
-  margin-top: 8px;
-  margin-bottom: 12px;
-`;
-
-export const ReadMore = styled(Link)`
-  font-size: 14px;
-  text-decoration: underline;
-  color: ${PRIMARY_COLOR};
+  margin-bottom: 8px;
 `;

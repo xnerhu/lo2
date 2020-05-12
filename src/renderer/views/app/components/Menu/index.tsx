@@ -11,7 +11,7 @@ export default ({ onClose }: Props) => {
   return (
     <StyledMenu>
       {desktopNavMap.map((r) => (
-        <Item key={r.path} to={r.path}>
+        <Item key={r.path} to={r.path} onClick={onClose}>
           {r.label}
         </Item>
       ))}

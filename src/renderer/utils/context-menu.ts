@@ -9,8 +9,8 @@ export const getMenuPosition = (
 ): IPos => {
   const rect = ref.getBoundingClientRect();
 
-  let top = rect.bottom;
-  let left = rect.left;
+  let top = rect.bottom + window.scrollY;
+  let left = rect.left + window.scrollX;
 
   const screenWidth = document.body.clientWidth;
   const screenHeight = document.body.clientHeight;

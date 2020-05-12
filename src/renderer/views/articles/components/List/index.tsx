@@ -18,12 +18,11 @@ interface Props {
 
 export const List = ({ data }: Props) => {
   const appState = useAppState();
-  const { articles, categories, users } = data;
 
   const getInfo = (r: IArticle) => {
     return {
-      user: users.find((x) => x._id.toString() === r.authorId.toString()),
-      category: categories.find(
+      user: data.users.find((x) => x._id.toString() === r.authorId.toString()),
+      category: data.categories.find(
         (x) => x._id.toString() === r.categoryId.toString(),
       ),
     };
@@ -37,7 +36,7 @@ export const List = ({ data }: Props) => {
         {appState?.signedIn && <LazyCms />}
         {fetched ? (
           <>
-            {articles.map((r) => (
+            {data.articles.map((r) => (
               <Article key={r._id} data={r} {...getInfo(r)} />
             ))}
             <Pagination nextPage={data.nextPage} />

@@ -7,15 +7,15 @@ import { List } from './components/List';
 
 export default () => {
   const [data] = usePage<IArticlesPageData>('articles', {
-    shouldFetch: (filter, cachedFilter) => {
+    shouldFetch: (filter, cachedFilter, x) => {
+      // console.log(x.articles);s
+      // return false;
       return (
         filter.page !== cachedFilter?.page ||
         filter.category !== cachedFilter?.category
       );
     },
   });
-
-  console.log(data);
 
   const categories = React.useMemo(() => {
     if (data?.categories != null) {

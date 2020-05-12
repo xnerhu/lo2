@@ -32,26 +32,13 @@ const getInitialState = (item: IAppStateItem, params: any) => {
   }
 
   return cached;
-
-  // if (cachedItem && cachedItem?.filter === filter) {
-  //   return { data: cachedItem.data, filter: cachedItem.filter };
-  // }
-
-  // const data = appState?.[item];
-
-  // if (data != null) {
-  //   cache.set(item, { data, filter } as ICacheItem);
-  // }
-
-  // return { data, filter };
 };
 
-export const usePage = <T>(item: IAppStateItem, options?: IOptions) => {
-  const [state, setState] = useState<ICacheItem>(
-    getInitialState(item, {}) as any,
-  );
+export const usePage = <T>(item: IAppStateItem, options?: IOptions): [T] => {
   const params = useParams();
-  const lastParams = useRef<any>();
+  const [state, setState] = useState<ICacheItem>(
+    getInitialState(item, params) as any,
+  );
 
   const _setState = (data: any, params: any) => {
     const cached: ICacheItem = { data, params };
@@ -65,7 +52,7 @@ export const usePage = <T>(item: IAppStateItem, options?: IOptions) => {
 
     const fn = options?.shouldFetch;
 
-    if (!state?.data || (fn && fn(params, lastParams.current))) {
+    if (!state?.data || (fn && fn(params, state.params))) {
       (async () => {
         console.log(`Fetch ${item}`);
 
@@ -77,10 +64,8 @@ export const usePage = <T>(item: IAppStateItem, options?: IOptions) => {
       })();
     }
 
-    lastParams.current = params;
-
     return () => (canceled = true);
-  }, [params]);
+  }, [state, params]);
 
   return [state?.data];
 };

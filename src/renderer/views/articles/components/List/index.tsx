@@ -7,6 +7,7 @@ import { IArticlesPageData, IArticle } from '~/interfaces';
 import { Article } from '~/renderer/components/Article';
 import { LOADABLE_OPTIONS } from '~/renderer/constants/loadable';
 import { useAppState } from '~/renderer/hooks/app-state';
+import { Error } from '~/renderer/components/Error';
 import { StyledArticles } from './style';
 
 const LazyCms = loadable(() => import('../Cms'), LOADABLE_OPTIONS);
@@ -19,8 +20,6 @@ export const List = ({ data }: Props) => {
   const appState = useAppState();
   const { articles, categories, users } = data;
 
-  if (!articles?.length) return null;
-
   const getInfo = (r: IArticle) => {
     return {
       user: users.find((x) => x._id.toString() === r.authorId.toString()),
@@ -30,14 +29,24 @@ export const List = ({ data }: Props) => {
     };
   };
 
+  const fetched = !!data?.articles.length;
+
   return (
     <Background>
       <StyledArticles>
         {appState?.signedIn && <LazyCms />}
-        {articles.map((r) => (
-          <Article key={r._id} data={r} {...getInfo(r)} />
-        ))}
-        <Pagination nextPage={data.nextPage} />
+        {fetched ? (
+          <>
+            {articles.map((r) => (
+              <Article key={r._id} data={r} {...getInfo(r)} />
+            ))}
+            <Pagination nextPage={data.nextPage} />
+          </>
+        ) : (
+          <Error code="404" label="Nie znaleziono!">
+            Artykuły mogły zostać usunięte.
+          </Error>
+        )}
       </StyledArticles>
     </Background>
   );

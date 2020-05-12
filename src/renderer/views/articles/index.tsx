@@ -33,7 +33,7 @@ export default () => {
   return (
     <>
       {categories}
-      <List data={{ ...data, articles: data?.articles ?? [] }} />
+      <List data={data} />
     </>
   );
 };

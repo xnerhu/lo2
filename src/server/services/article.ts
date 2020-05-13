@@ -1,10 +1,14 @@
+import mongoose from 'mongoose';
+
 import { IArticle, IArticleFilter } from '~/interfaces';
 import { config } from '../constants';
 import SerializerService from '../services/seralizer';
 import ImageService from '../services/image';
 import ArticleModel from '../models/article';
 import ArticleCategoryModel from '../models/article-category';
-import { objectIdToString } from '../utils';
+import { objectIdToString, formatLabel, createRandLabel } from '../utils';
+import { IInsertArticle } from '../interfaces';
+import { isBoolean } from 'util';
 
 class ArticleService {
   public format(data: IArticle, full?: boolean): IArticle {
@@ -30,6 +34,18 @@ class ArticleService {
       image,
       authorId: objectIdToString(data.authorId),
     };
+  }
+
+  private async createLabel(title: string): Promise<string> {
+    let label = formatLabel(title);
+
+    const exists = await ArticleModel.exists({ label });
+
+    if (exists) {
+      label = createRandLabel(label);
+    }
+
+    return label;
   }
 
   public async find(filter: IArticleFilter = {}, full?: boolean) {
@@ -79,6 +95,32 @@ class ArticleService {
     }
 
     return this.format(data, full);
+  }
+
+  public async insertOne({
+    title,
+    content,
+    image,
+    authorId,
+    category: categoryLabel,
+  }: IInsertArticle): Promise<string> {
+    const [label, category] = await Promise.all([
+      this.createLabel(title),
+      ArticleCategoryModel.findOne({ label: categoryLabel }).lean().exec(),
+    ]);
+
+    const res = await ArticleModel.create({
+      label,
+      title,
+      content,
+      authorId: new mongoose.Types.ObjectId(authorId) as any,
+      categoryId: category._id,
+      hasImage: !!image,
+    } as IArticle);
+
+    // console.log(res);
+
+    return label;
   }
 }
 

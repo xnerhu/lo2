@@ -10,7 +10,7 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
   app.post(
     '/change-password',
     {
-      preHandler: useAuth(),
+      preValidation: useAuth(),
     },
     async (req: IRequest, res) => {
       const { username, password } = req.body ?? {};

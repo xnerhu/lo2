@@ -12,10 +12,10 @@ export const getToken = (req: FastifyRequest) => {
   );
 };
 
-export const verifyUser = (req: IRequest, username: string) => {
-  const signedInUser = req.raw.tokenPayload?.username;
+export const verifyUser = (req: IRequest, username: string | number) => {
+  const user = req.raw.tokenPayload ?? {};
 
-  if (username !== signedInUser) {
+  if (user[typeof username === 'string' ? 'username' : '_id'] !== username) {
     throw new Error('Unauthorized: Access forbidden');
   }
 };

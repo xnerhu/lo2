@@ -16,19 +16,17 @@ const getChunk = async (filter: IArticleFilter): Promise<IArticlesChunk> => {
   let articles: IArticle[] = [];
   let users: IUser[] = [];
 
-  try {
-    articles = await ArticleService.find(filter, true);
+  articles = await ArticleService.find(filter, true);
 
-    const ids = getUniqueValues(articles.map((r) => r.authorId));
+  const ids = getUniqueValues(articles.map((r) => r.authorId));
 
-    users = await UserModel.find({
-      _id: {
-        $in: ids,
-      },
-    })
-      .lean()
-      .exec();
-  } catch (error) {}
+  users = await UserModel.find({
+    _id: {
+      $in: ids,
+    },
+  })
+    .lean()
+    .exec();
 
   return {
     articles,

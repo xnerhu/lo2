@@ -5,7 +5,7 @@ import { getToken } from '~/server/utils';
 import { IRequest } from '~/server/interfaces';
 
 export default (app: FastifyInstance) => {
-  app.addHook('preHandler', async (req: IRequest) => {
+  app.addHook('preValidation', async (req: IRequest) => {
     const token = getToken(req);
     const decoded = await AuthService.decodeToken(token);
 

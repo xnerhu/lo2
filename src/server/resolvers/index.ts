@@ -4,6 +4,7 @@ import { IQueryFilter } from '../interfaces';
 import homeResolver from './home';
 import articlesResolver from './articles';
 import articleResolver from './article';
+import addArticleResolver from './add-article';
 
 export default async (
   item: IAppStateItem,
@@ -16,7 +17,9 @@ export default async (
       return articlesResolver(filter);
     case 'article':
       return articleResolver(filter?.label);
+    case 'addArticle':
+      return addArticleResolver();
     default:
-      throw new Error('Invalid bundle name');
+      throw new Error('Invalid page name');
   }
 };

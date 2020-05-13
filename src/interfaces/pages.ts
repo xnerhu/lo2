@@ -17,3 +17,11 @@ export interface IArticlePageData {
   category?: IArticleCategory;
   author?: IUser;
 }
+
+export interface IAddArticlePageData {
+  categories?: IArticleCategory[];
+}
+
+export interface IEditArticlePageData extends IAddArticlePageData {
+  article?: IArticle;
+}

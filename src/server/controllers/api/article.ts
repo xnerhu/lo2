@@ -3,8 +3,8 @@ import { FastifyInstance } from 'fastify';
 import useAuth from '../middleware/auth';
 import UserService from '~/server/services/user';
 import { verifyUser, signOutUser } from '~/server/utils';
-import { IRequest } from '~/server/interfaces';
-import { IApiResponse } from '~/interfaces';
+import { IRequest, IInsertArticle } from '~/server/interfaces';
+import { IInsertArticleRes } from '~/interfaces';
 import ArticleCategory from '~/server/models/article-category';
 import ArticleService from '~/server/services/article';
 
@@ -40,18 +40,10 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
         content,
         category,
         authorId: user._id,
+        image: null,
       });
 
-      res.send({ success: true });
-      // const { username, password } = req.body ?? {};
-
-      // verifyUser(req, username);
-
-      // await UserService.changePassword(username, password);
-
-      // signOutUser(res);
-
-      // res.send({ success: true } as IApiResponse);
+      res.send({ success: true, label } as IInsertArticleRes);
     },
   );
 

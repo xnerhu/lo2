@@ -12,6 +12,13 @@ export const routerMap = [
     ),
   },
   {
+    path: '/cms/article',
+    component: loadable(
+      () => import('~/renderer/views/add-article'),
+      LOADABLE_OPTIONS,
+    ),
+  },
+  {
     path: '/article/:label',
     component: loadable(
       () => import('~/renderer/views/article'),

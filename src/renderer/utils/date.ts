@@ -17,10 +17,9 @@ const getPrefix = (time: number, seconds: number) => {
     return `${time} dni`;
   }
 
-  time = Math.floor(time / 3600);
-
+  time = Math.floor(seconds / 3600);
   if (time >= 1) {
-    if (time === 1) return 'godzina';
+    if (time === 1) return 'godzinę';
     return `${time} godzin`;
   }
 

@@ -5,7 +5,7 @@ import AuthService from '~/server/services/auth';
 import UserService from '~/server/services/user';
 import { IApiResponse, IUser } from '~/interfaces';
 import { IRequest } from '~/server/interfaces';
-import { signedOutUser } from '~/server/utils';
+import { signOutUser } from '~/server/utils';
 
 export default (app: FastifyInstance, opts: any, next: Function) => {
   app.post('/sign-in', async (req, res) => {
@@ -17,20 +17,22 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
     );
     const currentTime = new Date().getTime();
 
+    signOutUser(res);
+
     res.setCookie('token', token, {
       expires: new Date(currentTime + config.tokenExpirationTime),
+      path: '/',
       httpOnly: true,
-      // secure: true,
     });
 
-    return res.send({
+    res.send({
       success: true,
       user: UserService.format(user),
     } as IApiResponse<IUser>);
   });
 
   app.get('/sign-out', (req, res) => {
-    signedOutUser(res);
+    signOutUser(res);
     res.redirect('/');
   });
 

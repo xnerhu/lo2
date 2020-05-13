@@ -10,10 +10,14 @@ export const signIn = async ({
   password: string;
 }): Promise<IApiResponse> => {
   try {
-    const res = await axios.post<IApiResponse>('/api/auth/sign-in', {
-      username,
-      password,
-    });
+    const res = await axios.post<IApiResponse>(
+      '/api/auth/sign-in',
+      {
+        username,
+        password,
+      },
+      { withCredentials: true },
+    );
 
     return res.data;
   } catch (error) {

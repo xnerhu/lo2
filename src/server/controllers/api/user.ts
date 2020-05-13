@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify';
 
 import useAuth from '../middleware/auth';
 import UserService from '~/server/services/user';
-import { verifyUser, signedOutUser } from '~/server/utils';
+import { verifyUser, signOutUser } from '~/server/utils';
 import { IRequest } from '~/server/interfaces';
 import { IApiResponse } from '~/interfaces';
 
@@ -19,7 +19,7 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
 
       await UserService.changePassword(username, password);
 
-      signedOutUser(res);
+      signOutUser(res);
 
       res.send({ success: true } as IApiResponse);
     },

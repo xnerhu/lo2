@@ -20,6 +20,6 @@ export const verifyUser = (req: IRequest, username: string) => {
   }
 };
 
-export const signedOutUser = (res: FastifyReply<ServerResponse>) => {
+export const signOutUser = (res: FastifyReply<ServerResponse>) => {
   res.clearCookie('token');
 };

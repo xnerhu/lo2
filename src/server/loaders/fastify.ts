@@ -13,8 +13,8 @@ export default async (app: FastifyInstance) => {
   app.register(helmet, {
     noSniff: false,
   });
-  app.register(cookies);
   app.register(body);
+  app.register(cookies);
   app.register(compress);
 
   app.register(staticDir, {

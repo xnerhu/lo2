@@ -10,7 +10,7 @@ async function init() {
   const app = fastify({ ignoreTrailingSlash: true });
 
   useFastify(app);
-  await useControllers(app);
+  useControllers(app);
   useMongoose();
 
   app.listen(config.port, (err) => {

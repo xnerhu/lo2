@@ -11,6 +11,7 @@ const {
   TOKEN_EXPIRATION_TIME,
   SHORT_ARTICLE_LENGTH,
   ARTICLES_PER_PAGE,
+  HOSTNAME,
 } = process.env;
 
 export const config = {
@@ -21,7 +22,8 @@ export const config = {
   statsFile: resolve('build/client/static/loadable-stats.json'),
   mongodbURI: MONGODB_URI,
   tokenSecret: TOKEN_SECRET,
-  tokenExpirationTime: TOKEN_EXPIRATION_TIME,
+  tokenExpirationTime: parseInt(TOKEN_EXPIRATION_TIME),
   shortArticleLength: parseInt(SHORT_ARTICLE_LENGTH),
   articlesPerPage: parseInt(ARTICLES_PER_PAGE),
+  hostname: HOSTNAME,
 };

@@ -1,11 +1,8 @@
 import { css } from 'styled-components';
 
-import { BACKGROUND_COLOR, PRIMARY_COLOR } from '~/renderer/constants/colors';
-import { noTapHighlight, noUserSelect } from '~/renderer/mixins/user-selection';
+import { PRIMARY_COLOR } from '~/renderer/constants/colors';
+import { noTapHighlight } from '~/renderer/mixins/user-selection';
 import { noButtons } from '~/renderer/mixins/scroll';
-import { transparency } from '~/renderer/constants/transparency';
-import { centerIcon } from '~/renderer/mixins/images';
-import { FORMAT_QUOTE_ICON } from '~/renderer/constants/icons';
 import {
   body2,
   robotoRegular,
@@ -25,7 +22,6 @@ export const Style = css`
     height: 100%;
     margin: 0;
     padding: 0;
-    /* background-color: ${BACKGROUND_COLOR}; */
     background-color: #fafafc;
     color: #000;
     backface-visibility: hidden;

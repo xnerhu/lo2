@@ -4,6 +4,7 @@ import { ErrorLabel } from '../Error';
 import { StyledInput } from './style';
 
 interface Props extends React.HTMLAttributes<HTMLInputElement> {
+  type?: string;
   error?: string;
 }
 

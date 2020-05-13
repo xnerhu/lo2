@@ -2,7 +2,6 @@ import React from 'react';
 
 import { SectionTitle } from '~/renderer/components/Section';
 import { Input } from '~/renderer/components/Input';
-import { ErrorLabel } from '~/renderer/components/Error';
 import {
   FormContainer,
   FormContent,
@@ -57,18 +56,16 @@ export default () => {
           ref={userInput}
           placeholder="Nazwa użytkownika"
           type="username"
-          error={!!errors.username}
+          error={errors.username}
           onKeyDown={onInputKeyDown}
         />
-        <ErrorLabel error={errors.username} />
         <Input
           ref={passwordInput}
           placeholder="Hasło"
           type="password"
-          error={!!errors.password}
+          error={errors.password}
           onKeyDown={onInputKeyDown}
         />
-        <ErrorLabel error={errors.password} />
       </FormContent>
       <SubmitButton onClick={onSubmitClick}>Ok</SubmitButton>
     </FormContainer>

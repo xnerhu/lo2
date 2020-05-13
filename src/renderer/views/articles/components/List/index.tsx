@@ -8,7 +8,7 @@ import { Article } from '~/renderer/components/Article';
 import { LOADABLE_OPTIONS } from '~/renderer/constants/loadable';
 import { useAppState } from '~/renderer/hooks/app-state';
 import { Error } from '~/renderer/components/Error';
-import { StyledArticles } from './style';
+import { ArticlesContainer } from '~/renderer/components/Article/style';
 
 const LazyCms = loadable(() => import('../Cms'), LOADABLE_OPTIONS);
 
@@ -30,7 +30,7 @@ export const List = ({ data }: Props) => {
 
   return (
     <Background>
-      <StyledArticles>
+      <ArticlesContainer>
         {appState?.signedIn && <LazyCms />}
         {data?.articles != null && (
           <>
@@ -48,7 +48,7 @@ export const List = ({ data }: Props) => {
             )}
           </>
         )}
-      </StyledArticles>
+      </ArticlesContainer>
     </Background>
   );
 };

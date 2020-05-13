@@ -41,3 +41,9 @@ export const Content = styled.div`
   line-height: 24px;
   margin-bottom: 8px;
 `;
+
+export const ArticlesContainer = styled.div`
+  width: calc(100% - 64px);
+  max-width: 768px;
+  margin: 0 auto;
+`;

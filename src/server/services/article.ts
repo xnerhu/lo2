@@ -1,12 +1,10 @@
-import { IArticle, IArticleFilter, IUser, IArticlesChunk } from '~/interfaces';
+import { IArticle, IArticleFilter } from '~/interfaces';
 import { config } from '../constants';
 import SerializerService from '../services/seralizer';
 import ImageService from '../services/image';
 import ArticleModel from '../models/article';
-import UserModel from '../models/user';
 import ArticleCategoryModel from '../models/article-category';
-import { getUniqueValues, objectIdToString } from '../utils';
-import UserService from './user';
+import { objectIdToString } from '../utils';
 
 class ArticleService {
   public format(data: IArticle, full?: boolean): IArticle {
@@ -69,32 +67,7 @@ class ArticleService {
     return items.map((r) => this.format(r, full));
   }
 
-  public async getChunk(filter: IArticleFilter): Promise<IArticlesChunk> {
-    let articles: IArticle[] = [];
-    let users: IUser[] = [];
-
-    try {
-      articles = await this.find(filter, true);
-
-      const ids = getUniqueValues(articles.map((r) => r.authorId));
-
-      users = await UserModel.find({
-        _id: {
-          $in: ids,
-        },
-      })
-        .lean()
-        .exec();
-    } catch (error) {}
-
-    return {
-      articles,
-      users: users.map((r) => UserService.format(r)),
-      nextPage: articles.length >= config.articlesPerPage,
-    };
-  }
-
-  public async findOne(label: string): Promise<IArticle> {
+  public async findOne(label: string, full?: boolean): Promise<IArticle> {
     if (!label) {
       throw new Error('Label must be provided!');
     }
@@ -105,7 +78,7 @@ class ArticleService {
       throw new Error("Couldn't find the article!");
     }
 
-    return data;
+    return this.format(data, full);
   }
 }
 

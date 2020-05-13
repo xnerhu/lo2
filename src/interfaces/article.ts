@@ -36,5 +36,5 @@ export interface IInsertArticle {
   content: string;
   category: string;
   authorId: string;
-  image: string;
+  image: Buffer | string;
 }

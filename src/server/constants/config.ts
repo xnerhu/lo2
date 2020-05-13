@@ -21,6 +21,7 @@ export const config = {
   clientDirectory: resolve('build/client/static'),
   staticDirectory: resolve('static'),
   statsFile: resolve('build/client/static/loadable-stats.json'),
+  articleImagesPath: resolve('static/articles'),
   mongodbURI: MONGODB_URI,
   tokenSecret: TOKEN_SECRET,
   tokenExpirationTime: parseInt(TOKEN_EXPIRATION_TIME),

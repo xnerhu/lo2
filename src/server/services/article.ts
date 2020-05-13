@@ -1,4 +1,6 @@
+import { ObjectID } from 'mongodb';
 import mongoose from 'mongoose';
+import { resolve } from 'path';
 
 import { IArticle, IArticleFilter } from '~/interfaces';
 import { config } from '../constants';
@@ -115,7 +117,14 @@ class ArticleService {
       hasImage: !!image,
     } as IArticle);
 
-    // console.log(res);
+    if (image) {
+      const path = resolve(
+        config.articleImagesPath,
+        (res._id as ObjectID).toHexString(),
+      );
+
+      await ImageService.saveImage(image as Buffer, path);
+    }
 
     return label;
   }

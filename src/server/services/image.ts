@@ -1,4 +1,5 @@
 import sharp, { Sharp } from 'sharp';
+import { promises as fs } from 'fs';
 
 import { deleteFile } from '../utils';
 

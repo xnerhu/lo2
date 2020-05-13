@@ -29,26 +29,24 @@ export const List = ({ data }: Props) => {
   };
 
   return (
-    <Background>
-      <ArticlesContainer>
-        {appState?.signedIn && <LazyCms />}
-        {data?.articles != null && (
-          <>
-            {data.articles.length ? (
-              <>
-                {data.articles.map((r) => (
-                  <Article key={r._id} data={r} {...getInfo(r)} />
-                ))}
-                <Pagination nextPage={data.nextPage} />
-              </>
-            ) : (
-              <Error code="404" label="Nie znaleziono!">
-                Artykuły mogły zostać usunięte.
-              </Error>
-            )}
-          </>
-        )}
-      </ArticlesContainer>
-    </Background>
+    <ArticlesContainer>
+      {appState?.signedIn && <LazyCms />}
+      {data?.articles != null && (
+        <>
+          {data.articles.length ? (
+            <>
+              {data.articles.map((r) => (
+                <Article key={r._id} data={r} {...getInfo(r)} />
+              ))}
+              <Pagination nextPage={data.nextPage} />
+            </>
+          ) : (
+            <Error code="404" label="Nie znaleziono!">
+              Artykuły mogły zostać usunięte.
+            </Error>
+          )}
+        </>
+      )}
+    </ArticlesContainer>
   );
 };

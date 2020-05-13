@@ -25,7 +25,8 @@ export const Style = css`
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: ${BACKGROUND_COLOR};
+    /* background-color: ${BACKGROUND_COLOR}; */
+    background-color: #fafafc;
     color: #000;
     backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;

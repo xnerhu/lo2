@@ -6,6 +6,7 @@ import { desktopNavMap } from '../../constants/navigation';
 import { IDesktopNavItem } from '../../interfaces';
 import { IRouterProps } from '~/renderer/interfaces';
 import { isNavItemSelected } from '../../utils/navigation';
+import { Background } from '~/renderer/components/Section';
 import { StyledAppbar, Banner, StyledNavItem, Container } from './style';
 
 const NavItem = withRouter((props: IRouterProps<IDesktopNavItem>) => {
@@ -20,15 +21,17 @@ const NavItem = withRouter((props: IRouterProps<IDesktopNavItem>) => {
 
 export const Appbar = () => {
   return (
-    <StyledAppbar>
-      <Link to="/" aria-label="logo szkoły">
-        <Banner src={ICON_BANNER} draggable={false} alt="logo szkoły" />
-      </Link>
-      <Container>
-        {desktopNavMap.map((r) => (
-          <NavItem key={r.path} {...r} />
-        ))}
-      </Container>
-    </StyledAppbar>
+    <Background>
+      <StyledAppbar>
+        <Link to="/" aria-label="logo szkoły">
+          <Banner src={ICON_BANNER} draggable={false} alt="logo szkoły" />
+        </Link>
+        <Container>
+          {desktopNavMap.map((r) => (
+            <NavItem key={r.path} {...r} />
+          ))}
+        </Container>
+      </StyledAppbar>
+    </Background>
   );
 };

@@ -9,7 +9,8 @@ export const Container = styled.div`
   width: fit-content;
   display: grid;
   grid-gap: 48px;
-  margin: 64px auto;
+  margin: 0px auto;
+  padding: 48px 0px;
   grid-template-columns: repeat(4, 1fr);
 
   @media (max-width: 967px) {

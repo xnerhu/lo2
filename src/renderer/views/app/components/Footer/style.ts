@@ -15,8 +15,8 @@ import { Content } from '~/renderer/components/Section';
 
 export const StyledFooter = styled.footer`
   width: 100%;
-  min-height: 128px;
   margin-top: auto;
+  background-color: #fff;
 `;
 
 export const Title = styled.div`

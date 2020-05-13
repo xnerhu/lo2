@@ -19,10 +19,7 @@ export const Content = styled.div`
 
 export const Background = styled.div`
   width: 100%;
-  background-color: #fafafc;
-  padding-bottom: 32px;
-  display: flex;
-  flex-direction: column;
+  background-color: #fff;
 `;
 
 export const SectionTitle = styled.h5`

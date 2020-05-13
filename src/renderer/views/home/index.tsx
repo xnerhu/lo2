@@ -5,14 +5,17 @@ import { usePage } from '../../hooks/network';
 import { Slider } from './components/Slider';
 import { Shortcuts } from './components/Shortcuts';
 import { Articles } from './components/Articles';
+import { Background } from '~/renderer/components/Section';
 
 export default () => {
   const [data] = usePage<IHomePageData>('home');
 
   return (
     <>
-      <Slider items={data?.sliderItems} />
-      <Shortcuts />
+      <Background>
+        <Slider items={data?.sliderItems} />
+        <Shortcuts />
+      </Background>
       <Articles items={data?.articles} />
     </>
   );

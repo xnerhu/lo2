@@ -5,6 +5,7 @@ import { IArticleCategory } from '~/interfaces/article';
 import { IDropDownItem } from '~/renderer/components/Dropdown';
 import { IS_BROWSER } from '~/renderer/constants/config';
 import { IRouterProps } from '~/renderer/interfaces';
+import { Background } from '~/renderer/components/Section';
 import { StyledCategories, Item, Dropdown } from './style';
 
 interface IDropDownCategoryItem extends IDropDownItem {
@@ -101,24 +102,26 @@ export const Categories = withRouter(
     list.current = [];
 
     return (
-      <StyledCategories ref={ref}>
-        {visibleItems.map((r) => (
-          <Item
-            key={r.label}
-            innerRef={measure.current ? setRef : undefined}
-            to={`/articles/${r.label}`}
-          >
-            {r.name}
-          </Item>
-        ))}
-        {menuItems.length && (
-          <Dropdown
-            ref={dropDownRef}
-            items={menuItems}
-            onChange={onDropDownChange}
-          />
-        )}
-      </StyledCategories>
+      <Background>
+        <StyledCategories ref={ref}>
+          {visibleItems.map((r) => (
+            <Item
+              key={r.label}
+              innerRef={measure.current ? setRef : undefined}
+              to={`/articles/${r.label}`}
+            >
+              {r.name}
+            </Item>
+          ))}
+          {menuItems.length && (
+            <Dropdown
+              ref={dropDownRef}
+              items={menuItems}
+              onChange={onDropDownChange}
+            />
+          )}
+        </StyledCategories>
+      </Background>
     );
   },
 );

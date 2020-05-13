@@ -46,4 +46,5 @@ export const ArticlesContainer = styled.div`
   width: calc(100% - 64px);
   max-width: 768px;
   margin: 0 auto;
+  padding-bottom: 32px;
 `;

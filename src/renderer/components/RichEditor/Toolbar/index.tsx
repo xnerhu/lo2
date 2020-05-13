@@ -147,7 +147,7 @@ export const Toolbar = () => {
       <Divider />
       <LinkButton />
       <Button format="h4" icon={ICON_FORMAT_HEADER_4} block />
-      <ImageButton />
+      {/* <ImageButton /> */}
       <Divider />
       <Button
         format="align-left"

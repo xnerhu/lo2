@@ -10,12 +10,13 @@ import { defaultRichEditorValue, RichEditor } from '../RichEditor';
 import { ImagePick } from './ImagePick';
 import { validateInput, saveArticle } from '~/renderer/utils/article-editor';
 import { IArticleEditorErrors } from '~/renderer/interfaces';
+import { PrimaryButton } from '../Button';
 import {
   StyledArticleEditor,
+  Toolbar,
   Dropdown,
   Input,
   Divider,
-  SubmitButton,
 } from './style';
 
 interface Props {
@@ -65,13 +66,16 @@ export const ArticleEditor = ({ data, edit }: Props) => {
 
   return (
     <StyledArticleEditor>
-      <Dropdown
-        className="auto"
-        placeholder="Kategoria"
-        value={selectedCategory}
-        items={data?.categories}
-        onChange={onDropdownChange}
-      />
+      <Toolbar>
+        <Dropdown
+          className="auto"
+          placeholder="Kategoria"
+          value={selectedCategory}
+          items={data?.categories}
+          onChange={onDropdownChange}
+        />
+        <PrimaryButton onClick={onSave}>Zapisz</PrimaryButton>
+      </Toolbar>
       <Input
         ref={titleInput}
         placeholder="Tytuł"
@@ -86,7 +90,6 @@ export const ArticleEditor = ({ data, edit }: Props) => {
         onFocus={onFocus}
       />
       <ImagePick file={null} />
-      <SubmitButton onClick={onSave}>Zapisz</SubmitButton>
     </StyledArticleEditor>
   );
 };

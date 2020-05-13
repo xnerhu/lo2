@@ -4,15 +4,20 @@ import { Dropdown as StyledDropdown } from '../Dropdown';
 import { Input as StyledInput } from '../Input';
 import { PRIMARY_COLOR } from '~/renderer/constants/design';
 import { Content } from '../Section';
-import { Button } from '../Button';
 
 export const StyledArticleEditor = styled(Content)`
   padding-bottom: 24px;
 `;
 
+export const Toolbar = styled.div`
+  width: 100%;
+  display: flex;
+  margin: 24px 0px;
+  justify-content: space-between;
+`;
+
 export const Dropdown = styled(StyledDropdown)`
   width: fit-content;
-  margin: 24px 0px;
 `;
 
 export const Input = styled(StyledInput)`
@@ -40,8 +45,4 @@ export const Divider = styled.div`
   height: 1px;
   background-color: #eceff1;
   margin: 24px auto;
-`;
-
-export const SubmitButton = styled(Button)`
-  margin-top: 32px;
 `;

@@ -22,7 +22,7 @@ const getIndex = (
   for (let i = 0; i < list.length; i++) {
     total += list[i];
 
-    if (total + dropDown.clientWidth >= containerRect.right) {
+    if (total + dropDown.clientWidth >= containerRect.right - 32) {
       const previous = i - 1;
       return previous > 0 ? previous : 0;
     }

@@ -8,7 +8,7 @@ import {
 } from '~/interfaces';
 import { defaultRichEditorValue, RichEditor } from '../RichEditor';
 import { ImagePick } from './ImagePick';
-import { validateInput } from '~/renderer/utils/article-editor';
+import { validateInput, saveArticle } from '~/renderer/utils/article-editor';
 import { IArticleEditorErrors } from '~/renderer/interfaces';
 import {
   StyledArticleEditor,
@@ -38,13 +38,30 @@ export const ArticleEditor = ({ data, edit }: Props) => {
     setContent(content);
   }, []);
 
-  const onSave = React.useCallback(() => {
-    const validated = validateInput(titleInput.current.value, content);
+  const onFocus = React.useCallback(() => {
+    if (errors && errors.success === false) {
+      setErrors(null);
+    }
+  }, [errors]);
+
+  const onSave = React.useCallback(async () => {
+    const title = titleInput.current.value.trim();
+
+    const validated = validateInput(title, content);
 
     if (!validated.success) {
       return setErrors(validated);
     }
-  }, [content]);
+
+    const res = await saveArticle({
+      title,
+      content: JSON.stringify(content),
+      category: selectedCategory ?? data.categories[0].label,
+      image: null,
+    });
+
+    console.log(res);
+  }, [content, data?.categories]);
 
   return (
     <StyledArticleEditor>
@@ -55,12 +72,18 @@ export const ArticleEditor = ({ data, edit }: Props) => {
         items={data?.categories}
         onChange={onDropdownChange}
       />
-      <Input ref={titleInput} placeholder="Tytuł" error={errors?.title} />
+      <Input
+        ref={titleInput}
+        placeholder="Tytuł"
+        error={errors?.title}
+        onFocus={onFocus}
+      />
       <Divider />
       <RichEditor
         value={content}
         onChange={onContentChange}
         error={errors?.content}
+        onFocus={onFocus}
       />
       <ImagePick file={null} />
       <SubmitButton onClick={onSave}>Zapisz</SubmitButton>

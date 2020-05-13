@@ -13,4 +13,8 @@ export default (app: FastifyInstance) => {
   routes(app);
 
   app.register(apiRouter, { prefix: '/api' });
+
+  app.get('/robots.txt', (req, res) => {
+    res.redirect('/static/robots.txt');
+  });
 };

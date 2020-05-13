@@ -7,7 +7,7 @@ import ImageService from '../services/image';
 import ArticleModel from '../models/article';
 import ArticleCategoryModel from '../models/article-category';
 import { objectIdToString, formatLabel, createRandLabel } from '../utils';
-import { IInsertArticle } from '../interfaces';
+import { IInsertArticle } from '~/interfaces';
 import { serializeToText } from '~/utils/serializer';
 
 class ArticleService {

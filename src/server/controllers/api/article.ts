@@ -1,9 +1,7 @@
 import { FastifyInstance } from 'fastify';
 
 import useAuth from '../middleware/auth';
-import UserService from '~/server/services/user';
-import { verifyUser, signOutUser } from '~/server/utils';
-import { IRequest, IInsertArticle } from '~/server/interfaces';
+import { IRequest } from '~/server/interfaces';
 import { IInsertArticleRes } from '~/interfaces';
 import ArticleCategory from '~/server/models/article-category';
 import ArticleService from '~/server/services/article';
@@ -27,9 +25,17 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
       preValidation: useAuth(),
     },
     async (req: IRequest, res) => {
-      const { title, content, category } = req.body;
-      const user = req.raw.tokenPayload;
+      if (!req.isMultipart()) {
+        throw new Error('Request is not multipart!');
+      }
 
+      const { title, content, category, image } = req.body;
+
+      if (image instanceof Array && image.length > 1) {
+        throw new Error('Only one image is supported!');
+      }
+
+      const user = req.raw.tokenPayload;
       const categoryExists = await ArticleCategory.exists({ label: category });
 
       if (!categoryExists) {
@@ -50,7 +56,7 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
         image: null,
       });
 
-      res.send({ success: true, label } as IInsertArticleRes);
+      return { success: true, label } as IInsertArticleRes;
     },
   );
 

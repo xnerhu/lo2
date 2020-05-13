@@ -12,6 +12,7 @@ const {
   SHORT_ARTICLE_LENGTH,
   ARTICLES_PER_PAGE,
   HOSTNAME,
+  MAX_IMAGE_UPLOAD_SIZE,
 } = process.env;
 
 export const config = {
@@ -26,4 +27,5 @@ export const config = {
   shortArticleLength: parseInt(SHORT_ARTICLE_LENGTH),
   articlesPerPage: parseInt(ARTICLES_PER_PAGE),
   hostname: HOSTNAME,
+  maxImageUploadSize: parseInt(MAX_IMAGE_UPLOAD_SIZE),
 };

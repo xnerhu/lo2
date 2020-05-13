@@ -30,3 +30,11 @@ export interface IArticlesChunk {
   nextPage?: boolean;
   users?: IUser[];
 }
+
+export interface IInsertArticle {
+  title: string;
+  content: string;
+  category: string;
+  authorId: string;
+  image: string;
+}

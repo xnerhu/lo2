@@ -5,6 +5,7 @@ import cookies from 'fastify-cookie';
 import helmet from 'fastify-helmet';
 import body from 'fastify-formbody';
 import staticDir from 'fastify-static';
+import multipart from 'fastify-multipart';
 
 import { config } from '../constants/config';
 
@@ -15,6 +16,18 @@ export default async (app: FastifyInstance) => {
   });
   app.register(body);
   app.register(cookies);
+  app.register(multipart, {
+    addToBody: true,
+    limits: {
+      files: 1,
+      // fileSize: config.maxImageUploadSize,
+      fieldNameSize: 100,
+      fields: 20,
+      headerPairs: 100,
+      fieldSize: 1024 * 1024 * 6,
+    },
+  });
+
   app.register(compress);
 
   app.register(staticDir, {
@@ -27,9 +40,5 @@ export default async (app: FastifyInstance) => {
     prefix: '/static',
     root: config.staticDirectory,
     decorateReply: false,
-  });
-
-  app.get('/robots.txt', (req, res) => {
-    res.redirect('/static/robots.txt');
   });
 };

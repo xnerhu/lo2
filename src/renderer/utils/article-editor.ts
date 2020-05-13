@@ -1,7 +1,9 @@
 import { Node } from 'slate';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import { serializeToText } from '~/utils/serializer';
 import { IArticleEditorErrors } from '../interfaces';
+import { IInsertArticle, IInsertArticleRes } from '~/interfaces';
 
 export const validateInput = (
   title: string,
@@ -22,4 +24,26 @@ export const validateInput = (
     content: contentError,
     success: !(titleError || contentError),
   };
+};
+
+export const saveArticle = async (data: Omit<IInsertArticle, 'authorId'>) => {
+  const formData = new FormData();
+
+  formData.set('title', data.title);
+  formData.set('content', data.content);
+  formData.set('category', data.category);
+
+  const config: AxiosRequestConfig = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  const res = await axios.put<IInsertArticleRes>(
+    `/api/article`,
+    formData,
+    config,
+  );
+
+  console.log(res);
 };

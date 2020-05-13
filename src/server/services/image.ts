@@ -2,58 +2,78 @@ import sharp, { Sharp } from 'sharp';
 import { promises as fs } from 'fs';
 
 import { deleteFile } from '../utils';
+import {
+  IImageSize,
+  IImageResizeOptions,
+  IImageProcessOptions,
+} from '../interfaces';
 
-export interface ICompressImageOptions {
-  full: number;
-  thumbnail?: number;
-}
+const defaultResizeOptions: IImageResizeOptions = {
+  normal: 1024,
+  thumbnail: 448,
+};
 
-const defaultCompressOptions: ICompressImageOptions = {
-  full: 1280,
-  thumbnail: 512,
+const defaultProcessOptions: Partial<IImageProcessOptions> = {
+  quality: 70,
 };
 
 class ImageService {
-  public format(path: string, full?: boolean) {
-    return full ? path : `${path}.thumbnail`;
+  public format(path: string, size?: IImageSize) {
+    const suffix = size !== 'original' ? `.${size}` : '';
+
+    return path + suffix;
   }
 
-  private getPaths(path: string, full?: boolean) {
-    const url = this.format(path, full);
+  private getPaths(path: string, size?: IImageSize) {
+    const url = this.format(path, size);
 
     return [`${url}.jpg`, `${url}.webp`];
   }
 
-  public compressImage(instance: Sharp, path: string, quality = 70) {
+  private processImage = (instance: Sharp, basePath: string) => (
+    size: IImageSize,
+    options?: IImageProcessOptions,
+  ) => {
+    const { width, quality, jpgOnly } = {
+      ...defaultProcessOptions,
+      ...options,
+    };
+
+    const path = this.format(basePath, size);
+
+    const resized = instance.resize(width, null, {
+      fit: 'cover',
+      background: '#fff',
+      height: Number.isSafeInteger(width) ? (width * 9) / 16 : null,
+    });
+
     return [
-      instance.jpeg({ quality }).toFile(path + '.jpg'),
-      instance.webp({ quality }).toFile(path + '.webp'),
+      resized.jpeg({ quality }).toFile(path + '.jpg'),
+      !jpgOnly && resized.webp({ quality }).toFile(path + '.webp'),
     ];
-  }
+  };
 
-  public async saveImage(
-    buffer: Buffer,
-    path: string,
-    options = defaultCompressOptions,
-  ) {
-    const { full, thumbnail } = options;
-
+  public async saveImage(buffer: Buffer, path: string) {
     const instance = sharp(buffer);
+    const handle = this.processImage(instance, path);
 
     const promises = [
-      ...this.compressImage(instance.resize(full), path),
-      ...(thumbnail &&
-        this.compressImage(
-          instance.resize(thumbnail),
-          this.format(path, false),
-        )),
+      ...handle('original', { jpgOnly: true }),
+      ...handle('normal', { width: defaultResizeOptions.normal }),
+      ...handle('thumbnail', { width: defaultResizeOptions.thumbnail }),
     ];
 
     await Promise.all(promises);
   }
 
   public async deleteImages(path: string) {
-    const paths = [...this.getPaths(path, false), ...this.getPaths(path, true)];
+    const sizes: IImageSize[] = ['thumbnail', 'normal', 'original'];
+    const paths: string[] = [];
+
+    sizes.forEach((r) => {
+      paths.push(...this.getPaths(path, r));
+    });
+
     const promises = paths.map((r) => deleteFile(r));
 
     await Promise.all(promises);

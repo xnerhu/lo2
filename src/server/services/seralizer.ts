@@ -2,7 +2,6 @@ import { Text, Node } from 'slate';
 import escapeHtml from 'escape-html';
 
 import { IEditorSelectionFormat } from '~/interfaces';
-import { truncateString } from '../utils';
 
 class SerializerService {
   public serializeNode(node: Node) {
@@ -67,24 +66,6 @@ class SerializerService {
 
   public serializeToHtml(nodes: Node[]): string {
     return nodes.map((r) => this.serializeNode(r)).join('');
-  }
-
-  public serializeToText(nodes: Node[], limit?: number): string {
-    let text = '';
-
-    nodes.some((r) => {
-      text += Node.string(r) + ' ';
-
-      if (limit != null && text.length >= limit) {
-        text = truncateString(text.trim(), limit);
-
-        return true;
-      }
-
-      return false;
-    });
-
-    return text;
   }
 }
 

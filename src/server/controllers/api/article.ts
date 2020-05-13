@@ -7,6 +7,7 @@ import { IRequest, IInsertArticle } from '~/server/interfaces';
 import { IInsertArticleRes } from '~/interfaces';
 import ArticleCategory from '~/server/models/article-category';
 import ArticleService from '~/server/services/article';
+import { serializeToText } from '~/utils/serializer';
 
 export default (app: FastifyInstance, opts: any, next: Function) => {
   app.put(
@@ -33,6 +34,12 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
 
       if (!categoryExists) {
         throw new Error(`Category ${category} doesn\'t exists!`);
+      }
+
+      const serialized = serializeToText(content);
+
+      if (!serialized.trim().length) {
+        throw new Error('Content must be provided!');
       }
 
       const label = await ArticleService.insertOne({

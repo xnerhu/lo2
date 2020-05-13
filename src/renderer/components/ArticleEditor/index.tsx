@@ -1,12 +1,22 @@
 import React from 'react';
+import { Node } from 'slate';
 
 import {
   IAddArticlePageData,
   IEditArticlePageData,
   IArticleCategory,
 } from '~/interfaces';
-import { Content } from '../Section';
-import { Dropdown, Input } from './style';
+import { defaultRichEditorValue, RichEditor } from '../RichEditor';
+import { ImagePick } from './ImagePick';
+import { validateInput } from '~/renderer/utils/article-editor';
+import { IArticleEditorErrors } from '~/renderer/interfaces';
+import {
+  StyledArticleEditor,
+  Dropdown,
+  Input,
+  Divider,
+  SubmitButton,
+} from './style';
 
 interface Props {
   data?: IAddArticlePageData | IEditArticlePageData;
@@ -15,6 +25,8 @@ interface Props {
 
 export const ArticleEditor = ({ data, edit }: Props) => {
   const [selectedCategory, selectCategory] = React.useState<string>();
+  const [content, setContent] = React.useState<Node[]>(defaultRichEditorValue);
+  const [errors, setErrors] = React.useState<IArticleEditorErrors>({});
 
   const titleInput = React.useRef<HTMLInputElement>();
 
@@ -22,8 +34,20 @@ export const ArticleEditor = ({ data, edit }: Props) => {
     selectCategory(item._id);
   }, []);
 
+  const onContentChange = React.useCallback((content: Node[]) => {
+    setContent(content);
+  }, []);
+
+  const onSave = React.useCallback(() => {
+    const validated = validateInput(titleInput.current.value, content);
+
+    if (!validated.success) {
+      return setErrors(validated);
+    }
+  }, [content]);
+
   return (
-    <Content>
+    <StyledArticleEditor>
       <Dropdown
         className="auto"
         placeholder="Kategoria"
@@ -31,7 +55,15 @@ export const ArticleEditor = ({ data, edit }: Props) => {
         items={data?.categories}
         onChange={onDropdownChange}
       />
-      <Input ref={titleInput} placeholder="Tytuł" />
-    </Content>
+      <Input ref={titleInput} placeholder="Tytuł" error={errors?.title} />
+      <Divider />
+      <RichEditor
+        value={content}
+        onChange={onContentChange}
+        error={errors?.content}
+      />
+      <ImagePick file={null} />
+      <SubmitButton onClick={onSave}>Zapisz</SubmitButton>
+    </StyledArticleEditor>
   );
 };

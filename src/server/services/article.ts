@@ -8,7 +8,7 @@ import ArticleModel from '../models/article';
 import ArticleCategoryModel from '../models/article-category';
 import { objectIdToString, formatLabel, createRandLabel } from '../utils';
 import { IInsertArticle } from '../interfaces';
-import { isBoolean } from 'util';
+import { serializeToText } from '~/utils/serializer';
 
 class ArticleService {
   public format(data: IArticle, full?: boolean): IArticle {
@@ -18,10 +18,7 @@ class ArticleService {
     if (full) {
       content = SerializerService.serializeToHtml(json);
     } else {
-      content = SerializerService.serializeToText(
-        json,
-        config.shortArticleLength,
-      );
+      content = serializeToText(json, config.shortArticleLength);
     }
 
     const image =

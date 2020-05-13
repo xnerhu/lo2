@@ -65,7 +65,7 @@ export const Container = styled.div`
 `;
 
 export const StyledSocial = styled.div`
-  border-top: 1px solid rgba(0, 0, 0, ${transparency.dividers});
+  border-top: 1px solid #eceff1;
   margin-top: 16px;
 `;
 

@@ -6,6 +6,7 @@ import { withHistory } from 'slate-history';
 import { Toolbar } from './Toolbar';
 import { Element } from './Element';
 import { Leaf } from './Leaf';
+import { ErrorLabel } from '../Error';
 import { Container, Editable } from './style';
 
 const withLinks = (editor: Editor) => {
@@ -39,7 +40,7 @@ interface Props {
   value?: Node[];
   onChange?: (value: Node[]) => void;
   onFocus?: () => void;
-  error?: boolean;
+  error?: string;
   style?: React.CSSProperties;
 }
 
@@ -56,21 +57,25 @@ export const RichEditor = ({
     (props) => <Element {...props} />,
     [],
   );
+
   const renderLeaf = React.useCallback((props) => <Leaf {...props} />, []);
 
   return (
-    <Container error={error} style={style}>
-      <Slate editor={editor} value={value} onChange={onChange}>
-        <Toolbar />
-        <Editable
-          className="rich-editor-editable"
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          placeholder="Treść"
-          onFocus={onFocus}
-        />
-      </Slate>
-    </Container>
+    <>
+      <Container error={!!error} style={style}>
+        <Slate editor={editor} value={value} onChange={onChange}>
+          <Toolbar />
+          <Editable
+            className="rich-editor-editable"
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+            placeholder="Treść"
+            onFocus={onFocus}
+          />
+        </Slate>
+      </Container>
+      <ErrorLabel error={error} />
+    </>
   );
 };
 

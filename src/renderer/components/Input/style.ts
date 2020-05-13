@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { ERROR_COLOR } from '~/renderer/constants/design';
 import { noUserSelect } from '~/renderer/mixins/user-selection';
 
-export const Input = styled.input`
+export const StyledInput = styled.input`
   width: 100%;
   height: 36px;
   border: none;

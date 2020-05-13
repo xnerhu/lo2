@@ -19,6 +19,8 @@ const routeFactory = (app: FastifyInstance) => (
 export default (app: FastifyInstance) => {
   const handler = routeFactory(app);
 
+  handler('/article/:label', 'article');
+
   // https://github.com/fastify/fastify/issues/1206
   handler(
     ['/articles', '/articles/:category', '/articles/:category/:page'],

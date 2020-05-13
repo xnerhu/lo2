@@ -93,6 +93,20 @@ class ArticleService {
       nextPage: articles.length >= config.articlesPerPage,
     };
   }
+
+  public async findOne(label: string): Promise<IArticle> {
+    if (!label) {
+      throw new Error('Label must be provided!');
+    }
+
+    const data = await ArticleModel.findOne({ label }).lean().exec();
+
+    if (!data) {
+      throw new Error("Couldn't find the article!");
+    }
+
+    return data;
+  }
 }
 
 export default new ArticleService();

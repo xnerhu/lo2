@@ -1,9 +1,10 @@
-import { IHomePageData, IArticlesPageData } from './pages';
+import { IHomePageData, IArticlesPageData, IArticlePageData } from './pages';
 import { IUser } from './user';
 
 export interface IAppState {
   home?: IHomePageData;
   articles?: IArticlesPageData;
+  article?: IArticlePageData;
   signedIn?: boolean;
   user?: IUser;
 }

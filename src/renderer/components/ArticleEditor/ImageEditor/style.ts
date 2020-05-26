@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 import { noUserSelect } from '~/renderer/mixins/user-selection';
-import { aspectRatio } from '~/renderer/mixins/box';
 
 export const StyledDialog = styled.div`
   width: 100%;
@@ -48,6 +47,13 @@ export const Title = styled.h6`
   ${noUserSelect()};
 `;
 
+export const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: #eee;
+  margin: 16px 0px;
+`;
+
 export const ButtonsContainer = styled.div`
   width: 100%;
   height: 72px;
@@ -58,33 +64,4 @@ export const ButtonsContainer = styled.div`
   & > *:first-child {
     margin-right: 8px;
   }
-`;
-
-export const ImageContainer = styled.div`
-  width: 100%;
-  cursor: move;
-  overflow: hidden;
-  position: relative;
-  ${noUserSelect()};
-  ${aspectRatio(16 / 9, false)};
-  background-color: #eee;
-`;
-
-export const Image = styled.img`
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-`;
-
-export const Canvas = styled.canvas`
-  width: 100%;
-  background-color: blue;
-`;
-
-export const Divider = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: #eee;
-  margin: 16px 0px;
 `;

@@ -9,8 +9,8 @@ export const StyledDraggableImg = styled.div`
   overflow: hidden;
   position: relative;
   ${noUserSelect()};
-  /* ${aspectRatio(16 / 9, false)}; */
-  background-color: blue; 
+  ${aspectRatio(16 / 9)};
+  background-color: blue;
 `;
 
 export const Img = styled.img`
@@ -18,4 +18,5 @@ export const Img = styled.img`
   position: relative;
   top: 0;
   left: 0;
+  object-fit: cover;
 `;

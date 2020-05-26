@@ -1,5 +1,5 @@
 import React from 'react';
-import pos, { IPosition } from 'spatium';
+import { IPosition } from 'spatium';
 
 import { IS_BROWSER } from '~/renderer/constants/config';
 import { StyledDraggableImg, Img } from './style';
@@ -8,13 +8,13 @@ interface Props {
   src: string;
   scale: number;
   innerRef?: React.RefCallback<HTMLImageElement>;
-  onChange?: (x: number, y: number) => void;
+  onChange?: (offset: IPosition) => void;
 }
 
 export class DraggableImg extends React.PureComponent<Props> {
   private containerRef = React.createRef<HTMLDivElement>();
 
-  private imgRef = React.createRef<HTMLImageElement>();
+  private imgRef: HTMLImageElement;
 
   private startPos: IPosition;
 
@@ -46,7 +46,7 @@ export class DraggableImg extends React.PureComponent<Props> {
     const { scale, onChange } = this.props;
 
     const containerRect = this.containerRef.current.getBoundingClientRect();
-    const imgRect = this.imgRef.current.getBoundingClientRect();
+    const imgRect = this.imgRef.getBoundingClientRect();
     const [startX, startY] = this.startPos;
 
     const xPos = (imgRect.width - containerRect.width) / 2;
@@ -60,7 +60,8 @@ export class DraggableImg extends React.PureComponent<Props> {
 
     this.offset = [x, y];
     this.update();
-    onChange(x, y);
+
+    onChange(this.offset);
   };
 
   private onWindowMouseUp = () => {
@@ -71,7 +72,7 @@ export class DraggableImg extends React.PureComponent<Props> {
     const { scale } = this.props;
     const [x, y] = this.offset;
 
-    this.imgRef.current.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+    this.imgRef.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
   }
 
   render() {
@@ -84,8 +85,8 @@ export class DraggableImg extends React.PureComponent<Props> {
       >
         <Img
           ref={(r) => {
-            this.imgRef.current = r;
-            if (innerRef) innerRef(r);
+            this.imgRef = r;
+            // if (innerRef) innerRef(r);
           }}
           src={src}
           draggable={false}

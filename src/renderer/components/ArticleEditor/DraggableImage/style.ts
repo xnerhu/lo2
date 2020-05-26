@@ -8,6 +8,7 @@ export const StyledDraggableImg = styled.div`
   cursor: move;
   overflow: hidden;
   position: relative;
+  border-radius: 8px;
   ${noUserSelect()};
   ${aspectRatio(16 / 9)};
 `;

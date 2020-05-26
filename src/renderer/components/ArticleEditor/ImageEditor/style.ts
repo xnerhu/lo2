@@ -1,6 +1,11 @@
 import styled, { css } from 'styled-components';
 
 import { noUserSelect } from '~/renderer/mixins/user-selection';
+import { centerIcon } from '~/renderer/mixins/images';
+import {
+  ICON_MAGNIFY_PLUS,
+  ICON_MAGNIFY_MINUS,
+} from '~/renderer/constants/icons';
 
 export const StyledDialog = styled.div`
   width: 100%;
@@ -49,12 +54,41 @@ export const Title = styled.h6`
 
 export const ButtonsContainer = styled.div`
   width: 100%;
-  height: 72px;
   display: flex;
-  align-items: center;
   justify-content: flex-end;
+  margin-bottom: 20px;
 
   & > *:first-child {
     margin-right: 8px;
+  }
+`;
+
+export const ScaleContainer = styled.div`
+  width: 100%;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &::before,
+  &::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    opacity: 0.12;
+    ${centerIcon()};
+  }
+
+  &::before {
+    background-image: url(${ICON_MAGNIFY_MINUS});
+  }
+
+  &::after {
+    background-image: url(${ICON_MAGNIFY_PLUS});
+  }
+
+  & > input {
+    margin: 0 24px;
+    flex: 1;
   }
 `;

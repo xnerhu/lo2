@@ -6,7 +6,13 @@ import { FlatButton, PrimaryButton } from '../../Button';
 import { DraggableImg } from '../DraggableImage';
 import { editImage, saveBase64ToFile } from '~/renderer/utils/image';
 import { Range } from '../../Range';
-import { StyledDialog, Container, Title, ButtonsContainer } from './style';
+import {
+  StyledDialog,
+  Container,
+  Title,
+  ButtonsContainer,
+  ScaleContainer,
+} from './style';
 
 const MAX_SCALE = 5;
 
@@ -64,6 +70,7 @@ export class ImageEditor extends React.PureComponent<Props, State> {
     const scale = value / 100;
 
     this.draggableImgRef.current.setScale(scale);
+    this.scale = scale;
   };
 
   render() {
@@ -79,12 +86,14 @@ export class ImageEditor extends React.PureComponent<Props, State> {
             src={src}
             onChange={this.onChange}
           />
-          <Range
-            onChange={this.onScaleChange}
-            min={100}
-            max={MAX_SCALE * 100}
-            defaultValue={0}
-          />
+          <ScaleContainer>
+            <Range
+              onChange={this.onScaleChange}
+              min={100}
+              max={MAX_SCALE * 100}
+              defaultValue={0}
+            />
+          </ScaleContainer>
           <ButtonsContainer>
             <FlatButton onClick={this.onCancel}>Anuluj</FlatButton>
             <PrimaryButton onClick={this.onSave}>Zapisz</PrimaryButton>

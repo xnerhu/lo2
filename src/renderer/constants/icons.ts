@@ -40,3 +40,5 @@ export const ICON_NEWS = require('~/renderer/resources/icons/news.svg');
 export const ICON_STUDENT = require('~/renderer/resources/icons/student.svg');
 export const BADGE = require('~/renderer/resources/icons/badge.jpg');
 export const BIP = require('~/renderer/resources/icons/bip.svg');
+export const ICON_MAGNIFY_PLUS = require('~/renderer/resources/icons/magnify-plus.svg');
+export const ICON_MAGNIFY_MINUS = require('~/renderer/resources/icons/magnify-minus.svg');

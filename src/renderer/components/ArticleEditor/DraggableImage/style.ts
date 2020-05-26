@@ -10,7 +10,6 @@ export const StyledDraggableImg = styled.div`
   position: relative;
   ${noUserSelect()};
   ${aspectRatio(16 / 9)};
-  background-color: blue;
 `;
 
 export const Img = styled.img`

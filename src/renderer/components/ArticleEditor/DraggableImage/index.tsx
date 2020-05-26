@@ -1,83 +1,125 @@
 import React from 'react';
 import { IPosition } from 'spatium';
 
+import { IS_BROWSER } from '~/renderer/constants/config';
 import { StyledDraggableImg, Img } from './style';
-
-interface Props {
-  src: string;
-  scale: number;
-  onChange?: (offset: IPosition) => void;
-}
 
 const createTransform = ([x, y]: IPosition, scale: number) => {
   return `translate(${x}px, ${y}px) scale(${scale})`;
 };
 
-export const DraggableImg = ({ src, scale, onChange }: Props) => {
-  const containerRef = React.useRef<HTMLDivElement>();
-  const imgRef = React.useRef<HTMLImageElement>();
+interface Props {
+  src: string;
+  onChange?: (offset: IPosition) => void;
+}
 
-  const startPos = React.useRef<IPosition>();
-  const offset = React.useRef<IPosition>([0, 0]);
+export class DraggableImg extends React.PureComponent<Props> {
+  private containerRef = React.createRef<HTMLDivElement>();
 
-  const [active, setActive] = React.useState(false);
+  private imgRef = React.createRef<HTMLImageElement>();
 
-  const update = React.useCallback(() => {
-    imgRef.current.style.transform = createTransform(offset.current, scale);
-  }, [scale]);
+  private startPos: IPosition;
 
-  const onMouseDown = React.useCallback((e: React.MouseEvent) => {
-    const [x, y] = offset.current;
+  private offset: IPosition = [0, 0];
 
-    startPos.current = [e.pageX - x, e.pageY - y];
-    setActive(true);
-  }, []);
+  private scale = 1;
 
-  const onWindowMouseMove = React.useCallback(
-    (e: MouseEvent) => {
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const imgRect = imgRef.current.getBoundingClientRect();
-      const [startX, startY] = startPos.current;
+  constructor(props: Props) {
+    super(props);
 
-      const xPos = (imgRect.width - containerRect.width) / 2;
-      const x = Math.max(Math.min(xPos, e.pageX - startX), -xPos);
-
-      const yPos = Math.ceil((imgRect.height - containerRect.height) / 2);
-      const y = Math.max(
-        Math.min(yPos, e.pageY - startY),
-        -yPos + 3 * (scale - 1),
-      );
-
-      offset.current = [x, y];
-
-      update();
-      onChange(offset.current);
-    },
-    [onChange, update, scale],
-  );
-
-  const onWindowMouseUp = React.useCallback(() => {
-    setActive(false);
-  }, []);
-
-  React.useEffect(() => {
-    if (active) {
-      window.addEventListener('mousemove', onWindowMouseMove);
-      window.addEventListener('mouseup', onWindowMouseUp);
-    } else {
-      window.removeEventListener('mousemove', onWindowMouseMove);
-      window.removeEventListener('mouseup', onWindowMouseUp);
+    if (IS_BROWSER) {
+      this.removeListeners();
     }
-  }, [active, onWindowMouseMove]);
+  }
 
-  return (
-    <StyledDraggableImg ref={containerRef} onMouseDown={onMouseDown}>
-      <Img
-        ref={imgRef}
-        src={src}
-        draggable={false}
-        style={{ transform: createTransform(offset.current, scale) }}
-      />
-    </StyledDraggableImg>
-  );
-};
+  private removeListeners() {
+    window.removeEventListener('mousemove', this.onWindowMouseMove);
+    window.removeEventListener('mouseup', this.onWindowMouseUp);
+  }
+
+  private onMouseDown = (e: React.MouseEvent) => {
+    const [x, y] = this.offset;
+
+    this.startPos = [e.pageX - x, e.pageY - y];
+
+    window.addEventListener('mousemove', this.onWindowMouseMove);
+    window.addEventListener('mouseup', this.onWindowMouseUp);
+  };
+
+  private onWindowMouseMove = (e: MouseEvent) => {
+    const { onChange } = this.props;
+
+    const containerRect = this.containerRef.current.getBoundingClientRect();
+    const imgRect = this.imgRef.current.getBoundingClientRect();
+    const [startX, startY] = this.startPos;
+
+    const xPos = (imgRect.width - containerRect.width) / 2;
+    const x = Math.max(Math.min(xPos, e.pageX - startX), -xPos);
+
+    const yPos = Math.ceil((imgRect.height - containerRect.height) / 2);
+    const y = Math.max(
+      Math.min(yPos, e.pageY - startY),
+      -yPos + 3 * (this.scale - 1),
+    );
+
+    this.offset = [x, y];
+    this.update();
+
+    onChange(this.offset);
+  };
+
+  private onWindowMouseUp = () => {
+    this.removeListeners();
+  };
+
+  private update() {
+    this.imgRef.current.style.transform = createTransform(
+      this.offset,
+      this.scale,
+    );
+  }
+
+  public setScale(scale: number) {
+    const delta = scale - this.scale;
+
+    this.scale = scale;
+    this.update();
+
+    if (delta < 0) {
+      this.fixRect();
+    }
+  }
+
+  private fixRect() {
+    const containerRect = this.containerRef.current.getBoundingClientRect();
+    const imgRect = this.imgRef.current.getBoundingClientRect();
+    const xPos = (imgRect.width - containerRect.width) / 2;
+    const yPos = Math.ceil((imgRect.height - containerRect.height) / 2);
+
+    let [x, y] = this.offset;
+
+    x = Math.max(Math.min(xPos, x), -xPos);
+    y = Math.max(Math.min(yPos, y), -yPos);
+
+    this.offset = [x, y];
+    this.update();
+  }
+
+  render() {
+    const { src } = this.props;
+
+    return (
+      <StyledDraggableImg
+        ref={this.containerRef}
+        onMouseDown={this.onMouseDown}
+      >
+        <Img
+          ref={this.imgRef}
+          src={src}
+          draggable={false}
+          style={{ transform: createTransform(this.offset, this.scale) }}
+        />
+      </StyledDraggableImg>
+    );
+  }
+}

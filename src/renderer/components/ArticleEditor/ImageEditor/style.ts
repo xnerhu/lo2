@@ -47,13 +47,6 @@ export const Title = styled.h6`
   ${noUserSelect()};
 `;
 
-export const Divider = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: #eee;
-  margin: 16px 0px;
-`;
-
 export const ButtonsContainer = styled.div`
   width: 100%;
   height: 72px;

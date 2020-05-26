@@ -7492,6 +7492,11 @@ sparse-bitfield@^3.0.3:
   dependencies:
     memory-pager "^1.0.2"
 
+spatium@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/spatium/-/spatium-1.0.0.tgz#c6255c827694f09c9623b1a6e3610643a4e5900b"
+  integrity sha512-QB/02GJY9ga0mKEmHUm3Krzr32elapLMRFCgYqreAxjzh6Rf3z16BTnf/ZcoIknAtcdjAE5pI01l86/BT0qtOg==
+
 spawn-command@^0.0.2-1:
   version "0.0.2-1"
   resolved "https://registry.yarnpkg.com/spawn-command/-/spawn-command-0.0.2-1.tgz#62f5e9466981c1b796dc5929937e11c9c6921bd0"

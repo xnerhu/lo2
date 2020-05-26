@@ -107,6 +107,7 @@
     "slate": "^0.57.2",
     "slate-history": "^0.57.2",
     "slate-react": "^0.57.2",
+    "spatium": "^1.0.0",
     "styled-components": "^5.1.0"
   }
 }

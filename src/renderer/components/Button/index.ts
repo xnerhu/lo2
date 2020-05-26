@@ -118,3 +118,7 @@ export const DeleteButton = styled(Button)`
     background-color: rgba(176, 0, 32, 0.12);
   }
 `;
+
+export const FlatButton = styled(Button)`
+  background-color: unset;
+`;

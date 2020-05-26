@@ -48,21 +48,9 @@ export class DraggableImg extends React.PureComponent<Props> {
 
   private onWindowMouseMove = (e: MouseEvent) => {
     const { onChange } = this.props;
-
-    const containerRect = this.containerRef.current.getBoundingClientRect();
-    const imgRect = this.imgRef.current.getBoundingClientRect();
     const [startX, startY] = this.startPos;
 
-    const xPos = (imgRect.width - containerRect.width) / 2;
-    const x = Math.max(Math.min(xPos, e.pageX - startX), -xPos);
-
-    const yPos = Math.ceil((imgRect.height - containerRect.height) / 2);
-    const y = Math.max(
-      Math.min(yPos, e.pageY - startY),
-      -yPos + 3 * (this.scale - 1),
-    );
-
-    this.offset = [x, y];
+    this.offset = this.getOffset([e.pageX - startX, e.pageY - startY]);
     this.update();
 
     onChange(this.offset);
@@ -86,23 +74,27 @@ export class DraggableImg extends React.PureComponent<Props> {
     this.update();
 
     if (delta < 0) {
-      this.fixRect();
+      this.offset = this.getOffset(this.offset);
+      this.update();
     }
   }
 
-  private fixRect() {
+  private getCenter(): IPosition {
     const containerRect = this.containerRef.current.getBoundingClientRect();
     const imgRect = this.imgRef.current.getBoundingClientRect();
-    const xPos = (imgRect.width - containerRect.width) / 2;
-    const yPos = Math.ceil((imgRect.height - containerRect.height) / 2);
+    const x = (imgRect.width - containerRect.width) / 2;
+    const y = Math.ceil((imgRect.height - containerRect.height) / 2);
 
-    let [x, y] = this.offset;
+    return [x, y];
+  }
 
-    x = Math.max(Math.min(xPos, x), -xPos);
-    y = Math.max(Math.min(yPos, y), -yPos);
+  private getOffset([x, y]: IPosition): IPosition {
+    const [centerX, centerY] = this.getCenter();
 
-    this.offset = [x, y];
-    this.update();
+    const _x = Math.max(Math.min(centerX, x), -centerX);
+    const _y = Math.max(Math.min(centerY, y), -centerY + 3 * (this.scale - 1));
+
+    return [_x, _y];
   }
 
   render() {

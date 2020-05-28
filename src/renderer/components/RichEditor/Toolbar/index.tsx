@@ -11,7 +11,7 @@ import {
   unwrapLink,
   insertImage,
 } from '~/renderer/utils/rich-editor';
-import { readFileAsImage } from '~/renderer/utils/image';
+import { readFileAsImage } from '~/renderer/utils/file';
 import {
   ICON_FORMAT_LINK,
   ICON_FORMAT_LINK_OFF,

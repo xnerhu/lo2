@@ -11,7 +11,7 @@ import { defaultRichEditorValue, RichEditor } from '../RichEditor';
 import { validateInput, saveArticle } from '~/renderer/utils/article-editor';
 import { IArticleEditorErrors } from '~/renderer/interfaces';
 import { PrimaryButton } from '../Button';
-import { readFileAsImage } from '~/renderer/utils/image';
+import { readFileAsImage } from '~/renderer/utils/file';
 import { resetFileInput } from '~/renderer/utils/dom';
 import { ImageButton } from './ImageButton';
 import {
@@ -51,25 +51,6 @@ export const ArticleEditor = ({ data, edit }: Props) => {
     }
   }, [errors]);
 
-  const onSave = React.useCallback(async () => {
-    const title = titleInput.current.value.trim();
-
-    const validated = validateInput(title, content);
-
-    if (!validated.success) {
-      return setErrors(validated);
-    }
-
-    const res = await saveArticle({
-      title,
-      content: JSON.stringify(content),
-      category: selectedCategory ?? data.categories[0].label,
-      image: null,
-    });
-
-    console.log(res);
-  }, [content, data?.categories]);
-
   const onImageButtonClick = React.useCallback(() => {
     imgInput.current.click();
   }, []);
@@ -98,6 +79,23 @@ export const ArticleEditor = ({ data, edit }: Props) => {
 
     return () => (canceled = true);
   }, []);
+
+  const onSave = React.useCallback(async () => {
+    const title = titleInput.current.value.trim();
+
+    const validated = validateInput(title, content);
+
+    if (!validated.success) {
+      return setErrors(validated);
+    }
+
+    const res = await saveArticle({
+      title,
+      content: JSON.stringify(content),
+      category: selectedCategory ?? data.categories[0].label,
+      image,
+    });
+  }, [content, data?.categories, image]);
 
   return (
     <>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Node } from 'slate';
-import loadable from '@loadable/component';
 
 import { ImageEditor } from './ImageEditor';
 import {
@@ -90,7 +89,7 @@ export const ArticleEditor = ({ data, edit }: Props) => {
       const base64 = await readFileAsImage(file);
       const edited = await imageEditor.current.process(base64);
 
-      if (edited) {
+      if (edited && !canceled) {
         setImage(edited);
       }
 

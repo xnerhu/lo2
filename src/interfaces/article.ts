@@ -1,12 +1,14 @@
 import { IUser } from './user';
+import { IImage } from './image';
 
 export interface IArticle {
   _id?: string;
   label?: string;
   title?: string;
   content?: string;
-  image?: string;
   hasImage?: boolean;
+  image?: string;
+  originalImage?: string;
   categoryId?: string;
   authorId?: string;
   createdAt?: Date;
@@ -36,5 +38,6 @@ export interface IInsertArticle {
   content: string;
   category: string;
   authorId: string;
-  image: Buffer | string;
+  image: IImage;
+  originalImage: IImage;
 }

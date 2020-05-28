@@ -99,16 +99,14 @@ class ArticleService {
     return this.format(data, full);
   }
 
-  public async insertOne(
-    {
-      title,
-      content,
-      image,
-      authorId,
-      category: categoryLabel,
-    }: IInsertArticle,
-    originalImage: Buffer,
-  ): Promise<string> {
+  public async insertOne({
+    title,
+    content,
+    image,
+    originalImage,
+    authorId,
+    category: categoryLabel,
+  }: IInsertArticle): Promise<string> {
     const [label, category] = await Promise.all([
       this.createLabel(title),
       ArticleCategoryModel.findOne({ label: categoryLabel }).lean().exec(),

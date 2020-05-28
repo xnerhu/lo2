@@ -1,12 +1,7 @@
 import sharp, { Sharp } from 'sharp';
-import { promises as fs } from 'fs';
 
 import { deleteFile } from '../utils';
-import {
-  IImageFormat,
-  IImageFormatsMap,
-  IImageFormatOptions,
-} from '../interfaces';
+import { IImageFormat, IImageFormatOptions } from '../interfaces';
 import { IMAGE_FORMATS, IMAGE_FORMATS_MAP } from '../constants';
 
 class ImageService {

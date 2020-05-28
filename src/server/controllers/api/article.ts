@@ -75,16 +75,14 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
         throw new Error('Content must be provided!');
       }
 
-      const label = await ArticleService.insertOne(
-        {
-          title,
-          content,
-          category,
-          authorId: user._id,
-          image: image?.data as Buffer,
-        },
-        originalImage?.data as Buffer,
-      );
+      const label = await ArticleService.insertOne({
+        title,
+        content,
+        category,
+        authorId: user._id,
+        image: image?.data,
+        originalImage: originalImage?.data,
+      });
 
       return { success: true, label } as IInsertArticleRes;
     },

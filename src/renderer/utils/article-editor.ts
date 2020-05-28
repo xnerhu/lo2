@@ -27,10 +27,7 @@ export const validateInput = (
   };
 };
 
-export const saveArticle = async (
-  data: Omit<IInsertArticle, 'authorId'>,
-  originalImg: File,
-) => {
+export const saveArticle = async (data: Omit<IInsertArticle, 'authorId'>) => {
   const form = new FormData();
 
   form.set('title', data.title);
@@ -39,7 +36,7 @@ export const saveArticle = async (
 
   if (data.image) {
     form.append('image', base64toFile(data.image as string));
-    form.append('originalImage', originalImg);
+    form.append('originalImage', data.originalImage as File);
   }
 
   const config: AxiosRequestConfig = {

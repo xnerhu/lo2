@@ -14,7 +14,9 @@ import { serializeToText } from '~/utils/serializer';
 
 class ArticleService {
   public format(data: IArticle, full?: boolean): IArticle {
+    const { hasImage, authorId } = data;
     let { content } = data;
+
     const json = JSON.parse(content);
 
     if (full) {
@@ -23,18 +25,25 @@ class ArticleService {
       content = serializeToText(json, config.shortArticleLength);
     }
 
-    const image =
-      data.hasImage &&
-      ImageService.format(
-        `/static/articles/${data._id}`,
-        full ? 'normal' : 'thumbnail',
-      );
+    let image: string;
+    let originalImage: string;
+
+    if (hasImage) {
+      const basePath = `/static/articles/${data._id}`;
+
+      image = ImageService.format(basePath, full ? 'normal' : 'thumbnail');
+
+      if (full) {
+        originalImage = ImageService.format(basePath, 'original');
+      }
+    }
 
     return {
       ...data,
       content,
       image,
-      authorId: objectIdToString(data.authorId),
+      originalImage,
+      authorId: objectIdToString(authorId),
     };
   }
 

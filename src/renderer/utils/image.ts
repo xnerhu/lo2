@@ -45,6 +45,8 @@ export const editImage = (
   const _canvas = canvas || document.createElement('canvas');
   const ctx = _canvas.getContext('2d');
 
+  const rect = _canvas.getBoundingClientRect();
+
   _canvas.width = img.width;
   _canvas.height = img.width * (1 / ratio);
 
@@ -53,12 +55,13 @@ export const editImage = (
   const width = img.width * scale;
   const height = img.height * scale;
 
-  // console.log(scale);
+  const scaleOffsetX = offset[0] * (_canvas.width / rect.width);
+  const scaleOffsetY = offset[1] * (_canvas.height / rect.height);
 
   ctx.drawImage(
     img,
-    (_canvas.width - width) / 2 + offset[0] * (scale * 1.5),
-    (_canvas.height - height) / 2 + offset[1] * (scale * 1.5),
+    (_canvas.width - width) / 2 + scaleOffsetX,
+    (_canvas.height - height) / 2 + scaleOffsetY,
     width,
     height,
   );

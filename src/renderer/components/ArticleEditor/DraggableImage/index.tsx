@@ -100,6 +100,12 @@ export class DraggableImg extends React.PureComponent<Props> {
     return [_x, _y];
   }
 
+  public getSize = (): IPosition => {
+    const rect = this.containerRef.current.getBoundingClientRect();
+
+    return [rect.width, rect.height];
+  };
+
   render() {
     const { src } = this.props;
 

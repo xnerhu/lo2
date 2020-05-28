@@ -1,4 +1,6 @@
-import { IEditImageData, IEditImageOptions } from '../interfaces';
+import { IPosition } from 'spatium';
+
+import { IEditImageOptions } from '../interfaces';
 
 export const readFileAsImage = (file: File): Promise<string> => {
   return new Promise((resolve) => {
@@ -17,26 +19,10 @@ export const readFileAsImage = (file: File): Promise<string> => {
   });
 };
 
-// export const trimImage = (
-//   img: HTMLImageElement,
-//   x: number,
-//   y: number,
-//   width: number,
-//   height: number,
-// ): string => {
-//   const canvas = document.createElement('canvas');
-
-//   canvas.width = width;
-//   canvas.height = height;
-
-//   // var context = canvas.getContext('2d');
-//   // context.drawImage(img, -posX, -posY);
-//   // img.parentNode.replaceChild(canvas, img);
-// };
-
 export const editImage = (
   img: HTMLImageElement,
   options: IEditImageOptions,
+  containerSize: IPosition,
   ratio = 16 / 9,
   canvas?: HTMLCanvasElement,
 ) => {
@@ -44,8 +30,6 @@ export const editImage = (
 
   const _canvas = canvas || document.createElement('canvas');
   const ctx = _canvas.getContext('2d');
-
-  const rect = _canvas.getBoundingClientRect();
 
   _canvas.width = img.width;
   _canvas.height = img.width * (1 / ratio);
@@ -55,8 +39,8 @@ export const editImage = (
   const width = img.width * scale;
   const height = img.height * scale;
 
-  const scaleOffsetX = offset[0] * (_canvas.width / rect.width);
-  const scaleOffsetY = offset[1] * (_canvas.height / rect.height);
+  const scaleOffsetX = offset[0] * (_canvas.width / containerSize[0]);
+  const scaleOffsetY = offset[1] * (_canvas.height / containerSize[1]);
 
   ctx.drawImage(
     img,

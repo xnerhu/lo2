@@ -87,6 +87,7 @@ export class ImageEditor extends React.PureComponent<Props, State> {
         offset: this.offset,
         scale: this.scale,
       },
+      this.draggableImgRef.current.getSize(),
       // 16 / 9,
       // this.canvasRef.current,
     );

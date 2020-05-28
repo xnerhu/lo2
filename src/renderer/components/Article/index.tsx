@@ -4,6 +4,7 @@ import { IArticleCategory, IArticle } from '~/interfaces/article';
 import { IUser } from '~/interfaces';
 import { Details } from './Details';
 import { Image } from '../Image';
+import { ARTICLE_IMAGE_RATIO } from '~/constants/design';
 import { StyledArticle, Container, Title, Content } from './style';
 
 interface Props extends React.HTMLAttributes<HTMLAnchorElement> {
@@ -16,7 +17,11 @@ export const Article = ({ data, category, user }: Props) => {
   return (
     <StyledArticle>
       {data?.image ? (
-        <Image src={data.image} ratio={2.75} skeletonBorder={0} />
+        <Image
+          src={data.image}
+          ratio={ARTICLE_IMAGE_RATIO}
+          skeletonBorder={0}
+        />
       ) : null}
       <Container>
         <Title to={`/article/${data?.label}`}>{data?.title}</Title>

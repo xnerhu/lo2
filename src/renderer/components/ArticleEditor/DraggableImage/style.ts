@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { noUserSelect } from '~/renderer/mixins/user-selection';
 import { aspectRatio } from '~/renderer/mixins/box';
+import { ARTICLE_IMAGE_RATIO } from '~/constants/design';
 
 export const StyledDraggableImg = styled.div`
   width: 100%;
@@ -10,7 +11,7 @@ export const StyledDraggableImg = styled.div`
   position: relative;
   border-radius: 8px;
   ${noUserSelect()};
-  ${aspectRatio(16 / 9)};
+  ${aspectRatio(ARTICLE_IMAGE_RATIO)};
 `;
 
 export const Img = styled.img`

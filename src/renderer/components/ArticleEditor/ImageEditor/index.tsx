@@ -14,6 +14,7 @@ import {
   ScaleContainer,
   Canvas,
 } from './style';
+import { ARTICLE_IMAGE_RATIO } from '~/constants/design';
 
 const MAX_SCALE = 5;
 
@@ -88,6 +89,7 @@ export class ImageEditor extends React.PureComponent<Props, State> {
         scale: this.scale,
       },
       this.draggableImgRef.current.getSize(),
+      ARTICLE_IMAGE_RATIO,
       // 16 / 9,
       // this.canvasRef.current,
     );

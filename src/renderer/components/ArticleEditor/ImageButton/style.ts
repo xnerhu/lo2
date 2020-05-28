@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components';
 
 import { aspectRatio } from '~/renderer/mixins/box';
-import { STANDARD_RATIO, PRIMARY_COLOR } from '~/renderer/constants/design';
+import { PRIMARY_COLOR } from '~/renderer/constants/design';
 import { ICON_IMAGE_OUTLINE, ICON_CLOSE } from '~/renderer/constants/icons';
 import { centerIcon } from '~/renderer/mixins/images';
 import { centerBoth } from '~/renderer/mixins/positioning';
 import { noUserSelect } from '~/renderer/mixins/user-selection';
+import { ARTICLE_IMAGE_RATIO } from '~/constants/design';
 
 export const StyledImageButton = styled.div`
   max-width: 344px;
@@ -19,7 +20,7 @@ export const StyledImageButton = styled.div`
   overflow: hidden;
   will-change: border-color;
   transition: 0.1s border-color;
-  ${aspectRatio(STANDARD_RATIO, false)};
+  ${aspectRatio(ARTICLE_IMAGE_RATIO, false)};
 
   ${({ hasImage }: { hasImage: boolean }) => css`
     border: ${hasImage ? '2px solid transparent' : '2px dashed #eceff1'};

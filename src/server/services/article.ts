@@ -99,13 +99,16 @@ class ArticleService {
     return this.format(data, full);
   }
 
-  public async insertOne({
-    title,
-    content,
-    image,
-    authorId,
-    category: categoryLabel,
-  }: IInsertArticle): Promise<string> {
+  public async insertOne(
+    {
+      title,
+      content,
+      image,
+      authorId,
+      category: categoryLabel,
+    }: IInsertArticle,
+    originalImage: Buffer,
+  ): Promise<string> {
     const [label, category] = await Promise.all([
       this.createLabel(title),
       ArticleCategoryModel.findOne({ label: categoryLabel }).lean().exec(),
@@ -117,16 +120,19 @@ class ArticleService {
       content,
       authorId: new mongoose.Types.ObjectId(authorId) as any,
       categoryId: category._id,
-      hasImage: !!image,
+      hasImage: !!(image && originalImage),
     } as IArticle);
 
-    if (image) {
+    if (image instanceof Buffer && originalImage instanceof Buffer) {
       const path = resolve(
         config.articleImagesPath,
         (res._id as ObjectID).toHexString(),
       );
 
-      await ImageService.saveImage(image as Buffer, path);
+      await Promise.all([
+        ImageService.saveImage(image, path, 'thumbnail', 'normal'),
+        ImageService.saveImage(originalImage, path, 'original'),
+      ]);
     }
 
     return label;

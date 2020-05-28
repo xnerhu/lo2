@@ -36,6 +36,7 @@ export const ArticleEditor = ({ data, edit }: Props) => {
   const titleInput = React.useRef<HTMLInputElement>();
   const imgInput = React.useRef<HTMLInputElement>();
   const imageEditor = React.useRef<ImageEditor>();
+  const originalImg = React.useRef<File>();
 
   const onDropdownChange = React.useCallback((item: IArticleCategory) => {
     selectCategory(item._id);
@@ -57,12 +58,15 @@ export const ArticleEditor = ({ data, edit }: Props) => {
 
   const onImageButtonDelete = React.useCallback(() => {
     setImage(null);
+    riginalImg.current = null;
   }, []);
 
   const onImageSelect = React.useCallback(() => {
     const file = imgInput.current.files[0];
 
     if (!file) return null;
+
+    originalImg.current = file;
 
     let canceled = false;
 
@@ -89,12 +93,15 @@ export const ArticleEditor = ({ data, edit }: Props) => {
       return setErrors(validated);
     }
 
-    const res = await saveArticle({
-      title,
-      content: JSON.stringify(content),
-      category: selectedCategory ?? data.categories[0].label,
-      image,
-    });
+    const res = await saveArticle(
+      {
+        title,
+        content: JSON.stringify(content),
+        category: selectedCategory ?? data.categories[0].label,
+        image,
+      },
+      originalImg.current,
+    );
   }, [content, data?.categories, image]);
 
   return (

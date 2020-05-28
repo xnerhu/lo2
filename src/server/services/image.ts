@@ -3,78 +3,76 @@ import { promises as fs } from 'fs';
 
 import { deleteFile } from '../utils';
 import {
-  IImageSize,
-  IImageResizeOptions,
-  IImageProcessOptions,
+  IImageFormat,
+  IImageFormatsMap,
+  IImageFormatOptions,
 } from '../interfaces';
-
-const defaultResizeOptions: IImageResizeOptions = {
-  normal: 1024,
-  thumbnail: 448,
-};
-
-const defaultProcessOptions: Partial<IImageProcessOptions> = {
-  quality: 70,
-};
+import { IMAGE_FORMATS, IMAGE_FORMATS_MAP } from '../constants';
 
 class ImageService {
-  public format(path: string, size?: IImageSize) {
-    const suffix = size !== 'original' ? `.${size}` : '';
+  public format(path: string, format?: IImageFormat) {
+    const suffix = format !== 'original' ? `.${format}` : '';
 
     return path + suffix;
   }
 
-  private getPaths(path: string, size?: IImageSize) {
-    const url = this.format(path, size);
+  private getPaths(path: string, format?: IImageFormat) {
+    const url = this.format(path, format);
 
     return [`${url}.jpg`, `${url}.webp`];
   }
 
-  private processImage = (instance: Sharp, basePath: string) => (
-    size: IImageSize,
-    options?: IImageProcessOptions,
-  ) => {
-    const { width, quality, jpgOnly } = {
-      ...defaultProcessOptions,
-      ...options,
-    };
+  public async deleteImages(path: string) {
+    const paths: string[] = [];
 
-    const path = this.format(basePath, size);
+    IMAGE_FORMATS.forEach((r) => {
+      paths.push(...this.getPaths(path, r));
+    });
 
-    const resized = instance.resize(width, null, {
+    const promises = paths.map((r) => deleteFile(r));
+
+    await Promise.all(promises);
+  }
+
+  private process(
+    instance: Sharp,
+    path: string,
+    options: IImageFormatOptions = {},
+  ) {
+    const { width, ratio, jpgOnly, quality } = options;
+    let { height } = options;
+
+    if (!height && width && ratio) {
+      height = Math.round(width * (1 / ratio));
+    }
+
+    const resized = instance.resize(null, null, {
       fit: 'cover',
       background: '#fff',
-      height: Number.isSafeInteger(width) ? (width * 9) / 16 : null,
+      width,
+      height,
     });
 
     return [
       resized.jpeg({ quality }).toFile(path + '.jpg'),
       !jpgOnly && resized.webp({ quality }).toFile(path + '.webp'),
     ];
-  };
-
-  public async saveImage(buffer: Buffer, path: string) {
-    const instance = sharp(buffer);
-    const handle = this.processImage(instance, path);
-
-    const promises = [
-      ...handle('original', { jpgOnly: true }),
-      ...handle('normal', { width: defaultResizeOptions.normal }),
-      ...handle('thumbnail', { width: defaultResizeOptions.thumbnail }),
-    ];
-
-    await Promise.all(promises);
   }
 
-  public async deleteImages(path: string) {
-    const sizes: IImageSize[] = ['thumbnail', 'normal', 'original'];
-    const paths: string[] = [];
+  public async saveImage(
+    buffer: Buffer,
+    basePath: string,
+    ...formats: IImageFormat[]
+  ) {
+    const instance = sharp(buffer);
+    const promises: Promise<any>[] = [];
 
-    sizes.forEach((r) => {
-      paths.push(...this.getPaths(path, r));
+    formats.forEach((r) => {
+      const path = this.format(basePath, r);
+      const options = IMAGE_FORMATS_MAP[r];
+
+      promises.push(...this.process(instance, path, options));
     });
-
-    const promises = paths.map((r) => deleteFile(r));
 
     await Promise.all(promises);
   }

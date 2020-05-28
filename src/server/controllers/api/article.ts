@@ -7,6 +7,7 @@ import ArticleCategory from '~/server/models/article-category';
 import ArticleService from '~/server/services/article';
 import { serializeToText } from '~/utils/serializer';
 import { config } from '~/server/constants';
+import { isImage, flattenArray, xor, getFirstArrayItem } from '~/server/utils';
 
 export default (app: FastifyInstance, opts: any, next: Function) => {
   app.put(
@@ -30,22 +31,35 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
         throw new Error('Request is not multipart!');
       }
 
-      const { title, content, category, image: files } = req.body;
-      const image = files && files[0];
+      const { title, content, category } = req.body;
+      let { image, originalImage } = req.body;
 
-      if (files instanceof Array && files.length > 1) {
-        throw new Error('Only one image is supported!');
+      if (xor(image != null, originalImage != null)) {
+        throw new Error('Both image and original image need to be provided!');
       }
 
-      if (image?.limit) {
-        throw new Error(
-          `Image size must be less than ${config.maxImageUploadSize} bytes!`,
-        );
+      const files = flattenArray(image, originalImage);
+
+      if (files instanceof Array) {
+        if (files.length > 2) {
+          throw new Error('Only two images are supported!');
+        }
+
+        files.forEach((r) => {
+          if (!isImage(r)) {
+            throw new Error(`File type ${r.mimetype} is not supported!`);
+          }
+
+          if (r?.limit) {
+            throw new Error(
+              `Too big file! Size must be less than ${config.maxImageUploadSize} bytes!`,
+            );
+          }
+        });
       }
 
-      if (image && !image.mimetype.startsWith('image')) {
-        throw new Error(`File type ${image.mimetype} is not supported!`);
-      }
+      image = getFirstArrayItem(image);
+      originalImage = getFirstArrayItem(originalImage);
 
       const user = req.raw.tokenPayload;
 
@@ -61,13 +75,16 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
         throw new Error('Content must be provided!');
       }
 
-      const label = await ArticleService.insertOne({
-        title,
-        content,
-        category,
-        authorId: user._id,
-        image: image?.data as Buffer,
-      });
+      const label = await ArticleService.insertOne(
+        {
+          title,
+          content,
+          category,
+          authorId: user._id,
+          image: image?.data as Buffer,
+        },
+        originalImage?.data as Buffer,
+      );
 
       return { success: true, label } as IInsertArticleRes;
     },

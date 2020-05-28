@@ -24,3 +24,7 @@ export const deleteFile = async (path: string) => {
     console.log(error);
   }
 };
+
+export const isImage = (file: any) => {
+  return file && file.mimetype.startsWith('image');
+};

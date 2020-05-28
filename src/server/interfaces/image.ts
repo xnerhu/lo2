@@ -1,13 +1,15 @@
-export type IImageSize = 'thumbnail' | 'normal' | 'original';
+export type IImageFormat = 'thumbnail' | 'normal' | 'original';
 
-export interface IImageResizeOptions {
-  original?: number;
-  normal: number;
-  thumbnail: number;
+export interface IImageFormatsMap {
+  thumbnail: IImageFormatOptions;
+  normal: IImageFormatOptions;
+  original: IImageFormatOptions;
 }
 
-export interface IImageProcessOptions {
+export interface IImageFormatOptions {
   width?: number;
-  quality?: number;
+  height?: number;
+  ratio?: number;
   jpgOnly?: boolean;
+  quality?: number;
 }

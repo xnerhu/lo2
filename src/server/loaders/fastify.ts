@@ -19,12 +19,8 @@ export default async (app: FastifyInstance) => {
   app.register(multipart, {
     addToBody: true,
     limits: {
-      files: 1,
-      // fileSize: config.maxImageUploadSize,
-      fieldNameSize: 100,
-      fields: 20,
-      headerPairs: 100,
-      fieldSize: 1024 * 1024 * 6,
+      files: 2,
+      fileSize: config.maxImageUploadSize,
     },
   });
 

@@ -1,17 +1,18 @@
 import React from 'react';
 import { IPosition } from 'spatium';
 
-import { IMAGE_TEST } from './test';
 import { FlatButton, PrimaryButton } from '../../Button';
 import { DraggableImg } from '../DraggableImage';
 import { editImage, saveBase64ToFile } from '~/renderer/utils/image';
 import { Range } from '../../Range';
+import { IPostMessageArticleEditor } from '~/renderer/interfaces';
 import {
   StyledDialog,
   Container,
   Title,
   ButtonsContainer,
   ScaleContainer,
+  Canvas,
 } from './style';
 
 const MAX_SCALE = 5;
@@ -30,33 +31,77 @@ export class ImageEditor extends React.PureComponent<Props, State> {
 
   private draggableImgRef = React.createRef<DraggableImg>();
 
+  private canvasRef = React.createRef<HTMLCanvasElement>();
+
   public state: State = {
-    visible: true,
-    src: IMAGE_TEST,
+    visible: false,
+    src: '',
   };
 
   private offset: IPosition = [0, 0];
 
   private scale = 1;
 
-  public process(src: string) {
-    this.setState({ src, visible: true });
+  public process(src: string): Promise<string> {
+    return new Promise((resolve) => {
+      this.setState({ src, visible: true });
+
+      const clear = () => {
+        window.removeEventListener('message', onMessage);
+      };
+
+      const onMessage = (e: any) => {
+        if (e.source === window) {
+          const { type, action, data } = (e.data ||
+            {}) as IPostMessageArticleEditor;
+
+          if (type === 'article-editor') {
+            clear();
+
+            this.setState({ visible: false });
+
+            if (action === 'save') resolve(data);
+            if (action === 'cancel') resolve();
+          }
+          action;
+        }
+      };
+
+      window.addEventListener('message', onMessage, false);
+    });
   }
 
-  public onCancel = () => {
+  private onCancel = () => {
     this.setState({ visible: false });
+
+    window.postMessage(
+      { type: 'article-editor', action: 'cancel' } as IPostMessageArticleEditor,
+      window.location.href,
+    );
   };
 
-  public onSave = (e: React.MouseEvent) => {
-    const base64 = editImage(this.imgRef.current, {
-      offset: this.offset,
-      scale: this.scale,
-    });
+  private onSave = (e: React.MouseEvent) => {
+    const base64 = editImage(
+      this.imgRef.current,
+      {
+        offset: this.offset,
+        scale: this.scale,
+      },
+      // 16 / 9,
+      // this.canvasRef.current,
+    );
 
     if (e.shiftKey) {
       saveBase64ToFile(base64);
     } else {
-      console.log('xd');
+      window.postMessage(
+        {
+          type: 'article-editor',
+          action: 'save',
+          data: base64,
+        } as IPostMessageArticleEditor,
+        window.location.href,
+      );
     }
   };
 
@@ -86,6 +131,7 @@ export class ImageEditor extends React.PureComponent<Props, State> {
             src={src}
             onChange={this.onChange}
           />
+          {/* <Canvas ref={this.canvasRef} /> */}
           <ScaleContainer>
             <Range
               onChange={this.onScaleChange}

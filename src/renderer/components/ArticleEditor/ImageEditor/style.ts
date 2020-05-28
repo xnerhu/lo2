@@ -92,3 +92,9 @@ export const ScaleContainer = styled.div`
     flex: 1;
   }
 `;
+
+export const Canvas = styled.canvas`
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 32px;
+`;

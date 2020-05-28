@@ -68,6 +68,8 @@ export class DraggableImg extends React.PureComponent<Props> {
   }
 
   public setScale(scale: number) {
+    const { onChange } = this.props;
+
     const delta = scale - this.scale;
 
     this.scale = scale;
@@ -75,6 +77,7 @@ export class DraggableImg extends React.PureComponent<Props> {
 
     if (delta < 0) {
       this.offset = this.getOffset(this.offset);
+      onChange(this.offset);
       this.update();
     }
   }

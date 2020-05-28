@@ -2,26 +2,26 @@ import React from 'react';
 import { Node } from 'slate';
 import loadable from '@loadable/component';
 
+import { ImageEditor } from './ImageEditor';
 import {
   IAddArticlePageData,
   IEditArticlePageData,
   IArticleCategory,
 } from '~/interfaces';
 import { defaultRichEditorValue, RichEditor } from '../RichEditor';
-
 import { validateInput, saveArticle } from '~/renderer/utils/article-editor';
 import { IArticleEditorErrors } from '~/renderer/interfaces';
 import { PrimaryButton } from '../Button';
-import { ImageEditor } from './ImageEditor';
+import { readFileAsImage } from '~/renderer/utils/image';
+import { resetFileInput } from '~/renderer/utils/dom';
+import { ImageButton } from './ImageButton';
 import {
   StyledArticleEditor,
   Toolbar,
   Dropdown,
   Input,
   Divider,
-  ImageButton,
 } from './style';
-import { readFileAsImage } from '~/renderer/utils/image';
 
 interface Props {
   data?: IAddArticlePageData | IEditArticlePageData;
@@ -75,6 +75,10 @@ export const ArticleEditor = ({ data, edit }: Props) => {
     imgInput.current.click();
   }, []);
 
+  const onImageButtonDelete = React.useCallback(() => {
+    setImage(null);
+  }, []);
+
   const onImageSelect = React.useCallback(() => {
     const file = imgInput.current.files[0];
 
@@ -84,8 +88,13 @@ export const ArticleEditor = ({ data, edit }: Props) => {
 
     (async () => {
       const base64 = await readFileAsImage(file);
+      const edited = await imageEditor.current.process(base64);
 
-      imageEditor.current.process(base64);
+      if (edited) {
+        setImage(edited);
+      }
+
+      resetFileInput(imgInput.current);
     })();
 
     return () => (canceled = true);
@@ -117,7 +126,11 @@ export const ArticleEditor = ({ data, edit }: Props) => {
           error={errors?.content}
           onFocus={onFocus}
         />
-        <ImageButton onClick={onImageButtonClick} />
+        <ImageButton
+          src={image}
+          onClick={onImageButtonClick}
+          onDelete={onImageButtonDelete}
+        />
         <ImageEditor ref={imageEditor} />
       </StyledArticleEditor>
       <input

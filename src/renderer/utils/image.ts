@@ -38,31 +38,34 @@ export const editImage = (
   img: HTMLImageElement,
   options: IEditImageOptions,
   ratio = 16 / 9,
+  canvas?: HTMLCanvasElement,
 ) => {
   const { scale, offset } = options;
 
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+  const _canvas = canvas || document.createElement('canvas');
+  const ctx = _canvas.getContext('2d');
 
-  canvas.width = img.width;
-  canvas.height = img.width * (1 / ratio);
+  _canvas.width = img.width;
+  _canvas.height = img.width * (1 / ratio);
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, _canvas.width, _canvas.height);
 
   const width = img.width * scale;
   const height = img.height * scale;
 
+  // console.log(scale);
+
   ctx.drawImage(
     img,
-    (canvas.width - width) / 2 + offset[0] * 4,
-    (canvas.height - height) / 2 + offset[1] * 4,
+    (_canvas.width - width) / 2 + offset[0] * (scale * 1.5),
+    (_canvas.height - height) / 2 + offset[1] * (scale * 1.5),
     width,
     height,
   );
 
-  const base64 = canvas.toDataURL();
+  const base64 = _canvas.toDataURL();
 
-  canvas.remove();
+  if (!canvas) _canvas.remove();
 
   return base64;
 };

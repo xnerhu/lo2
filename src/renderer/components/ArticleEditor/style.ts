@@ -2,12 +2,8 @@ import styled from 'styled-components';
 
 import { Dropdown as StyledDropdown } from '../Dropdown';
 import { Input as StyledInput } from '../Input';
-import { PRIMARY_COLOR, STANDARD_RATIO } from '~/renderer/constants/design';
+import { PRIMARY_COLOR } from '~/renderer/constants/design';
 import { Content } from '../Section';
-import { aspectRatio } from '~/renderer/mixins/box';
-import { ICON_IMAGE_OUTLINE } from '~/renderer/constants/icons';
-import { centerIcon } from '~/renderer/mixins/images';
-import { centerBoth } from '~/renderer/mixins/positioning';
 
 export const StyledArticleEditor = styled(Content)`
   padding-bottom: 48px;
@@ -49,35 +45,4 @@ export const Divider = styled.div`
   height: 1px;
   background-color: #eceff1;
   margin: 24px auto;
-`;
-
-export const ImageButton = styled.div`
-  max-width: 344px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px dashed #eceff1;
-  position: relative;
-  will-change: border-color;
-  transition: 0.1s border-color;
-  ${aspectRatio(STANDARD_RATIO, false)};
-
-  &::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: #eceff1;
-    mask-image: url(${ICON_IMAGE_OUTLINE});
-    ${centerIcon(96, true)};
-    ${centerBoth()};
-  }
-
-  &:hover {
-    border-color: ${PRIMARY_COLOR};
-  }
 `;

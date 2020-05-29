@@ -1,3 +1,5 @@
+import { IEditImageOptions } from '~/renderer/interfaces';
+
 export type IApiResponse<T = {}> = T & {
   success?: boolean;
   errorMessage?: string;
@@ -5,4 +7,5 @@ export type IApiResponse<T = {}> = T & {
 
 export interface IInsertArticleRes extends IApiResponse {
   label: string;
+  imageOptions?: IEditImageOptions;
 }

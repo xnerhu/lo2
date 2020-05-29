@@ -26,23 +26,17 @@ class ArticleService {
     }
 
     let image: string;
-    let originalImage: string;
 
     if (hasImage) {
       const basePath = `/static/articles/${data._id}`;
 
       image = ImageService.format(basePath, full ? 'normal' : 'thumbnail');
-
-      if (full) {
-        originalImage = ImageService.format(basePath, 'original');
-      }
     }
 
     return {
       ...data,
       content,
       image,
-      originalImage,
       authorId: objectIdToString(authorId),
     };
   }
@@ -112,7 +106,6 @@ class ArticleService {
     title,
     content,
     image,
-    originalImage,
     authorId,
     category: categoryLabel,
   }: IInsertArticle): Promise<string> {
@@ -127,19 +120,16 @@ class ArticleService {
       content,
       authorId: new mongoose.Types.ObjectId(authorId) as any,
       categoryId: category._id,
-      hasImage: !!(image && originalImage),
+      hasImage: !!image,
     } as IArticle);
 
-    if (image instanceof Buffer && originalImage instanceof Buffer) {
+    if (image instanceof Buffer) {
       const path = resolve(
         config.articleImagesPath,
         (res._id as ObjectID).toHexString(),
       );
 
-      await Promise.all([
-        ImageService.saveImage(image, path, 'thumbnail', 'normal'),
-        ImageService.saveImage(originalImage, path, 'original'),
-      ]);
+      await ImageService.saveImage(image, path, 'thumbnail', 'normal');
     }
 
     return label;

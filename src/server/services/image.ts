@@ -43,9 +43,11 @@ class ImageService {
 
     const resized = instance.resize(null, null, {
       fit: 'cover',
+      position: 'center',
       background: '#fff',
       width,
       height,
+      withoutEnlargement: true,
     });
 
     return [

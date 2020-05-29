@@ -7,7 +7,7 @@ import ArticleCategory from '~/server/models/article-category';
 import ArticleService from '~/server/services/article';
 import { serializeToText } from '~/utils/serializer';
 import { config } from '~/server/constants';
-import { isImage, flattenArray, xor, getFirstArrayItem } from '~/server/utils';
+import { isImage, getFirstArrayItem } from '~/server/utils';
 
 export default (app: FastifyInstance, opts: any, next: Function) => {
   app.put(
@@ -31,18 +31,11 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
         throw new Error('Request is not multipart!');
       }
 
-      const { title, content, category } = req.body;
-      let { image, originalImage } = req.body;
-
-      if (xor(image != null, originalImage != null)) {
-        throw new Error('Both image and original image need to be provided!');
-      }
-
-      const files = flattenArray(image, originalImage);
+      const { title, content, category, image: files } = req.body;
 
       if (files instanceof Array) {
-        if (files.length > 2) {
-          throw new Error('Only two images are supported!');
+        if (files.length > 1) {
+          throw new Error('Only one image is supported!');
         }
 
         files.forEach((r) => {
@@ -58,8 +51,7 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
         });
       }
 
-      image = getFirstArrayItem(image);
-      originalImage = getFirstArrayItem(originalImage);
+      const image = getFirstArrayItem(files);
 
       const user = req.raw.tokenPayload;
 
@@ -81,7 +73,6 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
         category,
         authorId: user._id,
         image: image?.data,
-        originalImage: originalImage?.data,
       });
 
       return { success: true, label } as IInsertArticleRes;

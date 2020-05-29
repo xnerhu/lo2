@@ -36,7 +36,6 @@ export const saveArticle = async (data: Omit<IInsertArticle, 'authorId'>) => {
 
   if (data.image) {
     form.append('image', base64toFile(data.image as string));
-    form.append('originalImage', data.originalImage as File);
   }
 
   const config: AxiosRequestConfig = {

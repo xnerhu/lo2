@@ -8,7 +8,6 @@ export interface IArticle {
   content?: string;
   hasImage?: boolean;
   image?: string;
-  originalImage?: string;
   categoryId?: string;
   authorId?: string;
   createdAt?: Date;
@@ -39,5 +38,4 @@ export interface IInsertArticle {
   category: string;
   authorId: string;
   image: IImage;
-  originalImage: IImage;
 }

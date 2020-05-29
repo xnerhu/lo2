@@ -10,7 +10,7 @@ export const IMAGE_FORMATS_MAP: IImageFormatsMap = {
   normal: {
     width: 1024,
     ratio: ARTICLE_IMAGE_RATIO,
-    quality: 70,
+    quality: 75,
   },
   original: {
     jpgOnly: true,
@@ -18,8 +18,4 @@ export const IMAGE_FORMATS_MAP: IImageFormatsMap = {
   },
 };
 
-export const IMAGE_FORMATS: IImageFormat[] = [
-  'thumbnail',
-  'normal',
-  'original',
-];
+export const IMAGE_FORMATS: IImageFormat[] = ['thumbnail', 'normal'];

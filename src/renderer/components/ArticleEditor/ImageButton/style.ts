@@ -82,3 +82,7 @@ export const DeleteIcon = styled.div`
     background-color: rgba(2555, 255, 255, 0.79);
   }
 `;
+
+export const StyledPicture = styled.picture`
+  width: 100%;
+`;

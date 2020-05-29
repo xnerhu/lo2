@@ -2,7 +2,7 @@ import { ObjectID } from 'mongodb';
 import mongoose from 'mongoose';
 import { resolve } from 'path';
 
-import { IArticle, IArticleFilter } from '~/interfaces';
+import { IArticle, IArticleFilter, IEditArticle } from '~/interfaces';
 import { config } from '../constants';
 import SerializerService from '../services/seralizer';
 import ImageService from '../services/image';
@@ -14,7 +14,7 @@ import { serializeToText } from '~/utils/serializer';
 
 class ArticleService {
   public format(data: IArticle, full?: boolean): IArticle {
-    const { hasImage, authorId } = data;
+    const { authorId } = data;
     let { content } = data;
 
     const json = JSON.parse(content);
@@ -25,20 +25,21 @@ class ArticleService {
       content = serializeToText(json, config.shortArticleLength);
     }
 
-    let image: string;
-
-    if (hasImage) {
-      const basePath = `/static/articles/${data._id}`;
-
-      image = ImageService.format(basePath, full ? 'normal' : 'thumbnail');
-    }
-
     return {
       ...data,
       content,
-      image,
+      image: this.formatImage(data, full),
       authorId: objectIdToString(authorId),
     };
+  }
+
+  public formatImage(data: IArticle, full?: boolean) {
+    if (!data?.hasImage) return null;
+
+    const { _id } = data;
+    const basePath = `/static/articles/${_id}`;
+
+    return ImageService.format(basePath, full ? 'normal' : 'thumbnail');
   }
 
   private async createLabel(title: string): Promise<string> {
@@ -102,6 +103,22 @@ class ArticleService {
     return this.format(data, full);
   }
 
+  private async saveImage(image: any, _id: ObjectID | string) {
+    if (image instanceof Buffer) {
+      let id: string;
+
+      if (typeof _id === 'string') {
+        id = _id;
+      } else {
+        id = _id.toHexString();
+      }
+
+      const path = resolve(config.articleImagesPath, id);
+
+      await ImageService.saveImage(image, path, 'thumbnail', 'normal');
+    }
+  }
+
   public async insertOne({
     title,
     content,
@@ -123,16 +140,41 @@ class ArticleService {
       hasImage: !!image,
     } as IArticle);
 
-    if (image instanceof Buffer) {
-      const path = resolve(
-        config.articleImagesPath,
-        (res._id as ObjectID).toHexString(),
-      );
-
-      await ImageService.saveImage(image, path, 'thumbnail', 'normal');
-    }
+    await this.saveImage(image, res._id);
 
     return label;
+  }
+
+  public async updateOne({
+    _id,
+    title,
+    content,
+    image,
+    deleteImage,
+    hasImage,
+  }: IEditArticle) {
+    await ArticleModel.updateOne(
+      {
+        _id: new mongoose.Types.ObjectId(_id) as any,
+      },
+      {
+        $set: {
+          title,
+          content,
+          hasImage: (!deleteImage && hasImage) || !!image,
+        },
+      },
+    )
+      .lean()
+      .exec();
+
+    if (deleteImage || image) {
+      const path = resolve(config.articleImagesPath, _id);
+
+      await ImageService.deleteImages(path);
+    }
+
+    await this.saveImage(image, _id);
   }
 }
 

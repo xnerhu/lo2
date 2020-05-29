@@ -32,10 +32,19 @@ export interface IArticlesChunk {
   users?: IUser[];
 }
 
-export interface IInsertArticle {
+export interface IArticleRequest {
   title: string;
   content: string;
-  category: string;
-  authorId: string;
   image: IImage;
+  category: string;
+}
+
+export interface IInsertArticle extends IArticleRequest {
+  authorId: string;
+}
+
+export interface IEditArticle extends IArticleRequest {
+  _id?: string;
+  deleteImage?: boolean;
+  hasImage?: boolean;
 }

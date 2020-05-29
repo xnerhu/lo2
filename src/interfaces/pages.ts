@@ -24,4 +24,5 @@ export interface IAddArticlePageData {
 
 export interface IEditArticlePageData extends IAddArticlePageData {
   article?: IArticle;
+  success?: boolean;
 }

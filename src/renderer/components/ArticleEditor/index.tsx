@@ -28,6 +28,8 @@ interface Props {
 }
 
 export const ArticleEditor = ({ data, edit }: Props) => {
+  const articleData = edit && (data as IEditArticlePageData)?.article;
+
   const [selectedCategory, selectCategory] = React.useState<string>();
   const [content, setContent] = React.useState<Node[]>(defaultRichEditorValue);
   const [errors, setErrors] = React.useState<IArticleEditorErrors>({});
@@ -89,13 +91,36 @@ export const ArticleEditor = ({ data, edit }: Props) => {
       return setErrors(validated);
     }
 
-    const res = await saveArticle({
-      title,
-      content: JSON.stringify(content),
-      category: selectedCategory ?? data.categories[0].label,
-      image,
-    });
-  }, [content, data?.categories, image]);
+    const res = await saveArticle(
+      {
+        title,
+        content: JSON.stringify(content),
+        category: selectedCategory ?? data.categories[0].label,
+        image,
+      },
+      articleData,
+    );
+
+    if (res?.success) {
+      window.location.href = `/article/${res.label}`;
+    }
+  }, [content, data, image, edit, selectedCategory]);
+
+  React.useEffect(() => {
+    const { success, categories } = data as IEditArticlePageData;
+
+    if (success) {
+      const { title, categoryId, content, image } = articleData;
+
+      titleInput.current.value = title;
+
+      const categoryLabel = categories.find((r) => r._id === categoryId).label;
+
+      setImage(image);
+      selectCategory(categoryLabel);
+      setContent(JSON.parse(content));
+    }
+  }, [data]);
 
   return (
     <>

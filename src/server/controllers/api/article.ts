@@ -1,83 +1,140 @@
 import { FastifyInstance } from 'fastify';
+import { ObjectID } from 'mongodb';
 
 import useAuth from '../middleware/auth';
 import { IRequest } from '~/server/interfaces';
-import { IInsertArticleRes } from '~/interfaces';
+import {
+  IInsertArticleRes,
+  IInsertArticle,
+  IEditArticle,
+  IArticle,
+} from '~/interfaces';
 import ArticleCategory from '~/server/models/article-category';
+import ArticleModel from '~/server/models/article';
 import ArticleService from '~/server/services/article';
 import { serializeToText } from '~/utils/serializer';
 import { config } from '~/server/constants';
 import { isImage, getFirstArrayItem } from '~/server/utils';
 
-export default (app: FastifyInstance, opts: any, next: Function) => {
-  app.put(
-    '/',
-    {
-      schema: {
-        body: {
-          type: 'object',
-          properties: {
-            title: { type: 'string' },
-            content: { type: 'string' },
-            category: { type: 'string' },
-          },
-          required: ['title', 'content', 'category'],
-        },
+const articleRequestOptions = {
+  schema: {
+    body: {
+      type: 'object',
+      properties: {
+        title: { type: 'string' },
+        content: { type: 'string' },
+        category: { type: 'string' },
       },
-      preValidation: useAuth(),
+      required: ['title', 'content', 'category'],
     },
-    async (req: IRequest, res) => {
-      if (!req.isMultipart()) {
-        throw new Error('Request is not multipart!');
+  },
+  preValidation: useAuth(),
+};
+
+const verifyArticleRequest = async (req: IRequest) => {
+  if (!req.isMultipart()) {
+    throw new Error('Request is not multipart!');
+  }
+
+  const { title, content, category, image: files } = req.body;
+
+  if (files instanceof Array) {
+    if (files.length > 1) {
+      throw new Error('Only one image is supported!');
+    }
+
+    files.forEach((r) => {
+      if (!isImage(r)) {
+        throw new Error(`File type ${r.mimetype} is not supported!`);
       }
 
-      const { title, content, category, image: files } = req.body;
-
-      if (files instanceof Array) {
-        if (files.length > 1) {
-          throw new Error('Only one image is supported!');
-        }
-
-        files.forEach((r) => {
-          if (!isImage(r)) {
-            throw new Error(`File type ${r.mimetype} is not supported!`);
-          }
-
-          if (r?.limit) {
-            throw new Error(
-              `Too big file! Size must be less than ${config.maxImageUploadSize} bytes!`,
-            );
-          }
-        });
+      if (r?.limit) {
+        throw new Error(
+          `Too big file! Size must be less than ${config.maxImageUploadSize} bytes!`,
+        );
       }
+    });
+  }
 
-      const image = getFirstArrayItem(files);
+  if (!title) {
+    throw new Error('Title needs to be provided!');
+  }
 
-      const user = req.raw.tokenPayload;
+  const image = getFirstArrayItem(files);
 
-      const categoryExists = await ArticleCategory.exists({ label: category });
+  const user = req.raw.tokenPayload;
 
-      if (!categoryExists) {
-        throw new Error(`Category ${category} doesn\'t exists!`);
+  const categoryExists = await ArticleCategory.exists({ label: category });
+
+  if (!categoryExists) {
+    throw new Error(`Category ${category} doesn\'t exists!`);
+  }
+
+  const serialized = serializeToText(JSON.parse(content));
+
+  if (!serialized.trim().length) {
+    throw new Error('Content must be provided!');
+  }
+
+  return [image, user];
+};
+
+export default (app: FastifyInstance, opts: any, next: Function) => {
+  app.post('/', articleRequestOptions, async (req: IRequest, res) => {
+    const [image, user] = await verifyArticleRequest(req);
+    const { title, content, category } = req.body as IInsertArticle;
+
+    const label = await ArticleService.insertOne({
+      title,
+      content,
+      category,
+      authorId: user._id,
+      image: image?.data,
+    });
+
+    return { success: true, label } as IInsertArticleRes;
+  });
+
+  app.patch(`/:label`, articleRequestOptions, async (req: IRequest, res) => {
+    const [image, user] = await verifyArticleRequest(req);
+
+    const { label } = req.params;
+
+    let article: IArticle;
+
+    if (!label) {
+      throw new Error('Label needs to be provided!');
+    } else {
+      article = await ArticleModel.findOne({
+        label,
+      })
+        .select('authorId _id hasImage')
+        .lean()
+        .exec();
+
+      if (!article) {
+        throw new Error(`Article with label ${label} doesn\'t exists!`);
       }
+    }
 
-      const serialized = serializeToText(JSON.parse(content));
+    if (user._id.toString() !== article.authorId.toString() && !user.admin) {
+      throw new Error('Access forbidden!');
+    }
 
-      if (!serialized.trim().length) {
-        throw new Error('Content must be provided!');
-      }
+    const { title, content, category, deleteImage } = req.body as IEditArticle;
 
-      const label = await ArticleService.insertOne({
-        title,
-        content,
-        category,
-        authorId: user._id,
-        image: image?.data,
-      });
+    await ArticleService.updateOne({
+      _id: article._id.toString(),
+      title,
+      content,
+      category,
+      image: image?.data,
+      deleteImage: (deleteImage as any) === 'true',
+      hasImage: article.hasImage,
+    });
 
-      return { success: true, label } as IInsertArticleRes;
-    },
-  );
+    return { success: true, label } as IInsertArticleRes;
+  });
 
   next();
 };

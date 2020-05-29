@@ -8,4 +8,5 @@ export type IApiResponse<T = {}> = T & {
 export interface IInsertArticleRes extends IApiResponse {
   label: string;
   imageOptions?: IEditImageOptions;
+  deleteImage?: boolean;
 }

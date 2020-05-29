@@ -2,16 +2,15 @@ import React from 'react';
 
 import { StyledError, Description, Circle, StyledErrorLabel } from './style';
 
-interface ErrorProps {
+interface ErrorProps extends React.HTMLAttributes<HTMLDivElement> {
   code: string;
   label: string;
-  style?: React.CSSProperties;
   children?: React.ReactNode;
 }
 
-export const Error = ({ code, label, style, children }: ErrorProps) => {
+export const Error = ({ code, label, children, ...props }: ErrorProps) => {
   return (
-    <StyledError style={style}>
+    <StyledError {...props}>
       <Circle>{code}</Circle>
       <b>
         <h4 style={{ fontWeight: 500 }}>{label}</h4>

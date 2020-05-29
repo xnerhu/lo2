@@ -24,7 +24,7 @@ class ImageService {
       paths.push(...this.getPaths(path, r));
     });
 
-    const promises = paths.map((r) => deleteFile(r));
+    const promises = paths.map((r) => deleteFile(r, false));
 
     await Promise.all(promises);
   }

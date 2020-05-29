@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { serializeToText } from '~/utils/serializer';
 import { IArticleEditorErrors } from '../interfaces';
-import { IInsertArticle, IInsertArticleRes } from '~/interfaces';
+import { IInsertArticle, IInsertArticleRes, IArticle } from '~/interfaces';
 import { base64toFile } from './file';
 
 export const validateInput = (
@@ -27,15 +27,27 @@ export const validateInput = (
   };
 };
 
-export const saveArticle = async (data: Omit<IInsertArticle, 'authorId'>) => {
+export const saveArticle = async (
+  data: Omit<IInsertArticle, 'authorId'>,
+  article?: IArticle,
+) => {
+  const edit = article != null;
+
   const form = new FormData();
 
   form.set('title', data.title);
   form.set('content', data.content);
   form.set('category', data.category);
 
-  if (data.image) {
+  if (data.image && (!edit || (edit && article.image !== data.image))) {
     form.append('image', base64toFile(data.image as string));
+  }
+
+  if (edit) {
+    form.set(
+      'deleteImage',
+      (article.image != null && data.image == null) as any,
+    );
   }
 
   const config: AxiosRequestConfig = {
@@ -47,9 +59,17 @@ export const saveArticle = async (data: Omit<IInsertArticle, 'authorId'>) => {
   let res: AxiosResponse<IInsertArticleRes>;
 
   try {
-    res = await axios.put<IInsertArticleRes>(`/api/article`, form, config);
+    res = await (!edit
+      ? axios.post<IInsertArticleRes>(`/api/article`, form, config)
+      : axios.patch<IInsertArticleRes>(
+          `/api/article/${article.label}`,
+          form,
+          config,
+        ));
     console.log(res);
   } catch (error) {
     console.log(error, res);
   }
+
+  return res?.data;
 };

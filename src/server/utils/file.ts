@@ -17,11 +17,13 @@ export const listFiles = async (dirName: string, exclude = ['webp']) => {
   return items;
 };
 
-export const deleteFile = async (path: string) => {
+export const deleteFile = async (path: string, err = true) => {
   try {
     await fs.unlink(path);
   } catch (error) {
-    console.log(error);
+    if (err) {
+      console.log(error);
+    }
   }
 };
 

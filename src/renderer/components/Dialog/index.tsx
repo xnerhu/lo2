@@ -6,18 +6,18 @@ import { StyledDialog, Container, Title, ButtonsContainer } from './style';
 interface Props {
   visible: boolean;
   title: string;
-  saveBtnText?: string;
-  onSave?: (e: React.MouseEvent) => void;
+  onSubmit?: (e: React.MouseEvent) => void;
   onCancel?: (e: React.MouseEvent) => void;
+  submitBtnText?: string;
   children?: React.ReactNode;
 }
 
 export const Dialog = ({
   visible,
   title,
-  saveBtnText,
-  onSave,
+  onSubmit,
   onCancel,
+  submitBtnText,
   children,
 }: Props) => {
   return (
@@ -27,7 +27,7 @@ export const Dialog = ({
         {children}
         <ButtonsContainer>
           <FlatButton onClick={onCancel}>Anuluj</FlatButton>
-          <PrimaryButton onClick={onSave}>{saveBtnText}</PrimaryButton>
+          <PrimaryButton onClick={onSubmit}>{submitBtnText}</PrimaryButton>
         </ButtonsContainer>
       </Container>
     </StyledDialog>
@@ -35,5 +35,5 @@ export const Dialog = ({
 };
 
 Dialog.defaultProps = {
-  saveBtnText: 'Zapisz',
+  submitBtnText: 'Ok',
 } as Props;

@@ -122,7 +122,8 @@ export class ImageEditor extends React.PureComponent<Props, State> {
         visible={visible}
         title="Edytuj obraz"
         onCancel={this.onCancel}
-        onSave={this.onSave}
+        onSubmit={this.onSave}
+        submitBtnText="Zapisz"
       >
         <img ref={this.imgRef} src={src} hidden />
         <DraggableImg

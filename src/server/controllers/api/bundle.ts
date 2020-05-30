@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
 
 import resolver from '~/server/resolvers';
+import { IRequest } from '~/server/interfaces';
 
 export default (app: FastifyInstance) => {
   app.get(
@@ -12,8 +13,12 @@ export default (app: FastifyInstance) => {
         },
       },
     },
-    async (req, res) => {
-      const data = await resolver(req.params.name, req.query);
+    async (req: IRequest, res) => {
+      const data = await resolver(
+        req.params.name,
+        req.query,
+        req.raw.tokenPayload,
+      );
 
       res.send(data);
     },

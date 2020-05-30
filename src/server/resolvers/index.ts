@@ -1,4 +1,4 @@
-import { IAppStateItem } from '~/interfaces';
+import { IAppStateItem, IUser } from '~/interfaces';
 
 import { IQueryFilter } from '../interfaces';
 import homeResolver from './home';
@@ -10,6 +10,7 @@ import editArticleResolver from './edit-article';
 export default async (
   item: IAppStateItem,
   filter?: IQueryFilter,
+  user?: IUser,
 ): Promise<any> => {
   switch (item) {
     case 'home':
@@ -17,7 +18,7 @@ export default async (
     case 'articles':
       return articlesResolver(filter);
     case 'article':
-      return articleResolver(filter?.label);
+      return articleResolver(filter?.label, user);
     case 'addArticle':
       return addArticleResolver();
     case 'editArticle':

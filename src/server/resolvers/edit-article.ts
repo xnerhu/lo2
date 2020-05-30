@@ -1,16 +1,16 @@
 import { IEditArticlePageData } from '~/interfaces';
-import ArticleCategoryModel from '../models/article-category';
 import ArticleModel from '../models/article';
 import ArticleService from '../services/article';
+import addArticleResolver from './add-article';
 
 export default async (label: string): Promise<IEditArticlePageData> => {
-  const [categories, article] = await Promise.all([
-    ArticleCategoryModel.find().lean().exec(),
+  const [data, article] = await Promise.all([
+    addArticleResolver(),
     ArticleModel.findOne({ label }).lean().exec(),
   ]);
 
   return {
-    categories,
+    ...data,
     article: {
       ...article,
       image: ArticleService.formatImage(article, true),

@@ -11,7 +11,7 @@ import {
 export default () => {
   return (
     <>
-      <Item to="/add-article" icon={ICON_ADD_ARTICLE}>
+      <Item to="/cms/article" icon={ICON_ADD_ARTICLE}>
         Dodaj artykuł
       </Item>
       <Item to="/change-password" icon={ICON_KEY}>

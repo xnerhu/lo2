@@ -3,7 +3,12 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { serializeToText } from '~/utils/serializer';
 import { IArticleEditorErrors } from '../interfaces';
-import { IInsertArticle, IInsertArticleRes, IArticle } from '~/interfaces';
+import {
+  IInsertArticle,
+  IInsertArticleRes,
+  IArticle,
+  IApiResponse,
+} from '~/interfaces';
 import { base64toFile } from './file';
 
 export const validateInput = (
@@ -72,4 +77,10 @@ export const saveArticle = async (
   }
 
   return res?.data;
+};
+
+export const deleteArticle = async (label: string) => {
+  const res = await axios.delete<IApiResponse>(`/api/article/${label}`);
+
+  return res.data;
 };

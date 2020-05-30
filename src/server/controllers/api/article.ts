@@ -1,5 +1,4 @@
 import { FastifyInstance } from 'fastify';
-import { ObjectID } from 'mongodb';
 
 import useAuth from '../middleware/auth';
 import { IRequest } from '~/server/interfaces';
@@ -8,6 +7,8 @@ import {
   IInsertArticle,
   IEditArticle,
   IArticle,
+  IUser,
+  IApiResponse,
 } from '~/interfaces';
 import ArticleCategory from '~/server/models/article-category';
 import ArticleModel from '~/server/models/article';
@@ -79,6 +80,31 @@ const verifyArticleRequest = async (req: IRequest) => {
   return [image, user];
 };
 
+const ensurePermissions = async (label: string, user: IUser, select = '*') => {
+  let article: IArticle;
+
+  if (!label) {
+    throw new Error('Label needs to be provided!');
+  } else {
+    article = await ArticleModel.findOne({
+      label,
+    })
+      .select((select || '') + ' authorId')
+      .lean()
+      .exec();
+
+    if (!article) {
+      throw new Error(`Article with label ${label} doesn\'t exists!`);
+    }
+  }
+
+  if (!ArticleService.canEdit(article, user)) {
+    throw new Error('Access forbidden!');
+  }
+
+  return article;
+};
+
 export default (app: FastifyInstance, opts: any, next: Function) => {
   app.post('/', articleRequestOptions, async (req: IRequest, res) => {
     const [image, user] = await verifyArticleRequest(req);
@@ -95,31 +121,11 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
     return { success: true, label } as IInsertArticleRes;
   });
 
-  app.patch(`/:label`, articleRequestOptions, async (req: IRequest, res) => {
+  app.patch('/:label', articleRequestOptions, async (req: IRequest, res) => {
     const [image, user] = await verifyArticleRequest(req);
 
     const { label } = req.params;
-
-    let article: IArticle;
-
-    if (!label) {
-      throw new Error('Label needs to be provided!');
-    } else {
-      article = await ArticleModel.findOne({
-        label,
-      })
-        .select('authorId _id hasImage')
-        .lean()
-        .exec();
-
-      if (!article) {
-        throw new Error(`Article with label ${label} doesn\'t exists!`);
-      }
-    }
-
-    if (user._id.toString() !== article.authorId.toString() && !user.admin) {
-      throw new Error('Access forbidden!');
-    }
+    const article = await ensurePermissions(label, user, 'hasImage');
 
     const { title, content, category, deleteImage } = req.body as IEditArticle;
 
@@ -135,6 +141,24 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
 
     return { success: true, label } as IInsertArticleRes;
   });
+
+  app.delete(
+    '/:label',
+    { preValidation: useAuth() },
+    async (req: IRequest, res) => {
+      const { label } = req.params;
+
+      const article = await ensurePermissions(
+        label,
+        req.raw.tokenPayload,
+        null,
+      );
+
+      await ArticleService.delete(article._id);
+
+      return { success: true } as IApiResponse;
+    },
+  );
 
   next();
 };

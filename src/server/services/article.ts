@@ -119,6 +119,12 @@ class ArticleService {
     }
   }
 
+  public async deleteImages(_id: ObjectID | string) {
+    const path = resolve(config.articleImagesPath, _id.toString());
+
+    await ImageService.deleteImages(path);
+  }
+
   public async insertOne({
     title,
     content,
@@ -169,9 +175,7 @@ class ArticleService {
       .exec();
 
     if (deleteImage || image) {
-      const path = resolve(config.articleImagesPath, _id);
-
-      await ImageService.deleteImages(path);
+      await this.deleteImages(_id);
     }
 
     await this.saveImage(image, _id);
@@ -183,6 +187,16 @@ class ArticleService {
       user &&
       (user.admin || article.authorId.toString() === user._id.toString())
     );
+  }
+
+  public async delete(_id: string) {
+    await ArticleModel.deleteOne({
+      _id: new mongoose.Types.ObjectId(_id) as any,
+    })
+      .lean()
+      .exec();
+
+    await this.deleteImages(_id);
   }
 }
 

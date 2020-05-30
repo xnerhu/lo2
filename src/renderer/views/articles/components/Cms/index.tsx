@@ -6,7 +6,7 @@ import { Button } from '~/renderer/components/Button';
 export default () => {
   return (
     <StyledCms>
-      <Button to="/add-article">Utwórz nowy</Button>
+      <Button to="/cms/article">Utwórz nowy</Button>
     </StyledCms>
   );
 };

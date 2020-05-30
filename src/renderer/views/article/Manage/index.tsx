@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 
 import { Button, DeleteButton } from '~/renderer/components/Button';
 import { Dialog } from '~/renderer/components/Dialog';
+import { deleteArticle } from '~/renderer/utils/article-editor';
 import { Container } from './style';
 
 export default () => {
@@ -17,7 +18,19 @@ export default () => {
     toggleDialog(false);
   }, []);
 
-  const onDelete = React.useCallback(() => {}, [label]);
+  const onDelete = React.useCallback(async () => {
+    let canceled = false;
+
+    (async () => {
+      const data = await deleteArticle(label);
+
+      if (!canceled && data.success) {
+        window.location.href = '/articles';
+      }
+    })();
+
+    return () => (canceled = true);
+  }, [label]);
 
   return (
     <>

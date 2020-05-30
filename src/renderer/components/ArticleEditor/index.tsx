@@ -107,6 +107,8 @@ export const ArticleEditor = ({ data, edit }: Props) => {
   }, [content, data, image, edit, selectedCategory]);
 
   React.useEffect(() => {
+    if (!data) return;
+
     const { success, categories } = data as IEditArticlePageData;
 
     if (success) {

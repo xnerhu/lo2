@@ -2,7 +2,7 @@ import { ObjectID } from 'mongodb';
 import mongoose from 'mongoose';
 import { resolve } from 'path';
 
-import { IArticle, IArticleFilter, IEditArticle } from '~/interfaces';
+import { IArticle, IArticleFilter, IEditArticle, IUser } from '~/interfaces';
 import { config } from '../constants';
 import SerializerService from '../services/seralizer';
 import ImageService from '../services/image';
@@ -175,6 +175,14 @@ class ArticleService {
     }
 
     await this.saveImage(image, _id);
+  }
+
+  public canEdit(article: IArticle, user: IUser) {
+    return (
+      article &&
+      user &&
+      (user.admin || article.authorId.toString() === user._id.toString())
+    );
   }
 }
 

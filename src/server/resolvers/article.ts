@@ -27,9 +27,7 @@ export default async (
 
     category = _category;
     author = _author;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (err) {}
 
   const exists = article != null;
 
@@ -37,7 +35,7 @@ export default async (
     article,
     category,
     author: exists && UserService.format(author),
-    canEdit: exists && user?._id === article?._id?.toString(),
+    canEdit: ArticleService.canEdit(article, user),
     success: exists,
   };
 };

@@ -1,20 +1,13 @@
 import React from 'react';
 import { IPosition } from 'spatium';
 
-import { FlatButton, PrimaryButton } from '../../Button';
 import { DraggableImg } from '../DraggableImage';
 import { editImage, saveBase64ToFile } from '~/renderer/utils/image';
 import { Range } from '../../Range';
 import { IPostMessageArticleEditor } from '~/renderer/interfaces';
-import {
-  StyledDialog,
-  Container,
-  Title,
-  ButtonsContainer,
-  ScaleContainer,
-  Canvas,
-} from './style';
+import { ScaleContainer, Canvas } from './style';
 import { ARTICLE_IMAGE_RATIO } from '~/constants/design';
+import { Dialog } from '../../Dialog';
 
 const MAX_SCALE = 5;
 
@@ -125,30 +118,28 @@ export class ImageEditor extends React.PureComponent<Props, State> {
     const { visible, src } = this.state;
 
     return (
-      <StyledDialog visible={visible}>
-        <Container>
-          <Title>Edytuj obraz</Title>
-          <img ref={this.imgRef} src={src} hidden />
-          <DraggableImg
-            ref={this.draggableImgRef}
-            src={src}
-            onChange={this.onChange}
+      <Dialog
+        visible={visible}
+        title="Edytuj obraz"
+        onCancel={this.onCancel}
+        onSave={this.onSave}
+      >
+        <img ref={this.imgRef} src={src} hidden />
+        <DraggableImg
+          ref={this.draggableImgRef}
+          src={src}
+          onChange={this.onChange}
+        />
+        {/* <Canvas ref={this.canvasRef} /> */}
+        <ScaleContainer>
+          <Range
+            onChange={this.onScaleChange}
+            min={100}
+            max={MAX_SCALE * 100}
+            defaultValue={0}
           />
-          {/* <Canvas ref={this.canvasRef} /> */}
-          <ScaleContainer>
-            <Range
-              onChange={this.onScaleChange}
-              min={100}
-              max={MAX_SCALE * 100}
-              defaultValue={0}
-            />
-          </ScaleContainer>
-          <ButtonsContainer>
-            <FlatButton onClick={this.onCancel}>Anuluj</FlatButton>
-            <PrimaryButton onClick={this.onSave}>Zapisz</PrimaryButton>
-          </ButtonsContainer>
-        </Container>
-      </StyledDialog>
+        </ScaleContainer>
+      </Dialog>
     );
   }
 }

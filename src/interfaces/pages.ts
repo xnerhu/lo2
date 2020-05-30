@@ -16,8 +16,8 @@ export interface IArticlePageData {
   article?: IArticle;
   category?: IArticleCategory;
   author?: IUser;
+  success?: boolean;
   canEdit?: boolean;
-  error?: boolean;
 }
 
 export interface IAddArticlePageData {

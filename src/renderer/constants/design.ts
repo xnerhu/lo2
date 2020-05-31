@@ -15,6 +15,4 @@ export const CONTENT_WIDTH = 1536;
 export const STANDARD_RATIO = 16 / 9;
 export const WIDE_RATIO = 16 / 5;
 
-export const ARTICLES_GRID_GAP = 24;
-
 export const FOOTER_MOBILE_VIEW = 768;

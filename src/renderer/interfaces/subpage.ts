@@ -6,4 +6,5 @@ export interface ISubPage {
 export interface ISubPageItem {
   to: string;
   label: string;
+  external?: boolean;
 }

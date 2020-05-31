@@ -21,7 +21,7 @@ export const desktopNavMap: IDesktopNavItem[] = [
   },
   {
     label: 'Uczniowie',
-    path: '/students',
+    path: '/uczniowie',
   },
   {
     label: 'Kandydaci',
@@ -47,7 +47,7 @@ export const mobileNavMap: IMobileNavItem[] = [
     icon: ICON_NEWS,
   },
   {
-    path: '/student',
+    path: '/uczniowie',
     icon: ICON_STUDENT,
   },
 ];

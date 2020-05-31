@@ -28,3 +28,11 @@ export const SectionTitle = styled.h5`
   padding: 36px 0px;
   ${robotoMedium()};
 `;
+
+export const Grid = styled.div`
+  width: 100%;
+  display: grid;
+  grid-row-gap: 24px;
+  grid-column-gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(348px, 1fr));
+`;

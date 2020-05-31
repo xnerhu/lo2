@@ -23,72 +23,64 @@ export default SubPage({
       external: true,
     },
     {
-      to: '/news/samorzad-szkolny',
+      to: '/blog/samorzad-szkolny',
       label: 'Samorząd szkolny',
     },
     {
-      to: '/news/zajecia-dodatkowe',
-      label: 'Zajęcia dodatkowe',
-    },
-    {
-      to: '/news/olimpiady',
-      label: 'Olimpiady',
-    },
-    {
-      to: '/news/itn',
-      label: 'ITN',
-    },
-    {
-      to: '/news/stypendia',
-      label: 'Stypendia',
-    },
-    {
-      to: '/news/podreczniki',
-      label: 'Podręczniki',
-    },
-    // {
-    //   to: '/news/projekty',
-    //   label: 'Projekty',
-    // },
-    // {
-    //   to: '/news/wspolpraca-miedzynarodowa',
-    //   label: 'Współpraca międzynarodowa',
-    // },
-    {
-      to: '/news/wolontariat',
-      label: 'Wolontariat',
-    },
-    {
-      to: '/news/biblioteka',
-      label: 'Biblioteka',
-    },
-    {
-      to: '/news/psycholog',
-      label: 'Psycholog',
-    },
-    {
-      to: '/news/pedagog',
-      label: 'Pedagog',
-    },
-    {
-      to: '/news/doradca-zawodowy',
-      label: 'Doradca zawodowy',
-    },
-    {
-      to: '/news/druki-szkolne',
-      label: 'Druki szkolne',
-    },
-    {
-      to: '/maturzysci',
+      to: '/maturzyści',
       label: 'Maturzyści',
     },
     {
-      to: '/projekty',
+      to: '/blog/zajecia-dodatkowe',
+      label: 'Zajęcia dodatkowe i uzupełniające',
+    },
+    {
+      to: '/blog/olimpiady',
+      label: 'Olimpiady',
+    },
+    {
+      to: '/blog/itn',
+      label: 'ITN',
+    },
+    {
+      to: '/blog/stypendia',
+      label: 'Stypendia',
+    },
+    {
+      to: '/blog/podreczniki',
+      label: 'Podręczniki',
+    },
+    {
+      to: '/blog/projekty',
       label: 'Projekty',
     },
     {
-      to: '/wspolpraca-miedzynarodowa',
+      to: '/blog/wspolpraca-miedzynarodowa',
       label: 'Współpraca międzynarodowa',
+    },
+    {
+      to: '/blog/wolontariat',
+      label: 'Wolontariat',
+    },
+    {
+      to: '/blog/biblioteka',
+      label: 'Biblioteka',
+    },
+    {
+      to: '/blog/psycholog',
+      label: 'Psycholog',
+    },
+    {
+      to: '/blog/pedagog',
+      label: 'Pedagog',
+    },
+    {
+      to: '/blog/doradca-zawodowy',
+      label: 'Doradca zawodowy',
+    },
+    {
+      to: '/blog/druki-szkolne',
+      label: 'Druki szkolne',
     },
   ],
 });

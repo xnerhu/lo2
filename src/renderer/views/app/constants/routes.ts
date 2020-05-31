@@ -26,6 +26,13 @@ export const routerMap = [
     ),
   },
   {
+    path: '/maturzyści',
+    component: loadable(
+      () => import('~/renderer/views/graduates'),
+      LOADABLE_OPTIONS,
+    ),
+  },
+  {
     path: '/uczniowie',
     component: loadable(
       () => import('~/renderer/views/students'),

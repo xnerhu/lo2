@@ -2,6 +2,8 @@ import { FastifyInstance } from 'fastify';
 import mongoose from 'mongoose';
 
 import ArticleModel from '~/server/models/article';
+import ArticleCategoryModel from '~/server/models/article-category';
+import { IArticleCategory } from '~/interfaces';
 
 export default (app: FastifyInstance, opts: any, next: Function) => {
   app.post('/blog/reset-images', async (req, res) => {
@@ -23,6 +25,17 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
       .exec();
 
     return deleted;
+  });
+
+  app.post('/blog/subcategory', async (req, res) => {
+    const { label, name, subcategoryRef } = req.body;
+
+    return await ArticleCategoryModel.create({
+      label,
+      name,
+      subcategoryRef: new mongoose.Types.ObjectId(subcategoryRef) as any,
+      subcategory: true,
+    } as IArticleCategory);
   });
 
   next();

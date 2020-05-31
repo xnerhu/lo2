@@ -55,7 +55,12 @@ class ArticleService {
   }
 
   public async find(filter: IArticleFilter = {}, full?: boolean) {
-    const { page, category: categoryLabel, thumbnail } = filter;
+    const {
+      page,
+      category: categoryLabel,
+      subcategory: subcategoryLabel,
+      thumbnail,
+    } = filter;
 
     if (page <= 0) {
       throw new Error('Incorrect page!');
@@ -65,10 +70,12 @@ class ArticleService {
     const offset = page != null ? (page - 1) * limit : 0;
 
     let categoryId;
+    let subcategoryId;
 
     if (categoryLabel) {
       const category = await ArticleCategoryModel.findOne({
         label: categoryLabel,
+        subcategory: false,
       })
         .lean()
         .exec();
@@ -76,8 +83,19 @@ class ArticleService {
       categoryId = category?._id;
     }
 
+    if (subcategoryLabel) {
+      const subcategory = await ArticleCategoryModel.findOne({
+        label: subcategoryLabel,
+        subcategory: true,
+      })
+        .lean()
+        .exec();
+
+      subcategoryId = subcategory?._id;
+    }
+
     const items: IArticle[] = await ArticleModel.find({
-      ...(categoryId && { categoryId }),
+      ...(categoryId && { categoryId, subcategoryId }),
       ...(thumbnail && { hasImage: thumbnail }),
     })
       .skip(offset)
@@ -134,7 +152,9 @@ class ArticleService {
   }: IInsertArticle): Promise<string> {
     const [label, category] = await Promise.all([
       this.createLabel(title),
-      ArticleCategoryModel.findOne({ label: categoryLabel }).lean().exec(),
+      ArticleCategoryModel.findOne({ label: categoryLabel, subcategory: false })
+        .lean()
+        .exec(),
     ]);
 
     const res = await ArticleModel.create({

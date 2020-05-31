@@ -9,6 +9,7 @@ export interface IArticle {
   hasImage?: boolean;
   image?: string;
   categoryId?: string;
+  subcategoryId?: string;
   authorId?: string;
   createdAt?: Date;
 }
@@ -17,12 +18,15 @@ export interface IArticleCategory {
   _id?: string;
   name?: string;
   label?: string;
+  subcategory?: boolean;
+  subcategoryRef?: string;
 }
 
 export interface IArticleFilter {
   page?: number;
   limit?: number;
   category?: string;
+  subcategory?: string;
   thumbnail?: boolean;
 }
 

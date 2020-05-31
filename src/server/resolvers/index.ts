@@ -11,12 +11,15 @@ export default async (
   item: IAppStateItem,
   filter?: IQueryFilter,
   user?: IUser,
+  query?: IQueryFilter,
 ): Promise<any> => {
+  query = query || filter;
+
   switch (item) {
     case 'home':
       return homeResolver();
     case 'articles':
-      return articlesResolver(filter);
+      return articlesResolver({ ...filter, ...query });
     case 'article':
       return articleResolver(filter?.label, user);
     case 'addArticle':

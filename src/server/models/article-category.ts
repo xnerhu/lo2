@@ -13,6 +13,16 @@ const ArticleCategory = new mongoose.Schema({
     required: [true],
     index: true,
   },
+
+  subcategory: {
+    type: Boolean,
+    index: true,
+  },
+
+  subcategoryRef: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'article-categories',
+  },
 });
 
 export default mongoose.model<IArticleCategory & mongoose.Document>(

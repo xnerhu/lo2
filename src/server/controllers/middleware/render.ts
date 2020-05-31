@@ -10,7 +10,8 @@ export default (item?: IAppStateItem) => async (
   req: IRequest,
   res: FastifyReply<ServerResponse>,
 ) => {
-  const data = item && (await resolver(item, req.params, req.raw.tokenPayload));
+  const data =
+    item && (await resolver(item, req.params, req.raw.tokenPayload, req.query));
 
   const appState: IAppState = {
     [item]: data,

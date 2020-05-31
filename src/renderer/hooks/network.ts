@@ -1,10 +1,29 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useState, useEffect, useMemo } from 'react';
+import { useParams, useLocation } from 'react-router';
 import axios from 'axios';
+import { parse } from 'query-string';
 
 import { IAppStateItem } from '~/interfaces';
 import { useAppState } from './app-state';
 import { IS_BROWSER } from '../constants/config';
+
+export const useQueryParams = () => {
+  const location = useLocation();
+  const { search } = location;
+
+  const params = useMemo(() => {
+    return parse(search);
+  }, [search]);
+
+  return params;
+};
+
+export const useAllParams = () => {
+  const route = useParams();
+  const query = useQueryParams();
+
+  return { ...query, ...route };
+};
 
 interface ICacheItem {
   params?: any;
@@ -34,7 +53,8 @@ const getInitialState = (item: IAppStateItem, params: any) => {
 };
 
 export const usePage = <T>(item: IAppStateItem, options?: IOptions): [T] => {
-  const params = useParams();
+  const params = useAllParams();
+
   const [state, setState] = useState<ICacheItem>(
     getInitialState(item, params) as any,
   );

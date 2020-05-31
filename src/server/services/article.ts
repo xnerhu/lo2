@@ -75,7 +75,6 @@ class ArticleService {
     if (categoryLabel) {
       const category = await ArticleCategoryModel.findOne({
         label: categoryLabel,
-        subcategory: false,
       })
         .lean()
         .exec();
@@ -95,7 +94,8 @@ class ArticleService {
     }
 
     const items: IArticle[] = await ArticleModel.find({
-      ...(categoryId && { categoryId, subcategoryId }),
+      ...(categoryId && { categoryId }),
+      ...(subcategoryId && { subcategoryId }),
       ...(thumbnail && { hasImage: thumbnail }),
     })
       .skip(offset)
@@ -149,12 +149,18 @@ class ArticleService {
     image,
     authorId,
     category: categoryLabel,
+    subcategory: subcategoryLabel,
   }: IInsertArticle): Promise<string> {
-    const [label, category] = await Promise.all([
+    const [label, category, subcategory] = await Promise.all([
       this.createLabel(title),
-      ArticleCategoryModel.findOne({ label: categoryLabel, subcategory: false })
-        .lean()
-        .exec(),
+      ArticleCategoryModel.findOne({ label: categoryLabel }).lean().exec(),
+      subcategoryLabel &&
+        ArticleCategoryModel.findOne({
+          label: subcategoryLabel,
+          subcategory: true,
+        })
+          .lean()
+          .exec(),
     ]);
 
     const res = await ArticleModel.create({
@@ -163,6 +169,7 @@ class ArticleService {
       content,
       authorId: new mongoose.Types.ObjectId(authorId) as any,
       categoryId: category._id,
+      subcategoryId: subcategory?._id,
       hasImage: !!image,
     } as IArticle);
 

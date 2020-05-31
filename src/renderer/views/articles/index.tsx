@@ -4,15 +4,30 @@ import { usePage } from '~/renderer/hooks/network';
 import { Categories } from './components/Categories';
 import { IArticlesPageData } from '~/interfaces';
 import { List } from './components/List';
+import { splitArticleCategories } from '~/renderer/utils/article';
+
+const shouldFetch = (
+  { page, category, subcategory }: any,
+  cached: any = {},
+) => {
+  return (
+    page !== cached.page ||
+    category !== cached.category ||
+    subcategory !== cached.subcategory
+  );
+};
 
 export default () => {
   const [data] = usePage<IArticlesPageData>('articles', {
-    shouldFetch: ({ page, category }, cached) =>
-      page !== cached?.page || category !== cached?.category,
+    shouldFetch,
   });
 
-  const categories = React.useMemo(() => {
-    if (data?.categories != null) {
+  const list = React.useMemo(() => splitArticleCategories(data?.categories), [
+    data?.categories,
+  ]);
+
+  const categoriesBar = React.useMemo(() => {
+    if (list?.categories != null) {
       return (
         <Categories
           data={[
@@ -21,19 +36,25 @@ export default () => {
               label: 'all',
               name: 'Wszystko',
             },
-            ...data.categories,
+            ...list?.categories,
           ]}
         />
       );
     }
 
     return null;
-  }, [data?.categories]);
+  }, [list]);
 
   return (
     <>
-      {categories}
-      <List data={data} />
+      {categoriesBar}
+      <List
+        nextPage={data?.nextPage}
+        users={data?.users}
+        articles={data?.articles}
+        categories={list?.categories}
+        subcategories={list?.subcategories}
+      />
     </>
   );
 };

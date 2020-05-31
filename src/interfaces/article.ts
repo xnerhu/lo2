@@ -41,6 +41,7 @@ export interface IArticleRequest {
   content: string;
   image: IImage;
   category: string;
+  subcategory?: string;
 }
 
 export interface IInsertArticle extends IArticleRequest {

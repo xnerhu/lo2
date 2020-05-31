@@ -108,12 +108,18 @@ const ensurePermissions = async (label: string, user: IUser, select = '*') => {
 export default (app: FastifyInstance, opts: any, next: Function) => {
   app.post('/', articleRequestOptions, async (req: IRequest, res) => {
     const [image, user] = await verifyArticleRequest(req);
-    const { title, content, category } = req.body as IInsertArticle;
+    const {
+      title,
+      content,
+      category,
+      subcategory,
+    } = req.body as IInsertArticle;
 
     const label = await ArticleService.insertOne({
       title,
       content,
       category,
+      subcategory,
       authorId: user._id,
       image: image?.data,
     });

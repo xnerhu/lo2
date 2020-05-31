@@ -26,6 +26,7 @@ export default () => {
         data={data?.article}
         user={data?.author}
         category={data?.category}
+        subcategory={data?.subcategory}
       />
     </ArticlesContainer>
   );

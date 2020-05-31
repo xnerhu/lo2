@@ -14,6 +14,7 @@ import { PrimaryButton } from '../Button';
 import { readFileAsImage } from '~/renderer/utils/file';
 import { resetFileInput } from '~/renderer/utils/dom';
 import { ImageButton } from './ImageButton';
+import { splitArticleCategories } from '~/renderer/utils/article';
 import {
   StyledArticleEditor,
   Toolbar,
@@ -30,17 +31,39 @@ interface Props {
 export const ArticleEditor = ({ data, edit }: Props) => {
   const articleData = edit && (data as IEditArticlePageData)?.article;
 
+  const { categories, subcategories } = React.useMemo(
+    () => splitArticleCategories(data?.categories),
+    [data?.categories],
+  );
+
   const [selectedCategory, selectCategory] = React.useState<string>();
+  const [selectedSubcategory, selectSubcategory] = React.useState<string>();
+
   const [content, setContent] = React.useState<Node[]>(defaultRichEditorValue);
-  const [errors, setErrors] = React.useState<IArticleEditorErrors>({});
   const [image, setImage] = React.useState<string>();
+
+  const [errors, setErrors] = React.useState<IArticleEditorErrors>({});
+
+  const availableSubcategories = React.useMemo(
+    () =>
+      selectedCategory
+        ? subcategories.filter(
+            (r) => r.subcategoryRef.toString() === selectedCategory,
+          )
+        : [],
+    [selectedCategory, subcategories],
+  );
 
   const titleInput = React.useRef<HTMLInputElement>();
   const imgInput = React.useRef<HTMLInputElement>();
   const imageEditor = React.useRef<ImageEditor>();
 
-  const onDropdownChange = React.useCallback((item: IArticleCategory) => {
+  const onCategoryChange = React.useCallback((item: IArticleCategory) => {
     selectCategory(item._id);
+  }, []);
+
+  const onSubCategoryChange = React.useCallback((item: IArticleCategory) => {
+    selectSubcategory(item._id);
   }, []);
 
   const onContentChange = React.useCallback((content: Node[]) => {
@@ -95,7 +118,14 @@ export const ArticleEditor = ({ data, edit }: Props) => {
       {
         title,
         content: JSON.stringify(content),
-        category: selectedCategory ?? data.categories[0].label,
+        category: !selectedCategory
+          ? data.categories[0].label
+          : categories.find((r) => r._id.toString() === selectedCategory).label,
+        subcategory:
+          availableSubcategories.length &&
+          availableSubcategories.find(
+            (r) => r._id.toString() === selectedSubcategory,
+          )?.label,
         image,
       },
       articleData,
@@ -104,7 +134,16 @@ export const ArticleEditor = ({ data, edit }: Props) => {
     if (res?.success) {
       window.location.href = `/artykul/${res.label}`;
     }
-  }, [content, data, image, edit, selectedCategory]);
+  }, [
+    content,
+    data,
+    image,
+    edit,
+    categories,
+    selectedCategory,
+    selectedSubcategory,
+    availableSubcategories,
+  ]);
 
   React.useEffect(() => {
     if (!data) return;
@@ -132,9 +171,18 @@ export const ArticleEditor = ({ data, edit }: Props) => {
             className="auto"
             placeholder="Kategoria"
             value={selectedCategory}
-            items={data?.categories}
-            onChange={onDropdownChange}
+            items={categories}
+            onChange={onCategoryChange}
           />
+          {availableSubcategories.length != 0 && (
+            <Dropdown
+              className="auto"
+              placeholder="Podkategoria"
+              value={selectedSubcategory}
+              items={availableSubcategories}
+              onChange={onSubCategoryChange}
+            />
+          )}
           <PrimaryButton onClick={onSave}>Zapisz</PrimaryButton>
         </Toolbar>
         <Input

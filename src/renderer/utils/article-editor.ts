@@ -43,6 +43,7 @@ export const saveArticle = async (
   form.set('title', data.title);
   form.set('content', data.content);
   form.set('category', data.category);
+  form.set('subcategory', data.subcategory);
 
   if (data.image && (!edit || (edit && article.image !== data.image))) {
     form.append('image', base64toFile(data.image as string));

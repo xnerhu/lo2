@@ -13,7 +13,16 @@ export const Toolbar = styled.div`
   width: 100%;
   display: flex;
   margin: 24px 0px;
-  justify-content: space-between;
+
+  & > * {
+    &:not(:first-child) {
+      margin-left: 24px;
+    }
+
+    &:last-child {
+      margin-left: auto;
+    }
+  }
 `;
 
 export const Dropdown = styled(StyledDropdown)`

@@ -15,6 +15,7 @@ export interface IArticlesPageData extends IArticlesChunk {
 export interface IArticlePageData {
   article?: IArticle;
   category?: IArticleCategory;
+  subcategory?: IArticleCategory;
   author?: IUser;
   success?: boolean;
   canEdit?: boolean;

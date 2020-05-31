@@ -9,11 +9,12 @@ import { StyledArticle, Container, Title, Content } from './style';
 
 interface Props extends React.HTMLAttributes<HTMLAnchorElement> {
   data: IArticle;
-  category?: IArticleCategory;
   user?: IUser;
+  category?: IArticleCategory;
+  subcategory?: IArticleCategory;
 }
 
-export const Article = ({ data, category, user }: Props) => {
+export const Article = ({ data, user, category, subcategory }: Props) => {
   return (
     <StyledArticle>
       {data?.image ? (
@@ -25,7 +26,14 @@ export const Article = ({ data, category, user }: Props) => {
       ) : null}
       <Container>
         <Title to={`/artykul/${data?.label}`}>{data?.title}</Title>
-        {user && <Details article={data} user={user} category={category} />}
+        {user && (
+          <Details
+            article={data}
+            user={user}
+            category={category}
+            subcategory={subcategory}
+          />
+        )}
         <Content dangerouslySetInnerHTML={{ __html: data?.content }} />
       </Container>
     </StyledArticle>

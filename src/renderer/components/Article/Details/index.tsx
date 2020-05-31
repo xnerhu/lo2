@@ -9,9 +9,10 @@ interface Props {
   article: IArticle;
   user: IUser;
   category: IArticleCategory;
+  subcategory?: IArticleCategory;
 }
 
-export const Details = ({ article, user, category }: Props) => {
+export const Details = ({ article, user, category, subcategory }: Props) => {
   return (
     <StyledDetails>
       <Avatar src={user.image} ratio={1} skeletonBorder="100%" />
@@ -22,6 +23,13 @@ export const Details = ({ article, user, category }: Props) => {
         <span>
           {formatArticleDate(article)}
           <Category to={`/blog/${category.label}`}>{category.name}</Category>
+          {subcategory && (
+            <Category
+              to={`/blog/${category.label}?subcategory=${subcategory.label}`}
+            >
+              {subcategory.name}
+            </Category>
+          )}
         </span>
       </Container>
     </StyledDetails>

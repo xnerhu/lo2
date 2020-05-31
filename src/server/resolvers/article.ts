@@ -15,17 +15,23 @@ export default async (
 ): Promise<IArticlePageData> => {
   let article: IArticle;
   let category: IArticleCategory;
+  let subcategory: IArticleCategory;
   let author: IUser;
 
   try {
     article = await ArticleService.findOne(label, true);
 
-    const [_category, _author] = await Promise.all([
+    const [_category, _subcategory, _author] = await Promise.all([
       ArticleCategoryModel.findOne({ _id: article.categoryId }).lean().exec(),
+      article.subcategoryId &&
+        ArticleCategoryModel.findOne({ _id: article.subcategoryId })
+          .lean()
+          .exec(),
       UserModel.findOne({ _id: article.authorId }).lean().exec(),
     ]);
 
     category = _category;
+    subcategory = _subcategory;
     author = _author;
   } catch (err) {}
 
@@ -34,6 +40,7 @@ export default async (
   return {
     article,
     category,
+    subcategory,
     author: exists && UserService.format(author),
     canEdit: ArticleService.canEdit(article, user),
     success: exists,

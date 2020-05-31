@@ -29,6 +29,11 @@ const Article = new mongoose.Schema(
       ref: 'article-categories',
     },
 
+    subcategoryId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'article-categories',
+    },
+
     authorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users',

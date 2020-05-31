@@ -14,14 +14,18 @@ export const Link = ({
   rel,
   external,
   children,
-  ...props
+  className,
+  style,
+  onClick,
 }: Props) => {
+  const domProps: any = { className, style, onClick };
+
   if (!to) {
-    return <div {...(props as any)}>{children}</div>;
+    return <div {...domProps}>{children}</div>;
   }
 
   const linkProps = {
-    ...props,
+    ...domProps,
     target,
     rel,
   };

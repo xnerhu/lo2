@@ -24,7 +24,7 @@ export const Article = ({ data, category, user }: Props) => {
         />
       ) : null}
       <Container>
-        <Title to={`/article/${data?.label}`}>{data?.title}</Title>
+        <Title to={`/artykul/${data?.label}`}>{data?.title}</Title>
         {user && <Details article={data} user={user} category={category} />}
         <Content dangerouslySetInnerHTML={{ __html: data?.content }} />
       </Container>

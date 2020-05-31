@@ -21,9 +21,7 @@ export const Details = ({ article, user, category }: Props) => {
         </Author>
         <span>
           {formatArticleDate(article)}
-          <Category to={`/articles/${category.label}`}>
-            {category.name}
-          </Category>
+          <Category to={`/blog/${category.label}`}>{category.name}</Category>
         </span>
       </Container>
     </StyledDetails>

@@ -102,7 +102,7 @@ export const ArticleEditor = ({ data, edit }: Props) => {
     );
 
     if (res?.success) {
-      window.location.href = `/article/${res.label}`;
+      window.location.href = `/artykul/${res.label}`;
     }
   }, [content, data, image, edit, selectedCategory]);
 

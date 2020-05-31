@@ -13,7 +13,7 @@ export const desktopNavMap: IDesktopNavItem[] = [
   },
   {
     label: 'Aktualności',
-    path: '/articles',
+    path: '/blog',
   },
   {
     label: 'Szkoła',
@@ -43,7 +43,7 @@ export const mobileNavMap: IMobileNavItem[] = [
     icon: ICON_HOME,
   },
   {
-    path: '/articles',
+    path: '/blog',
     icon: ICON_NEWS,
   },
   {

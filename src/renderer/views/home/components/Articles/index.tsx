@@ -14,12 +14,12 @@ interface Props {
 export const Articles = ({ items }: Props) => {
   return (
     <Content style={{ marginBottom: 32 }}>
-      <Link to="/articles">
+      <Link to="/blog">
         <SectionTitle>Aktualności</SectionTitle>
       </Link>
       <ArticlesGrid items={items} />
       <PrimaryButton
-        to="/articles"
+        to="/blog"
         icon={ICON_CHEVRON}
         style={{ margin: '32px auto 0px auto' }}
         iconOnRight

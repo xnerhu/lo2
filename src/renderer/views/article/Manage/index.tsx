@@ -25,7 +25,7 @@ export default () => {
       const data = await deleteArticle(label);
 
       if (!canceled && data.success) {
-        window.location.href = '/articles';
+        window.location.href = '/blog';
       }
     })();
 

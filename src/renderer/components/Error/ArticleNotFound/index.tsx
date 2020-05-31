@@ -11,7 +11,7 @@ export const ArticleNotFoundError = () => {
         Artykuły mogły zostać usunięte.
       </Error>
       <Container>
-        <PrimaryButton to="/articles" icon={ICON_LINK} iconOnRight>
+        <PrimaryButton to="/blog" icon={ICON_LINK} iconOnRight>
           Artykuły
         </PrimaryButton>
       </Container>

@@ -86,7 +86,7 @@ export const Categories = withRouter(
 
     const onDropDownChange = React.useCallback(
       (data: IDropDownCategoryItem) => {
-        history.push(`/articles/${data.label}`);
+        history.push(`/blog/${data.label}`);
       },
       [],
     );
@@ -108,7 +108,7 @@ export const Categories = withRouter(
             <Item
               key={r.label}
               innerRef={measure.current ? setRef : undefined}
-              to={`/articles/${r.label}`}
+              to={`/blog/${r.label}`}
             >
               {r.name}
             </Item>

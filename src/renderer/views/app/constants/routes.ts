@@ -33,14 +33,14 @@ export const routerMap = [
     ),
   },
   {
-    path: '/article/:label',
+    path: '/artykul/:label',
     component: loadable(
       () => import('~/renderer/views/article'),
       LOADABLE_OPTIONS,
     ),
   },
   {
-    path: '/articles/:category?/:page?',
+    path: '/blog/:category?/:page?',
     component: loadable(
       () => import('~/renderer/views/articles'),
       LOADABLE_OPTIONS,

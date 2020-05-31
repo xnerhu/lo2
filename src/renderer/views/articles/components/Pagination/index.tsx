@@ -18,7 +18,7 @@ export const Pagination = withRouter(
     return (
       <StyledPagination>
         <PrimaryButton
-          to={`/articles/${category}/${page - 1}`}
+          to={`/blog/${category}/${page - 1}`}
           icon={ICON_CHEVRON}
           iconRotation={180}
           disabled={page <= 1}
@@ -26,7 +26,7 @@ export const Pagination = withRouter(
           Nowsze
         </PrimaryButton>
         <PrimaryButton
-          to={`/articles/${category}/${page + 1}`}
+          to={`/blog/${category}/${page + 1}`}
           icon={ICON_CHEVRON}
           iconOnRight
           disabled={!nextPage}

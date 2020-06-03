@@ -33,7 +33,7 @@ export const desktopNavMap: IDesktopNavItem[] = [
   },
   {
     label: 'Kontakt',
-    path: '/contakt',
+    path: '/kontakt',
   },
 ];
 

@@ -40,6 +40,13 @@ export const routerMap = [
     ),
   },
   {
+    path: '/kontakt',
+    component: loadable(
+      () => import('~/renderer/views/contact'),
+      LOADABLE_OPTIONS,
+    ),
+  },
+  {
     path: '/rodzice',
     component: loadable(
       () => import('~/renderer/views/parents'),

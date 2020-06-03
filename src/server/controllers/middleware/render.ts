@@ -22,7 +22,7 @@ export default (item?: IAppStateItem) => async (
   res.type('text/html');
 
   const { raw } = req;
-  const html = RenderService.render(raw.url, appState);
+  const html = await RenderService.render(raw.url, appState);
 
   return html;
 };

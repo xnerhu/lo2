@@ -6,3 +6,4 @@ export * from './pages';
 export * from './rich-editor';
 export * from './network';
 export * from './image';
+export * from './communication';

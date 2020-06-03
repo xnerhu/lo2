@@ -20,6 +20,7 @@ export const config = {
   port: parseInt(PORT),
   clientDirectory: resolve('build/client/static'),
   staticDirectory: resolve('static'),
+  workerPath: resolve('build', 'worker'),
   statsFile: resolve('build/client/static/loadable-stats.json'),
   articleImagesPath: resolve('static/articles'),
   mongodbURI: MONGODB_URI,

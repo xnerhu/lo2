@@ -10,7 +10,7 @@ export const formatLabel = (str: string) => {
 };
 
 export const createRandLabel = (str: string) => {
-  return `${str}-${makeId(96)}`;
+  return `${str}-${makeId(64)}`;
 };
 
 export const makeId = (

@@ -1,5 +1,4 @@
 import { SubPage } from '~/renderer/components/SubPage';
-import { formatBlogUrl } from '~/renderer/utils/url';
 
 export default SubPage({
   title: 'Kandydaci',
@@ -33,11 +32,11 @@ export default SubPage({
       label: 'Dzień Drzwi Otwartych',
     },
     {
-      to: '/artykul/',
+      to: '/artykul/konkursy',
       label: 'Konkursy',
     },
     {
-      to: '/artykul/',
+      to: '/artykul/lekcje-w-dwójce',
       label: 'Lekcje w Dwójce',
     },
   ],

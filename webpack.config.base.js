@@ -31,7 +31,7 @@ const config = {
   output: {
     filename: '[name].js',
     libraryTarget: 'umd',
-    publicPath: dev ? `http://localhost:${PORT}/static/` : '/static/',
+    publicPath: dev ? `http://localhost:${PORT}/static/` : '/static/bundle/',
   },
 
   module: {

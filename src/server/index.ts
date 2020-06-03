@@ -13,7 +13,7 @@ async function init() {
   useControllers(app);
   useMongoose();
 
-  app.listen(config.port, (err) => {
+  app.listen(config.port, config.address, (err) => {
     if (err) throw err;
 
     console.log(

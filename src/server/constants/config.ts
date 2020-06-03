@@ -5,6 +5,7 @@ dotenv.config();
 
 const {
   NODE_ENV,
+  ADDRESS,
   PORT,
   MONGODB_URI,
   TOKEN_SECRET,
@@ -17,6 +18,7 @@ const {
 
 export const config = {
   dev: NODE_ENV === 'development',
+  address: ADDRESS,
   port: parseInt(PORT),
   clientDirectory: resolve('build/client/static'),
   staticDirectory: resolve('static'),

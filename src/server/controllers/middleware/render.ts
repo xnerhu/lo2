@@ -19,7 +19,7 @@ export default (item?: IAppStateItem) => async (
     user: req.raw.tokenPayload,
   };
 
-  res.type('text/html');
+  res.type('html');
 
   RenderService.render({ url: req.raw.url, appState }, res.res);
 };

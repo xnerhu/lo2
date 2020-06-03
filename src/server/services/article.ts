@@ -171,7 +171,7 @@ class ArticleService {
       content,
       authorId: new mongoose.Types.ObjectId(authorId) as any,
       categoryId: category._id,
-      subcategoryId: subcategory?._id,
+      ...(subcategory?._id != null && { subcategoryId: subcategory._id }),
       hasImage: !!image,
     } as IArticle);
 

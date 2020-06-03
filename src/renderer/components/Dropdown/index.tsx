@@ -76,7 +76,7 @@ export const Dropdown = React.forwardRef(
           {items.map(
             (r) =>
               r._id !== value && (
-                <MenuItem key={r._id} onClick={onItemClick(r)}>
+                <MenuItem key={r._id.toString()} onClick={onItemClick(r)}>
                   {r.name}
                 </MenuItem>
               ),

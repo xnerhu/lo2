@@ -13,6 +13,7 @@ export default async (label: string): Promise<IEditArticlePageData> => {
     ...data,
     article: {
       ...article,
+      _id: article._id.toString(),
       image: ArticleService.formatImage(article, true),
     },
     success: !!article,

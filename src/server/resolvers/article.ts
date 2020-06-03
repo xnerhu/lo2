@@ -5,6 +5,7 @@ import {
   IArticleCategory,
 } from '~/interfaces';
 import ArticleService from '../services/article';
+import ArticleCategoryService from '../services/article-category';
 import ArticleCategoryModel from '../models/article-category';
 import UserModel from '../models/user';
 import UserService from '../services/user';
@@ -30,9 +31,9 @@ export default async (
       UserModel.findOne({ _id: article.authorId }).lean().exec(),
     ]);
 
-    category = _category;
-    subcategory = _subcategory;
-    author = _author;
+    category = ArticleCategoryService.format(_category);
+    subcategory = ArticleCategoryService.format(_subcategory);
+    author = UserService.format(_author);
   } catch (err) {}
 
   const exists = article != null;

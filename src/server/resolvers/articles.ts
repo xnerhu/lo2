@@ -11,6 +11,7 @@ import { getUniqueValues } from '../utils';
 import { config } from '../constants';
 import UserModel from '../models/user';
 import UserService from '../services/user';
+import ArticleCategoryService from '../services/article-category';
 
 const getChunk = async (filter: IArticleFilter): Promise<IArticlesChunk> => {
   let articles: IArticle[] = [];
@@ -38,7 +39,7 @@ const getChunk = async (filter: IArticleFilter): Promise<IArticlesChunk> => {
 export default async (filter: IArticleFilter): Promise<IArticlesPageData> => {
   const [chunk, categories] = await Promise.all([
     getChunk(filter),
-    ArticleCategoryModel.find().lean().exec(),
+    ArticleCategoryService.getAll(),
   ]);
 
   return {

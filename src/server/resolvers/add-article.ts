@@ -1,8 +1,8 @@
 import { IAddArticlePageData } from '~/interfaces';
-import ArticleCategoryModel from '../models/article-category';
+import ArticleCategoryService from '../services/article-category';
 
 export default async (): Promise<IAddArticlePageData> => {
-  const categories = await ArticleCategoryModel.find().lean().exec();
+  const categories = await ArticleCategoryService.getAll();
 
   return {
     categories,

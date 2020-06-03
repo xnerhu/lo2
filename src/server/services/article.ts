@@ -2,7 +2,13 @@ import { ObjectID } from 'mongodb';
 import mongoose from 'mongoose';
 import { resolve } from 'path';
 
-import { IArticle, IArticleFilter, IEditArticle, IUser } from '~/interfaces';
+import {
+  IArticle,
+  IArticleFilter,
+  IEditArticle,
+  IUser,
+  IArticleCategory,
+} from '~/interfaces';
 import { config } from '../constants';
 import SerializerService from '../services/seralizer';
 import ImageService from '../services/image';
@@ -27,6 +33,9 @@ class ArticleService {
 
     return {
       ...data,
+      _id: data._id.toString(),
+      categoryId: data.categoryId.toString(),
+      subcategoryId: data.subcategoryId?.toString(),
       content,
       image: this.formatImage(data, full),
       authorId: objectIdToString(authorId),

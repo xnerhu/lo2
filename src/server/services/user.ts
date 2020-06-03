@@ -6,6 +6,7 @@ class UserService {
   public format(data: IUser): IUser {
     return {
       ...data,
+      _id: data._id.toString(),
       image: `/static/users/${data._id}`,
       password: undefined,
     };

@@ -56,7 +56,7 @@ export const List = ({
           {articles.length ? (
             <>
               {articles.map((r) => (
-                <Article key={r._id} data={r} {...getInfo(r)} />
+                <Article key={r._id.toString()} data={r} {...getInfo(r)} />
               ))}
               <Pagination nextPage={nextPage} />
             </>

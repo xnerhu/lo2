@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { EASING_FUNCTION, CARD_SHADOW } from '~/renderer/constants/design';
 import { noButtons } from '~/renderer/mixins/scroll';

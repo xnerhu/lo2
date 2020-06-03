@@ -6,13 +6,13 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const { print, compilerPromise } = require('./utils');
 
-const { PORT } = require('../webpack.config.base.js');
+const { PORT, stats } = require('../webpack.config.base.js');
 const clientConfig = require('../webpack.config.client.js');
 const serverConfig = require('../webpack.config.server.js');
 
 const watchOptions = {
   ignored: /node_modules/,
-  stats: clientConfig.stats,
+  stats,
 };
 
 const startNodemon = () => {
@@ -37,16 +37,34 @@ const startNodemon = () => {
   });
 };
 
+const watch = (compiler, config) => {
+  const { name } = config;
+
+  compiler.watch(watchOptions, (error, stats) => {
+    if (!error && !stats.hasErrors()) {
+      print('stats', stats.toString(config.stats), 'info');
+    } else {
+      if (error) {
+        print(name, error, 'error');
+      }
+
+      if (stats.hasErrors()) {
+        const info = stats.toJson();
+        const errors = info.errors[0].split('\n');
+
+        errors.forEach((r) => print(name, r, 'error'));
+      }
+    }
+  });
+};
+
 const app = express();
 
 const init = async () => {
-  const multiCompiler = webpack([clientConfig, serverConfig]);
+  const compilers = webpack([clientConfig, serverConfig]).compilers;
+  const compilerPromises = compilers.map(compilerPromise);
 
-  const clientCompiler = multiCompiler.compilers.find(r => r.name === 'client');
-  const serverCompiler = multiCompiler.compilers.find(r => r.name === 'server');
-
-  const clientPromise = compilerPromise('client', clientCompiler);
-  const serverPromise = compilerPromise('server', serverCompiler);
+  const [clientCompiler, serverCompiler] = compilers;
 
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -65,25 +83,10 @@ const init = async () => {
   app.use('/static', express.static('build/client'));
   app.listen(PORT);
 
-  serverCompiler.watch(watchOptions, (error, stats) => {
-    if (!error && !stats.hasErrors()) {
-      print('stats', stats.toString(serverConfig.stats), 'info');
-    } else {
-      if (error) {
-        print('server', error, 'error');
-      }
-
-      if (stats.hasErrors()) {
-        const info = stats.toJson();
-        const errors = info.errors[0].split('\n');
-
-        errors.forEach(r => print('server', r, 'error'));
-      }
-    }
-  });
+  watch(serverCompiler, serverConfig);
 
   try {
-    await Promise.all([serverPromise, clientPromise]);
+    await Promise.all(compilerPromises);
   } catch (error) {
     return print('compiler', error, 'error');
   }

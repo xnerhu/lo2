@@ -1,24 +1,24 @@
-import { Router, static as staticDir } from 'express';
+import { FastifyInstance } from 'fastify';
 
-import { BUILD_PATH, STATIC_PATH } from '../constants';
-import api from './api';
-import state from './state';
-import render from './render';
-import { useAuth } from '../middleware/auth';
+import headers from './middleware/headers';
+import handleErrors from './middleware/errors';
+import handleAuth from './auth';
+import routes from './routes';
+import apiRouter from './api';
 
-const router = Router();
+export default (app: FastifyInstance) => {
+  headers(app);
+  handleErrors(app);
+  handleAuth(app);
+  routes(app);
 
-router.use('/static', staticDir(BUILD_PATH));
-router.use('/static', staticDir(STATIC_PATH));
+  app.register(apiRouter, { prefix: '/api' });
 
-router.use('/robots.txt', (req, res) => {
-  res.redirect('/static/robots.txt');
-});
+  app.get('/robots.txt', (req, res) => {
+    res.redirect('/static/robots.txt');
+  });
 
-router.get('*', useAuth);
-
-router.use('/api', api);
-router.use(state);
-router.use(render);
-
-export default router;
+  app.get('/favicon.ico', (req, res) => {
+    res.redirect('/static/favicon.png');
+  });
+};

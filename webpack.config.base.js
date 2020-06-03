@@ -9,6 +9,20 @@ const PORT = 8081;
 
 const dev = process.env.NODE_ENV === 'development';
 
+const stats = {
+  cached: false,
+  cachedAssets: false,
+  chunks: false,
+  chunkModules: false,
+  children: false,
+  colors: true,
+  hash: false,
+  modules: false,
+  reasons: false,
+  timings: true,
+  version: false,
+};
+
 const config = {
   mode: dev ? 'development' : 'production',
 
@@ -16,7 +30,7 @@ const config = {
 
   output: {
     filename: '[name].js',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'umd',
     publicPath: dev ? `http://localhost:${PORT}/static/` : '/static/',
   },
 
@@ -44,19 +58,7 @@ const config = {
     },
   },
 
-  stats: {
-    cached: false,
-    cachedAssets: false,
-    chunks: false,
-    chunkModules: false,
-    children: false,
-    colors: true,
-    hash: false,
-    modules: false,
-    reasons: false,
-    timings: true,
-    version: false,
-  },
+  stats,
 
   plugins: [],
 };
@@ -109,4 +111,5 @@ module.exports = {
   getDevPlugins,
   PORT,
   getFileLoader,
+  stats,
 };

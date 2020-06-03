@@ -5,7 +5,7 @@ import { aspectRatio } from '~/renderer/mixins/box';
 import { WIDE_RATIO, STANDARD_RATIO } from '~/renderer/constants/design';
 import { centerVertical } from '~/renderer/mixins/positioning';
 import { transparency } from '~/renderer/constants/transparency';
-import { CHEVRON_ICON } from '~/renderer/constants/icons';
+import { ICON_CHEVRON } from '~/renderer/constants/icons';
 
 export const StyledCarousel = styled.div`
   border-radius: 16px;
@@ -86,7 +86,7 @@ export const Arrow = styled.div`
     display: block;
     width: 24px;
     height: 24px;
-    background-image: url(${CHEVRON_ICON});
+    background-image: url(${ICON_CHEVRON});
     opacity: ${transparency.icons.inactive};
     filter: invert(100%);
     transition: 0.1s opacity;

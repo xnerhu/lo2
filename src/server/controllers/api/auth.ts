@@ -1,108 +1,44 @@
-import { Router, Response } from 'express';
+import { FastifyInstance } from 'fastify';
 
+import { config } from '~/server/constants';
 import AuthService from '~/server/services/auth';
 import UserService from '~/server/services/user';
-import {
-  IAuthLoginRes,
-  IChangePasswordReq,
-  IChangePasswordRes,
-} from '~/interfaces';
-import { compareHashed, formatUser } from '~/server/utils';
-import { ACCESS_TOKEN_EXPIRATION } from '~/server/constants';
-import { withAuth } from '~/server/middleware/auth';
+import { IApiResponse, IUser } from '~/interfaces';
 import { IRequest } from '~/server/interfaces';
+import { signOutUser } from '~/server/utils';
 
-const router = Router();
+export default (app: FastifyInstance, opts: any, next: Function) => {
+  app.post('/sign-in', async (req, res) => {
+    const { username, password } = req.body;
 
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+    const { token, user } = await AuthService.authenticateUser(
+      username,
+      password,
+    );
+    const currentTime = new Date().getTime();
 
-  const data: IAuthLoginRes = {
-    success: false,
-    errors: {},
-  };
+    signOutUser(res);
 
-  if (!username.length || !password.length) {
-    if (!username.length) {
-      data.errors.username = 'Nazwa użytkownika nie może być pusta!';
-    }
+    res.setCookie('token', token, {
+      expires: new Date(currentTime + config.tokenExpirationTime),
+      path: '/',
+      httpOnly: true,
+    });
 
-    if (!password.length) {
-      data.errors.password = 'Hasło nie może być puste!';
-    }
-
-    return res.json(data);
-  }
-
-  const user = await UserService.find(username);
-
-  const correctPassword =
-    user && (await compareHashed(password, user.password));
-
-  if (!user || !correctPassword) {
-    data.errors.username = 'Zła nazwa użytkownika lub hasło';
-    return res.json(data);
-  }
-
-  const token = AuthService.createToken(user);
-
-  res.cookie('token', token, {
-    maxAge: ACCESS_TOKEN_EXPIRATION - 60 * 1000,
-    httpOnly: true,
+    return {
+      success: true,
+      user: UserService.format(user),
+    } as IApiResponse<IUser>;
   });
 
-  return res.json({
-    success: true,
-    user: formatUser(user),
-  } as IAuthLoginRes);
-});
+  app.get('/sign-out', (req, res) => {
+    signOutUser(res);
+    res.redirect('/');
+  });
 
-router.get('/logout', (req, res) => {
-  res.clearCookie('token');
-  res.redirect('/');
-});
+  app.get('/signed-in', (req: IRequest, res) => {
+    res.send({ success: !!req.raw.tokenPayload } as IApiResponse);
+  });
 
-router.get('/logged', withAuth(), (req, res) => {
-  res.send('success');
-});
-
-const logout = (res: Response) => {
-  res.clearCookie('token');
+  next();
 };
-
-router.post('/change-password', async (req: IRequest, res) => {
-  const { password } = req.body as IChangePasswordReq;
-  const { user } = await AuthService.verifyToken(req);
-
-  if (!password.length) {
-    return res.json({
-      success: false,
-      error: 'Hasło nie może być puste!',
-    } as IChangePasswordRes);
-  }
-
-  let error;
-
-  try {
-    await UserService.changePassword(user.username, password);
-  } catch (err) {
-    error = err;
-  }
-
-  if (error) {
-    if (error.message.startsWith('User')) {
-      return res.json({
-        success: false,
-        error: error.message,
-      } as IChangePasswordRes);
-    } else {
-      throw error;
-    }
-  }
-
-  logout(res);
-
-  return res.json({ success: true } as IChangePasswordRes);
-});
-
-export default router;

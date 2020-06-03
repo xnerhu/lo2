@@ -1,8 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { CONTENT_WIDTH } from '~/renderer/constants/design';
 import { robotoMedium } from '~/renderer/mixins/typography';
-import { noUserSelect } from '~/renderer/mixins/user-selection';
 
 export const Content = styled.div`
   width: 100%;
@@ -20,10 +19,7 @@ export const Content = styled.div`
 
 export const Background = styled.div`
   width: 100%;
-  background-color: #fafafc;
-  padding-bottom: 32px;
-  display: flex;
-  flex-direction: column;
+  background-color: #fff;
 `;
 
 export const SectionTitle = styled.h5`
@@ -31,4 +27,12 @@ export const SectionTitle = styled.h5`
   position: relative;
   padding: 36px 0px;
   ${robotoMedium()};
+`;
+
+export const Grid = styled.div`
+  width: 100%;
+  display: grid;
+  grid-row-gap: 24px;
+  grid-column-gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(348px, 1fr));
 `;

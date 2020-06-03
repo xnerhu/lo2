@@ -1,25 +1,25 @@
 import React from 'react';
-import { hydrate } from 'react-dom';
+import { hydrate, render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { loadableReady } from '@loadable/component';
 
-import { StoreProvider, AppStateProvider } from '~/renderer/app/store';
-import { IAppState } from '~/interfaces';
-import App from '~/renderer/app/components/App';
+import AppStateContext from '~/contextes/app-state';
+import App from '~/renderer/views/app';
 
 declare const window: {
-  __APP_STATE__: IAppState;
+  __APP_STATE__: any;
 };
 
 loadableReady().then(() => {
-  hydrate(
-    <StoreProvider data={window.__APP_STATE__}>
-      <AppStateProvider data={window.__APP_STATE__ ?? {}}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </AppStateProvider>
-    </StoreProvider>,
+  const renderMethod =
+    process.env.NODE_ENV === 'development' ? render : hydrate;
+
+  renderMethod(
+    <AppStateContext.Provider value={window.__APP_STATE__}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AppStateContext.Provider>,
     document.getElementById('app'),
   );
 });

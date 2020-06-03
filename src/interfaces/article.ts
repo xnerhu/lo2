@@ -1,33 +1,55 @@
 import { IUser } from './user';
+import { IImage } from './image';
 
 export interface IArticle {
-  id?: number;
+  _id?: string;
   label?: string;
   title?: string;
   content?: string;
-  image?: string;
   hasImage?: boolean;
-  createdAt?: string;
-  categoryId?: number;
-  authorId?: number;
+  image?: string;
+  categoryId?: string;
+  subcategoryId?: string;
+  authorId?: string;
+  createdAt?: Date;
 }
 
 export interface IArticleCategory {
-  id?: number;
+  _id?: string;
   name?: string;
   label?: string;
+  subcategory?: boolean;
+  subcategoryRef?: string;
 }
 
 export interface IArticleFilter {
   page?: number;
   limit?: number;
   category?: string;
-  excluded?: string;
+  subcategory?: string;
   thumbnail?: boolean;
 }
 
-export interface IArticleListChunk {
+export interface IArticlesChunk {
   articles?: IArticle[];
   nextPage?: boolean;
   users?: IUser[];
+}
+
+export interface IArticleRequest {
+  title: string;
+  content: string;
+  image: IImage;
+  category: string;
+  subcategory?: string;
+}
+
+export interface IInsertArticle extends IArticleRequest {
+  authorId: string;
+}
+
+export interface IEditArticle extends IArticleRequest {
+  _id?: string;
+  deleteImage?: boolean;
+  hasImage?: boolean;
 }

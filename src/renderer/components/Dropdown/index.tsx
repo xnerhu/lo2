@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { Menu, MenuItem } from './Menu';
+import { setMenuPos, toggleMenu } from '~/renderer/utils/context-menu';
 import { StyledDropdown, Icon } from './style';
-import { setMenuPos, toggleMenu } from '~/renderer/app/utils/context-menu';
 
 export type IDropDownItem = {
-  id?: any;
+  _id?: any;
   name?: string;
 };
 
@@ -27,7 +27,7 @@ export const Dropdown = React.forwardRef(
     const ref = React.useRef<HTMLDivElement>();
     const menuRef = React.useRef<HTMLDivElement>();
 
-    const selected = React.useMemo(() => items.find((r) => r.id === value), [
+    const selected = React.useMemo(() => items.find((r) => r._id === value), [
       value,
       items,
     ]);
@@ -56,7 +56,7 @@ export const Dropdown = React.forwardRef(
     }, []);
 
     const onItemClick = (item: IDropDownItem) => (e: React.MouseEvent) => {
-      if (onChange && value !== item.id) {
+      if (onChange && value !== item._id) {
         onChange(item);
       }
     };
@@ -75,8 +75,8 @@ export const Dropdown = React.forwardRef(
         <Menu ref={menuRef}>
           {items.map(
             (r) =>
-              r.id !== value && (
-                <MenuItem key={r.id} onClick={onItemClick(r)}>
+              r._id !== value && (
+                <MenuItem key={r._id.toString()} onClick={onItemClick(r)}>
                   {r.name}
                 </MenuItem>
               ),

@@ -2,44 +2,41 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 interface Props extends React.HTMLAttributes<HTMLAnchorElement> {
-  tag?: React.ReactNode;
-  list?: boolean;
   to?: string;
   target?: string;
   rel?: string;
-  useDefaultLink?: boolean;
+  external?: boolean;
 }
 
 export const Link = ({
   to,
+  target,
+  rel,
+  external,
   children,
-  list,
-  useDefaultLink,
-  ...props
+  className,
+  style,
+  onClick,
 }: Props) => {
-  const sharedProps: any = {
-    className: props.className,
-    style: props.style,
-    onClick: props.onClick,
-  };
+  const domProps: any = { className, style, onClick };
 
   if (!to) {
-    if (!list) return <div {...sharedProps}>{children}</div>;
-    return <li {...sharedProps}>{children}</li>;
+    return <div {...domProps}>{children}</div>;
   }
 
   const linkProps = {
-    ...sharedProps,
-    target: props.target,
-    rel: props.rel,
+    ...domProps,
+    target,
+    rel,
   };
 
-  if (to.startsWith('http') || useDefaultLink)
+  if (to.startsWith('http') || external) {
     return (
       <a href={to} {...linkProps}>
         {children}
       </a>
     );
+  }
 
   return (
     <RouterLink to={to} {...linkProps}>

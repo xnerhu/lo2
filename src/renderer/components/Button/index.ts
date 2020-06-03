@@ -17,7 +17,6 @@ interface Props {
 
 export const Button = styled(Link)`
   width: fit-content;
-  min-width: 144px;
   padding: 0px 16px;
   height: 48px;
   display: flex;
@@ -42,27 +41,30 @@ export const Button = styled(Link)`
     pushAnimation,
   }: Props) => css`
     ${
-      icon &&
-      css`
-        flex-direction: ${iconOnRight ? 'row-reverse' : 'row'};
+      icon
+        ? css`
+            flex-direction: ${iconOnRight ? 'row-reverse' : 'row'};
 
-        &::before {
-          content: '';
-          width: 20px;
-          height: 20px;
-          background-color: #000;
-          mask-image: url(${icon});
-          margin-left: 4px;
-          margin-right: 4px;
-          transition: 0.1s background-color;
-          ${centerIcon(20, true)};
+            &::before {
+              content: '';
+              width: 20px;
+              height: 20px;
+              background-color: #000;
+              mask-image: url(${icon});
+              margin-left: 4px;
+              margin-right: 4px;
+              transition: 0.1s background-color;
+              ${centerIcon(20, true)};
 
-          ${iconRotation != null &&
-          css`
-            transform: rotate(${iconRotation}deg);
-          `}
-        }
-      `
+              ${iconRotation != null &&
+              css`
+                transform: rotate(${iconRotation}deg);
+              `}
+            }
+          `
+        : css`
+            min-width: 96px;
+          `
     }
 
     ${
@@ -117,84 +119,6 @@ export const DeleteButton = styled(Button)`
   }
 `;
 
-// export const buttonBase = css`
-//   width: fit-content;
-//   min-width: 144px;
-//   padding: 0px 16px;
-//   height: 48px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   font-size: 16px;
-//   cursor: pointer;
-//   will-change: background-color, color;
-//   transition: 0.15s background-color, 0.15s color;
-//   ${robotoMedium()};
-//   ${noUserSelect()};
-// `;
-
-// export const Button = styled(Link)`
-//   color: ${PRIMARY_COLOR};
-//   border: 2px solid ${PRIMARY_COLOR};
-//   border-radius: 64px;
-//   ${buttonBase};
-
-//   ${({
-//     disabled,
-//     icon,
-//     reversedIcon,
-//   }: {
-//     disabled?: boolean;
-//     icon?: string;
-//     reversedIcon?: boolean;
-//   }) => css`
-//     pointer-events: ${disabled ? 'none' : 'all'};
-//     opacity: ${disabled ? transparency.text.disabled : 1};
-
-//     ${icon &&
-//     css`
-//       &::after {
-//         content: '';
-//         display: block;
-//         width: 24px;
-//         height: 24px;
-//         background-color: ${PRIMARY_COLOR};
-//         mask-image: url(${icon});
-//         transition: 0.2s background-color;
-//         ${centerIcon(24, true)};
-//       }
-
-//       &:hover::after {
-//         background-color: #fff;
-//       }
-
-//       ${reversedIcon &&
-//       css`
-//         flex-direction: row-reverse;
-
-//         &::after {
-//           transform: rotate(-180deg);
-//         }
-//       `}
-//     `}
-
-//     ${!disabled &&
-//     css`
-//       &:hover {
-//         background-color: ${PRIMARY_COLOR};
-//         color: #fff;
-//       }
-//     `}
-//   `}
-// `;
-
-// export const RaisedButton = styled.div`
-//   background-color: rgba(0, 0, 0, 0.06);
-//   border-radius: 8px;
-//   ${buttonBase};
-
-//   &:hover,
-//   &:focus {
-//     background-color: rgba(0, 0, 0, 0.12);
-//   }
-// `;
+export const FlatButton = styled(Button)`
+  background-color: unset;
+`;

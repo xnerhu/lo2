@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
 import { Button } from '../Button';
+import { CARD_SHADOW } from '~/renderer/constants/design';
 
 export const FormContainer = styled.form`
   width: 100%;
   max-width: 512px;
   margin: 0 auto;
   padding: 0px 24px 32px;
-  background-color: rgba(0, 0, 0, 0.02);
   border-radius: 8px;
   margin-top: 16px;
+  box-shadow: ${CARD_SHADOW};
 `;
 
 export const FormContent = styled.div`
@@ -19,8 +20,8 @@ export const FormContent = styled.div`
 `;
 
 export const SubmitButton = styled(Button)`
-  height: 36px;
-  font-size: 14px;
   min-width: 96px;
+  height: 36px;
   margin-top: 24px;
+  font-size: 14px;
 `;

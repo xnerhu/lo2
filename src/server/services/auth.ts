@@ -1,52 +1,55 @@
-import { Request } from 'express';
 import { sign, verify } from 'jsonwebtoken';
 
 import { IUser } from '~/interfaces';
-import { IAccessTokenPayload } from '../interfaces';
-import { formatUser } from '../utils';
-import { ACCESS_TOKEN_EXPIRATION } from '../constants';
+import { config } from '../constants/config';
+import { IToken } from '../interfaces';
+import UserService from '../services/user';
+import UserModel from '../models/user';
+import { compareHashed } from '../utils';
 
 class AuthService {
-  public getToken(req: Request) {
-    return (
-      req.body.token ||
-      req.query.token ||
-      req.headers['x-access-token'] ||
-      req.cookies.token
-    );
-  }
-
   public createToken(user: IUser) {
-    const secret = process.env.TOKEN_SECRET;
-
-    const payload: IAccessTokenPayload = {
+    const token: IToken = {
       type: 'ACCESS_TOKEN',
-      user: formatUser(user),
+      data: UserService.format(user),
     };
 
-    return sign(payload, secret, {
-      expiresIn: ACCESS_TOKEN_EXPIRATION,
+    return sign(token, config.tokenSecret, {
+      expiresIn: config.tokenExpirationTime,
     });
   }
 
-  public verifyToken(req: Request): Promise<IAccessTokenPayload> {
-    return new Promise((resolve, reject) => {
-      const token = this.getToken(req);
-
+  public decodeToken(token: string): Promise<IToken | Error> {
+    return new Promise((resolve) => {
       if (!token) {
-        return reject('Unauthorized: No token provided');
+        return resolve(new Error('401'));
       }
 
-      const secret = process.env.TOKEN_SECRET;
-
-      verify(token, secret, (err: Error, decoded: IAccessTokenPayload) => {
+      verify(token, config.tokenSecret, (err: Error, token: IToken) => {
         if (err) {
-          return reject('Unauthorized: Invalid token');
+          return resolve(new Error('403'));
         }
 
-        resolve(decoded);
+        resolve(token);
       });
     });
+  }
+
+  public async authenticateUser(username: string, password: string) {
+    if (!username) throw new Error('Username must be provided!');
+    if (!password) throw new Error('Password must be provided!');
+
+    const user: IUser = await UserModel.findOne({ username }).lean().exec();
+
+    if (!user) throw new Error('Invalid username!');
+
+    const correct = await compareHashed(password, user.password);
+
+    if (!correct) throw new Error('Invalid password!');
+
+    const token = await this.createToken(user);
+
+    return { token, user };
   }
 }
 

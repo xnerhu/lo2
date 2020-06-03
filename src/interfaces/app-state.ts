@@ -1,30 +1,20 @@
 import { IUser } from './user';
 import {
-  IHomePagePacket,
-  INewsPagePacket,
-  IArticlePagePacket,
-  IPersonnelPacket,
-  IAddArticlePacket,
-  IEditArticlePacket,
+  IHomePageData,
+  IArticlesPageData,
+  IArticlePageData,
+  IAddArticlePageData,
+  IEditArticlePageData,
 } from './pages';
-import { IHomePageData, INewsPageData } from './page';
-
-export interface IAppStatePage {
-  home: IHomePageData;
-  news: INewsPageData;
-  article?: IArticlePagePacket;
-  personnel?: IPersonnelPacket;
-  addArticle?: IAddArticlePacket;
-  editArticle?: IEditArticlePacket;
-}
 
 export interface IAppState {
-  page?: IAppStatePage;
-  newsPage?: INewsPagePacket;
-  articlePage?: IArticlePagePacket;
-  personnelPage?: IPersonnelPacket;
-  addArticlePage?: IAddArticlePacket;
-  editArticlePage?: IEditArticlePacket;
-  user?: IUser;
+  home?: IHomePageData;
+  articles?: IArticlesPageData;
+  article?: IArticlePageData;
+  addArticle?: IAddArticlePageData;
+  editArticle?: IEditArticlePageData;
   signedIn?: boolean;
+  user?: IUser;
 }
+
+export type IAppStateItem = keyof IAppState;

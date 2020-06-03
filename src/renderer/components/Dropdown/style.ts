@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { robotoMedium } from '~/renderer/mixins/typography';
 import { noUserSelect } from '~/renderer/mixins/user-selection';
 import { centerIcon } from '~/renderer/mixins/images';
-import { CHEVRON_ICON } from '~/renderer/constants/icons';
+import { ICON_CHEVRON } from '~/renderer/constants/icons';
 
 export const StyledDropdown = styled.div`
   height: 48px;
@@ -28,7 +28,7 @@ export const StyledDropdown = styled.div`
 export const Icon = styled.div`
   width: 20px;
   height: 20px;
-  background-image: url(${CHEVRON_ICON});
+  background-image: url(${ICON_CHEVRON});
   margin-left: 4px;
   transform: rotate(90deg);
   ${centerIcon()};

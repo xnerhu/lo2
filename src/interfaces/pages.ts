@@ -1,39 +1,31 @@
-import { INews, INewsChunk, INewsCategory, IEditArticleItem } from './news';
-import { IPersonnelSection } from './personnel';
-import { IArticle, IArticleCategory } from './article';
+import { IArticle, IArticleCategory, IArticlesChunk } from './article';
 import { IUser } from './user';
 
-export interface IHomePagePacket {
+export interface IHomePageData {
   sliderItems?: string[];
-  news?: INews[];
+  articles?: IArticle[];
+  categories?: IArticleCategory[];
 }
 
-export interface INewsPagePacket {
-  news?: INewsChunk;
-  categories?: INewsCategory[];
+export interface IArticlesPageData extends IArticlesChunk {
+  nextPage?: boolean;
+  categories?: IArticleCategory[];
 }
 
-export interface IArticlePagePacket {
+export interface IArticlePageData {
   article?: IArticle;
   category?: IArticleCategory;
+  subcategory?: IArticleCategory;
   author?: IUser;
-  error?: boolean;
-  editable?: boolean;
-}
-
-export interface IPersonnelPacket {
-  sections?: IPersonnelSection[];
-  sliderItems?: string[];
-}
-
-export interface IAddArticlePacket {
-  categories?: INewsCategory[];
-}
-
-export interface IEditArticlePacket {
-  label?: string;
-  categories?: INewsCategory[];
-  item: IEditArticleItem;
   success?: boolean;
-  error?: string;
+  canEdit?: boolean;
+}
+
+export interface IAddArticlePageData {
+  categories?: IArticleCategory[];
+}
+
+export interface IEditArticlePageData extends IAddArticlePageData {
+  article?: IArticle;
+  success?: boolean;
 }

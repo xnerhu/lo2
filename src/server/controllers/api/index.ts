@@ -1,13 +1,22 @@
-import { Router } from 'express';
+import { FastifyInstance } from 'fastify';
 
-import article from './article';
-import page from './page';
+import { config } from '~/server/constants';
 import auth from './auth';
+import article from './article';
+import user from './user';
+import bundle from './bundle';
+import dev from './dev';
 
-const router = Router();
+export default (app: FastifyInstance, opts: any, done: Function) => {
+  app.register(article, { prefix: '/article' });
+  app.register(auth, { prefix: '/auth' });
+  app.register(user, { prefix: '/user' });
 
-router.use('/article', article);
-router.use('/page', page);
-router.use('/auth', auth);
+  if (config.dev) {
+    app.register(dev, { prefix: '/dev' });
+  }
 
-export default router;
+  bundle(app);
+
+  done();
+};

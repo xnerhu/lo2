@@ -1,42 +1,19 @@
-import { IArticleCategory } from '~/interfaces/article';
-import { db } from '../models/db';
+import { IArticleCategory } from '~/interfaces';
+import ArticleCategoryModel from '../models/article-category';
 
 class ArticleCategoryService {
-  public async find(label: string): Promise<IArticleCategory> {
-    if (!label) {
-      throw new Error('Label must be provided!');
-    } else if (label === 'all') {
-      throw new Error('Incorrect label!');
-    }
-
-    const [data] = await db<IArticleCategory>('news-categories')
-      .where({ label })
-      .limit(1);
-
-    return data;
+  public format(data: IArticleCategory): IArticleCategory {
+    if (!data) return null;
+    return {
+      ...data,
+      _id: data._id.toString(),
+    };
   }
 
-  public async findMany(): Promise<IArticleCategory[]> {
-    const items = await db<IArticleCategory>('news-categories');
+  public async getAll(): Promise<IArticleCategory[]> {
+    const items = await ArticleCategoryModel.find().lean().exec();
 
-    return items;
-  }
-
-  public async findById(id: number): Promise<IArticleCategory> {
-    const [data] = await db<IArticleCategory>('news-categories')
-      .where({ id })
-      .limit(1);
-
-    return data;
-  }
-
-  public async findManyById(...ids: number[]): Promise<IArticleCategory[]> {
-    const items = await db<IArticleCategory>('news-categories').whereIn(
-      'id',
-      ids,
-    );
-
-    return items;
+    return items.map((r) => this.format(r));
   }
 }
 

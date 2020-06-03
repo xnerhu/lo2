@@ -1,50 +1,32 @@
 import { IUser } from '~/interfaces';
-import { db } from '../models/db';
-import { hashString, formatUser } from '../utils';
+import UserModel from '../models/user';
+import { hashString } from '../utils';
 
 class UserService {
-  public async find(username: string): Promise<IUser> {
-    const [item] = await db<IUser>('users').where({ username }).limit(1);
-
-    return item;
-  }
-
-  public async findMany(ids: number[]) {
-    const query = await db<IUser>('users').whereIn('id', ids);
-
-    return query.map((r) => formatUser(r));
-  }
-
-  public async findById(id: number): Promise<IUser> {
-    const [item] = await db<IUser>('users').where({ id }).limit(1);
-
-    return item;
-  }
-
-  public async create(data: IUser): Promise<IUser> {
-    const hashedPassword = await hashString(data.password);
-
-    const [id] = await db<IUser>('users').insert({
+  public format(data: IUser): IUser {
+    return {
       ...data,
-      password: hashedPassword,
-    });
-
-    return { ...data, id, password: undefined };
+      _id: data._id.toString(),
+      image: `/static/users/${data._id}`,
+      password: undefined,
+    };
   }
 
   public async changePassword(username: string, newPassword: string) {
-    const user = await this.find(username);
-
-    if (!user) {
-      throw new Error(`User ${username} doesn\'t exists!`);
+    if (!username || !newPassword) {
+      throw new Error('Provide username and password!');
     }
 
     const hashed = await hashString(newPassword);
 
-    await db<IUser>('users')
-      .where({ username })
-      .limit(1)
-      .update({ password: hashed });
+    const updated = await UserModel.findOneAndUpdate(
+      { username },
+      { password: hashed },
+    );
+
+    if (!updated) {
+      throw new Error(`User ${username} doesn\'t exists!`);
+    }
   }
 }
 

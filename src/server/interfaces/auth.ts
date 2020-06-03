@@ -1,6 +1,6 @@
-import { IUser } from '~/interfaces';
+import { ITokenPayload } from '~/interfaces';
 
-export interface IAccessTokenPayload {
+export interface IToken {
   type: 'ACCESS_TOKEN';
-  user: IUser;
+  data: ITokenPayload;
 }

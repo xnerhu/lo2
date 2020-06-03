@@ -7,22 +7,25 @@ const {
   getFileLoader,
 } = require('./webpack.config.base');
 
-const clientConfig = getConfig(getBaseConfig(), {
+const serverConfig = getConfig(getBaseConfig(), {
   name: 'server',
 
-  target: 'node',
+  entry: {
+    main: './src/server',
+    worker: './src/worker',
+  },
 
-  entry: './src/server',
+  target: 'node',
 
   module: {
     rules: [getFileLoader(false)],
   },
 
   output: {
-    path: resolve(__dirname, 'build', 'server'),
+    path: resolve(__dirname, 'build/server'),
   },
 
   externals: [nodeExternals()],
 });
 
-module.exports = clientConfig;
+module.exports = serverConfig;

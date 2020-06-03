@@ -36,8 +36,7 @@ export const Description = styled.div`
 
 export const StyledErrorLabel = styled.div`
   font-size: 14px;
-  margin-left: 16px;
-  margin-top: 8px;
+  margin-top: 16px;
   margin-bottom: 8px;
   color: ${ERROR_COLOR};
   ${robotoMedium()};

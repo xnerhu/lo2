@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { preFetchImage } from '~/renderer/app/utils/network';
+import { preFetchImage } from '~/renderer/utils/network';
 import {
   Container,
   Picture,

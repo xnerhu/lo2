@@ -18,10 +18,6 @@ export const Carousel = ({ items }: Props) => {
     setSelected(selected + 1 >= items.length ? 0 : selected + 1);
   }, [selected]);
 
-  const onControlClick = (index: number) => () => {
-    setSelected(index);
-  };
-
   if (items && !items.length) return null;
 
   const multipleItems = items && items.length > 1;
@@ -42,7 +38,7 @@ export const Carousel = ({ items }: Props) => {
           {items.map((r, index) => (
             <Control
               key={r}
-              onClick={onControlClick(index)}
+              onClick={() => setSelected(index)}
               selected={r === src}
             />
           ))}
@@ -51,7 +47,3 @@ export const Carousel = ({ items }: Props) => {
     </>
   );
 };
-
-Carousel.defaultProps = {
-  items: [],
-} as Props;

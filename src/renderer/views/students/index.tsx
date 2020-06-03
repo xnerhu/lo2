@@ -55,7 +55,7 @@ export default SubPage({
       label: 'Projekty',
     },
     {
-      to: '/współpraca-międzynarodowa',
+      to: '/wspolpraca-miedzynarodowa',
       label: 'Współpraca międzynarodowa',
     },
     {

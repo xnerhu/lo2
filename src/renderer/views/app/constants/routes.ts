@@ -26,7 +26,7 @@ export const routerMap = [
     ),
   },
   {
-    path: '/współpraca-międzynarodowa',
+    path: '/wspolpraca-miedzynarodowa',
     component: loadable(
       () => import('~/renderer/views/partnership'),
       LOADABLE_OPTIONS,
@@ -54,7 +54,7 @@ export const routerMap = [
     ),
   },
   {
-    path: '/artykuł/:label',
+    path: '/artykul/:label',
     component: loadable(
       () => import('~/renderer/views/article'),
       LOADABLE_OPTIONS,

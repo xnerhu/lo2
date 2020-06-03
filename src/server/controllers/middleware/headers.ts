@@ -10,6 +10,7 @@ export default (app: FastifyInstance) => {
       'Access-Control-Allow-Headers',
       'Origin, X-Requested-With, Content-Type, Accept',
     );
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
     next();
   });

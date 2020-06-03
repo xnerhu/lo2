@@ -15,7 +15,7 @@ export default () => {
     shouldFetch: ({ label }, cached) => label !== cached?.label,
   });
 
-  if (!data?.success) {
+  if (data?.success === false) {
     return <ArticleNotFoundError />;
   }
 

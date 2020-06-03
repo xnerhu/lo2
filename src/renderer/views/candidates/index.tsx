@@ -4,39 +4,39 @@ export default SubPage({
   title: 'Kandydaci',
   items: [
     {
-      to: '/artykuł/dlaczego-dwójka',
+      to: '/artykul/dlaczego-dwójka',
       label: 'Dlaczego Dwójka?',
     },
     {
-      to: '/artykuł/profile-klas',
+      to: '/artykul/profile-klas',
       label: 'Profile klas',
     },
     {
-      to: '/artykuł/zasady-rekrutacji',
+      to: '/artykul/zasady-rekrutacji',
       label: 'Zasady rekrutacji',
     },
     {
-      to: '/artykuł/harmonogram',
+      to: '/artykul/harmonogram',
       label: 'Harmonogram',
     },
     {
-      to: '/artykuł/podręcznik-dla-kandydata',
+      to: '/artykul/podręcznik-dla-kandydata',
       label: 'Podręcznik dla kandydata',
     },
     {
-      to: '/artykuł/progi-z-poprzednich-lat',
+      to: '/artykul/progi-z-poprzednich-lat',
       label: 'Progi z poprzednich lat',
     },
     {
-      to: '/artykuł/dzień-drzwi-otwartych',
+      to: '/artykul/dzień-drzwi-otwartych',
       label: 'Dzień Drzwi Otwartych',
     },
     {
-      to: '/artykuł/konkursy',
+      to: '/artykul/konkursy',
       label: 'Konkursy',
     },
     {
-      to: '/artykuł/lekcje-w-dwójce',
+      to: '/artykul/lekcje-w-dwójce',
       label: 'Lekcje w Dwójce',
     },
   ],

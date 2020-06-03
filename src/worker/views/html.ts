@@ -1,31 +1,4 @@
-import { fonts } from '../constants';
-
-const fallBack = 'font-display: swap;';
-
-const fontsCss = `
-  @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    src: url(${fonts.robotoRegular}) format('woff2');
-    ${fallBack}
-  }
-
-  @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    src: url(${fonts.robotoMedium}) format('woff2');
-    ${fallBack}
-  }
-`.replace(/\n|\s/g, '');
-
-interface Props {
-  html: string;
-  styles: string;
-  scripts: string;
-  state?: string;
-}
+import { fontsCss } from './fonts';
 
 const scriptView = (data: string) => {
   if (!data) return '';
@@ -35,8 +8,7 @@ const scriptView = (data: string) => {
   return `<script type="text/javascript">window.__APP_STATE__= ${data}</script>`;
 };
 
-export default ({ html, styles, scripts, state }: Props) => {
-  return `
+export const htmlViewStart = `
   <!DOCTYPE html>
   <html lang="pl">
     <head>
@@ -50,7 +22,6 @@ export default ({ html, styles, scripts, state }: Props) => {
       <link rel="icon" type="image/png" href="/static/favicon.png" />
       <title>Publiczne Liceum Ogólnokształcące Nr 2 w Opolu z Oddziałami Dwujęzycznymi im. Marii Konopnickiej w Opolu.</title>
       <style type="text/css">${fontsCss}</style>
-      ${styles}
     </head>
     <body>
       <noscript>
@@ -59,9 +30,14 @@ export default ({ html, styles, scripts, state }: Props) => {
           Tutaj znajdziesz, co dokładnie zrobić.
         </a>
       </noscript>
-      <main id="app">${html}</main>
-      ${scriptView(state)}
-      ${scripts}
-    </body>
-  </html>`;
+      <main id="app">
+  `;
+
+interface Props {
+  scripts: string;
+  state?: string;
+}
+
+export const htmlViewEnd = ({ scripts, state }: Props) => {
+  return `</main>${scriptView(state)}${scripts}</body></html>`;
 };

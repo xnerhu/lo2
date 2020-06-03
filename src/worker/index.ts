@@ -13,11 +13,21 @@ parentPort.on('message', (e: IWorkerMessage) => {
   if (type === 'render') {
     const { url, appState } = (e as IWorkerRenderRequest).data;
 
-    const html = render(url, appState);
-
-    port.postMessage({
-      type: 'render',
-      data: html,
-    } as IWorkerRenderResponse);
+    render(
+      url,
+      appState,
+      (data) => {
+        port.postMessage({
+          type: 'render',
+          data,
+        } as IWorkerRenderResponse);
+      },
+      () => {
+        port.postMessage({
+          type: 'render',
+          data: null,
+        } as IWorkerRenderResponse);
+      },
+    );
   }
 });

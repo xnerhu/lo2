@@ -1,16 +1,23 @@
 import React from 'react';
 import { StaticRouter } from 'react-router';
-import { renderToString } from 'react-dom/server';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
-import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
+import { renderToNodeStream } from 'react-dom/server';
+import { ServerStyleSheet } from 'styled-components';
+import { ChunkExtractor } from '@loadable/server';
 
 import { IAppState } from '~/interfaces';
 import { config } from './constants';
 import AppStateContext from '~/contextes/app-state';
 import App from '~/renderer/views/app';
-import htmlView from './views/html';
+import { htmlViewStart, htmlViewEnd } from './views/html';
 
-export const render = (url: string, appState: IAppState) => {
+export const render = (
+  url: string,
+  appState: IAppState,
+  onData: (data: string) => void,
+  onFinish: () => void,
+) => {
+  onData(htmlViewStart);
+
   const sheet = new ServerStyleSheet();
   const routerContext = {};
 
@@ -19,23 +26,32 @@ export const render = (url: string, appState: IAppState) => {
     entrypoints: ['app'],
   });
 
-  const html = renderToString(
-    <ChunkExtractorManager extractor={extractor}>
-      <StyleSheetManager sheet={sheet.instance}>
-        <StaticRouter location={url} context={routerContext}>
-          <AppStateContext.Provider value={appState}>
-            <App />
-          </AppStateContext.Provider>
-        </StaticRouter>
-      </StyleSheetManager>
-    </ChunkExtractorManager>,
+  const jsx = extractor.collectChunks(
+    sheet.collectStyles(
+      <StaticRouter location={url} context={routerContext}>
+        <AppStateContext.Provider value={appState}>
+          <App />
+        </AppStateContext.Provider>
+      </StaticRouter>,
+    ),
   );
 
-  const styles = sheet.getStyleTags();
-  const scripts = extractor.getScriptTags();
-  const state = JSON.stringify(appState);
+  const appStream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx));
 
-  sheet.seal();
+  appStream.on('data', (chunk: Buffer) => {
+    onData(chunk.toString());
+  });
 
-  return htmlView({ html, styles, scripts, state });
+  appStream.on('end', () => {
+    sheet.seal();
+
+    onData(
+      htmlViewEnd({
+        scripts: extractor.getScriptTags(),
+        state: JSON.stringify(appState),
+      }),
+    );
+
+    onFinish();
+  });
 };

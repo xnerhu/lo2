@@ -13,7 +13,9 @@
     "start": "node ./build/server/main.js",
     "lint": "eslint \"src/**/*.ts*\" \"src/**/*.tsx*\" \"babel.config.js\"",
     "lint-fix": "npm run lint -- --fix",
-    "clean": "rimraf ./build"
+    "clean": "rimraf ./build",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -111,6 +113,8 @@
     "slate-history": "^0.57.2",
     "slate-react": "^0.57.2",
     "spatium": "^1.0.0",
-    "styled-components": "^5.1.0"
-  }
+    "styled-components": "^5.1.0",
+    "snyk": "^1.335.0"
+  },
+  "snyk": true
 }

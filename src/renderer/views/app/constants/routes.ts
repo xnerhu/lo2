@@ -54,7 +54,7 @@ export const routerMap = [
     ),
   },
   {
-    path: '/artykul/:label',
+    path: '/artykuł/:label',
     component: loadable(
       () => import('~/renderer/views/article'),
       LOADABLE_OPTIONS,

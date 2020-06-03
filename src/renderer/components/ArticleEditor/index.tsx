@@ -132,7 +132,7 @@ export const ArticleEditor = ({ data, edit }: Props) => {
     );
 
     if (res?.success) {
-      window.location.href = `/artykul/${res.label}`;
+      window.location.href = `/artykuł/${res.label}`;
     }
   }, [
     content,

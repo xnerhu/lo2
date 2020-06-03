@@ -22,7 +22,7 @@ export default (app: FastifyInstance) => {
   handler('/cms/article/:label', 'editArticle');
 
   handler('/cms/article', 'addArticle');
-  handler('/artykul/:label', 'article');
+  handler('/artykuł/:label', 'article');
 
   // https://github.com/fastify/fastify/issues/1206
   handler(['/blog', '/blog/:category', '/blog/:category/:page'], 'articles');

@@ -22,13 +22,13 @@ const LazyCmsShortcuts = loadable(() => import('./Cms'), LOADABLE_OPTIONS);
 interface Props {
   icon: string;
   to?: string;
-  useDefaultLink?: boolean;
+  external?: boolean;
   children?: React.ReactNode;
 }
 
-export const Item = ({ icon, to, useDefaultLink, children }: Props) => {
+export const Item = ({ icon, to, external, children }: Props) => {
   return (
-    <StyledItem className="bg" to={to} useDefaultLink={useDefaultLink}>
+    <StyledItem className="bg" to={to} external={external}>
       <Circle src={icon} />
       <Title>{children}</Title>
     </StyledItem>

@@ -20,7 +20,7 @@ export default () => {
       <Item to="/account" icon={ICON_ACCOUNT}>
         Konto
       </Item>
-      <Item to="/api/auth/logout" icon={ICON_LOGOUT} useDefaultLink>
+      <Item to="/api/auth/sign-out" icon={ICON_LOGOUT} external>
         Wyloguj się
       </Item>
     </>

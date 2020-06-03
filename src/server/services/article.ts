@@ -20,7 +20,7 @@ import { serializeToText } from '~/utils/serializer';
 
 class ArticleService {
   public format(data: IArticle, full?: boolean): IArticle {
-    const { authorId } = data;
+    const { _id, categoryId, subcategoryId, authorId } = data;
     let { content } = data;
 
     const json = JSON.parse(content);
@@ -31,15 +31,17 @@ class ArticleService {
       content = serializeToText(json, config.shortArticleLength);
     }
 
-    return {
+    const res: IArticle = {
       ...data,
-      _id: data._id.toString(),
-      categoryId: data.categoryId.toString(),
-      subcategoryId: data.subcategoryId?.toString(),
+      _id: _id.toString(),
+      categoryId: categoryId.toString(),
+      subcategoryId: subcategoryId?.toString(),
       content,
       image: this.formatImage(data, full),
       authorId: objectIdToString(authorId),
     };
+
+    return res;
   }
 
   public formatImage(data: IArticle, full?: boolean) {
@@ -234,7 +236,7 @@ class ArticleService {
     return (
       article &&
       user &&
-      (user.admin || article.authorId.toString() === user._id.toString())
+      (user?.admin || article.authorId.toString() === user?._id?.toString())
     );
   }
 

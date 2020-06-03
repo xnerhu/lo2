@@ -9,6 +9,10 @@ import { Grid } from '../Section';
 
 export const Container = styled(Grid)`
   padding-bottom: 48px;
+
+  @media (max-width: 846px) {
+    grid-template-columns: unset;
+  }
 `;
 
 export const Item = styled(Link)`
@@ -16,7 +20,7 @@ export const Item = styled(Link)`
   height: 64px;
   background-color: #fff;
   border-radius: 8px;
-  padding-left: 20px;
+  padding: 0px 20px;
   display: flex;
   align-items: center;
   font-size: 16px;

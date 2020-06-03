@@ -11,7 +11,7 @@ import { IAppState } from '~/interfaces';
 import AppStateContext from '~/contextes/app-state';
 
 class RendrerService {
-  public render(url: string, state: IAppState) {
+  public render(url: string, appState: IAppState) {
     const sheet = new ServerStyleSheet();
     const routerContext = {};
 
@@ -24,7 +24,7 @@ class RendrerService {
       <ChunkExtractorManager extractor={extractor}>
         <StyleSheetManager sheet={sheet.instance}>
           <StaticRouter location={url} context={routerContext}>
-            <AppStateContext.Provider value={state}>
+            <AppStateContext.Provider value={appState}>
               <App />
             </AppStateContext.Provider>
           </StaticRouter>
@@ -32,12 +32,13 @@ class RendrerService {
       </ChunkExtractorManager>,
     );
 
-    const styleTags = sheet.getStyleTags();
-    const scriptTags = extractor.getScriptTags();
+    const styles = sheet.getStyleTags();
+    const scripts = extractor.getScriptTags();
+    const state = JSON.stringify(appState);
 
     sheet.seal();
 
-    return htmlView(html, styleTags, scriptTags, state);
+    return htmlView({ html, styles, scripts, state });
   }
 }
 

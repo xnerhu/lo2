@@ -1,4 +1,7 @@
 import { SubPage } from '~/renderer/components/SubPage';
+import { formatBlogUrl } from '~/renderer/utils/url';
+
+const url = formatBlogUrl('kandydaci');
 
 export default SubPage({
   title: 'Kandydaci',
@@ -8,15 +11,15 @@ export default SubPage({
       label: 'Dlaczego Dwójka?',
     },
     {
-      to: '/artykul/profile-klas',
+      to: url('profile-klas'),
       label: 'Profile klas',
     },
     {
-      to: '/artykul/zasady-rekrutacji',
+      to: url('zasady-rekrutacji'),
       label: 'Zasady rekrutacji',
     },
     {
-      to: '/artykul/harmonogram',
+      to: url('harmonogram'),
       label: 'Harmonogram',
     },
     {
@@ -24,15 +27,15 @@ export default SubPage({
       label: 'Podręcznik dla kandydata',
     },
     {
-      to: '/artykul/progi-z-poprzednich-lat',
+      to: url('progi-z-poprzednich-lat'),
       label: 'Progi z poprzednich lat',
     },
     {
-      to: '/artykul/dzień-drzwi-otwartych',
+      to: url('dzień-dni-otwartych'),
       label: 'Dzień Drzwi Otwartych',
     },
     {
-      to: '/artykul/konkursy',
+      to: url('konkursy'),
       label: 'Konkursy',
     },
     {

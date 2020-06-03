@@ -4,9 +4,11 @@ import { Dropdown as StyledDropdown } from '../Dropdown';
 import { Input as StyledInput } from '../Input';
 import { PRIMARY_COLOR } from '~/renderer/constants/design';
 import { Content } from '../Section';
+import { articleContentCss } from '../Article/style';
 
 export const StyledArticleEditor = styled(Content)`
   padding-bottom: 48px;
+  ${articleContentCss};
 `;
 
 export const Toolbar = styled.div`

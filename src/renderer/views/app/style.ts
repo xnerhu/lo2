@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { PRIMARY_COLOR } from '~/renderer/constants/colors';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '~/renderer/constants/colors';
 import { noTapHighlight } from '~/renderer/mixins/user-selection';
 import { noButtons } from '~/renderer/mixins/scroll';
 import {
@@ -106,7 +106,7 @@ export const Style = css`
   }
 
   ::selection {
-    background: ${PRIMARY_COLOR};
+    background: ${SECONDARY_COLOR};
     color: #fff;
   }
 `;

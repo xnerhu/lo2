@@ -19,10 +19,10 @@ export default SubPage({
       to: '/blog/pielęgniarka-stomatolog',
       label: 'Pielęgniarka, stomatolog',
     },
-    {
-      to: '/oddzialy',
-      label: 'Oddziały',
-    },
+    // {
+    //   to: '/oddzialy',
+    //   label: 'Oddziały',
+    // },
     {
       to: '',
       label: 'Kalendarz pracy szkoły',

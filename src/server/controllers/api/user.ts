@@ -21,7 +21,7 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
 
       signOutUser(res);
 
-      res.send({ success: true } as IApiResponse);
+      return { success: true } as IApiResponse;
     },
   );
 

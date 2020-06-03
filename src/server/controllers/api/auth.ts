@@ -25,10 +25,10 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
       httpOnly: true,
     });
 
-    res.send({
+    return {
       success: true,
       user: UserService.format(user),
-    } as IApiResponse<IUser>);
+    } as IApiResponse<IUser>;
   });
 
   app.get('/sign-out', (req, res) => {

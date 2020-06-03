@@ -20,7 +20,7 @@ export default (app: FastifyInstance) => {
         req.raw.tokenPayload,
       );
 
-      res.send(data);
+      return data;
     },
   );
 };

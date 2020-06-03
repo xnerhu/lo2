@@ -30,6 +30,9 @@ interface Props {
 
 const scriptView = (data: string) => {
   if (!data) return '';
+
+  data = data.replace(/</g, '\\u003c');
+
   return `<script type="text/javascript">window.__APP_STATE__= ${data}</script>`;
 };
 
@@ -59,13 +62,7 @@ export default ({ html, styles, scripts, state }: Props) => {
       </noscript>
       <main id="app">${html}</main>
       ${scriptView(state)}
+      ${scripts}
     </body>
   </html>`;
 };
-
-/*
-      <script type="text/javascript">window.__APP_STATE__= ${JSON.stringify(
-        appState ?? {},
-      ).replace(/</g, '\\u003c')}</script>
-      ${scriptTags}
-      */

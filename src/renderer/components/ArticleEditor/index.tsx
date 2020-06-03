@@ -32,7 +32,7 @@ export const ArticleEditor = ({ data, edit }: Props) => {
   const articleData = edit && (data as IEditArticlePageData)?.article;
 
   const { categories, subcategories } = React.useMemo(
-    () => splitArticleCategories(data?.categories),
+    () => splitArticleCategories(data?.categories) || {},
     [data?.categories],
   );
 
@@ -148,17 +148,20 @@ export const ArticleEditor = ({ data, edit }: Props) => {
   React.useEffect(() => {
     if (!data) return;
 
-    const { success, categories } = data as IEditArticlePageData;
+    const { success } = data as IEditArticlePageData;
 
     if (success) {
-      const { title, categoryId, content, image } = articleData;
+      const { title, categoryId, subcategoryId, content, image } = articleData;
 
       titleInput.current.value = title;
 
-      const categoryLabel = categories.find((r) => r._id === categoryId).label;
+      selectCategory(categoryId);
+
+      if (subcategoryId) {
+        selectSubcategory(subcategoryId);
+      }
 
       setImage(image);
-      selectCategory(categoryLabel);
       setContent(JSON.parse(content));
     }
   }, [data]);

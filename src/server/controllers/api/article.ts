@@ -133,13 +133,20 @@ export default (app: FastifyInstance, opts: any, next: Function) => {
     const { label } = req.params;
     const article = await ensurePermissions(label, user, 'hasImage');
 
-    const { title, content, category, deleteImage } = req.body as IEditArticle;
+    const {
+      title,
+      content,
+      category,
+      subcategory,
+      deleteImage,
+    } = req.body as IEditArticle;
 
     await ArticleService.updateOne({
       _id: article._id.toString(),
       title,
       content,
       category,
+      subcategory,
       image: image?.data,
       deleteImage: (deleteImage as any) === 'true',
       hasImage: article.hasImage,

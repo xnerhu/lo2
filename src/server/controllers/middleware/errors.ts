@@ -14,5 +14,9 @@ export default (app: FastifyInstance) => {
     }
 
     res.send(message);
+
+    if (config.dev) {
+      throw error;
+    }
   });
 };

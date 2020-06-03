@@ -151,16 +151,9 @@ class ArticleService {
     category: categoryLabel,
     subcategory: subcategoryLabel,
   }: IInsertArticle): Promise<string> {
-    const [label, category, subcategory] = await Promise.all([
+    const [label, [category, subcategory]] = await Promise.all([
       this.createLabel(title),
-      ArticleCategoryModel.findOne({ label: categoryLabel }).lean().exec(),
-      subcategoryLabel &&
-        ArticleCategoryModel.findOne({
-          label: subcategoryLabel,
-          subcategory: true,
-        })
-          .lean()
-          .exec(),
+      this.getCategories(categoryLabel, subcategoryLabel),
     ]);
 
     const res = await ArticleModel.create({
@@ -178,14 +171,32 @@ class ArticleService {
     return label;
   }
 
+  private async getCategories(categoryLabel: string, subcategoryLabel: string) {
+    return await Promise.all([
+      ArticleCategoryModel.findOne({ label: categoryLabel }).lean().exec(),
+      subcategoryLabel &&
+        ArticleCategoryModel.findOne({
+          label: subcategoryLabel,
+          subcategory: true,
+        }),
+    ]);
+  }
+
   public async updateOne({
     _id,
     title,
     content,
+    category: categoryLabel,
+    subcategory: subcategoryLabel,
     image,
     deleteImage,
     hasImage,
   }: IEditArticle) {
+    const [category, subcategory] = await this.getCategories(
+      categoryLabel,
+      subcategoryLabel,
+    );
+
     await ArticleModel.updateOne(
       {
         _id: new mongoose.Types.ObjectId(_id) as any,
@@ -194,6 +205,8 @@ class ArticleService {
         $set: {
           title,
           content,
+          categoryId: category._id,
+          subcategoryId: subcategory?._id,
           hasImage: (!deleteImage && hasImage) || !!image,
         },
       },

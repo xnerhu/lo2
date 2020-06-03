@@ -51,7 +51,7 @@ export default SubPage({
       label: 'Podręczniki',
     },
     {
-      to: '/blog/projekty',
+      to: '/projekty',
       label: 'Projekty',
     },
     {

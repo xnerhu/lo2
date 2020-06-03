@@ -1,16 +1,18 @@
 import { SubPage } from '~/renderer/components/SubPage';
+import { formatBlogUrl } from '~/renderer/utils/url';
 
-export default () =>
-  SubPage({
-    title: 'Projekty',
-    items: [
-      {
-        to: '/news/licealista-na-rynku-pracy',
-        label: 'Licealista na rynku pracy',
-      },
-      {
-        to: '/news/budowanie-kariery',
-        label: 'Budowanie kariery',
-      },
-    ],
-  });
+const url = formatBlogUrl('projekty');
+
+export default SubPage({
+  title: 'Projekty',
+  items: [
+    {
+      to: url('licealista-na-rynku-pracy'),
+      label: 'Licealista na rynku pracy',
+    },
+    {
+      to: url('budowanie-kariery'),
+      label: 'Budowanie kariery',
+    },
+  ],
+});

@@ -1,34 +1,33 @@
 import { SubPage } from '~/renderer/components/SubPage';
+import { formatBlogUrl } from '~/renderer/utils/url';
 
-const getUrl = (subcategory: string) => {
-  return `/blog/maturzyści?subcategory=${subcategory}`;
-};
+const url = formatBlogUrl('maturzyści');
 
 export default SubPage({
   title: 'Maturzyści',
   items: [
     {
-      to: getUrl('terminarz'),
+      to: url('terminarz'),
       label: 'Terminarz',
     },
     {
-      to: getUrl('procedury'),
+      to: url('procedury'),
       label: 'Procedury',
     },
     {
-      to: getUrl('matura-dla-absolwentów'),
+      to: url('matura-dla-absolwentów'),
       label: 'Matura dla absolwentów',
     },
     {
-      to: getUrl('wyniki-z-poprzednich-lat'),
+      to: url('wyniki-z-poprzednich-lat'),
       label: 'Wyniki z poprzednich lat',
     },
     {
-      to: getUrl('studniówka'),
+      to: url('studniówka'),
       label: 'Studniówka',
     },
     {
-      to: getUrl('oferty-szkół-wyższych'),
+      to: url('oferty-szkół-wyższych'),
       label: 'Oferty szkół wyższych',
     },
   ],

@@ -1,18 +1,21 @@
 import { MessagePort } from 'worker_threads';
 
 export interface IWorkerMessage {
-  type: 'render';
+  scope: 'render';
   data?: any;
   port: MessagePort;
 }
 
-export interface IWorkerRenderRequest extends IWorkerMessage {
-  data: {
-    url: string;
-    appState: any;
-  };
+export interface IWorkerRenderReq extends IWorkerMessage {
+  data: IRenderOptions;
 }
 
-export interface IWorkerRenderResponse extends IWorkerMessage {
-  data?: string;
+export interface IWorkerRenderRes extends IWorkerMessage {
+  chunk?: string;
+  finished?: boolean;
+}
+
+export interface IRenderOptions {
+  url: string;
+  appState: any;
 }

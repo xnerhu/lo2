@@ -21,5 +21,5 @@ export default (item?: IAppStateItem) => async (
 
   res.type('text/html');
 
-  RenderService.render(req.raw.url, appState, res.res);
+  RenderService.render({ url: req.raw.url, appState }, res.res);
 };

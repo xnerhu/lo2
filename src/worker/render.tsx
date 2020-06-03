@@ -4,18 +4,19 @@ import { renderToNodeStream } from 'react-dom/server';
 import { ServerStyleSheet } from 'styled-components';
 import { ChunkExtractor } from '@loadable/server';
 
-import { IAppState } from '~/interfaces';
+import { IRenderOptions } from '~/interfaces';
 import { config } from './constants';
 import AppStateContext from '~/contextes/app-state';
 import App from '~/renderer/views/app';
 import { htmlViewStart, htmlViewEnd } from './views/html';
 
 export const render = (
-  url: string,
-  appState: IAppState,
+  options: IRenderOptions,
   onData: (data: string) => void,
   onFinish: () => void,
 ) => {
+  const { url, appState } = options;
+
   onData(htmlViewStart);
 
   const sheet = new ServerStyleSheet();
@@ -45,13 +46,12 @@ export const render = (
   appStream.on('end', () => {
     sheet.seal();
 
-    onData(
-      htmlViewEnd({
-        scripts: extractor.getScriptTags(),
-        state: JSON.stringify(appState),
-      }),
-    );
+    const html = htmlViewEnd({
+      scripts: extractor.getScriptTags(),
+      state: JSON.stringify(appState),
+    });
 
+    onData(html);
     onFinish();
   });
 };

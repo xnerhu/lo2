@@ -3,15 +3,15 @@ import { Writable } from 'stream';
 
 import { config } from '../constants/config';
 import {
-  IAppState,
-  IWorkerRenderRequest,
-  IWorkerRenderResponse,
+  IWorkerRenderReq,
+  IWorkerRenderRes,
+  IRenderOptions,
 } from '~/interfaces';
 
 class RendrerService {
   private worker = new Worker(config.workerPath);
 
-  public render(url: string, appState: IAppState, stream: Writable) {
+  public render(options: IRenderOptions, stream: Writable) {
     const { port1, port2 } = new MessageChannel();
 
     const end = () => {
@@ -23,17 +23,13 @@ class RendrerService {
       stream.end();
     };
 
-    port1.on('message', (e: IWorkerRenderResponse) => {
-      if (e.data == null) return end();
+    port1.on('message', (e: IWorkerRenderRes) => {
+      if (e.finished) return end();
       stream.write(e.data);
     });
 
     this.worker.postMessage(
-      {
-        type: 'render',
-        data: { url, appState },
-        port: port2,
-      } as IWorkerRenderRequest,
+      { scope: 'render', data: options, port: port2 } as IWorkerRenderReq,
       [port2],
     );
   }

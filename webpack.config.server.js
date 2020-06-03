@@ -7,22 +7,34 @@ const {
   getFileLoader,
 } = require('./webpack.config.base');
 
-const clientConfig = getConfig(getBaseConfig(), {
-  name: 'server',
+const getServerConfig = (name, config) => {
+  return getConfig(
+    getBaseConfig(),
+    {
+      name,
 
-  target: 'node',
+      target: 'node',
 
+      module: {
+        rules: [getFileLoader(false)],
+      },
+
+      output: {
+        path: resolve(__dirname, 'build', name),
+      },
+
+      externals: [nodeExternals()],
+    },
+    config,
+  );
+};
+
+const serverConfig = getServerConfig('server', {
   entry: './src/server',
-
-  module: {
-    rules: [getFileLoader(false)],
-  },
-
-  output: {
-    path: resolve(__dirname, 'build', 'server'),
-  },
-
-  externals: [nodeExternals()],
 });
 
-module.exports = clientConfig;
+const renderConfig = getServerConfig('render', {
+  entry: './src/render',
+});
+
+module.exports = serverConfig;

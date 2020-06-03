@@ -40,17 +40,10 @@ const startNodemon = () => {
 const app = express();
 
 const init = async () => {
-  const multiCompiler = webpack([clientConfig, serverConfig]);
+  const compilers = webpack([clientConfig, serverConfig]).compilers;
+  const compilerPromises = compilers.map(compilerPromise);
 
-  const clientCompiler = multiCompiler.compilers.find(
-    (r) => r.name === 'client',
-  );
-  const serverCompiler = multiCompiler.compilers.find(
-    (r) => r.name === 'server',
-  );
-
-  const clientPromise = compilerPromise('client', clientCompiler);
-  const serverPromise = compilerPromise('server', serverCompiler);
+  const [clientCompiler, serverCompiler] = compilers;
 
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -87,7 +80,7 @@ const init = async () => {
   });
 
   try {
-    await Promise.all([serverPromise, clientPromise]);
+    await Promise.all(compilerPromises);
   } catch (error) {
     return print('compiler', error, 'error');
   }

@@ -61,6 +61,13 @@ export const routerMap = [
     ),
   },
   {
+    path: '/historia',
+    component: loadable(
+      () => import('~/renderer/views/history'),
+      LOADABLE_OPTIONS,
+    ),
+  },
+  {
     path: '/maturzyści',
     component: loadable(
       () => import('~/renderer/views/graduates'),

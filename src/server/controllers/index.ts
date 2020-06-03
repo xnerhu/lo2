@@ -17,4 +17,8 @@ export default (app: FastifyInstance) => {
   app.get('/robots.txt', (req, res) => {
     res.redirect('/static/robots.txt');
   });
+
+  app.get('/favicon.ico', (req, res) => {
+    res.redirect('/static/favicon.png');
+  });
 };

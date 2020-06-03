@@ -26,6 +26,13 @@ export const routerMap = [
     ),
   },
   {
+    path: '/kandydaci',
+    component: loadable(
+      () => import('~/renderer/views/candidates'),
+      LOADABLE_OPTIONS,
+    ),
+  },
+  {
     path: '/wspolpraca-miedzynarodowa',
     component: loadable(
       () => import('~/renderer/views/partnership'),
@@ -36,6 +43,13 @@ export const routerMap = [
     path: '/projekty',
     component: loadable(
       () => import('~/renderer/views/projects'),
+      LOADABLE_OPTIONS,
+    ),
+  },
+  {
+    path: '/szkola',
+    component: loadable(
+      () => import('~/renderer/views/school'),
       LOADABLE_OPTIONS,
     ),
   },

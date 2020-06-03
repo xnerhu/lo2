@@ -17,7 +17,7 @@ export const desktopNavMap: IDesktopNavItem[] = [
   },
   {
     label: 'Szkoła',
-    path: '/about',
+    path: '/szkola',
   },
   {
     label: 'Uczniowie',

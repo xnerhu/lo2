@@ -4,9 +4,11 @@ import ArticleCategoryModel from '../models/article-category';
 class ArticleCategoryService {
   public format(data: IArticleCategory): IArticleCategory {
     if (!data) return null;
+
     return {
       ...data,
       _id: data._id.toString(),
+      subcategoryRef: data.subcategoryRef?.toString(),
     };
   }
 

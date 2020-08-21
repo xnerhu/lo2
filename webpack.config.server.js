@@ -11,8 +11,8 @@ const serverConfig = getConfig(getBaseConfig(), {
   name: 'server',
 
   entry: {
-    main: './src/server',
-    worker: './src/worker',
+    main: './src/server/main',
+    // worker: './src/worker',
   },
 
   target: 'node',

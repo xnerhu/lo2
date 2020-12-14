@@ -98,7 +98,7 @@
     "fastify-static": "^2.7.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.7",
-    "mongoose": "^5.9.13",
+    "mongoose": "^5.11.7",
     "query-string": "^6.12.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

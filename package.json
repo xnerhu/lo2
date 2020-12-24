@@ -83,7 +83,7 @@
     "@hot-loader/react-dom": "^16.13.0",
     "@loadable/component": "^5.12.0",
     "@loadable/server": "^5.12.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "chalk": "^4.0.0",
     "dotenv": "^8.2.0",

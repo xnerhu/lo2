@@ -94,7 +94,7 @@
     "fastify-cors": "^3.0.3",
     "fastify-formbody": "^3.1.0",
     "fastify-helmet": "^3.0.2",
-    "fastify-multipart": "^1.0.6",
+    "fastify-multipart": "^5.3.1",
     "fastify-static": "^2.7.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.5.7",
